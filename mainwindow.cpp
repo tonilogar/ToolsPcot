@@ -48,7 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButtonTasi,SIGNAL(clicked(int)),ui->stackedWidgetCasitasiAisa,SLOT(setCurrentIndex(int)));
     connect(ui->pushButtonAisa,SIGNAL(clicked(int)),ui->stackedWidgetCasitasiAisa,SLOT(setCurrentIndex(int)));
 
-    //
+    //Conectar accion de dialogo de preferencias
+    connect(ui->actionPreferencias,SIGNAL(triggered()),this,SLOT(lanzarDialogoPreferencias()));
+
     //Agrupar las acciones de cambio de vista en un grupo de acciones
 
     QActionGroup *grupoVista=new QActionGroup(this);
@@ -268,10 +270,11 @@ void MainWindow::on_pushButton_clicked()
   qDebug()<< punteroRCMet->getNumeroCanales() <<"getAmbitoProyectoMet";
   qDebug()<< punteroRCMet->getOffsetPasada() <<"getAmbitoProyectoMet";
 
+}
 
+void MainWindow::lanzarDialogoPreferencias()
+{
+    DialogoPreferencias dialogo(this);
 
-
-
-
-
+    dialogo.exec();
 }

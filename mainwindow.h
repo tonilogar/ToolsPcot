@@ -10,6 +10,7 @@
 #include "registrocreatecnps.h"
 #include "registrocreatemet.h"
 #include "registrocreateorto.h"
+#include "dialogopreferencias.h"
 #include <QSignalMapper>
 
 namespace Ui {
@@ -33,6 +34,7 @@ private slots:
     void on_pushButtonEmpezarOperacionesMetOrto_clicked();
     //void evaluacionCnpsMetsOrtos();
     void on_pushButton_clicked();
+    void lanzarDialogoPreferencias();
 
 private:
     Ui::MainWindow *ui;
