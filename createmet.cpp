@@ -1,0 +1,439 @@
+//    ToolsPcot
+//    Copyright (C) {2014}  {Antonio López García}
+//    tologar@gmail.com
+
+//    This program is free software: you can redistribute it and/or modify
+//    it under the terms of the GNU General Public License as published by
+//    the Free Software Foundation, either version 3 of the License, or
+//    (at your option) any later version.
+
+//    This program is distributed in the hope that it will be useful,
+//    but WITHOUT ANY WARRANTY; without even the implied warranty of
+//    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+//    GNU General Public License for more details.
+
+//    You should have received a copy of the GNU General Public License
+//    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#include "createmet.h"
+#include "ui_createmet.h"
+#include <QLineEdit>
+#include <QFileDialog>
+#include <QDebug>
+CreateMet::CreateMet(QWidget *parent) :
+    QWidget(parent),
+    ui(new Ui::CreateMet)
+{
+    ui->setupUi(this);
+    punteroRegistroCreateMet=new RegistroCreateMet(this);
+
+    QString directorioExe;
+    directorioExe=qApp->applicationDirPath();
+    qDebug() <<  directorioExe+"/variablespcotMet.txt" <<  "directorioExe";
+
+    FicheroDatosAmbitoPro lectorModelos(this,directorioExe + "/variablespcotMet.txt");
+    if (lectorModelos.fileExist())
+    {
+        ui->comboBoxAmbitoProyectoMet->setModel(lectorModelos.obtenerModelo());
+    }
+        else
+    {
+           qDebug() <<  "No existe el archivo";
+        QMessageBox::warning(0,"El fitxer de preferencies es erroni ", "Escullir el valors a la finestra de preferencies");
+        return;
+}
+
+    ui->comboBoxTamanoPixelMet->addItem("No seleccionado",-1);
+    for (int i=1; i< 1001; i++){
+        ui->comboBoxTamanoPixelMet->addItem(QString::number(i),i);
+    }
+
+    ui->comboBoxUtmMet->addItem("No seleccionado",-1);
+    ui->comboBoxUtmMet->addItem("29",29);
+    ui->comboBoxUtmMet->addItem("30",30);
+    ui->comboBoxUtmMet->addItem("31",31);
+    ui->comboBoxUtmMet->addItem("Farmstar",-2);
+
+
+
+    ui->comboBoxTamanyoCortarMet->addItem("No seleccionado",-1);
+    for (int i=100; i< 1000; i+=10)
+        ui->comboBoxTamanyoCortarMet->addItem(QString::number(i)+" MB",i);
+
+    ui->comboBoxNumeroCanalesspasadaMet->addItem("No seleccionado",-1);
+    for (int i=1; i< 601; i++)
+        ui->comboBoxNumeroCanalesspasadaMet->addItem(QString::number(i),i);
+
+    ui->comboBoxAnchoPasadaMet->addItem("No seleccionado",-1);
+    for (int i=1; i< 20100; i++)
+        ui->comboBoxAnchoPasadaMet->addItem(QString::number(i)+" Mts",i);
+
+    ui->comboBoxOffsetPasadaMet->addItem("No seleccionado",-1);
+    for (int i=10; i< 3010; i+=10)
+        ui->comboBoxOffsetPasadaMet->addItem(QString::number(i)+" Mts",i);
+
+    connect(ui->comboBoxAmbitoProyectoMet,SIGNAL(currentIndexChanged(int)),this,SLOT(onCambioComboBoxAmbitoProyectoMet(int)));
+    connect(ui->comboBoxTamanoPixelMet,SIGNAL(currentIndexChanged(int)),this,SLOT(calcularOffsetPasada(int)));
+    connect(ui->checkBoxExtraerMet,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableExtraerMet(int)));
+    connect(ui->checkBoxCortarMet,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableCortarMet(int)));
+    connect(ui->checkBoxFootPrintMaskMet,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableFootPrintMaskMet(int)));
+
+    //nuevo  codigo
+    connect(ui->checkBoxExtraerMet,SIGNAL(stateChanged(int)),this,SLOT(cambioestadoCheckBox(int)));
+    connect(ui->comboBoxAmbitoProyectoMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
+    connect(ui->comboBoxTamanoPixelMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
+    connect(ui->comboBoxUtmMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
+    connect(ui->lineEditFolderOutMet,SIGNAL(textChanged(QString)),this,SLOT(cambioestadoLineEdit(QString)));
+
+    connect(ui->checkBoxFootPrintMaskMet,SIGNAL(stateChanged(int)),this,SLOT(cambioestadoCheckBox(int)));
+    connect(ui->comboBoxAnchoPasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
+    connect(ui->comboBoxOffsetPasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
+
+
+    connect(ui->checkBoxCortarMet,SIGNAL(stateChanged(int)),this,SLOT(cambioestadoCheckBox(int)));
+    connect(ui->comboBoxNumeroCanalesspasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
+    connect(ui->comboBoxTamanyoCortarMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
+
+
+    //Connectar el estado de los widgets a sus slots correspondientes para cambiar el valor
+    connect(ui->lineEditFolderOutMet,SIGNAL(textChanged(QString)),punteroRegistroCreateMet,SLOT(setFolderOut(QString)));
+    connect(ui->comboBoxAmbitoProyectoMet,SIGNAL(currentIndexChanged(QString)),punteroRegistroCreateMet,SLOT(setAmbitoProyecto(QString)));
+    connect(ui->comboBoxTamanoPixelMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarTamanyPixel(int)));
+    connect(ui->comboBoxUtmMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarUtm(int)));
+    connect(ui->comboBoxTamanyoCortarMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarTamanyoCorte(int)));
+    connect(ui->comboBoxNumeroCanalesspasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarNumeroCanales(int)));
+    connect(ui->comboBoxAnchoPasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarAnchoPasada(int)));
+    connect(ui->comboBoxOffsetPasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarOffsetPasada(int)));
+
+    //Conectar los check con los metodos de registroCreateMet para comprobar el estado de selecionado o no seleccionado
+    connect(ui->checkBoxCortarMet,SIGNAL(stateChanged(int)),punteroRegistroCreateMet,SLOT(setCutDtm(int)));
+    connect(ui->checkBoxFootPrintMaskMet,SIGNAL(stateChanged(int)),punteroRegistroCreateMet,SLOT(setFootprintMask(int)));
+}
+
+CreateMet::~CreateMet()
+{
+    delete ui;
+}
+RegistroCreateMet * CreateMet::getObjetoRegistroCreateMet()
+{
+    return punteroRegistroCreateMet;
+}
+void CreateMet::on_pushButtonFolderOutMet_clicked()
+{
+    folderOut=QString();
+    QString pbSelectFolder = "Q:\soft\Antonio";//el primer valor de el QStringList es donde se abrira la ventana
+    folderOut=QFileDialog::getExistingDirectory
+            (0,("Triar carpeta sortida"),(pbSelectFolder));
+    qDebug() << folderOut << "DirectorioMet1";
+    if(!folderOut.isNull() && !folderOut.isEmpty())
+    {
+        ui->lineEditFolderOutMet->setText(folderOut);
+    }
+}
+void CreateMet::enableOrDisableExtraerMet(int chec)
+{
+    if (chec==0)
+    {
+        ui->checkBoxCortarMet->setDisabled(1);
+        ui->checkBoxFootPrintMaskMet->setDisabled(1);
+        ui->checkBoxCortarMet->setChecked(0);
+        ui->checkBoxFootPrintMaskMet->setChecked(0);
+        ui->comboBoxAmbitoProyectoMet->setDisabled(1);
+        ui->comboBoxTamanoPixelMet->setDisabled(1);
+        ui->comboBoxUtmMet->setDisabled(1);
+        ui->lineEditFolderOutMet->setDisabled(1);
+        ui->pushButtonFolderOutMet->setDisabled(1);
+        ui->labelAmbitoProyectoMet->setDisabled(1);
+        ui->labelUtmMet->setDisabled(1);
+        ui->labelTamanoPixelMet->setDisabled(1);
+        qDebug()<< "deseleccionado";
+    }
+    if (chec==2)
+    {
+        ui->checkBoxCortarMet->setEnabled(1);
+        ui->checkBoxFootPrintMaskMet->setEnabled(1);
+        ui->comboBoxAmbitoProyectoMet->setEnabled(1);
+        ui->comboBoxTamanoPixelMet->setEnabled(1);
+        ui->comboBoxUtmMet->setEnabled(1);
+        ui->lineEditFolderOutMet->setEnabled(1);
+        ui->pushButtonFolderOutMet->setEnabled(1);
+        ui->labelAmbitoProyectoMet->setEnabled(1);
+        ui->labelUtmMet->setEnabled(1);
+        ui->labelTamanoPixelMet->setEnabled(1);
+        qDebug()<< "seleccionado";
+    }
+    if(ui->comboBoxAmbitoProyectoMet->currentIndex()==3)
+    {
+        qDebug()<< "pepepepeooooooooo";
+        ui->comboBoxUtmMet->setDisabled(1);
+    }
+
+}
+
+void CreateMet::activateWidget(bool acti)
+{
+    qDebug() << acti << "actiMet";
+    if (acti==true)
+    {
+        ui->checkBoxExtraerMet->setEnabled(true);
+        ui->pushButtonDeleteDatesMet->setEnabled(true);
+    }
+    else
+    {
+        ui->checkBoxExtraerMet->setEnabled(false);
+        ui->checkBoxExtraerMet->setChecked(false);
+        ui->pushButtonDeleteDatesMet->setEnabled(false);
+    }
+}
+void CreateMet::setPunterotVCoordenadas(TableViewCoordinates *p)
+{
+    tVCoordenadas=p;
+}
+void CreateMet::calcularOffsetPasada(int offsetPasada)
+{
+    qDebug() << offsetPasada << "ofsetPasada";
+
+    ui->comboBoxAnchoPasadaMet->setCurrentIndex((offsetPasada*800));
+}
+void CreateMet::enableOrDisableFootPrintMaskMet(int chec)
+{
+    if (chec==0)
+    {
+        ui->comboBoxAnchoPasadaMet->setDisabled(1);
+        ui->comboBoxOffsetPasadaMet->setDisabled(1);
+        ui->labelAnchoPasadaMet->setDisabled(1);
+        ui->labelOffsetPasadaMet->setDisabled(1);
+        qDebug()<< "deseleccionado";
+    }
+    if (chec==2)
+    {
+        ui->comboBoxAnchoPasadaMet->setDisabled(0);
+        ui->comboBoxOffsetPasadaMet->setDisabled(0);
+        ui->labelAnchoPasadaMet->setDisabled(0);
+        ui->labelOffsetPasadaMet->setDisabled(0);
+        qDebug()<< "seleccionado";
+    }
+    qDebug()<< chec <<"chec";
+}
+void CreateMet::enableOrDisableCortarMet(int chec)
+{
+    if (chec==0)
+    {
+        ui->comboBoxTamanyoCortarMet->setDisabled(1);
+        ui->comboBoxNumeroCanalesspasadaMet->setDisabled(1);
+        ui->labelCortarMet->setDisabled(1);
+        ui->labelNumeroCanalesspasadaMet->setDisabled(1);
+        qDebug()<< "deseleccionado";
+    }
+    if (chec==2)
+    {
+        ui->comboBoxTamanyoCortarMet->setDisabled(0);
+        ui->comboBoxNumeroCanalesspasadaMet->setDisabled(0);
+        ui->labelCortarMet->setDisabled(0);
+        ui->labelNumeroCanalesspasadaMet->setDisabled(0);
+        qDebug()<< "seleccionado";
+    }
+    qDebug()<< chec <<"chec";
+}
+
+void CreateMet::onCambioComboBoxAmbitoProyectoMet(int text)
+{
+    qDebug()<< ui->comboBoxAmbitoProyectoMet->currentText() <<"ui->comboBoxAmbitoProyectoMet->currentText()";
+
+    if(ui->comboBoxAmbitoProyectoMet->currentIndex()==3)
+    {
+        qDebug()<< "pepepepeooooooooo";
+        ui->comboBoxUtmMet->setDisabled(1);
+    }
+    else
+      ui->comboBoxUtmMet->setDisabled(0);
+    int utm;
+    int tPixel;
+    utm=ui->comboBoxAmbitoProyectoMet->itemData(text,Qt::UserRole+3).toInt();
+    tPixel=ui->comboBoxAmbitoProyectoMet->itemData(text,Qt::UserRole+2).toInt();
+    if (tPixel!=-1)
+    {
+        for(int i=0;i<ui->comboBoxTamanoPixelMet->count();i++)
+        {
+            if (ui->comboBoxTamanoPixelMet->itemData(i).toInt()==tPixel)
+            {
+                ui->comboBoxTamanoPixelMet->setCurrentIndex(i);
+            }
+        }
+    }
+    if (utm!=-1)
+    {
+        for(int i=0;i<ui->comboBoxUtmMet->count();i++)
+        {
+            if (ui->comboBoxUtmMet->itemData(i).toInt()==utm)
+            {
+                ui->comboBoxUtmMet->setCurrentIndex(i);
+            }
+        }
+    }
+    int valorAP = ui->comboBoxAmbitoProyectoMet->currentIndex();
+    QString path = ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+1).toString();
+    punteroRegistroCreateMet->setPathImageMet(path);
+    qDebug()<< path <<"pathitemData(valorAP,Qt::UserRole+5)";
+
+    QString nombre = ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+5).toString();
+    punteroRegistroCreateMet->setAmbitoProyecto(nombre);
+    qDebug()<< nombre <<"nombreitemData(valorAP,Qt::UserRole+5)";
+
+    QJsonArray listaExe=ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+4).toJsonArray();
+    punteroRegistroCreateMet->setListaEjecutables(listaExe);
+    qDebug()<< listaExe.count() << listaExe <<"numero de elementos";
+}
+
+void CreateMet::on_pushButtonDeleteDatesMet_clicked()
+{
+    ui->lineEditFolderOutMet->clear();
+    ui->comboBoxAmbitoProyectoMet->setCurrentIndex(0);
+    ui->comboBoxAnchoPasadaMet->setCurrentIndex(0);
+    ui->comboBoxNumeroCanalesspasadaMet->setCurrentIndex(0);
+    ui->comboBoxOffsetPasadaMet->setCurrentIndex(0);
+    ui->comboBoxTamanoPixelMet->setCurrentIndex(0);
+    ui->comboBoxTamanyoCortarMet->setCurrentIndex(0);
+    ui->comboBoxUtmMet->setCurrentIndex(0);
+}
+
+//Codigo nuevo////////////
+
+void CreateMet::evaluarEstadoWidgetMet()
+{
+    //Si el checkExtreureMwet esta deseleccionadop return sin icono
+    if(!ui->checkBoxExtraerMet->isChecked())
+    {
+        emit cambioEstadoCorreccionMet(0);
+        qDebug() <<  "Icono 0";
+        return;
+    }
+    //SI checkExtreureMet esta activo y checcutMet y checkFootprintMet desactivados
+    if(!ui->checkBoxCortarMet->isChecked() && !ui->checkBoxFootPrintMaskMet->isChecked())
+    {
+        if(!ui->lineEditFolderOutMet->text().isEmpty() && ui->comboBoxAmbitoProyectoMet->currentIndex()!=0
+                && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxUtmMet->currentIndex()!=0)
+        {
+            qDebug() <<  "Icono 1";
+            emit cambioEstadoCorreccionMet(1);
+        }
+        else
+        {
+            qDebug() <<  "Icono 2";
+            emit cambioEstadoCorreccionMet(2);
+        }
+        return;
+    }
+    //Si checkBoxCortarMet esta activo y CheckFootPrintmask desactivado
+    if(ui->checkBoxCortarMet->isChecked() && !ui->checkBoxFootPrintMaskMet->isChecked())
+    {
+        //Si todos los datos de checkBoxExtraerMet y checkBoxCortarMet son correctos
+        if(!ui->lineEditFolderOutMet->text().isEmpty() && ui->comboBoxAmbitoProyectoMet->currentIndex()!=0
+                && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxUtmMet->currentIndex()!=0
+                && ui->comboBoxTamanyoCortarMet->currentIndex()!=0 && ui->comboBoxNumeroCanalesspasadaMet->currentIndex()!=0 )
+        {
+            qDebug() <<  "Icono 1";
+            emit cambioEstadoCorreccionMet(1);
+        }
+        else
+        {
+            //Si los datos no son correctos
+            qDebug() <<  "Icono 2";
+            emit cambioEstadoCorreccionMet(2);
+        }
+        return;
+    }
+    //Si checkBoxFootPrintMask esta activo ycheckBoxCortarMet desactivado
+    if(!ui->checkBoxCortarMet->isChecked() && ui->checkBoxFootPrintMaskMet->isChecked())
+    {
+        //Si todos los datos de checkBoxExtraerMet y checkBoxFootPrintMask son correctos
+        if(!ui->lineEditFolderOutMet->text().isEmpty() && ui->comboBoxAmbitoProyectoMet->currentIndex()!=0
+                && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxUtmMet->currentIndex()!=0
+                && ui->comboBoxAnchoPasadaMet->currentIndex()!=0 && ui->comboBoxOffsetPasadaMet->currentIndex()!=0 )
+        {
+            qDebug() <<  "Icono 1";
+            emit cambioEstadoCorreccionMet(1);
+        }
+        else
+        {
+            //Si los datos no son correctos
+            qDebug() <<  "Icono 2";
+            emit cambioEstadoCorreccionMet(2);
+        }
+        return;
+    }
+
+    //Si todos los datos de checkBoxExtraerMet y checkBoxFootPrintMask son correctos
+    if(!ui->lineEditFolderOutMet->text().isEmpty() && ui->comboBoxAmbitoProyectoMet->currentIndex()!=0
+            && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxUtmMet->currentIndex()!=0
+            && ui->comboBoxAnchoPasadaMet->currentIndex()!=0 && ui->comboBoxOffsetPasadaMet->currentIndex()!=0
+            && ui->comboBoxTamanyoCortarMet->currentIndex()!=0 && ui->comboBoxNumeroCanalesspasadaMet->currentIndex()!=0)
+    {
+        qDebug() <<  "Icono 1";
+        emit cambioEstadoCorreccionMet(1);
+    }
+    else
+    {
+        //Si los datos no son correctos
+        qDebug() <<  "Icono 2";
+        emit cambioEstadoCorreccionMet(2);
+    }
+    return;
+}
+
+void CreateMet::cambioestadoCheckBox(int estado)
+{
+    qDebug() <<  "cambioestadoCheckBox";
+    evaluarEstadoWidgetMet();
+}
+void CreateMet::cambioestadoComboBox(int estado)
+{
+    qDebug() <<  "cambioestadoComboBox";
+    evaluarEstadoWidgetMet();
+}
+
+void CreateMet::cambioestadoLineEdit(QString directorio)
+{
+    qDebug() <<  "cambioestadoLineEdit";
+    evaluarEstadoWidgetMet();
+}
+
+void CreateMet::VigilarTamanyPixel(int tamanyoPixel)
+{
+    int tPixel;
+    tPixel=ui->comboBoxTamanoPixelMet->itemData(tamanyoPixel).toInt();
+    punteroRegistroCreateMet->setTamanyPixel(tPixel);
+}
+void CreateMet::VigilarUtm(int utm)
+{
+    int utmMet;
+    utmMet=ui->comboBoxUtmMet->itemData(utm).toInt();
+    punteroRegistroCreateMet->setUtm(utmMet);
+}
+void CreateMet::VigilarTamanyoCorte(int tamanyoCorte)
+{
+    int tCorte;
+    tCorte=ui->comboBoxTamanyoCortarMet->itemData(tamanyoCorte).toInt();
+    punteroRegistroCreateMet->setTamanyoCorte(tCorte);
+}
+void CreateMet::VigilarNumeroCanales(int numeroCanales)
+{
+    int nCanales;
+    nCanales=ui->comboBoxNumeroCanalesspasadaMet->itemData(numeroCanales).toInt();
+    punteroRegistroCreateMet->setNumeroCanales(nCanales);
+}
+void CreateMet::VigilarAnchoPasada(int anchoPasada)
+{
+    int aPassada;
+    aPassada=ui->comboBoxAnchoPasadaMet->itemData(anchoPasada).toInt();
+    punteroRegistroCreateMet->setAnchoPasada(aPassada);
+}
+void CreateMet::VigilarOffsetPasada(int offsetPasada)
+{
+    int oPassada;
+    oPassada=ui->comboBoxOffsetPasadaMet->itemData(offsetPasada).toInt();
+    punteroRegistroCreateMet->setOffsetPasada(oPassada);
+}
+
+
+
+
