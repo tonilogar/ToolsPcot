@@ -303,6 +303,7 @@
     <property name="title">
      <string>&amp;Preferences</string>
     </property>
+    <addaction name="actionPreferencias"/>
    </widget>
    <widget class="QMenu" name="menu_Help_2">
     <property name="title">
@@ -507,6 +508,11 @@
    </property>
    <property name="text">
     <string/>
+   </property>
+  </action>
+  <action name="actionPreferencias">
+   <property name="text">
+    <string>&amp;Preferencias</string>
    </property>
   </action>
  </widget>

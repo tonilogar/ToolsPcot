@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     operacionorto.cpp \
     ometdatosejecucion.cpp \
     opemetfrancia.cpp \
-    cortemet.cpp
+    cortemet.cpp \
+    dialogopreferencias.cpp
 
 HEADERS  += mainwindow.h \
     tableviewcoordinates.h \
@@ -79,7 +80,8 @@ HEADERS  += mainwindow.h \
     operacionorto.h \
     ometdatosejecucion.h \
     opemetfrancia.h \
-    cortemet.h
+    cortemet.h \
+    dialogopreferencias.h
 
 FORMS    += mainwindow.ui \
     tableviewcoordinates.ui \
@@ -92,7 +94,8 @@ FORMS    += mainwindow.ui \
     ficherosraw.ui \
     tableviewrawtasi.ui \
     dialoghelpfilecoordinates.ui \
-    operacionprogresdialog.ui
+    operacionprogresdialog.ui \
+    dialogopreferencias.ui
 
 RESOURCES += \
     recursos.qrc
