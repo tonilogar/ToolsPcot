@@ -2,6 +2,8 @@
 #define DIALOGOPREFERENCIAS_H
 
 #include <QDialog>
+#include <QFileDialog>
+#include <QSettings>
 
 namespace Ui {
 class DialogoPreferencias;
@@ -15,8 +17,19 @@ public:
     explicit DialogoPreferencias(QWidget *parent = 0);
     ~DialogoPreferencias();
 
+    bool isChanged() const
+    { return _isChanged; }
+
+    void accept();
+
 private:
     Ui::DialogoPreferencias *ui;
+    bool _isChanged;    ///< Bandera de control, si se han producido cambios en las rutas
+
+private slots:
+
+    void buscarArchivoMET();
+    void buscarArchivoORTO();
 };
 
 #endif // DIALOGOPREFERENCIAS_H
