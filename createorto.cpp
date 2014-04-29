@@ -19,6 +19,8 @@
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QDebug>
+#include <QSettings>
+
 CreateOrto::CreateOrto(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateOrto)
@@ -26,11 +28,13 @@ CreateOrto::CreateOrto(QWidget *parent) :
     ui->setupUi(this);
     punteroRegistroCreateOrto=new RegistroCreateOrto(this);
 
-    QString directorioExe;
-    directorioExe=qApp->applicationDirPath();
-    qDebug() <<  directorioExe+"/variablespcotOrto.txt" <<  "directorioExe";
+    //Cargamos desde settings
+    QSettings settings("tologar","ToolsPCOT",this);
 
-    FicheroDatosAmbitoPro lectorModelos(this,directorioExe + "/variablespcotOrto.txt");
+    QString pathOrto=settings.value("variablesORTO").toString();
+    //
+
+    FicheroDatosAmbitoPro lectorModelos(this,pathOrto);
     if (lectorModelos.fileExist())
         ui->comboBoxAmbitoProyectoOrto->setModel(lectorModelos.obtenerModelo());
     else

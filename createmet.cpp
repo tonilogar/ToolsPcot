@@ -26,11 +26,13 @@ CreateMet::CreateMet(QWidget *parent) :
     ui->setupUi(this);
     punteroRegistroCreateMet=new RegistroCreateMet(this);
 
-    QString directorioExe;
-    directorioExe=qApp->applicationDirPath();
-    qDebug() <<  directorioExe+"/variablespcotMet.txt" <<  "directorioExe";
+    //Cargamos desde settings
+    QSettings settings("tologar","ToolsPCOT",this);
 
-    FicheroDatosAmbitoPro lectorModelos(this,directorioExe + "/variablespcotMet.txt");
+    QString pathMet=settings.value("variablesMET").toString();
+    //
+
+    FicheroDatosAmbitoPro lectorModelos(this,pathMet);
     if (lectorModelos.fileExist())
     {
         ui->comboBoxAmbitoProyectoMet->setModel(lectorModelos.obtenerModelo());
