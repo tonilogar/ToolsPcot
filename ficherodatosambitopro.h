@@ -12,7 +12,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
-
+#include <QApplication>
 class FicheroDatosAmbitoPro : public QObject
 {
     Q_OBJECT

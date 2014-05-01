@@ -149,7 +149,8 @@ QStandardItemModel*  FicheroDatosAmbitoPro::obtenerModelo()
   documento.setArray(array);
   QFile documentoTexto;
   QTextStream value;
-  documentoTexto.setFileName("E:/public/TrabajosQT/git/toolsPcot/branchDev-setting/variablespcotMet.txt");
+  QString PathFileJsonDefecto=qApp->applicationDirPath()+"/variablespcotMet.txt";
+  documentoTexto.setFileName(PathFileJsonDefecto);
   documentoTexto.open(QFile::WriteOnly | QFile::Text);
   value.setDevice(&documentoTexto);
   value << documento.toJson();

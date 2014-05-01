@@ -37,12 +37,18 @@ CreateMet::CreateMet(QWidget *parent) :
     {
         ui->comboBoxAmbitoProyectoMet->setModel(lectorModelos.obtenerModelo());
     }
-        else
+    else
     {
-           qDebug() <<  "No existe el archivo";
-        QMessageBox::warning(0,"El fitxer de preferencies es erroni ", "Escullir el valors a la finestra de preferencies");
+        qDebug() <<  "No existe el archivo";
+        QMessageBox::StandardButton botonPulsado=QMessageBox::question(0,"Dades Ambit projecte", "El fitxer de variables met no es troba,\nVols crear un fitxer per defecte");
+        if(botonPulsado==QMessageBox::Yes)
+        {
+            //Crear un archivo Json por defecto
+            lectorModelos.CreateJsonDefecto();
+        }
+
         return;
-}
+    }
 
     ui->comboBoxTamanoPixelMet->addItem("No seleccionado",-1);
     for (int i=1; i< 1001; i++){
@@ -247,7 +253,7 @@ void CreateMet::onCambioComboBoxAmbitoProyectoMet(int text)
         ui->comboBoxUtmMet->setDisabled(1);
     }
     else
-      ui->comboBoxUtmMet->setDisabled(0);
+        ui->comboBoxUtmMet->setDisabled(0);
     int utm;
     int tPixel;
     utm=ui->comboBoxAmbitoProyectoMet->itemData(text,Qt::UserRole+3).toInt();
