@@ -2,6 +2,7 @@
 #define CREATEORTO_H
 
 #include <QWidget>
+#include <QSettings>
 #include "tableviewcoordinates.h"
 #include "registrocreateorto.h"
 #include "ficherodatosambitopro.h"
@@ -32,7 +33,7 @@ public slots:
     void calcularOffsetPasada(int offsetPasada);
     void enableOrDisableExtraerOrto(int chec);
     void enableOrDisableFootPrintMaskOrto(int chec);
-  //Codigo nuev0
+  //Codigo nuevo
     void cambioestadoCheckBox(int estado);
     void cambioestadoComboBox(int estado );
     void cambioestadoLineEdit(QString directorio);
@@ -44,7 +45,6 @@ public slots:
 
 private slots:
     void on_pushButtonFolderOutOrto_clicked();
-
     void on_pushButtonDeleteDatesOrto_clicked();
 
 private:

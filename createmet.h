@@ -3,11 +3,9 @@
 
 #include <QWidget>
 #include <QSettings>
-
 #include "tableviewcoordinates.h"
 #include "registrocreatemet.h"
 #include "ficherodatosambitopro.h"
-
 
 namespace Ui {
     class CreateMet;

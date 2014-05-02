@@ -22,7 +22,8 @@ public:
     QString getNombreFichero();
     bool fileExist();
     QStandardItemModel*  obtenerModelo();
-    QJsonObject CreateJsonDefecto();
+    QJsonObject CreateJsonMetDefecto();
+    QJsonObject CreateJsonOrtoDefecto();
     //Getter
     QString getPathImageMetCat();
     QString getPathImageMetEsp();

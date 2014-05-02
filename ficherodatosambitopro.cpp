@@ -99,47 +99,64 @@ QStandardItemModel*  FicheroDatosAmbitoPro::obtenerModelo()
 
 
 
- QJsonObject FicheroDatosAmbitoPro::CreateJsonDefecto()
+ QJsonObject FicheroDatosAmbitoPro::CreateJsonMetDefecto()
  {
 //  QString directorioExe;
 //  directorioExe=qApp->applicationDirPath();
   QJsonObject ambitCat, ambitEsp, ambitFran;
-  QJsonObject ejecutable;
+  QJsonObject ejeCat, ejeEsp,ejeFran;
   QJsonArray ejecutablesCat,ejecutablesEsp,ejecutablesFran;
-  ejecutable.insert("Nombre",QJsonValue(QString("exeExtraction")));
-  ejecutable.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCDTMOperations/exe/ICCADBDTMEXTRACTIONCONSOLEVERSION.exe")));
-  ejecutablesCat.append(ejecutable);
-  ejecutable.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
-  ejecutable.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
-  ejecutablesCat.append(ejecutable);
-  ejecutable.insert("Nombre",QJsonValue(QString("exeSubScene")));
-  ejecutable.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageSubescenes.exe")));
-  ejecutablesCat.append(ejecutable);
-  ejecutable.insert("Nombre",QJsonValue(QString("exeImaOpeGeo")));
-  ejecutable.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperationsGeocorrection/exe/ICCImageGeoTransformation.exe")));
-  ejecutablesCat.append(ejecutable);
+
+  //Crear QJsonObject ambitCat
   ambitCat.insert("Nombreambito",QJsonValue(QString("Catalunya lidar 1 metre")));
   ambitCat.insert("Path",QJsonValue(QString("//nas02/treballcompartit/dtmdbdad/BD_CAT2MLID_ET.RF")));
   ambitCat.insert("TamanyoPixel",QJsonValue(int(1)));
   ambitCat.insert("Utm",QJsonValue(int(31)));
+  ejeCat.insert("Nombre",QJsonValue(QString("exeExtraction")));
+  ejeCat.insert("Path",QJsonValue(QString("//Nas03/geoproces/dfapplications/ICCDTMOperations/exe/ICCADBDTMEXTRACTIONCONSOLEVERSION.exe")));
+  ejecutablesCat.append(ejeCat);
+  ejeCat.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
+  ejeCat.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
+  ejecutablesCat.append(ejeCat);
+  ejeCat.insert("Nombre",QJsonValue(QString("exeSubScene")));
+  ejeCat.insert("Path",QJsonValue(QString("//Nas03/geoproces/dfapplications/ICCImageOperations/exe/ICCImageSubescenes.exe")));
+  ejecutablesCat.append(ejeCat);
+  ejeCat.insert("Nombre",QJsonValue(QString("exeImaOpeGeTrans")));
+  ejeCat.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperationsGeoCorrection/exe/ICCImageGeoTransformation.exe")));
+  ejecutablesCat.append(ejeCat);
   ambitCat.insert("Ejecutables",ejecutablesCat);
 
-
-
-
+  //Crear QJsonObject ambitEsp
   ambitEsp.insert("Nombreambito",QJsonValue(QString("Espanya 5 metres")));
   ambitEsp.insert("Path",QJsonValue(QString("//Pedros/Disc_E/Antonio/mosaicMetEspanya.rf")));
   ambitEsp.insert("TamanyoPixel",QJsonValue(int(5)));
   ambitEsp.insert("Utm",QJsonValue(int(30)));
-  ambitEsp.insert("Ejecutables",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
+  ejeEsp.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
+  ejeEsp.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
+  ejecutablesEsp.append(ejeEsp);
+  ejeEsp.insert("Nombre",QJsonValue(QString("exeSubScene")));
+  ejeEsp.insert("Path",QJsonValue(QString("//Nas03/geoproces/dfapplications/ICCImageOperations/exe/ICCImageSubescenes.exe")));
+  ejecutablesEsp.append(ejeEsp);
+  ejeEsp.insert("Nombre",QJsonValue(QString("exeImaOpeGeTrans")));
+  ejeEsp.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperationsGeoCorrection/exe/ICCImageGeoTransformation.exe")));
+  ejecutablesEsp.append(ejeEsp);
+  ambitEsp.insert("Ejecutables",ejecutablesEsp);
 
-
+  //Crear QJsonObject ambitFran
   ambitFran.insert("Nombreambito",QJsonValue(QString("Francia Farmstar")));
   ambitFran.insert("Path",QJsonValue(QString("//Pedros/Disc_E/Antonio/MosaicMetFarmstar_NTF_ELIP.rf")));
   ambitFran.insert("TamanyoPixel",QJsonValue(int(10)));
   ambitFran.insert("Utm",QJsonValue(int(-2)));
-  ambitFran.insert("Ejecutables",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
-
+  ejeFran.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
+  ejeFran.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
+  ejecutablesFran.append(ejeFran);
+  ejeFran.insert("Nombre",QJsonValue(QString("exeSubScene")));
+  ejeFran.insert("Path",QJsonValue(QString("//Nas03/geoproces/dfapplications/ICCImageOperations/exe/ICCImageSubescenes.exe")));
+  ejecutablesFran.append(ejeFran);
+  ejeFran.insert("Nombre",QJsonValue(QString("exeResize")));
+  ejeFran.insert("Path",QJsonValue(QString("//nas03/geoproces/dfapplications/ICCImageOperations/exe/ICCImageResize.exe")));
+  ejecutablesFran.append(ejeFran);
+  ambitFran.insert("Ejecutables",ejecutablesFran);
 
   QJsonArray array;
   array.prepend((ambitCat));
@@ -155,7 +172,80 @@ QStandardItemModel*  FicheroDatosAmbitoPro::obtenerModelo()
   value.setDevice(&documentoTexto);
   value << documento.toJson();
  }
+ QJsonObject FicheroDatosAmbitoPro::CreateJsonOrtoDefecto()
+ {
 
+//  QString directorioExe;
+//  directorioExe=qApp->applicationDirPath();
+  QJsonObject ambitCat, ambitEsp, ambitFran;
+  QJsonObject ejeCat, ejeEsp,ejeFran;
+  QJsonArray ejecutablesCat,ejecutablesEsp,ejecutablesFran;
+
+  //Crear QJsonObject ambitCat
+  ambitCat.insert("Nombreambito",QJsonValue(QString("Catalunya lidar 1 metre")));
+  ambitCat.insert("Path",QJsonValue(QString("//nas02/treballcompartit/dtmdbdad/BD_CAT2MLID_ET.RF")));
+  ambitCat.insert("TamanyoPixel",QJsonValue(int(1)));
+  ambitCat.insert("Utm",QJsonValue(int(31)));
+  ejeCat.insert("Nombre",QJsonValue(QString("exeExtraction")));
+  ejeCat.insert("Path",QJsonValue(QString("//Nas03/geoproces/dfapplications/ICCDTMOperations/exe/ICCADBDTMEXTRACTIONCONSOLEVERSION.exe")));
+  ejecutablesCat.append(ejeCat);
+  ejeCat.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
+  ejeCat.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
+  ejecutablesCat.append(ejeCat);
+  ejeCat.insert("Nombre",QJsonValue(QString("exeSubScene")));
+  ejeCat.insert("Path",QJsonValue(QString("//Nas03/geoproces/dfapplications/ICCImageOperations/exe/ICCImageSubescenes.exe")));
+  ejecutablesCat.append(ejeCat);
+  ejeCat.insert("Nombre",QJsonValue(QString("exeImaOpeGeTrans")));
+  ejeCat.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperationsGeoCorrection/exe/ICCImageGeoTransformation.exe")));
+  ejecutablesCat.append(ejeCat);
+  ambitCat.insert("Ejecutables",ejecutablesCat);
+
+  //Crear QJsonObject ambitEsp
+  ambitEsp.insert("Nombreambito",QJsonValue(QString("Espanya 5 metres")));
+  ambitEsp.insert("Path",QJsonValue(QString("//Pedros/Disc_E/Antonio/mosaicMetEspanya.rf")));
+  ambitEsp.insert("TamanyoPixel",QJsonValue(int(5)));
+  ambitEsp.insert("Utm",QJsonValue(int(30)));
+  ejeEsp.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
+  ejeEsp.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
+  ejecutablesEsp.append(ejeEsp);
+  ejeEsp.insert("Nombre",QJsonValue(QString("exeSubScene")));
+  ejeEsp.insert("Path",QJsonValue(QString("//Nas03/geoproces/dfapplications/ICCImageOperations/exe/ICCImageSubescenes.exe")));
+  ejecutablesEsp.append(ejeEsp);
+  ejeEsp.insert("Nombre",QJsonValue(QString("exeImaOpeGeTrans")));
+  ejeEsp.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperationsGeoCorrection/exe/ICCImageGeoTransformation.exe")));
+  ejecutablesEsp.append(ejeEsp);
+  ambitEsp.insert("Ejecutables",ejecutablesEsp);
+
+  //Crear QJsonObject ambitFran
+  ambitFran.insert("Nombreambito",QJsonValue(QString("Francia Farmstar")));
+  ambitFran.insert("Path",QJsonValue(QString("//Pedros/Disc_E/Antonio/MosaicMetFarmstar_NTF_ELIP.rf")));
+  ambitFran.insert("TamanyoPixel",QJsonValue(int(10)));
+  ambitFran.insert("Utm",QJsonValue(int(-2)));
+  ejeFran.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
+  ejeFran.insert("Path",QJsonValue(QString("//Nas03/geoproces/DFApplications/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
+  ejecutablesFran.append(ejeFran);
+  ejeFran.insert("Nombre",QJsonValue(QString("exeSubScene")));
+  ejeFran.insert("Path",QJsonValue(QString("//Nas03/geoproces/dfapplications/ICCImageOperations/exe/ICCImageSubescenes.exe")));
+  ejecutablesFran.append(ejeFran);
+  ejeFran.insert("Nombre",QJsonValue(QString("exeResize")));
+  ejeFran.insert("Path",QJsonValue(QString("//nas03/geoproces/dfapplications/ICCImageOperations/exe/ICCImageResize.exe")));
+  ejecutablesFran.append(ejeFran);
+  ambitFran.insert("Ejecutables",ejecutablesFran);
+
+  QJsonArray array;
+  array.prepend((ambitCat));
+  array.prepend((ambitFran));
+  array.prepend((ambitEsp));
+  QJsonDocument documento;
+  documento.setArray(array);
+  QFile documentoTexto;
+  QTextStream value;
+  QString PathFileJsonDefecto=qApp->applicationDirPath()+"/variablespcotOrto.txt";
+  documentoTexto.setFileName(PathFileJsonDefecto);
+  documentoTexto.open(QFile::WriteOnly | QFile::Text);
+  value.setDevice(&documentoTexto);
+  value << documento.toJson();
+ }
  QString FicheroDatosAmbitoPro::getPathImageMetCat()
  {
   return _pathImageMetCat;

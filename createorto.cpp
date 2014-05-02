@@ -19,7 +19,6 @@
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QDebug>
-#include <QSettings>
 
 CreateOrto::CreateOrto(QWidget *parent) :
     QWidget(parent),
@@ -30,20 +29,32 @@ CreateOrto::CreateOrto(QWidget *parent) :
 
     //Cargamos desde settings
     QSettings settings("tologar","ToolsPCOT",this);
-
     QString pathOrto=settings.value("variablesORTO").toString();
-    //
 
     FicheroDatosAmbitoPro lectorModelos(this,pathOrto);
     if (lectorModelos.fileExist())
+    {
         ui->comboBoxAmbitoProyectoOrto->setModel(lectorModelos.obtenerModelo());
-    else
-       qDebug() <<  "No existe el archivo";
+    }
+    {
+        qDebug() <<  "No existe el archivo";
+        QMessageBox::StandardButton botonPulsado=QMessageBox::question(0,"Dades Ambit projecte orto", "El fitxer de variables orto no es troba,\nVols crear un fitxer per defecte");
+        if(botonPulsado==QMessageBox::Yes)
+        {
+            //Crear un archivo Json por defecto
+            lectorModelos.CreateJsonOrtoDefecto();
+            //Paso la dirección por de fecto al valor de path de settings
+            QSettings settings("tologar","ToolsPCOT",this);
+            QString pathDefectoFileJson=qApp->applicationDirPath()+"/variablespcotOrto.txt";
+            settings.setValue("variablesOrto",pathDefectoFileJson);
+        }
+        return;
+    }
 
     ui->comboBoxTamanoPixelOrto->addItem("No seleccionado",-1);
     for (int i=1; i< 1001; i++){
         ui->comboBoxTamanoPixelOrto->addItem(QString::number(i),i);
-        }
+    }
 
     ui->comboBoxUtmOrto->addItem("No seleccionado",-1);
     ui->comboBoxUtmOrto->addItem("29",29);
@@ -53,15 +64,15 @@ CreateOrto::CreateOrto(QWidget *parent) :
 
     ui->comboBoxAnchoPasadaOrto->addItem("No seleccionado",-1);
     for (int i=1; i< 20100; i++)
-    ui->comboBoxAnchoPasadaOrto->addItem(QString::number(i)+" Mts",i);
+        ui->comboBoxAnchoPasadaOrto->addItem(QString::number(i)+" Mts",i);
 
     ui->comboBoxOffsetPasadaOrto->addItem("No seleccionado",-1);
     for (int i=10; i< 1010; i+=10)
-    ui->comboBoxOffsetPasadaOrto->addItem(QString::number(i)+" Mts",i);
+        ui->comboBoxOffsetPasadaOrto->addItem(QString::number(i)+" Mts",i);
 
     connect(ui->comboBoxAmbitoProyectoOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(onCambioComboBoxAmbitoProyectoOrto(int)));
     connect(ui->comboBoxTamanoPixelOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(calcularOffsetPasada(int)));
-    connect(ui->checkBoxExtraerOrto,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableExtraerOrto(int)));   
+    connect(ui->checkBoxExtraerOrto,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableExtraerOrto(int)));
     connect(ui->checkBoxFootPrintMaskOrto,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableFootPrintMaskOrto(int)));
 
 
@@ -94,35 +105,35 @@ CreateOrto::~CreateOrto()
 }
 RegistroCreateOrto * CreateOrto::getObjetoRegistroCreateOrto()
 {
-return punteroRegistroCreateOrto;
+    return punteroRegistroCreateOrto;
 }
 void CreateOrto::on_pushButtonFolderOutOrto_clicked()
 {
     folderOut=QString();
     QString pbSelectFolder = "Q:\soft\Antonio";//el primer valor de el QStringList es donde se abrira la ventana
     folderOut=QFileDialog::getExistingDirectory
-    (0,("Triar carpeta sortida"),(pbSelectFolder));
+            (0,("Triar carpeta sortida"),(pbSelectFolder));
     qDebug() << folderOut << "DirectorioOrto1";
     if(!folderOut.isNull() && !folderOut.isEmpty())
     {
-    ui->lineEditFolderOutOrto->setText(folderOut);
+        ui->lineEditFolderOutOrto->setText(folderOut);
     }
 }
 void CreateOrto::enableOrDisableExtraerOrto(int chec)
 {
     if (chec==0)
     {
-     ui->checkBoxFootPrintMaskOrto->setDisabled(1);
-     ui->checkBoxFootPrintMaskOrto->setChecked(0);
-     ui->comboBoxAmbitoProyectoOrto->setDisabled(1);
-     ui->comboBoxTamanoPixelOrto->setDisabled(1);
-     ui->comboBoxUtmOrto->setDisabled(1);
-     ui->lineEditFolderOutOrto->setDisabled(1);
-     ui->pushButtonFolderOutOrto->setDisabled(1);
-     ui->labelAmbitoProyectoOrto->setDisabled(1);
-     ui->labelUtmOrto->setDisabled(1);
-     ui->labelTamanoPixelOrto->setDisabled(1);
-     qDebug()<< "deseleccionado";
+        ui->checkBoxFootPrintMaskOrto->setDisabled(1);
+        ui->checkBoxFootPrintMaskOrto->setChecked(0);
+        ui->comboBoxAmbitoProyectoOrto->setDisabled(1);
+        ui->comboBoxTamanoPixelOrto->setDisabled(1);
+        ui->comboBoxUtmOrto->setDisabled(1);
+        ui->lineEditFolderOutOrto->setDisabled(1);
+        ui->pushButtonFolderOutOrto->setDisabled(1);
+        ui->labelAmbitoProyectoOrto->setDisabled(1);
+        ui->labelUtmOrto->setDisabled(1);
+        ui->labelTamanoPixelOrto->setDisabled(1);
+        qDebug()<< "deseleccionado";
     }
     if (chec==2)
     {
@@ -157,11 +168,11 @@ void CreateOrto::activateWidget(bool acti)
 }
 void CreateOrto::setPunterotVCoordenadas(TableViewCoordinates *p)
 {
-  tVCoordenadas=p;
+    tVCoordenadas=p;
 }
 void CreateOrto::calcularOffsetPasada(int offsetPasada)
 {
-     qDebug() << offsetPasada << "ofsetPasada";
+    qDebug() << offsetPasada << "ofsetPasada";
 
     ui->comboBoxAnchoPasadaOrto->setCurrentIndex((offsetPasada*800)/2);
 }
@@ -169,10 +180,10 @@ void CreateOrto::enableOrDisableFootPrintMaskOrto(int chec)
 {
     if (chec==0)
     {
-     ui->comboBoxAnchoPasadaOrto->setDisabled(1);
-     ui->comboBoxOffsetPasadaOrto->setDisabled(1);
-     ui->labelAnchoPasadaOrto->setDisabled(1);
-     ui->labelOffsetPasadaOrto->setDisabled(1);
+        ui->comboBoxAnchoPasadaOrto->setDisabled(1);
+        ui->comboBoxOffsetPasadaOrto->setDisabled(1);
+        ui->labelAnchoPasadaOrto->setDisabled(1);
+        ui->labelOffsetPasadaOrto->setDisabled(1);
         qDebug()<< "deseleccionado";
     }
     if (chec==2)
@@ -214,25 +225,25 @@ void CreateOrto::onCambioComboBoxAmbitoProyectoOrto(int text)
     }
     int valorAP = ui->comboBoxAmbitoProyectoOrto->currentIndex();
     QString path = ui->comboBoxAmbitoProyectoOrto->itemData(valorAP,Qt::UserRole+1).toString();
-qDebug()<< valorAP <<"valorAP";
-qDebug()<< path <<"path";
-punteroRegistroCreateOrto->setPathImageOrto(path);
-QString pexe=ui->comboBoxAmbitoProyectoOrto->itemData(text,Qt::UserRole+4).toString();
-punteroRegistroCreateOrto->setExeSubScene(pexe);
+    qDebug()<< valorAP <<"valorAP";
+    qDebug()<< path <<"path";
+    punteroRegistroCreateOrto->setPathImageOrto(path);
+    QString pexe=ui->comboBoxAmbitoProyectoOrto->itemData(text,Qt::UserRole+4).toString();
+    punteroRegistroCreateOrto->setExeSubScene(pexe);
 
-QString pepe=punteroRegistroCreateOrto->getPathImageOrto();
-//QString pepe=punteroRegistroCreateOrto->getPathImageOrto();
-//qDebug()<< pepe <<"pepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepe";
+    QString pepe=punteroRegistroCreateOrto->getPathImageOrto();
+    //QString pepe=punteroRegistroCreateOrto->getPathImageOrto();
+    //qDebug()<< pepe <<"pepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepe";
 }
 
 void CreateOrto::on_pushButtonDeleteDatesOrto_clicked()
 {
-  ui->lineEditFolderOutOrto->clear();
-  ui->comboBoxAmbitoProyectoOrto->setCurrentIndex(0);
-  ui->comboBoxAnchoPasadaOrto->setCurrentIndex(0);
-  ui->comboBoxOffsetPasadaOrto->setCurrentIndex(0);
-  ui->comboBoxTamanoPixelOrto->setCurrentIndex(0);
-  ui->comboBoxUtmOrto->setCurrentIndex(0);
+    ui->lineEditFolderOutOrto->clear();
+    ui->comboBoxAmbitoProyectoOrto->setCurrentIndex(0);
+    ui->comboBoxAnchoPasadaOrto->setCurrentIndex(0);
+    ui->comboBoxOffsetPasadaOrto->setCurrentIndex(0);
+    ui->comboBoxTamanoPixelOrto->setCurrentIndex(0);
+    ui->comboBoxUtmOrto->setCurrentIndex(0);
 }
 
 //Codigo nuevo////////////
@@ -243,54 +254,54 @@ void CreateOrto::evaluarEstadoWidgetOrto()
     //Si checkBoxExtraerOrto esta deseleccionado icono 0
     if(!ui->checkBoxExtraerOrto->isChecked())
     {
-       emit cambioEstadoCorreccionOrto(0);
-    return;
+        emit cambioEstadoCorreccionOrto(0);
+        return;
     }
-//Si checkBoxExtraerOrto y footprintMask esta seleccionado
+    //Si checkBoxExtraerOrto y footprintMask esta seleccionado
     if(ui->checkBoxFootPrintMaskOrto->isChecked())
     {
-         //si falta algún dato de  checkBoxExtraerOrto o footPrintMask icono 2 alerta
+        //si falta algún dato de  checkBoxExtraerOrto o footPrintMask icono 2 alerta
         if(ui->lineEditFolderOutOrto->text().isEmpty() || ui->lineEditFolderOutOrto->text().isNull() || ui->comboBoxAmbitoProyectoOrto->currentIndex()==0
-           || ui->comboBoxAnchoPasadaOrto->currentIndex()==0 || ui->comboBoxOffsetPasadaOrto->currentIndex()==0
-           ||ui->comboBoxTamanoPixelOrto->currentIndex()==0
-           || ui->comboBoxUtmOrto->currentIndex()==0)
+                || ui->comboBoxAnchoPasadaOrto->currentIndex()==0 || ui->comboBoxOffsetPasadaOrto->currentIndex()==0
+                ||ui->comboBoxTamanoPixelOrto->currentIndex()==0
+                || ui->comboBoxUtmOrto->currentIndex()==0)
         {
             emit cambioEstadoCorreccionOrto(2);
             return;
         }
-         //Si todos los datos son correctos icono 1 Ok
+        //Si todos los datos son correctos icono 1 Ok
         else
-          emit cambioEstadoCorreccionOrto(1);
+            emit cambioEstadoCorreccionOrto(1);
         return;
     }
-else
-       {
+    else
+    {
         if(ui->lineEditFolderOutOrto->text().isEmpty() || ui->lineEditFolderOutOrto->text().isNull() || ui->comboBoxAmbitoProyectoOrto->currentIndex()==0
-           ||ui->comboBoxTamanoPixelOrto->currentIndex()==0
-           || ui->comboBoxUtmOrto->currentIndex()==0)
+                ||ui->comboBoxTamanoPixelOrto->currentIndex()==0
+                || ui->comboBoxUtmOrto->currentIndex()==0)
         {
             emit cambioEstadoCorreccionOrto(2);
             return;
         }
         else
-          emit cambioEstadoCorreccionOrto(1);
+            emit cambioEstadoCorreccionOrto(1);
         return;
-}
+    }
     return;
 }
 
 void CreateOrto::cambioestadoCheckBox(int estado)
 {
-  evaluarEstadoWidgetOrto();
+    evaluarEstadoWidgetOrto();
 }
 void CreateOrto::cambioestadoComboBox(int estado)
 {
-  evaluarEstadoWidgetOrto();
+    evaluarEstadoWidgetOrto();
 }
 
 void CreateOrto::cambioestadoLineEdit(QString directorio)
 {
-  evaluarEstadoWidgetOrto();
+    evaluarEstadoWidgetOrto();
 }
 
 void CreateOrto::VigilarTamanyPixel(int tamanyoPixel)

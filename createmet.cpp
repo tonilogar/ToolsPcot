@@ -19,6 +19,7 @@
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QDebug>
+
 CreateMet::CreateMet(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateMet)
@@ -28,9 +29,7 @@ CreateMet::CreateMet(QWidget *parent) :
 
     //Cargamos desde settings
     QSettings settings("tologar","ToolsPCOT",this);
-
     QString pathMet=settings.value("variablesMET").toString();
-    //
 
     FicheroDatosAmbitoPro lectorModelos(this,pathMet);
     if (lectorModelos.fileExist())
@@ -40,13 +39,16 @@ CreateMet::CreateMet(QWidget *parent) :
     else
     {
         qDebug() <<  "No existe el archivo";
-        QMessageBox::StandardButton botonPulsado=QMessageBox::question(0,"Dades Ambit projecte", "El fitxer de variables met no es troba,\nVols crear un fitxer per defecte");
+        QMessageBox::StandardButton botonPulsado=QMessageBox::question(0,"Dades Ambit projecte met", "El fitxer de variables met no es troba,\nVols crear un fitxer per defecte");
         if(botonPulsado==QMessageBox::Yes)
         {
             //Crear un archivo Json por defecto
-            lectorModelos.CreateJsonDefecto();
+            lectorModelos.CreateJsonMetDefecto();
+            //Paso la dirección por de fecto al valor de path de settings
+            QSettings settings("tologar","ToolsPCOT",this);
+            QString pathDefectoFileJson=qApp->applicationDirPath()+"/variablespcotMet.txt";
+            settings.setValue("variablesMET",pathDefectoFileJson);
         }
-
         return;
     }
 

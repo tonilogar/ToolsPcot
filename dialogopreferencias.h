@@ -4,6 +4,7 @@
 #include <QDialog>
 #include <QFileDialog>
 #include <QSettings>
+#include <QDebug>
 
 namespace Ui {
 class DialogoPreferencias;

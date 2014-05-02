@@ -12,7 +12,7 @@
 #include "registrocreateorto.h"
 #include "dialogopreferencias.h"
 #include <QSignalMapper>
-
+#include <QSettings>
 namespace Ui {
 class MainWindow;
 }
