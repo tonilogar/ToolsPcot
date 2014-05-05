@@ -42,7 +42,7 @@ public slots:
     void VigilarUtm(int utm);
     void VigilarAnchoPasada(int anchoPasada);
     void VigilarOffsetPasada(int offsetPasada);
-
+    void recargarModelosAmbito();
 private slots:
     void on_pushButtonFolderOutOrto_clicked();
     void on_pushButtonDeleteDatesOrto_clicked();

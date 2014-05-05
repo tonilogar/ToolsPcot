@@ -22,6 +22,9 @@ public:
     { return _isChanged; }
 
     void accept();
+signals:
+    void cambiosArchivoMet();
+    void cambiosArchivoOrto();
 
 private:
     Ui::DialogoPreferencias *ui;

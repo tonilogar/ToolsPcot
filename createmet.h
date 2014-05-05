@@ -45,7 +45,7 @@ public slots:
     void VigilarNumeroCanales(int numeroCanales);
     void VigilarAnchoPasada(int anchoPasada);
     void VigilarOffsetPasada(int offsetPasada);
-
+    void recargarModelosAmbito();
 private slots:
     void on_pushButtonFolderOutMet_clicked();
     void on_pushButtonDeleteDatesMet_clicked();

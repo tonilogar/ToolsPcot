@@ -36,6 +36,7 @@ CreateOrto::CreateOrto(QWidget *parent) :
     {
         ui->comboBoxAmbitoProyectoOrto->setModel(lectorModelos.obtenerModelo());
     }
+    else
     {
         qDebug() <<  "No existe el archivo";
         QMessageBox::StandardButton botonPulsado=QMessageBox::question(0,"Dades Ambit projecte orto", "El fitxer de variables orto no es troba,\nVols crear un fitxer per defecte");
@@ -45,10 +46,11 @@ CreateOrto::CreateOrto(QWidget *parent) :
             lectorModelos.CreateJsonOrtoDefecto();
             //Paso la dirección por de fecto al valor de path de settings
             QSettings settings("tologar","ToolsPCOT",this);
-            QString pathDefectoFileJson=qApp->applicationDirPath()+"/variablespcotOrto.txt";
-            settings.setValue("variablesOrto",pathDefectoFileJson);
+            QString pathDefectoFileJson=qApp->applicationDirPath()+"/variablespcotMet.txt";
+            FicheroDatosAmbitoPro lectorOuts(this,pathDefectoFileJson);
+            settings.setValue("variablesORTO",pathDefectoFileJson);
+            ui->comboBoxAmbitoProyectoOrto->setModel(lectorOuts.obtenerModelo());
         }
-        return;
     }
 
     ui->comboBoxTamanoPixelOrto->addItem("No seleccionado",-1);
@@ -327,4 +329,11 @@ void CreateOrto::VigilarOffsetPasada(int offsetPasada)
     int oPassada;
     oPassada=ui->comboBoxTamanoPixelOrto->itemData(offsetPasada).toInt();
     punteroRegistroCreateOrto->setOffsetPasada(oPassada);
+}
+void CreateOrto::recargarModelosAmbito()
+{
+    QSettings settings("tologar","ToolsPCOT",this);
+    QString pathOrto=settings.value("variablesORTO").toString();
+    FicheroDatosAmbitoPro lectorRecargarModelos(this,pathOrto);
+    ui->comboBoxAmbitoProyectoOrto->setModel(lectorRecargarModelos.obtenerModelo());
 }

@@ -66,6 +66,8 @@ void DialogoPreferencias::accept()
     settings.setValue("variablesORTO",ui->ortoEdit->text());
     QString pathMet=settings.value("variablesMET").toString();
     qDebug() << pathMet << "pathmetDentroPreferencias";
-
+    emit cambiosArchivoMet();
+    emit cambiosArchivoOrto();
     QDialog::accept();
+
 }

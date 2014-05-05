@@ -42,14 +42,17 @@ CreateMet::CreateMet(QWidget *parent) :
         QMessageBox::StandardButton botonPulsado=QMessageBox::question(0,"Dades Ambit projecte met", "El fitxer de variables met no es troba,\nVols crear un fitxer per defecte");
         if(botonPulsado==QMessageBox::Yes)
         {
+
             //Crear un archivo Json por defecto
             lectorModelos.CreateJsonMetDefecto();
             //Paso la dirección por de fecto al valor de path de settings
             QSettings settings("tologar","ToolsPCOT",this);
             QString pathDefectoFileJson=qApp->applicationDirPath()+"/variablespcotMet.txt";
+            FicheroDatosAmbitoPro lectorOuts(this,pathDefectoFileJson);
             settings.setValue("variablesMET",pathDefectoFileJson);
+            ui->comboBoxAmbitoProyectoMet->setModel(lectorOuts.obtenerModelo());
+
         }
-        return;
     }
 
     ui->comboBoxTamanoPixelMet->addItem("No seleccionado",-1);
@@ -444,6 +447,12 @@ void CreateMet::VigilarOffsetPasada(int offsetPasada)
     punteroRegistroCreateMet->setOffsetPasada(oPassada);
 }
 
-
+void CreateMet::recargarModelosAmbito()
+{
+    QSettings settings("tologar","ToolsPCOT",this);
+    QString pathMet=settings.value("variablesMET").toString();
+    FicheroDatosAmbitoPro lectorRecargarModelos(this,pathMet);
+    ui->comboBoxAmbitoProyectoMet->setModel(lectorRecargarModelos.obtenerModelo());
+}
 
 

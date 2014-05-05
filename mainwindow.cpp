@@ -275,6 +275,7 @@ void MainWindow::on_pushButton_clicked()
 void MainWindow::lanzarDialogoPreferencias()
 {
     DialogoPreferencias dialogo(this);
-
+    connect(&dialogo,SIGNAL(cambiosArchivoMet()),ui->page2Met,SLOT(recargarModelosAmbito()));
+    connect(&dialogo,SIGNAL(cambiosArchivoOrto()),ui->page3Orto,SLOT(recargarModelosAmbito()));
     dialogo.exec();
 }
