@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Conectar
     connect(ui->page3Orto,SIGNAL(cambioEstadoCorreccionOrto(int)),ui->pushButtonOptionsOrto,SLOT(setEstadoBoton(int)));
 
- //Preparar botones de cambio de opciones orto
+ //Preparar botones de cambio de opciones Met
     ui->pushButtonOptionsMet->addEstado(0,new QIcon()); //No seleccionado
     ui->pushButtonOptionsMet->addEstado(1,new QIcon(":/imagenes/correcto"));   //Correcto
     ui->pushButtonOptionsMet->addEstado(2,new QIcon(":/imagenes/parcialmenteCorrecto"));       // Parcialmente correcto
