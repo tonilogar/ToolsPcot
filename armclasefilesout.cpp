@@ -115,7 +115,7 @@ void ARMClaseFilesOut::nextAttPix(int exitCode)
             argumentos.replace(5,destinoAtt);    // nombre y path del archivo de salida att
             argumentos.replace(7,origenRaw);     // Archivo RAW
 
-            procesoEmisor->start(tr("E:/Antonio/Documentos/programacion/QT/cursoQt/ficherosClase/Radcorr5.2.4.0.exe"),argumentos);
+            procesoEmisor->start(tr("\\Pedros\public_CASI\soft\Soft_ITRES2013/Radcorr5.2.4.0.exe"),argumentos);
         }
     }
 

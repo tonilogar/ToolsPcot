@@ -58,7 +58,7 @@ void FoldersOutChangeFormat::comprobarEstado()
 
 void FoldersOutChangeFormat::on_pushButtonAtt_clicked()
 {
-    QString pbSelectFolder = "Q:\soft\Antonio";//el primer valor de el QStringList es donde se abrira la ventana
+    QString pbSelectFolder = "\\Pedros\public_CASI\soft\Soft_ITRES2013";//el primer valor de el QStringList es donde se abrira la ventana
     QString pbfolderOut=QFileDialog::getExistingDirectory
     (0,("Triar carpeta sortida"),(pbSelectFolder));
     //qDebug() << pbfolderOut << "Directorio";
