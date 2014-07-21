@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>312</width>
-    <height>627</height>
+    <width>317</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -129,6 +129,13 @@
       <widget class="QLineEdit" name="lineEditFolderOutCorrection"/>
      </item>
     </layout>
+   </item>
+   <item>
+    <widget class="QPushButton" name="pushButton">
+     <property name="text">
+      <string>correction</string>
+     </property>
+    </widget>
    </item>
   </layout>
  </widget>
