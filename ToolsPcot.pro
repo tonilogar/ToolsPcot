@@ -10,8 +10,9 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = ToolsPcot
 TEMPLATE = app
-
-
+# el INCLUDEPATH y LIBS indica el camino a la libreria operacionPcot
+INCLUDEPATH += ../libsHeaders
+LIBS += -L../libs -lOperacionPcot
 SOURCES += main.cpp\
         mainwindow.cpp \
     tableviewcoordinates.cpp \
