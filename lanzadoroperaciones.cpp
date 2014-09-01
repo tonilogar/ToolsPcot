@@ -26,33 +26,27 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _registroOrto=_regOrto;
     _tableCoordinates=_tableCoor;
     _opeMet=new OperacionMet();
-    _opeMetFrancia=new OpeMetFrancia();
     _opeCnp=new OperacionCnp();
     _opeOrto=new OperacionOrto();
     _tablaproceso=new operacionProgresdialog();
     //Conexiones cnp met orto
     connect(_opeCnp,SIGNAL(actualizarProgreso(int)),_tablaproceso,SLOT(actualizarBarraCnp(int)));
     connect(_opeMet,SIGNAL(actualizarProgreso(int)),_tablaproceso,SLOT(actualizarBarraMet(int)));
-    connect(_opeMetFrancia,SIGNAL(actualizarProgreso(int)),_tablaproceso,SLOT(actualizarBarraMet(int)));
     connect(_opeOrto,SIGNAL(actualizarProgreso(int)),_tablaproceso,SLOT(actualizarBarraOrto(int)));
     connect(_opeCnp,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setCnpRange(int,int)));
     connect(_opeMet,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setMetRange(int,int)));
-    connect(_opeMetFrancia,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setMetRange(int,int)));
     connect(_opeOrto,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setOrtoRange(int,int)));
 
     connect(_opeCnp,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
     connect(_opeMet,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
-    connect(_opeMetFrancia,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
     connect(_opeOrto,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
 
     connect(_tablaproceso,SIGNAL(cancelarCnp()),_opeCnp,SLOT(cancelarOperacion()));
     connect(_tablaproceso,SIGNAL(cancelarMet()),_opeMet,SLOT(cancelarOperacion()));
-    connect(_tablaproceso,SIGNAL(cancelarMet()),_opeMetFrancia,SLOT(cancelarOperacion()));
     connect(_tablaproceso,SIGNAL(cancelarOrto()),_opeOrto,SLOT(cancelarOperacion()));
 
     connect(_opeCnp,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelCnp()));
     connect(_opeMet,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelMet()));
-    connect(_opeMetFrancia,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelMet()));
     connect(_opeOrto,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelOrto()));
 }
 void LanzadorOperaciones::operacionCnps()
@@ -215,11 +209,7 @@ void LanzadorOperaciones::operacionMet()
     }
     if(zProyecto=="Francia Farmstar")
     {
-        _opeMetFrancia->resetOperacion();
-        _opeMetFrancia->setDatosRegistro(datosOperacionMet);
-        _opeMetFrancia->startOperacion();
         qDebug()<< zProyecto <<"Create met Francia";
-
     }
 
 
@@ -321,6 +311,25 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
 {
     _tableCoordinates=_tableCoor;
 }
+
+ QList <IdentificadorCoordenadas *> LanzadorOperaciones::createIDC()
+ {
+
+   ModeloCoordenadas *modeloCoor=_tableCoordinates->getModeloCoordenadas();
+   IdentificadorCoordenadas *ideOut;
+   QList <IdentificadorCoordenadas *> listCoor;
+   for(int i=0;i<modeloCoor->rowCount();i++)
+   {
+        ideOut=new IdentificadorCoordenadas(this);
+        ideOut->setIdentificador(modeloCoor->index(i,0).data().toString());
+        ideOut->setXa(modeloCoor->index(i,1).data().toFloat());
+        ideOut->setXb(modeloCoor->index(i,2).data().toFloat());
+        ideOut->setYa(modeloCoor->index(i,3).data().toFloat());
+        ideOut->setYb(modeloCoor->index(i,4).data().toFloat());
+        listCoor<<ideOut;
+   }
+   return listCoor;
+ }
 
 
 

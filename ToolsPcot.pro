@@ -45,7 +45,6 @@ SOURCES += main.cpp\
     operacionmet.cpp \
     operacionorto.cpp \
     ometdatosejecucion.cpp \
-    opemetfrancia.cpp \
     cortemet.cpp \
     dialogopreferencias.cpp \
     combinecnp.cpp \
@@ -83,7 +82,6 @@ HEADERS  += mainwindow.h \
     operacionmet.h \
     operacionorto.h \
     ometdatosejecucion.h \
-    opemetfrancia.h \
     cortemet.h \
     dialogopreferencias.h \
     combinecnp.h \

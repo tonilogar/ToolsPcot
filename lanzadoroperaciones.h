@@ -15,10 +15,11 @@
 #include"operacionprogresdialog.h"
 #include"operacionbase.h"
 #include"operacionmet.h"
-#include"opemetfrancia.h"
 #include"operacioncnp.h"
 #include"operacionorto.h"
 #include <QApplication>
+#include <OperacionPcot/datazoneproject.h>
+#include <OperacionPcot/identificadorcoordenadas.h>
 class LanzadorOperaciones : public QObject
 {
     Q_OBJECT
@@ -47,8 +48,10 @@ private:
  operacionProgresdialog *_tablaproceso;
  OperacionCnp *_opeCnp;
  OperacionMet *_opeMet;
- OpeMetFrancia *_opeMetFrancia;
  OperacionOrto *_opeOrto;
+ DataZoneProject *_dataZone;
+ QList <IdentificadorCoordenadas *> IdeCor;
+ QList <IdentificadorCoordenadas *> createIDC();
 };
 
 #endif // LANZADOROPERACIONES_H
