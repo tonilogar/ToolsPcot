@@ -314,7 +314,6 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
 
  QList <IdentificadorCoordenadas *> LanzadorOperaciones::createIDC()
  {
-
    ModeloCoordenadas *modeloCoor=_tableCoordinates->getModeloCoordenadas();
    IdentificadorCoordenadas *ideOut;
    QList <IdentificadorCoordenadas *> listCoor;
@@ -330,6 +329,31 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
    }
    return listCoor;
  }
-
+void LanzadorOperaciones::createDataZP()
+{
+    QString ambitoOperacion=_registroMet->getAmbitoProyecto();
+    if (ambitoOperacion=="Catalunya")
+    {
+     _dataZone->setAmbitoOperacion(DataZoneProject::Catalunya);
+    }
+    else if(ambitoOperacion=="Francia")
+    {
+     _dataZone->setAmbitoOperacion(DataZoneProject::Espanya);
+    }
+    else
+    {
+     _dataZone->setAmbitoOperacion(DataZoneProject::Francia);
+    }
+    _dataZone->setAnchoPasada(_registroMet->getAnchoPasada());
+    _dataZone->setCutDtm(_registroMet->getCutDtm());
+    _dataZone->setFolderOut(_registroMet->getFolderOut());
+    _dataZone->setFootPrintMask(_registroMet->getFootPrintMask());
+    _dataZone->setImageProject(_registroMet->getPathImageMet());
+    _dataZone->setNumberCanals(_registroMet->getNumeroCanales());
+    _dataZone->setOffsetPasada(_registroMet->getOffsetPasada());
+    _dataZone->setSizeCut(_registroMet->getTamanyoCorte());
+    _dataZone->setSizePixel(_registroMet->getTamanyPixel());
+    _dataZone->setUtm(_registroMet->getUtm());
+}
 
 

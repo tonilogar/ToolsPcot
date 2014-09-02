@@ -52,6 +52,7 @@ private:
  DataZoneProject *_dataZone;
  QList <IdentificadorCoordenadas *> IdeCor;
  QList <IdentificadorCoordenadas *> createIDC();
+ void createDataZP();
 };
 
 #endif // LANZADOROPERACIONES_H
