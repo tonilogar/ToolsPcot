@@ -15,11 +15,26 @@
 #include"operacionprogresdialog.h"
 #include"operacionbase.h"
 #include"operacionmet.h"
-#include"operacioncnp.h"
 #include"operacionorto.h"
 #include <QApplication>
 #include <OperacionPcot/datazoneproject.h>
 #include <OperacionPcot/identificadorcoordenadas.h>
+//Codigo nuevo
+#include <OperacionPcot/workcoordinates.h>
+#include <OperacionPcot/operacioncnp.h>
+#include <OperacionPcot/pocesocnp.h>
+#include <OperacionPcot/procesosubscene.h>
+#include <OperacionPcot/procesocutfiles.h>
+#include <OperacionPcot/procesoresize.h>
+#include <OperacionPcot/procesofootprintmask.h>
+#include <OperacionPcot/procesoextraction.h>
+#include <OperacionPcot/procesogeotrans.h>
+#include <OperacionPcot/operacionmet.h>
+#include <OperacionPcot/worker.h>
+#include <OperacionPcot/workermet.h>
+#include <OperacionPcot/workermetcat.h>
+#include <QFileInfo>
+#include <QFile>
 class LanzadorOperaciones : public QObject
 {
     Q_OBJECT
@@ -32,27 +47,39 @@ public:
     QVariantList obtenerDatosModelo(ModeloCoordenadas *_modeloC);
 
 signals:
-    
+
+    void pasoCnpActual(int);
+    void sendError(QString error);
 public slots:
 
  void setObjetoRegistroCnp(RegistroCreateCnps *_regCnp);
  void setObjetoRegistroMet(RegistroCreateMet *_regMet);
  void setObjetoRegistroOrto(RegistroCreateOrto *_regOrto);
  void setObjetotableCoordinates(TableViewCoordinates *_tableCoor);
-
+ void pasoCnp(int paso);
+ void errorCnp(QString error, int paso);
 private:
  RegistroCreateCnps *_registroCnp;
  RegistroCreateMet  *_registroMet;
  RegistroCreateOrto *_registroOrto;
  TableViewCoordinates *_tableCoordinates;
  operacionProgresdialog *_tablaproceso;
- OperacionCnp *_opeCnp;
  OperacionMet *_opeMet;
  OperacionOrto *_opeOrto;
- DataZoneProject *_dataZone;
+ DataZoneProject *_dataZoneCnp;
+ DataZoneProject *_dataZoneMet;
+ DataZoneProject *_dataZoneOrto;
  QList <IdentificadorCoordenadas *> IdeCor;
  QList <IdentificadorCoordenadas *> createIDC();
- void createDataZP();
+
+ //codigo nuevo
+ QList <Operacion *> _listadoOperacionCnp;
+ Worker *_currito;
+ int contadorCnp;
+ QList <Operacion *> createListadoOperacion();
+ void siguienteProceso();
+ QList <Proceso *> createListadoProcesos();
+ QList <Proceso *> listaProcesos;
 };
 
 #endif // LANZADOROPERACIONES_H

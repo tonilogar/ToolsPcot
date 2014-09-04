@@ -26,28 +26,35 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _registroOrto=_regOrto;
     _tableCoordinates=_tableCoor;
     _opeMet=new OperacionMet();
-    _opeCnp=new OperacionCnp();
     _opeOrto=new OperacionOrto();
     _tablaproceso=new operacionProgresdialog();
     //Conexiones cnp met orto
-    connect(_opeCnp,SIGNAL(actualizarProgreso(int)),_tablaproceso,SLOT(actualizarBarraCnp(int)));
-    connect(_opeMet,SIGNAL(actualizarProgreso(int)),_tablaproceso,SLOT(actualizarBarraMet(int)));
+
+    //connect(ope,SIGNAL(pasoActualizado(int)),_tablaproceso,SLOT(actualizarBarraMet(int)));
     connect(_opeOrto,SIGNAL(actualizarProgreso(int)),_tablaproceso,SLOT(actualizarBarraOrto(int)));
-    connect(_opeCnp,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setCnpRange(int,int)));
+
     connect(_opeMet,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setMetRange(int,int)));
     connect(_opeOrto,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setOrtoRange(int,int)));
 
-    connect(_opeCnp,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
+
     connect(_opeMet,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
     connect(_opeOrto,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
 
-    connect(_tablaproceso,SIGNAL(cancelarCnp()),_opeCnp,SLOT(cancelarOperacion()));
+
     connect(_tablaproceso,SIGNAL(cancelarMet()),_opeMet,SLOT(cancelarOperacion()));
     connect(_tablaproceso,SIGNAL(cancelarOrto()),_opeOrto,SLOT(cancelarOperacion()));
 
-    connect(_opeCnp,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelCnp()));
+
     connect(_opeMet,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelMet()));
     connect(_opeOrto,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelOrto()));
+
+
+    //Codigo nuevo
+    _dataZoneCnp=new DataZoneProject(this);
+    _dataZoneMet=new DataZoneProject(this);
+    _dataZoneOrto=new DataZoneProject(this);
+
+
 }
 void LanzadorOperaciones::operacionCnps()
 {
@@ -78,10 +85,16 @@ void LanzadorOperaciones::operacionCnps()
         QMessageBox::warning(0,"error de escritura", "el directorio indicado no tiene permisos de escritura");
         return;
     }
-    datosOperacionCnp.insert("folderOut",_registroCnp->getFolderOut());
+    _registroCnp->buildDataZoneProject(_dataZoneCnp);
+    IdeCor=createIDC();
+    OperacionCnp *operCnp;
+    foreach (IdentificadorCoordenadas *ide,IdeCor)
+    {
+        operCnp=new OperacionCnp(this,ide,_dataZoneCnp);
 
-    _opeCnp->resetOperacion();
+        _listadoOperacionCnp<<new OperacionCnp(this,ide,_dataZoneCnp);
 
+    }
     _tablaproceso->setModal(true);//para que la ventana sea modal y no deje seleccionar las ventanas inferiores
     QRect tam=_tablaproceso->geometry();
     QPoint centro = QApplication::activeWindow()->geometry().center();
@@ -89,11 +102,11 @@ void LanzadorOperaciones::operacionCnps()
     _tablaproceso->setGeometry(tam);
     _tablaproceso->show();
     QVariantList datosModelo=obtenerDatosModelo(_tableCoordinates->getModeloCoordenadas());
-    datosOperacionCnp.insert("datosTabla",datosModelo);
+
     //qDebug() << "setDatosRegistroCnp";
-    _opeCnp->setDatosRegistro(datosOperacionCnp);
+
     //qDebug() << "startOperacionCnp";
-    _opeCnp->startOperacion();
+
 }
 
 void LanzadorOperaciones::operacionMet()
@@ -110,9 +123,9 @@ void LanzadorOperaciones::operacionMet()
     int ofsetPasada;
     bool footPrintMask;
     bool cutDtm;
-//    QString exeSScene;
-//    QString exeImaOpeGeo;
-//    QString exeFootPrintMask;
+    //    QString exeSScene;
+    //    QString exeImaOpeGeo;
+    //    QString exeFootPrintMask;
     QString utmDefecto;
     QJsonArray ejecutables;
     QFileInfo fileAProyecto;
@@ -312,13 +325,13 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
     _tableCoordinates=_tableCoor;
 }
 
- QList <IdentificadorCoordenadas *> LanzadorOperaciones::createIDC()
- {
-   ModeloCoordenadas *modeloCoor=_tableCoordinates->getModeloCoordenadas();
-   IdentificadorCoordenadas *ideOut;
-   QList <IdentificadorCoordenadas *> listCoor;
-   for(int i=0;i<modeloCoor->rowCount();i++)
-   {
+QList <IdentificadorCoordenadas *> LanzadorOperaciones::createIDC()
+{
+    ModeloCoordenadas *modeloCoor=_tableCoordinates->getModeloCoordenadas();
+    IdentificadorCoordenadas *ideOut;
+    QList <IdentificadorCoordenadas *> listCoor;
+    for(int i=0;i<modeloCoor->rowCount();i++)
+    {
         ideOut=new IdentificadorCoordenadas(this);
         ideOut->setIdentificador(modeloCoor->index(i,0).data().toString());
         ideOut->setXa(modeloCoor->index(i,1).data().toFloat());
@@ -326,34 +339,54 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
         ideOut->setYa(modeloCoor->index(i,3).data().toFloat());
         ideOut->setYb(modeloCoor->index(i,4).data().toFloat());
         listCoor<<ideOut;
-   }
-   return listCoor;
- }
-void LanzadorOperaciones::createDataZP()
-{
-    QString ambitoOperacion=_registroMet->getAmbitoProyecto();
-    if (ambitoOperacion=="Catalunya")
-    {
-     _dataZone->setAmbitoOperacion(DataZoneProject::Catalunya);
     }
-    else if(ambitoOperacion=="Francia")
-    {
-     _dataZone->setAmbitoOperacion(DataZoneProject::Espanya);
-    }
-    else
-    {
-     _dataZone->setAmbitoOperacion(DataZoneProject::Francia);
-    }
-    _dataZone->setAnchoPasada(_registroMet->getAnchoPasada());
-    _dataZone->setCutDtm(_registroMet->getCutDtm());
-    _dataZone->setFolderOut(_registroMet->getFolderOut());
-    _dataZone->setFootPrintMask(_registroMet->getFootPrintMask());
-    _dataZone->setImageProject(_registroMet->getPathImageMet());
-    _dataZone->setNumberCanals(_registroMet->getNumeroCanales());
-    _dataZone->setOffsetPasada(_registroMet->getOffsetPasada());
-    _dataZone->setSizeCut(_registroMet->getTamanyoCorte());
-    _dataZone->setSizePixel(_registroMet->getTamanyPixel());
-    _dataZone->setUtm(_registroMet->getUtm());
+    return listCoor;
 }
+
+void LanzadorOperaciones::siguienteProceso()
+{
+
+}
+QList <Operacion *> LanzadorOperaciones::createListadoOperacion()
+{
+//    QList <IdentificadorCoordenadas *> listCoor= createIDC();
+//    foreach (IdentificadorCoordenadas *qVa,listCoor)
+//    {
+//        //_listadoOperacion.append(new OperacionMet(this,qVa,_dataZone));
+//    }
+//    foreach (Operacion *ope, _listadoOperacion)
+//    {
+//        connect(ope,SIGNAL(pasoActualizado(int)),this,SLOT(actualizarBarra(int)));
+//        connect(ope,SIGNAL(operacionFallida(QString,int)),this,SLOT(errorOperacion(QString,int)));
+//    }
+
+}
+QList <Proceso *>  LanzadorOperaciones::createListadoProcesos()
+{
+    QList <Proceso *> listaProcesos;
+    QJsonArray ejecutables;
+    ejecutables=_registroMet->getListaEjecutables();
+    QJsonObject elementoExe;
+    foreach (QJsonValue elemento, ejecutables)
+    {
+        elementoExe=elemento.toObject();
+        //listaProcesos.insert(elementoExe.value("nombre").toString(),elementoExe.value("path").toString());
+    }
+    return listaProcesos;
+}
+
+void LanzadorOperaciones::pasoCnp(int paso)
+{
+contadorCnp++;
+emit pasoCnpActual(contadorCnp);
+}
+
+void LanzadorOperaciones::errorCnp(QString error, int paso)
+{
+ contadorCnp++;
+ emit pasoCnpActual(contadorCnp);
+ emit sendError(error);
+}
+
 
 

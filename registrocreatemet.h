@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QDebug>
 #include <QJsonArray>
+#include <OperacionPcot/datazoneproject.h>
 
 class RegistroCreateMet : public QObject
 {
@@ -34,6 +35,7 @@ public:
     QString getExeResize();
     QString getUtmDefecto();
     QJsonArray getListaEjecutables();
+    void buildDataZoneProject(DataZoneProject *dataZP);
 
 public slots:
     //setters

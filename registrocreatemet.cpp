@@ -238,7 +238,31 @@ void RegistroCreateMet::setFootprintMask(int fprintM)
         _fprintM=false;
 }
 
-
+void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
+{
+    if (_ambitoProyecto=="Catalunya")
+    {
+        dataZP->setAmbitoOperacion(DataZoneProject::Catalunya);
+    }
+    else if(_ambitoProyecto=="Francia")
+    {
+        dataZP->setAmbitoOperacion(DataZoneProject::Francia);
+    }
+    else
+    {
+        dataZP->setAmbitoOperacion(DataZoneProject::Espanya);
+    }
+    dataZP->setAnchoPasada(_anchoPasada);
+    dataZP->setCutDtm(_dtm);
+    dataZP->setFolderOut(_folderOut);
+    dataZP->setFootPrintMask(_fprintM);
+    dataZP->setImageProject(_pathImageMet);
+    dataZP->setNumberCanals(_numeroCanales);
+    dataZP->setOffsetPasada(_offsetPasada);
+    dataZP->setSizeCut(_tamanyoCorte);
+    dataZP->setSizePixel(_tamanyoPixel);
+    dataZP->setUtm(_utm);
+}
 
 
 

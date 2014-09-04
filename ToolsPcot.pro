@@ -41,7 +41,6 @@ SOURCES += main.cpp\
     debugqprocess.cpp \
     operacionprogresdialog.cpp \
     operacionbase.cpp \
-    operacioncnp.cpp \
     operacionmet.cpp \
     operacionorto.cpp \
     ometdatosejecucion.cpp \
@@ -78,7 +77,6 @@ HEADERS  += mainwindow.h \
     debugqprocess.h \
     operacionprogresdialog.h \
     operacionbase.h \
-    operacioncnp.h \
     operacionmet.h \
     operacionorto.h \
     ometdatosejecucion.h \

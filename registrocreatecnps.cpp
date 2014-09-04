@@ -40,3 +40,7 @@ void RegistroCreateCnps::setFolderOut(QString folderOut)
 {
 _folderOut=folderOut;
 }
+void RegistroCreateCnps::buildDataZoneProject(DataZoneProject *dataZP)
+{
+ dataZP->setFolderOut(_folderOut);
+}

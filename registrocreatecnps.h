@@ -2,6 +2,7 @@
 #define REGISTROCREATECNPS_H
 
 #include <QObject>
+#include <OperacionPcot/datazoneproject.h>
 
 class RegistroCreateCnps : public QObject
 {
@@ -14,7 +15,7 @@ public:
 
     //Getter
     QString getFolderOut();
-
+    void buildDataZoneProject(DataZoneProject *dataZP);
 signals:
 
 public slots:
@@ -23,6 +24,7 @@ public slots:
 private:
 
     QString _folderOut;
+
 
 };
 
