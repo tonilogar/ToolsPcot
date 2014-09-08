@@ -4,6 +4,7 @@
 #include <QFileInfo>
 #include <QProcess>
 #include <QMessageBox>
+#include <QDebug>
 #include"modelocoordenadas.h"
 #include"registrocreatecnps.h"
 #include"registrocreatemet.h"
@@ -45,7 +46,10 @@ public:
     void operacionMet();
     void operacionOrto();
     QVariantList obtenerDatosModelo(ModeloCoordenadas *_modeloC);
-
+    bool getCnpActivo();
+    bool getMetActivo();
+    bool getOrtoActivo();
+    void launch();
 signals:
 
     void pasoCnpActual(int);
@@ -58,6 +62,11 @@ public slots:
  void setObjetotableCoordinates(TableViewCoordinates *_tableCoor);
  void pasoCnp(int paso);
  void errorCnp(QString error, int paso);
+
+ void setCnpActivo(bool cnpActivo);
+ void setMetActivo(bool metActivo);
+ void setOrtoActivo(bool ortoActivo);
+ void siguienteOperacionCnp();
 private:
  RegistroCreateCnps *_registroCnp;
  RegistroCreateMet  *_registroMet;
@@ -74,12 +83,19 @@ private:
 
  //codigo nuevo
  QList <Operacion *> _listadoOperacionCnp;
- Worker *_currito;
+ Worker *_Wcnp;
+ Worker *_WMet;
+ Worker *_WOrto;
+ bool _cnpActivo;
+ bool _metActivo;
+ bool _ortoActivo;
  int contadorCnp;
  QList <Operacion *> createListadoOperacion();
+ QList <Operacion *> createListadoOperacionCnp();
  void siguienteProceso();
  QList <Proceso *> createListadoProcesos();
  QList <Proceso *> listaProcesos;
+
 };
 
 #endif // LANZADOROPERACIONES_H

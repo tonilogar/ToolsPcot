@@ -28,6 +28,10 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _opeMet=new OperacionMet();
     _opeOrto=new OperacionOrto();
     _tablaproceso=new operacionProgresdialog();
+    _cnpActivo=false;
+    _metActivo=false;
+    _ortoActivo=false;
+    _Wcnp=0;
     //Conexiones cnp met orto
 
     //connect(ope,SIGNAL(pasoActualizado(int)),_tablaproceso,SLOT(actualizarBarraMet(int)));
@@ -361,6 +365,25 @@ QList <Operacion *> LanzadorOperaciones::createListadoOperacion()
 //    }
 
 }
+
+QList <Operacion *> LanzadorOperaciones::createListadoOperacionCnp()
+{
+    foreach (Operacion *ope,_listadoOperacionCnp)
+    {
+     delete ope;
+    }
+    _listadoOperacionCnp.clear();
+
+    foreach (IdentificadorCoordenadas *qVa,IdeCor)
+    {
+        _listadoOperacionCnp.append(new OperacionCnp(this,qVa,_dataZoneCnp));
+    }
+    foreach (Operacion *ope, _listadoOperacionCnp)
+    {
+        connect(ope,SIGNAL(pasoActualizado(int)),this,SLOT(actualizarBarra(int)));
+        connect(ope,SIGNAL(operacionFallida(QString,int)),this,SLOT(errorOperacion(QString,int)));
+    }
+}
 QList <Proceso *>  LanzadorOperaciones::createListadoProcesos()
 {
     QList <Proceso *> listaProcesos;
@@ -387,6 +410,78 @@ void LanzadorOperaciones::errorCnp(QString error, int paso)
  emit pasoCnpActual(contadorCnp);
  emit sendError(error);
 }
+
+void LanzadorOperaciones::setCnpActivo(bool cnpActivo)
+{
+_cnpActivo=cnpActivo;
+}
+
+void LanzadorOperaciones::setMetActivo(bool metActivo)
+{
+_metActivo=metActivo;
+}
+
+void LanzadorOperaciones::setOrtoActivo(bool ortoActivo)
+{
+ _ortoActivo=ortoActivo;
+}
+
+bool LanzadorOperaciones::getCnpActivo()
+{
+return _cnpActivo;
+}
+
+bool LanzadorOperaciones::getMetActivo()
+{
+return _metActivo;
+}
+
+bool LanzadorOperaciones::getOrtoActivo()
+{
+ return _ortoActivo;
+}
+void LanzadorOperaciones::launch()
+{
+    if(_cnpActivo || _metActivo || _ortoActivo)
+    {
+        foreach (IdentificadorCoordenadas * idenC, IdeCor)
+        {
+         delete idenC;
+        }
+        IdeCor.clear();
+     IdeCor=createIDC();
+     if(_cnpActivo)
+     {
+         _registroCnp->buildDataZoneProject(_dataZoneCnp);
+         createListadoOperacionCnp();
+         if(!_Wcnp)
+         {
+             QList <Proceso *> procesosCnp;
+             procesosCnp<<new PocesoCnp (this,QString());
+             _Wcnp=new Worker(this,procesosCnp);
+             connect(_Wcnp,SIGNAL(workerLibre()),this,SLOT(siguienteOperacionCnp()));
+         }
+         contadorCnp=0;
+         _Wcnp->trabajarEn(_listadoOperacionCnp[0]);
+     }
+    }
+}
+void LanzadorOperaciones::siguienteOperacionCnp()
+{
+
+    contadorCnp++;
+    if(contadorCnp<_listadoOperacionCnp.count())
+    {
+     _Wcnp->trabajarEn(_listadoOperacionCnp[contadorCnp]);
+    }
+
+}
+
+
+
+
+
+
 
 
 

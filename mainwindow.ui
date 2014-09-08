@@ -18,7 +18,7 @@
     <item>
      <widget class="QStackedWidget" name="stackedWidgetVistas">
       <property name="currentIndex">
-       <number>4</number>
+       <number>5</number>
       </property>
       <widget class="QWidget" name="page1CnpMetOrto">
        <layout class="QVBoxLayout" name="verticalLayout_4">
@@ -165,7 +165,7 @@
           <property name="orientation">
            <enum>Qt::Horizontal</enum>
           </property>
-          <widget class="QWidget" name="">
+          <widget class="QWidget" name="layoutWidget">
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <item>
              <widget class="QGroupBox" name="groupBox_4">

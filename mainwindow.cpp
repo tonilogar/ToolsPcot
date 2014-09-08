@@ -225,7 +225,9 @@ void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
         return;
 
     }
-
+   _lanzadorOpe->setCnpActivo(false);
+   _lanzadorOpe->setMetActivo(false);
+   _lanzadorOpe->setOrtoActivo(false);
     //si llegamos a este linea cambiamos las variables boleanas necesarias
     qDebug()<< "Todos los datos son correctos, Comenzar operaciones cnp met orto";
 
@@ -233,7 +235,7 @@ void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
     if((ui->pushButtonOptionsCnp->getEstadoBoton()==1))
     {
         iconoCnp==true;
-     _lanzadorOpe->operacionCnps();
+     _lanzadorOpe->setCnpActivo(true);
      qDebug()<< "Creando cnps";
     }
     //Si el icono met es verde cambiamos el la variable a true y empezamos los procesos
@@ -241,16 +243,17 @@ void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
     {
 
         iconoMet==true;
-      _lanzadorOpe->operacionMet();
+      _lanzadorOpe->setMetActivo(true);
 qDebug()<< "Creando met";
     }
     //Si el icono orto es verde cambiamos el la variable a true y empezamos los procesos
     if((ui->pushButtonOptionsOrto->getEstadoBoton()==1))
     {
       iconoOrto==true;
-      _lanzadorOpe->operacionOrto();
+       _lanzadorOpe->setOrtoActivo(true);
       qDebug()<< "Creando orto";
     }
+   _lanzadorOpe->launch();
 }
 
 void MainWindow::on_pushButton_clicked()
