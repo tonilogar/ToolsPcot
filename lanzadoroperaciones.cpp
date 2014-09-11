@@ -35,24 +35,8 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     //Conexiones cnp met orto
 
     //connect(ope,SIGNAL(pasoActualizado(int)),_tablaproceso,SLOT(actualizarBarraMet(int)));
-    connect(_opeOrto,SIGNAL(actualizarProgreso(int)),_tablaproceso,SLOT(actualizarBarraOrto(int)));
-
-    connect(_opeMet,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setMetRange(int,int)));
-    connect(_opeOrto,SIGNAL(inicioProgreso(int,int)),_tablaproceso,SLOT(setOrtoRange(int,int)));
-
-
-    connect(_opeMet,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
-    connect(_opeOrto,SIGNAL(errorProgreso(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
-
-
-    connect(_tablaproceso,SIGNAL(cancelarMet()),_opeMet,SLOT(cancelarOperacion()));
-    connect(_tablaproceso,SIGNAL(cancelarOrto()),_opeOrto,SLOT(cancelarOperacion()));
-
-
-    connect(_opeMet,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelMet()));
-    connect(_opeOrto,SIGNAL(finProgreso()),_tablaproceso,SLOT(disabledCancelOrto()));
-
-
+    connect(this,SIGNAL(sendError(QString)),_tablaproceso,SLOT(tratarErrores(QString)));
+    connect(this,SIGNAL(pasoCnpActual(int)),_tablaproceso,SLOT(actualizarBarraCnp(int)));
     //Codigo nuevo
     _dataZoneCnp=new DataZoneProject(this);
     _dataZoneMet=new DataZoneProject(this);
@@ -90,7 +74,7 @@ void LanzadorOperaciones::operacionCnps()
         return;
     }
     _registroCnp->buildDataZoneProject(_dataZoneCnp);
-    IdeCor=createIDC();
+    //IdeCor=createIDC();
     OperacionCnp *operCnp;
     foreach (IdentificadorCoordenadas *ide,IdeCor)
     {
@@ -329,11 +313,10 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
     _tableCoordinates=_tableCoor;
 }
 
-QList <IdentificadorCoordenadas *> LanzadorOperaciones::createIDC()
+void LanzadorOperaciones::createIDC()
 {
     ModeloCoordenadas *modeloCoor=_tableCoordinates->getModeloCoordenadas();
     IdentificadorCoordenadas *ideOut;
-    QList <IdentificadorCoordenadas *> listCoor;
     for(int i=0;i<modeloCoor->rowCount();i++)
     {
         ideOut=new IdentificadorCoordenadas(this);
@@ -342,9 +325,9 @@ QList <IdentificadorCoordenadas *> LanzadorOperaciones::createIDC()
         ideOut->setXb(modeloCoor->index(i,2).data().toFloat());
         ideOut->setYa(modeloCoor->index(i,3).data().toFloat());
         ideOut->setYb(modeloCoor->index(i,4).data().toFloat());
-        listCoor<<ideOut;
+        IdeCor<<ideOut;
     }
-    return listCoor;
+
 }
 
 void LanzadorOperaciones::siguienteProceso()
@@ -353,24 +336,24 @@ void LanzadorOperaciones::siguienteProceso()
 }
 QList <Operacion *> LanzadorOperaciones::createListadoOperacion()
 {
-//    QList <IdentificadorCoordenadas *> listCoor= createIDC();
-//    foreach (IdentificadorCoordenadas *qVa,listCoor)
-//    {
-//        //_listadoOperacion.append(new OperacionMet(this,qVa,_dataZone));
-//    }
-//    foreach (Operacion *ope, _listadoOperacion)
-//    {
-//        connect(ope,SIGNAL(pasoActualizado(int)),this,SLOT(actualizarBarra(int)));
-//        connect(ope,SIGNAL(operacionFallida(QString,int)),this,SLOT(errorOperacion(QString,int)));
-//    }
+    //    QList <IdentificadorCoordenadas *> listCoor= createIDC();
+    //    foreach (IdentificadorCoordenadas *qVa,listCoor)
+    //    {
+    //        //_listadoOperacion.append(new OperacionMet(this,qVa,_dataZone));
+    //    }
+    //    foreach (Operacion *ope, _listadoOperacion)
+    //    {
+    //        connect(ope,SIGNAL(pasoActualizado(int)),this,SLOT(actualizarBarra(int)));
+    //        connect(ope,SIGNAL(operacionFallida(QString,int)),this,SLOT(errorOperacion(QString,int)));
+    //    }
 
 }
 
-QList <Operacion *> LanzadorOperaciones::createListadoOperacionCnp()
+void LanzadorOperaciones::createListadoOperacionCnp()
 {
     foreach (Operacion *ope,_listadoOperacionCnp)
     {
-     delete ope;
+        delete ope;
     }
     _listadoOperacionCnp.clear();
 
@@ -380,8 +363,8 @@ QList <Operacion *> LanzadorOperaciones::createListadoOperacionCnp()
     }
     foreach (Operacion *ope, _listadoOperacionCnp)
     {
-        connect(ope,SIGNAL(pasoActualizado(int)),this,SLOT(actualizarBarra(int)));
-        connect(ope,SIGNAL(operacionFallida(QString,int)),this,SLOT(errorOperacion(QString,int)));
+        connect(ope,SIGNAL(pasoActualizado(int)),this,SLOT(pasoCnp(int)));
+        connect(ope,SIGNAL(operacionFallida(QString,int)),this,SLOT(errorCnp(QString,int)));
     }
 }
 QList <Proceso *>  LanzadorOperaciones::createListadoProcesos()
@@ -400,45 +383,45 @@ QList <Proceso *>  LanzadorOperaciones::createListadoProcesos()
 
 void LanzadorOperaciones::pasoCnp(int paso)
 {
-contadorCnp++;
-emit pasoCnpActual(contadorCnp);
+    contadorCnp++;
+    emit pasoCnpActual(contadorCnp);
 }
 
 void LanzadorOperaciones::errorCnp(QString error, int paso)
 {
- contadorCnp++;
- emit pasoCnpActual(contadorCnp);
- emit sendError(error);
+    contadorCnp++;
+    emit pasoCnpActual(contadorCnp);
+    emit sendError(error);
 }
 
 void LanzadorOperaciones::setCnpActivo(bool cnpActivo)
 {
-_cnpActivo=cnpActivo;
+    _cnpActivo=cnpActivo;
 }
 
 void LanzadorOperaciones::setMetActivo(bool metActivo)
 {
-_metActivo=metActivo;
+    _metActivo=metActivo;
 }
 
 void LanzadorOperaciones::setOrtoActivo(bool ortoActivo)
 {
- _ortoActivo=ortoActivo;
+    _ortoActivo=ortoActivo;
 }
 
 bool LanzadorOperaciones::getCnpActivo()
 {
-return _cnpActivo;
+    return _cnpActivo;
 }
 
 bool LanzadorOperaciones::getMetActivo()
 {
-return _metActivo;
+    return _metActivo;
 }
 
 bool LanzadorOperaciones::getOrtoActivo()
 {
- return _ortoActivo;
+    return _ortoActivo;
 }
 void LanzadorOperaciones::launch()
 {
@@ -446,35 +429,41 @@ void LanzadorOperaciones::launch()
     {
         foreach (IdentificadorCoordenadas * idenC, IdeCor)
         {
-         delete idenC;
+            delete idenC;
         }
         IdeCor.clear();
-     IdeCor=createIDC();
-     if(_cnpActivo)
-     {
-         _registroCnp->buildDataZoneProject(_dataZoneCnp);
-         createListadoOperacionCnp();
-         if(!_Wcnp)
-         {
-             QList <Proceso *> procesosCnp;
-             procesosCnp<<new PocesoCnp (this,QString());
-             _Wcnp=new Worker(this,procesosCnp);
-             connect(_Wcnp,SIGNAL(workerLibre()),this,SLOT(siguienteOperacionCnp()));
-         }
-         contadorCnp=0;
-         _Wcnp->trabajarEn(_listadoOperacionCnp[0]);
-     }
+        createIDC();
+        if(_cnpActivo)
+        {
+            _registroCnp->buildDataZoneProject(_dataZoneCnp);
+            createListadoOperacionCnp();
+            if(!_Wcnp)
+            {
+                QList <Proceso *> procesosCnp;
+                procesosCnp<<new PocesoCnp (this,QString());
+                _Wcnp=new Worker(this,procesosCnp);
+                connect(_Wcnp,SIGNAL(workerLibre()),this,SLOT(siguienteOperacionCnp()));
+            }
+            contadorCnp=0;
+            int rangoCnp=0;
+            foreach(Operacion *ope, _listadoOperacionCnp)
+            {
+                rangoCnp+=ope->totalPasos();
+            }
+            _tablaproceso->setCnpRange(0,rangoCnp);
+            _Wcnp->trabajarEn(_listadoOperacionCnp[0]);
+        }
+        _tablaproceso->show();
     }
+
 }
 void LanzadorOperaciones::siguienteOperacionCnp()
 {
-
     contadorCnp++;
     if(contadorCnp<_listadoOperacionCnp.count())
     {
-     _Wcnp->trabajarEn(_listadoOperacionCnp[contadorCnp]);
+        _Wcnp->trabajarEn(_listadoOperacionCnp[contadorCnp]);
     }
-
 }
 
 

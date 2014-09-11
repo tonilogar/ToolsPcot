@@ -67,6 +67,7 @@ public slots:
  void setMetActivo(bool metActivo);
  void setOrtoActivo(bool ortoActivo);
  void siguienteOperacionCnp();
+
 private:
  RegistroCreateCnps *_registroCnp;
  RegistroCreateMet  *_registroMet;
@@ -79,7 +80,7 @@ private:
  DataZoneProject *_dataZoneMet;
  DataZoneProject *_dataZoneOrto;
  QList <IdentificadorCoordenadas *> IdeCor;
- QList <IdentificadorCoordenadas *> createIDC();
+ void createIDC();
 
  //codigo nuevo
  QList <Operacion *> _listadoOperacionCnp;
@@ -91,7 +92,7 @@ private:
  bool _ortoActivo;
  int contadorCnp;
  QList <Operacion *> createListadoOperacion();
- QList <Operacion *> createListadoOperacionCnp();
+ void createListadoOperacionCnp();
  void siguienteProceso();
  QList <Proceso *> createListadoProcesos();
  QList <Proceso *> listaProcesos;
