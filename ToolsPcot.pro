@@ -40,15 +40,12 @@ SOURCES += main.cpp\
     ficherodatosambitopro.cpp \
     debugqprocess.cpp \
     operacionprogresdialog.cpp \
-    operacionbase.cpp \
-    operacionmet.cpp \
-    operacionorto.cpp \
     ometdatosejecucion.cpp \
-    cortemet.cpp \
     dialogopreferencias.cpp \
     combinecnp.cpp \
     correction.cpp \
-    diferences.cpp
+    diferences.cpp \
+    controlworker.cpp
 
 HEADERS  += mainwindow.h \
     tableviewcoordinates.h \
@@ -76,15 +73,12 @@ HEADERS  += mainwindow.h \
     ficherodatosambitopro.h \
     debugqprocess.h \
     operacionprogresdialog.h \
-    operacionbase.h \
-    operacionmet.h \
-    operacionorto.h \
     ometdatosejecucion.h \
-    cortemet.h \
     dialogopreferencias.h \
     combinecnp.h \
     correction.h \
-    diferences.h
+    diferences.h \
+    controlworker.h
 
 FORMS    += mainwindow.ui \
     tableviewcoordinates.ui \
