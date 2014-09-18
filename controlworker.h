@@ -18,6 +18,7 @@ signals:
     void rangoOperaciones(int min, int max);
     void actualizarPaso(int paso);
     void enviarError(QString error);
+    void operacionesTerminadas(bool end);
 public slots:
     void setWorker(Worker *worker) ;
     void setListaOperaciones(QList <Operacion *> listaOperaciones);

@@ -6,7 +6,6 @@
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
 //    (at your option) any later version.
-
 //    This program is distributed in the hope that it will be useful,
 //    but WITHOUT ANY WARRANTY; without even the implied warranty of
 //    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -34,7 +33,14 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _dataZoneMet=new DataZoneProject(this);
     _dataZoneOrto=new DataZoneProject(this);
     _controlCnp=new ControlWorker(this);
-
+    QList <Proceso *> listaProcesoCnp;
+    listaProcesoCnp<< new PocesoCnp(this,QString());
+    _Wcnp=new Worker(this,listaProcesoCnp);
+    _controlCnp->setWorker(_Wcnp);
+    connect(_controlCnp,SIGNAL(rangoOperaciones(int,int)),_dialogoProgreso,SLOT(setCnpRange(int,int)));
+    connect(_controlCnp,SIGNAL(actualizarPaso(int)),_dialogoProgreso,SLOT(actualizarBarraCnp(int)));
+    connect(_controlCnp,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(tratarErrores(QString)));
+    connect(_controlCnp,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setCnpTerminado(bool)));
 }
 
 void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCreateCnps *_regCnp)
@@ -98,21 +104,23 @@ bool LanzadorOperaciones::getOrtoActivo()
 }
 void LanzadorOperaciones::launch()
 {
-
     if(_cnpActivo || _metActivo || _ortoActivo)
     {
         foreach (IdentificadorCoordenadas *ide, _listaIdentificadores)
         {
-         delete ide;
+            delete ide;
         }
-     _listaIdentificadores.clear();
-     crearListaIdentificadores();
-     if(_cnpActivo)
-     {
-         _registroCnp->buildDataZoneProject(_dataZoneCnp);
-         borrarListadoOperacion(_listadoOperacionCnp);
-         createListadoOperacionCnp();
-     }
+        _listaIdentificadores.clear();
+        crearListaIdentificadores();
+        if(_cnpActivo)
+        {
+            _registroCnp->buildDataZoneProject(_dataZoneCnp);
+            borrarListadoOperacion(_listadoOperacionCnp);
+            createListadoOperacionCnp();
+            _controlCnp->setListaOperaciones(_listadoOperacionCnp);
+            _controlCnp->start();
+        }
+        _dialogoProgreso->show();
     }
 }
 
@@ -128,20 +136,19 @@ void LanzadorOperaciones::borrarListadoOperacion(QList <Operacion *> lista)
 
 void LanzadorOperaciones::crearListaIdentificadores()
 {
- IdentificadorCoordenadas *ide=0;
- ModeloCoordenadas *modelo=_tableCoordinates->getModeloCoordenadas();
- int numFilas=modelo->rowCount();
- for(int i=0;i<numFilas;i++)
- {
-     ide=new IdentificadorCoordenadas(this);
-     ide->setIdentificador(modelo->index(i,0).data().toString());
-     ide->setXa(modelo->index(i,1).data().toDouble());
-     ide->setXb(modelo->index(i,2).data().toDouble());
-     ide->setYa(modelo->index(i,3).data().toDouble());
-     ide->setYb(modelo->index(i,4).data().toDouble());
-     _listaIdentificadores<<ide;
- }
-
+    IdentificadorCoordenadas *ide=0;
+    ModeloCoordenadas *modelo=_tableCoordinates->getModeloCoordenadas();
+    int numFilas=modelo->rowCount();
+    for(int i=0;i<numFilas;i++)
+    {
+        ide=new IdentificadorCoordenadas(this);
+        ide->setIdentificador(modelo->index(i,0).data().toString());
+        ide->setXa(modelo->index(i,1).data().toDouble());
+        ide->setXb(modelo->index(i,2).data().toDouble());
+        ide->setYa(modelo->index(i,3).data().toDouble());
+        ide->setYb(modelo->index(i,4).data().toDouble());
+        _listaIdentificadores<<ide;
+    }
 }
 
 

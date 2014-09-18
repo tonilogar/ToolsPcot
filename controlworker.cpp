@@ -48,6 +48,10 @@ void ControlWorker::siguienteOperacion()
     {
         _worker->trabajarEn(_listaOperaciones[_contadorOperacion]);
     }
+    else
+    {
+        emit operacionesTerminadas(true);
+    }
 }
 
 void ControlWorker::pasoActualizado(int paso)
@@ -68,7 +72,6 @@ void ControlWorker::start()
     _contadorOperacion=0;
     _contadorPasos=0;
     _worker->trabajarEn(_listaOperaciones[0]);
-
 }
 
 

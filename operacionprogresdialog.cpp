@@ -106,7 +106,6 @@ void operacionProgresdialog::setOrtoRange(int min, int max)
 
 bool operacionProgresdialog::isCnpTerminado()
 {
-
  return cnpTerminado;
 }
 bool operacionProgresdialog::isMetTerminado()
@@ -124,16 +123,31 @@ return ortoTerminado;
 void operacionProgresdialog::setCnpTerminado(bool estado )
 {
  cnpTerminado=estado;
+ checkCnpMetOrto();
+ if(cnpTerminado)
+ {
+     disabledCancelCnp();
+ }
  qDebug()<< cnpTerminado << "setCnpTerminado";
 }
 void operacionProgresdialog::setMetTerminado(bool estado )
 {
  metTerminado=estado;
+ checkCnpMetOrto();
+ if(metTerminado)
+ {
+     disabledCancelMet();
+ }
  qDebug()<< metTerminado << "setMetTerminado";
 }
 void operacionProgresdialog::setOrtoTerminado(bool estado)
 {
   ortoTerminado=estado;
+  checkCnpMetOrto();
+  if(ortoTerminado)
+  {
+      disabledCancelOrto();
+  }
   qDebug()<< ortoTerminado << "setOrtoTerminado";
 }
 

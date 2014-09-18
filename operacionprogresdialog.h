@@ -20,9 +20,7 @@ public:
     bool isMetTerminado();
     bool isOrtoTerminado();
     //settersbool
-    void setCnpTerminado(bool estado);
-    void setMetTerminado(bool estado);
-    void setOrtoTerminado(bool estado);
+
     void restCnpTerminado();
     void restMetTerminado();
     void restOrtoTerminado();
@@ -31,6 +29,9 @@ signals:
     void cancelarMet();
     void cancelarOrto();
 public slots:
+    void setCnpTerminado(bool estado);
+    void setMetTerminado(bool estado);
+    void setOrtoTerminado(bool estado);
     void actualizarBarraCnp(int pos);
     void actualizarBarraMet(int pos);
     void actualizarBarraOrto(int pos);
