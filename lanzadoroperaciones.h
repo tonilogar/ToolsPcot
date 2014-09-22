@@ -72,6 +72,8 @@ private:
 
  //codigo nuevo
  QList <Operacion *> _listadoOperacionCnp;
+ QList <Operacion *> _listadoOperacionMet;
+ QList <Operacion *> _listadoOperacionOrto;
  Worker *_Wcnp;
  Worker *_WMet;
  Worker *_WOrto;
@@ -79,9 +81,12 @@ private:
  bool _metActivo;
  bool _ortoActivo;
  ControlWorker *_controlCnp;
-
+ ControlWorker *_controlMet;
+ ControlWorker *_controlOrto;
  void borrarListadoOperacion(QList <Operacion *> lista);
  void createListadoOperacionCnp();
+ void createListadoOperacionMet();
+ void createListadoOperacionOrto();
  void crearListaIdentificadores();
 };
 

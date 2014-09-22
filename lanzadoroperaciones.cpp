@@ -29,18 +29,34 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _metActivo=false;
     _ortoActivo=false;
     _Wcnp=0;
+    _WMet=0;
+    _WOrto=0;
     _dataZoneCnp=new DataZoneProject(this);
     _dataZoneMet=new DataZoneProject(this);
     _dataZoneOrto=new DataZoneProject(this);
     _controlCnp=new ControlWorker(this);
+    _controlMet=new ControlWorker(this);
+    _controlOrto=new ControlWorker(this);
     QList <Proceso *> listaProcesoCnp;
     listaProcesoCnp<< new PocesoCnp(this,QString());
     _Wcnp=new Worker(this,listaProcesoCnp);
     _controlCnp->setWorker(_Wcnp);
+
+
     connect(_controlCnp,SIGNAL(rangoOperaciones(int,int)),_dialogoProgreso,SLOT(setCnpRange(int,int)));
     connect(_controlCnp,SIGNAL(actualizarPaso(int)),_dialogoProgreso,SLOT(actualizarBarraCnp(int)));
     connect(_controlCnp,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(tratarErrores(QString)));
     connect(_controlCnp,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setCnpTerminado(bool)));
+
+    connect(_controlMet,SIGNAL(rangoOperaciones(int,int)),_dialogoProgreso,SLOT(setMetRange(int,int)));
+    connect(_controlMet,SIGNAL(actualizarPaso(int)),_dialogoProgreso,SLOT(actualizarBarraMet(int)));
+    connect(_controlMet,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(tratarErrores(QString)));
+    connect(_controlMet,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setMetTerminado(bool)));
+
+    connect(_controlOrto,SIGNAL(rangoOperaciones(int,int)),_dialogoProgreso,SLOT(setOrtoRange(int,int)));
+    connect(_controlOrto,SIGNAL(actualizarPaso(int)),_dialogoProgreso,SLOT(actualizarBarraOrto(int)));
+    connect(_controlOrto,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(tratarErrores(QString)));
+    connect(_controlOrto,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setOrtoTerminado(bool)));
 }
 
 void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCreateCnps *_regCnp)
@@ -73,6 +89,35 @@ void LanzadorOperaciones::createListadoOperacionCnp()
         _listadoOperacionCnp.append(new OperacionCnp(this,qVa,_dataZoneCnp));
     }
 }
+
+void LanzadorOperaciones::createListadoOperacionMet()
+{
+    foreach (Operacion *ope,_listadoOperacionMet)
+    {
+        delete ope;
+    }
+    _listadoOperacionMet.clear();
+
+    foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
+    {
+        _listadoOperacionMet.append(new OperacionMet(this,qVa,_dataZoneMet));
+    }
+}
+
+void LanzadorOperaciones::createListadoOperacionOrto()
+{
+//    foreach (Operacion *ope,_listadoOperacionOrto)
+//    {
+//        delete ope;
+//    }
+//    _listadoOperacionOrto.clear();
+
+//    foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
+//    {
+//        _listadoOperacionOrto.append(new Oper(this,qVa,_dataZoneOrto));
+//    }
+}
+
 void LanzadorOperaciones::setCnpActivo(bool cnpActivo)
 {
     _cnpActivo=cnpActivo;

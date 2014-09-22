@@ -3,7 +3,8 @@
 #include <QList>
 #include <OperacionPcot/operacion.h>
 #include <OperacionPcot/worker.h>
-
+#include <OperacionPcot/workermet.h>
+#include <OperacionPcot/workermetcat.h>
 #include <QObject>
 
 class ControlWorker : public QObject
@@ -12,6 +13,8 @@ class ControlWorker : public QObject
 public:
     explicit ControlWorker(QObject *parent = 0);
     Worker * getWorker();
+    WorkerMet * getWorkerMet();
+    WorkerMetCat * getWorkerMetCat();
     QList <Operacion *> getListaOperaciones();
 
 signals:
@@ -20,7 +23,9 @@ signals:
     void enviarError(QString error);
     void operacionesTerminadas(bool end);
 public slots:
-    void setWorker(Worker *worker) ;
+    void setWorker(Worker *worker);
+    void setWorkerMet(WorkerMet *workerMet) ;
+    void setWorkerMetCat(WorkerMetCat *workerMetCat) ;
     void setListaOperaciones(QList <Operacion *> listaOperaciones);
     void start();
 private slots:
@@ -29,6 +34,8 @@ private slots:
     void errorOperacion(QString error, int pasos);
 private:
     Worker *_worker;
+    WorkerMet *_workerMet;
+    WorkerMetCat *_workerMetCat;
     QList <Operacion *> _listaOperaciones;
     int _contadorOperacion;
     int _contadorPasos;
