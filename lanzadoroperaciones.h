@@ -1,6 +1,9 @@
 #ifndef LANZADOROPERACIONES_H
 #define LANZADOROPERACIONES_H
 #include <QObject>
+#include <QJsonArray>
+#include <QJsonObject>
+#include <QJsonValue>
 #include <QFileInfo>
 #include <QProcess>
 #include <QMessageBox>

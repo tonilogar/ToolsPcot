@@ -19,27 +19,6 @@ void ControlWorker::setWorker(Worker *worker)
     connect(_worker,SIGNAL(workerLibre()),this,SLOT(siguienteOperacion()));
 }
 
-void ControlWorker::setWorkerMet(WorkerMet *workerMet)
-{
-    if (_workerMet)
-    {
-        this->disconnect(_workerMet);
-    }
-    _workerMet=workerMet;
-    connect(_workerMet,SIGNAL(workerLibre()),this,SLOT(siguienteOperacion()));
-}
-void ControlWorker::setWorkerMetCat(WorkerMetCat *workerMetCat)
-{
-    if (_workerMetCat)
-    {
-        this->disconnect(_workerMetCat);
-    }
-    _workerMetCat=workerMetCat;
-    connect(_workerMetCat,SIGNAL(workerLibre()),this,SLOT(siguienteOperacion()));
-}
-
-
-
 
 void ControlWorker::setListaOperaciones(QList <Operacion *> listaOperaciones)
 {

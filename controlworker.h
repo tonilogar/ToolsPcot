@@ -24,8 +24,6 @@ signals:
     void operacionesTerminadas(bool end);
 public slots:
     void setWorker(Worker *worker);
-    void setWorkerMet(WorkerMet *workerMet) ;
-    void setWorkerMetCat(WorkerMetCat *workerMetCat) ;
     void setListaOperaciones(QList <Operacion *> listaOperaciones);
     void start();
 private slots:
@@ -34,8 +32,6 @@ private slots:
     void errorOperacion(QString error, int pasos);
 private:
     Worker *_worker;
-    WorkerMet *_workerMet;
-    WorkerMetCat *_workerMetCat;
     QList <Operacion *> _listaOperaciones;
     int _contadorOperacion;
     int _contadorPasos;

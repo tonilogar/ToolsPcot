@@ -165,17 +165,36 @@ void LanzadorOperaciones::launch()
             _controlCnp->setListaOperaciones(_listadoOperacionCnp);
             _controlCnp->start();
         }
+        if (_metActivo)
+        {
+            _registroMet->buildDataZoneProject(_dataZoneMet);
+            borrarListadoOperacion(_listadoOperacionMet);
+            createListadoOperacionMet();
+            if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Catalunya)
+            {
+                QList <Proceso *> listadoProcesos;
+                QJsonArray qjsonEjecutables=_registroMet->getListaEjecutables();
+                QString rutaExtraction;
+                foreach (QJsonValue qjson, qjsonEjecutables)
+                {
+                    if (qjson.toObject().value("nombre").toString()=="exeExtraction");
+                    rutaExtraction=qjson.toObject().value("path").toString();
+                }
+//                listadoProcesos<<
+//                _WMet=new WorkerMetCat(this,)
+            }
+        }
         _dialogoProgreso->show();
     }
 }
 
 void LanzadorOperaciones::borrarListadoOperacion(QList <Operacion *> lista)
 {
-    foreach (Operacion *ope,_listadoOperacionCnp)
+    foreach (Operacion *ope,lista)
     {
         delete ope;
     }
-    _listadoOperacionCnp.clear();
+    lista.clear();
 }
 
 
