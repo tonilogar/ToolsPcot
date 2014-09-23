@@ -37,14 +37,6 @@ Worker* ControlWorker::getWorker()
 {
     return _worker;
 }
-WorkerMet * ControlWorker::getWorkerMet()
-{
-    return _workerMet;
-}
-WorkerMetCat * ControlWorker::getWorkerMetCat()
-{
-    return _workerMetCat;
-}
 QList <Operacion *> ControlWorker::getListaOperaciones()
 {
     return _listaOperaciones;

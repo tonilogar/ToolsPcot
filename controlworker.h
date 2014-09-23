@@ -13,8 +13,6 @@ class ControlWorker : public QObject
 public:
     explicit ControlWorker(QObject *parent = 0);
     Worker * getWorker();
-    WorkerMet * getWorkerMet();
-    WorkerMetCat * getWorkerMetCat();
     QList <Operacion *> getListaOperaciones();
 
 signals:

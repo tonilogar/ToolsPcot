@@ -1,4 +1,4 @@
-//    ToolsPcot
+ //    ToolsPcot
 //    Copyright (C) {2014}  {Antonio López García}
 //    tologar@gmail.com
 
@@ -169,19 +169,30 @@ void LanzadorOperaciones::launch()
         {
             _registroMet->buildDataZoneProject(_dataZoneMet);
             borrarListadoOperacion(_listadoOperacionMet);
-            createListadoOperacionMet();
+            qDebug()<< "empieza la operacion met";
+            qDebug()<< _dataZoneMet->getAmbitoOperacion() << "empieza la operacion metiiiiiiiii";
             if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Catalunya)
             {
-                QList <Proceso *> listadoProcesos;
-                QJsonArray qjsonEjecutables=_registroMet->getListaEjecutables();
-                QString rutaExtraction;
-                foreach (QJsonValue qjson, qjsonEjecutables)
-                {
-                    if (qjson.toObject().value("nombre").toString()=="exeExtraction");
-                    rutaExtraction=qjson.toObject().value("path").toString();
-                }
-//                listadoProcesos<<
-//                _WMet=new WorkerMetCat(this,)
+//                QList <Proceso *> listaProcesoMet;
+//                //QJsonArray qjsonEjecutables=_registroMet->getListaEjecutables();
+//                //QString rutaExtraction=_registroMet->getExeExtraction();
+////                foreach (QJsonValue qjson, qjsonEjecutables)
+////                {
+////                    if (qjson.toObject().value("nombre").toString()=="exeExtraction");
+////                    rutaExtraction=qjson.toObject().value("path").toString();
+////                }
+//                listaProcesoMet.append(new ProcesoExtraction(this,_registroMet->getExeExtraction()));
+//                listaProcesoMet.append(new ProcesoResize(this,_registroMet->getExeResize()));
+//                listaProcesoMet.append(new ProcesoGeoTrans(this,_registroMet->getExeImaOpeGeo()));
+//                listaProcesoMet.append(new ProcesoFootPrintMask(this,_registroMet->getExeFootPrintMask()));
+//                listaProcesoMet.append(new ProcesoCutFiles(this,_registroMet->getExeSubScene()));
+//                createListadoOperacionMet();
+//                _controlMet->setListaOperaciones(_listadoOperacionMet);
+//                _WMet=new Worker(this,listaProcesoMet);
+//                _controlMet->setWorker(_WMet);
+//                _controlMet->start();
+                qDebug()<< "empieza la operacion met";
+                qDebug()<< _dataZoneMet->getAmbitoOperacion() << "empieza la operacion met";
             }
         }
         _dialogoProgreso->show();
