@@ -240,11 +240,11 @@ void RegistroCreateMet::setFootprintMask(int fprintM)
 
 void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
 {
-    if (_ambitoProyecto=="Catalunya")
+    if (_ambitoProyecto.contains("Catalunya",Qt::CaseInsensitive))
     {
         dataZP->setAmbitoOperacion(DataZoneProject::Catalunya);
     }
-    else if(_ambitoProyecto=="Francia")
+    else if(_ambitoProyecto.contains("Francia",Qt::CaseInsensitive))
     {
         dataZP->setAmbitoOperacion(DataZoneProject::Francia);
     }
@@ -264,6 +264,19 @@ void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
     dataZP->setUtm(_utm);
 }
 
-
+QMap<QString, QString> RegistroCreateMet::getMapExe()
+{
+    qDebug()<< _listaEjecutables <<"_listaEjecutables";
+ QMap<QString, QString> qMapExe;
+ foreach (QJsonValue qJson, _listaEjecutables)
+ {
+     QString nombre=qJson.toObject().value("Nombre").toString();
+     QString valor=qJson.toObject().value("Path").toString();
+     qDebug()<< nombre<<"nombre_listaEjecutables";
+     qDebug()<< valor <<"valor_listaEjecutables";
+     qMapExe.insert(nombre,valor);
+ }
+ return qMapExe;
+}
 
 

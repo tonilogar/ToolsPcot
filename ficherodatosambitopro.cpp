@@ -114,6 +114,9 @@ QStandardItemModel*  FicheroDatosAmbitoPro::obtenerModelo()
   ambitCat.insert("Utm",QJsonValue(int(31)));
   ejeCat.insert("Nombre",QJsonValue(QString("exeExtraction")));
   ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCDTMOperations/exe/ICCADBDTMEXTRACTIONCONSOLEVERSION.exe")));
+  ejecutablesCat.append(ejeCat);  
+  ejeCat.insert("Nombre",QJsonValue(QString("exeResize")));
+  ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageResize.exe")));
   ejecutablesCat.append(ejeCat);
   ejeCat.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
   ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
@@ -188,6 +191,9 @@ QStandardItemModel*  FicheroDatosAmbitoPro::obtenerModelo()
   ambitCat.insert("Utm",QJsonValue(int(31)));
   ejeCat.insert("Nombre",QJsonValue(QString("exeExtraction")));
   ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCDTMOperations/exe/ICCADBDTMEXTRACTIONCONSOLEVERSION.exe")));
+  ejecutablesCat.append(ejeCat);
+  ejeCat.insert("Nombre",QJsonValue(QString("exeResize")));
+  ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageResize.exe")));
   ejecutablesCat.append(ejeCat);
   ejeCat.insert("Nombre",QJsonValue(QString("exeFootPrintMask")));
   ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageFootPrintMask.exe")));
