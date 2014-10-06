@@ -179,7 +179,6 @@ void LanzadorOperaciones::launch()
                 listaProcesoMet.append(new ProcesoGeoTrans(this,qMapEjecutables.value("exeImaOpeGeTrans")));
                 listaProcesoMet.append(new ProcesoFootPrintMask(this,qMapEjecutables.value("exeFootPrintMask")));
                 listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
-                qDebug()<< qMapEjecutables.value("exeExtraction") << "exeExtractionLanzadorOperaciones";
                 if(_WMet!=0)
                 {
                     delete _WMet;
@@ -190,6 +189,25 @@ void LanzadorOperaciones::launch()
                 _controlMet->setListaOperaciones(_listadoOperacionMet);
                 _controlMet->start();
 
+            }
+            if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Espanya)
+            {
+                QMap <QString, QString> qMapEjecutables;
+                qMapEjecutables=_registroMet->getMapExe();
+                QList <Proceso *> listaProcesoMet;
+                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
+                listaProcesoMet.append(new ProcesoResize(this,qMapEjecutables.value("exeResize")));
+                listaProcesoMet.append(new ProcesoFootPrintMask(this,qMapEjecutables.value("exeFootPrintMask")));
+                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
+                if(_WMet!=0)
+                {
+                    delete _WMet;
+                }
+                _WMet=new WorkerMet(this,listaProcesoMet);
+                _controlMet->setWorker(_WMet);
+                createListadoOperacionMet();
+                _controlMet->setListaOperaciones(_listadoOperacionMet);
+                _controlMet->start();
             }
         }
         _dialogoProgreso->show();
@@ -216,8 +234,8 @@ void LanzadorOperaciones::crearListaIdentificadores()
         ide=new IdentificadorCoordenadas(this);
         ide->setIdentificador(modelo->index(i,0).data().toString());
         ide->setXa(modelo->index(i,1).data().toDouble());
-        ide->setXb(modelo->index(i,2).data().toDouble());
-        ide->setYa(modelo->index(i,3).data().toDouble());
+        ide->setYa(modelo->index(i,2).data().toDouble());
+        ide->setXb(modelo->index(i,3).data().toDouble());
         ide->setYb(modelo->index(i,4).data().toDouble());
         _listaIdentificadores<<ide;
     }
