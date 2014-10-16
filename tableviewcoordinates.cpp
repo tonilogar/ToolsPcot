@@ -140,7 +140,6 @@ void TableViewCoordinates::chekingFileCoordinates()
                QString fileCoordinatesDef= lineQstringList.join(" ");
                lineQstringListDef << fileCoordinatesDef;
                controlCoordenadas=true;
-
               }
              }
          }
