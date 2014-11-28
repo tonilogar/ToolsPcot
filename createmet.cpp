@@ -289,7 +289,7 @@ void CreateMet::onCambioComboBoxAmbitoProyectoMet(int text)
     qDebug()<< path <<"pathitemData(valorAP,Qt::UserRole+5)";
 
     QString nombre = ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+5).toString();
-    punteroRegistroCreateMet->setAmbitoProyecto(nombre);
+    punteroRegistroCreateMet->setAmbitoOperacion(nombre);
     qDebug()<< nombre <<"nombreitemData(valorAP,Qt::UserRole+5)";
 
     QJsonArray listaExe=ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+4).toJsonArray();
@@ -418,9 +418,9 @@ void CreateMet::VigilarTamanyPixel(int tamanyoPixel)
 }
 void CreateMet::VigilarUtm(int utm)
 {
-    int utmMet;
-    utmMet=ui->comboBoxUtmMet->itemData(utm).toInt();
-    punteroRegistroCreateMet->setUtm(utmMet);
+    int coordinateS;
+    coordinateS=ui->comboBoxUtmMet->itemData(utm).toInt();
+    punteroRegistroCreateMet->setCoordinateSystem(coordinateS);
 }
 void CreateMet::VigilarTamanyoCorte(int tamanyoCorte)
 {

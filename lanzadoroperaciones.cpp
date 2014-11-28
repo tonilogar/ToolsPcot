@@ -183,7 +183,7 @@ void LanzadorOperaciones::launch()
                 {
                     delete _WMet;
                 }
-                _WMet=new WorkerMetCat(this,listaProcesoMet);
+                _WMet=new WorkerMet(this,listaProcesoMet);
                 _controlMet->setWorker(_WMet);
                 createListadoOperacionMet();
                 _controlMet->setListaOperaciones(_listadoOperacionMet);

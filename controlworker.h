@@ -4,7 +4,7 @@
 #include <OperacionPcot/operacion.h>
 #include <OperacionPcot/worker.h>
 #include <OperacionPcot/workermet.h>
-#include <OperacionPcot/workermetcat.h>
+#include <OperacionPcot/workerorto.h>
 #include <QObject>
 
 class ControlWorker : public QObject

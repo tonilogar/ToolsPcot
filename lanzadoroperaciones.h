@@ -33,7 +33,7 @@
 #include <OperacionPcot/operacionmet.h>
 #include <OperacionPcot/worker.h>
 #include <OperacionPcot/workermet.h>
-#include <OperacionPcot/workermetcat.h>
+#include <OperacionPcot/workerorto.h>
 #include <QFileInfo>
 #include <QFile>
 #include "controlworker.h"

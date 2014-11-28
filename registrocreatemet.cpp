@@ -20,9 +20,11 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
     QObject(parent)
 {
     _folderOut=QString();
-    _ambitoProyecto=QString();
+    //tengo que pasar el Qstring a un valor enum
+    _ambitoOperacion=QString();
     _tamanyoPixel;
-    _utm=-1;
+    //tengo que pasar el Qstring a un valor enum
+    _coordinateSystem=QString();
     _dtm=false;
     _tamanyoCorte=-1;
     _numeroCanales=-1;
@@ -40,15 +42,15 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
 
 }
 
-RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoProyecto,int tamanyoPixel,
-                                     int utm,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
+RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,int tamanyoPixel,
+                                     QString coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                                      QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables):QObject(parent)
 {
     _folderOut= folderOut;
-    _ambitoProyecto= ambitoProyecto;
+    _ambitoOperacion= ambitoOperacion;
     _tamanyoPixel= tamanyoPixel;
-    _utm= utm;
+    _coordinateSystem= coordinateSystem;
     _tamanyoCorte= tamanyoCorte;
     _numeroCanales= numeroCanales;
     _anchoPasada= anchoPasada;
@@ -69,17 +71,17 @@ QString RegistroCreateMet::getFolderOut()
 {
     return _folderOut;
 }
-QString RegistroCreateMet::getAmbitoProyecto()
+DataZoneProject::Ambito RegistroCreateMet::getAmbitoOperacion()
 {
-    return _ambitoProyecto;
+ return _ambitoOperacion;
 }
 int RegistroCreateMet::getTamanyPixel()
 {
     return _tamanyoPixel;
 }
-int RegistroCreateMet::getUtm()
+DataZoneProject::sistemaCoor RegistroCreateMet::getCoordinateSystem()
 {
-    return _utm;
+    return _coordinateSystem;
 }
 int RegistroCreateMet::getTamanyoCorte()
 {
@@ -145,20 +147,20 @@ void RegistroCreateMet::setFolderOut(QString folderOut)
     _folderOut=folderOut;
     qDebug()<< _folderOut << "_folderOut------------------------------";
 }
-void RegistroCreateMet::setAmbitoProyecto(QString ambitoProyecto)
+void RegistroCreateMet::setAmbitoOperacion(QString ambitoOperacion)
 {
-    _ambitoProyecto=ambitoProyecto;
-    qDebug()<< _ambitoProyecto << "_ambitoProyecto------------------------------";
+ _ambitoOperacion=ambitoOperacion;
+    qDebug()<< _ambitoOperacion << "_ambitoOperacion------------------------------";
 }
 void RegistroCreateMet::setTamanyPixel(int tamanyoPixel)
 {
     _tamanyoPixel=tamanyoPixel;
     qDebug()<< _tamanyoPixel << "_tamanyoPixel------------------------------";
 }
-void RegistroCreateMet::setUtm(int utm)
+void RegistroCreateMet::setCoordinateSystem(QString coordinateSystem)
 {
-    _utm=utm;
-    qDebug()<< _utm << "_utm------------------------------";
+    _coordinateSystem=coordinateSystem;
+    qDebug()<< _coordinateSystem << "_coordinateSystem------------------------------";
 }
 void RegistroCreateMet::setTamanyoCorte(int tamanyoCorte)
 {
@@ -183,7 +185,7 @@ void RegistroCreateMet::setOffsetPasada(int offsetPasada)
 void RegistroCreateMet::setPathImageMet(QString pathImageMet)
 {
     _pathImageMet=pathImageMet;
-    qDebug()<< _ambitoProyecto << "_pathImageMet------------------------------";
+    qDebug()<< _pathImageMet << "_pathImageMet------------------------------";
 }
 void RegistroCreateMet::setExeSubScene(QString exeSubScene)
 {
@@ -240,18 +242,7 @@ void RegistroCreateMet::setFootprintMask(int fprintM)
 
 void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
 {
-    if (_ambitoProyecto.contains("Catalunya",Qt::CaseInsensitive))
-    {
-        dataZP->setAmbitoOperacion(DataZoneProject::Catalunya);
-    }
-    else if(_ambitoProyecto.contains("Francia",Qt::CaseInsensitive))
-    {
-        dataZP->setAmbitoOperacion(DataZoneProject::Francia);
-    }
-    else
-    {
-        dataZP->setAmbitoOperacion(DataZoneProject::Espanya);
-    }
+    dataZP->setAmbitoOperacion(_ambitoOperacion);
     dataZP->setAnchoPasada(_anchoPasada);
     dataZP->setCutDtm(_dtm);
     dataZP->setFolderOut(_folderOut);
@@ -261,7 +252,7 @@ void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
     dataZP->setOffsetPasada(_offsetPasada);
     dataZP->setSizeCut(_tamanyoCorte);
     dataZP->setSizePixel(_tamanyoPixel);
-    dataZP->setUtm(_utm);
+    dataZP->setCoordinateSystem(_coordinateSystem);
 }
 
 QMap<QString, QString> RegistroCreateMet::getMapExe()

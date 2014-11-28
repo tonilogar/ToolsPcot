@@ -264,7 +264,7 @@ void MainWindow::on_pushButton_clicked()
   RegistroCreateMet *punteroRCMet;
   RegistroCreateOrto *punteroRCOrto;
   punteroRCMet=ui->page2Met->getObjetoRegistroCreateMet();
-  qDebug()<< punteroRCMet->getAmbitoProyecto() <<"getAmbitoProyectoMet";
+  qDebug()<< punteroRCMet->getAmbitoOperacion() <<"getAmbitoOperacion";
   qDebug()<< punteroRCMet->getAnchoPasada() <<"getAmbitoProyectoMet";
   qDebug()<< punteroRCMet->getCutDtm() <<"getAmbitoProyectoMet";
   qDebug()<< punteroRCMet->getFolderOut() <<"getAmbitoProyectoMetmetmet";

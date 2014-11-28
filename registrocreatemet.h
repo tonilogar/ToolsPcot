@@ -12,17 +12,29 @@ class RegistroCreateMet : public QObject
 {
     Q_OBJECT
 public:
-    explicit RegistroCreateMet(QObject *parent = 0);
-    RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoProyecto,int tamanyoPixel,
-                      int utm,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada, QString pathImageMet
-                      , QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask, QString exeExtraction,
-                      QString exeResize,QString utmDefecto, QJsonArray listaEjecutables);
+    enum Ambito{
+        Catalunya, Espanya, Francia, Otro
+    };
 
+    enum sistemaCoor{
+        Etrs89, Ed50, Ntf, vacio
+    };
+
+    explicit RegistroCreateMet(QObject *parent = 0);
+    RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,int tamanyoPixel,
+                      QString coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
+                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
+                      QString exeExtraction,QString exeResize,QString utmDefecto, QJsonArray listaEjecutables);
+
+
+
+     void setAmbitoOperacion(QString ambitoOperacion);
+     void setCoordinateSystem(QString coordinateSystem);
     //Getter
     QString getFolderOut();
-    QString getAmbitoProyecto();
+    DataZoneProject::Ambito getAmbitoOperacion();
+    DataZoneProject::sistemaCoor getCoordinateSystem();
     int getTamanyPixel();
-    int getUtm();
     int getTamanyoCorte();
     int getNumeroCanales();
     int getAnchoPasada();
@@ -42,9 +54,9 @@ public:
 public slots:
     //setters
     void setFolderOut(QString folderOut);
-    void setAmbitoProyecto(QString ambitoProyecto);
+    //void setAmbitoProyecto(QString ambitoProyecto);
     void setTamanyPixel(int tamanyoPixel);
-    void setUtm(int utm);
+    //void setUtm(int utm);
     void setTamanyoCorte(int tamanyoCorte);
     void setNumeroCanales(int numeroCanales);
     void setAnchoPasada(int anchoPasada);
@@ -66,15 +78,15 @@ private:
 
 
     QString _folderOut;
-    QString _ambitoProyecto;
-    int _tamanyoPixel;
-    int _utm;
+    double _tamanyoPixel;
+    bool _dtm;
     int _tamanyoCorte;
     int _numeroCanales;
+    bool _fprintM;
     int _anchoPasada;
     int _offsetPasada;
-    bool _dtm;
-    bool _fprintM;
+    sistemaCoor _coordinateSystem;
+    Ambito _ambitoOperacion;
     QString _pathImageMet;
     QString _exeSubScene;
     QString _exeImaOpeGeo;
