@@ -18,6 +18,22 @@ class CreateMet : public QWidget
     Q_OBJECT
 
 public:
+//    /*!
+//     * Crea e inicializa la variable enum Ambito.
+//     *
+//     */
+//    enum Ambito{
+//        Catalunya, Espanya, Francia, Zone
+//    };
+
+//    /*!
+//     * Crea e inicializa la variable enum sistemaCoor.
+//     *
+//     */
+//    enum sistemaCoor{
+//        Etrs89, Ed50, Ntf, Coordinates
+//    };
+
     explicit CreateMet(QWidget *parent = 0);
     ~CreateMet();
     RegistroCreateMet * getObjetoRegistroCreateMet();
@@ -40,7 +56,7 @@ public slots:
     void cambioestadoLineEdit(QString directorio);
 
     void VigilarTamanyPixel(int tamanyoPixel);
-    void VigilarUtm(int utm);
+    void VigilarCoorSysMet(int corSys);
     void VigilarTamanyoCorte(int tamanyoCorte);
     void VigilarNumeroCanales(int numeroCanales);
     void VigilarAnchoPasada(int anchoPasada);
@@ -56,7 +72,8 @@ private:
     TableViewCoordinates *tVCoordenadas;
     QString folderOut;
     void evaluarEstadoWidgetMet();
-
+    QString _ambitoOperacion;                          ///< Valor del ambito de la operación.
+    int _coordinateSystem;                    ///< Valor del sistema de coordenadas.
 };
 
 #endif // CREATEMET_H

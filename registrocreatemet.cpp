@@ -24,7 +24,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
     _ambitoOperacion=QString();
     _tamanyoPixel;
     //tengo que pasar el Qstring a un valor enum
-    _coordinateSystem=QString();
+    _coordinateSystem=-1;
     _dtm=false;
     _tamanyoCorte=-1;
     _numeroCanales=-1;
@@ -43,7 +43,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
 }
 
 RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,int tamanyoPixel,
-                                     QString coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
+                                     int coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                                      QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables):QObject(parent)
 {
@@ -71,7 +71,7 @@ QString RegistroCreateMet::getFolderOut()
 {
     return _folderOut;
 }
-DataZoneProject::Ambito RegistroCreateMet::getAmbitoOperacion()
+QString RegistroCreateMet::getAmbitoOperacion()
 {
  return _ambitoOperacion;
 }
@@ -79,7 +79,7 @@ int RegistroCreateMet::getTamanyPixel()
 {
     return _tamanyoPixel;
 }
-DataZoneProject::sistemaCoor RegistroCreateMet::getCoordinateSystem()
+int RegistroCreateMet::getCoordinateSystem()
 {
     return _coordinateSystem;
 }
@@ -157,7 +157,7 @@ void RegistroCreateMet::setTamanyPixel(int tamanyoPixel)
     _tamanyoPixel=tamanyoPixel;
     qDebug()<< _tamanyoPixel << "_tamanyoPixel------------------------------";
 }
-void RegistroCreateMet::setCoordinateSystem(QString coordinateSystem)
+void RegistroCreateMet::setCoordinateSystem(int coordinateSystem)
 {
     _coordinateSystem=coordinateSystem;
     qDebug()<< _coordinateSystem << "_coordinateSystem------------------------------";
@@ -242,7 +242,7 @@ void RegistroCreateMet::setFootprintMask(int fprintM)
 
 void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
 {
-    dataZP->setAmbitoOperacion(_ambitoOperacion);
+    //dataZP->setAmbitoOperacion(_ambitoOperacion);
     dataZP->setAnchoPasada(_anchoPasada);
     dataZP->setCutDtm(_dtm);
     dataZP->setFolderOut(_folderOut);
@@ -252,7 +252,7 @@ void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
     dataZP->setOffsetPasada(_offsetPasada);
     dataZP->setSizeCut(_tamanyoCorte);
     dataZP->setSizePixel(_tamanyoPixel);
-    dataZP->setCoordinateSystem(_coordinateSystem);
+    //dataZP->setCoordinateSystem(_coordinateSystem);
 }
 
 QMap<QString, QString> RegistroCreateMet::getMapExe()

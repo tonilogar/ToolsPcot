@@ -22,7 +22,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Extreure Met</string>
+        <string>Extract dtm</string>
        </property>
       </widget>
      </item>
@@ -59,7 +59,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Directori desti</string>
+        <string>Folder out</string>
        </property>
       </widget>
      </item>
@@ -92,7 +92,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Ambit de proyecte</string>
+        <string>Zone project</string>
        </property>
       </widget>
      </item>
@@ -113,7 +113,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Tamany pixel</string>
+        <string>Pixel size</string>
        </property>
       </widget>
      </item>
@@ -129,17 +129,17 @@
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
-      <widget class="QLabel" name="labelUtmMet">
+      <widget class="QLabel" name="labelCoordinateSystemMet">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>UTM</string>
+        <string>Coordinate system</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBoxUtmMet">
+      <widget class="QComboBox" name="comboBoxCoordinateSystemMet">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -186,7 +186,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Numero canals passada</string>
+        <string>Numbers chanels</string>
        </property>
       </widget>
      </item>
@@ -217,7 +217,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Amplada passada</string>
+        <string>width flight</string>
        </property>
       </widget>
      </item>
@@ -238,7 +238,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Offset passada</string>
+        <string>Offset flight</string>
        </property>
       </widget>
      </item>
