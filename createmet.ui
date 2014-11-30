@@ -13,8 +13,8 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QCheckBox" name="checkBoxExtraerMet">
@@ -51,7 +51,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="1" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="pushButtonFolderOutMet">
@@ -84,7 +84,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="2" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_8">
      <item>
       <widget class="QLabel" name="labelAmbitoProyectoMet">
@@ -105,7 +105,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="3" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_9">
      <item>
       <widget class="QLabel" name="labelTamanoPixelMet">
@@ -118,7 +118,7 @@
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBoxTamanoPixelMet">
+      <widget class="QDoubleSpinBox" name="comboBoxTamanoPixelMet">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -126,7 +126,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="4" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_10">
      <item>
       <widget class="QLabel" name="labelCoordinateSystemMet">
@@ -147,7 +147,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="5" column="0">
     <widget class="QCheckBox" name="checkBoxCortarMet">
      <property name="enabled">
       <bool>false</bool>
@@ -157,7 +157,7 @@
      </property>
     </widget>
    </item>
-   <item>
+   <item row="6" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_14">
      <item>
       <widget class="QLabel" name="labelCortarMet">
@@ -178,7 +178,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="7" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_15">
      <item>
       <widget class="QLabel" name="labelNumeroCanalesspasadaMet">
@@ -199,7 +199,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="8" column="0">
     <widget class="QCheckBox" name="checkBoxFootPrintMaskMet">
      <property name="enabled">
       <bool>false</bool>
@@ -209,7 +209,7 @@
      </property>
     </widget>
    </item>
-   <item>
+   <item row="9" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_12">
      <item>
       <widget class="QLabel" name="labelAnchoPasadaMet">
@@ -230,7 +230,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="10" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_13">
      <item>
       <widget class="QLabel" name="labelOffsetPasadaMet">
@@ -251,7 +251,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="11" column="0">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>

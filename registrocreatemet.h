@@ -54,7 +54,7 @@ public slots:
     //setters
     void setFolderOut(QString folderOut);
     void setAmbitoOperacion(QString ambitoProyecto);
-    void setTamanyPixel(int tamanyoPixel);
+    void setTamanyPixel(double tamanyoPixel);
     void setCoordinateSystem(int utm);
     void setTamanyoCorte(int tamanyoCorte);
     void setNumeroCanales(int numeroCanales);

@@ -55,7 +55,7 @@ public slots:
     void cambioestadoComboBox(int estado );
     void cambioestadoLineEdit(QString directorio);
 
-    void VigilarTamanyPixel(int tamanyoPixel);
+    void VigilarTamanyPixel(double tamanyoPixel);
     void VigilarCoorSysMet(int corSys);
     void VigilarTamanyoCorte(int tamanyoCorte);
     void VigilarNumeroCanales(int numeroCanales);

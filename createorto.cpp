@@ -92,7 +92,7 @@ CreateOrto::CreateOrto(QWidget *parent) :
     //Connectar el estado de los widgets a sus slots correspondientes para cambiar el valor
     connect(ui->lineEditFolderOutOrto,SIGNAL(textChanged(QString)),punteroRegistroCreateOrto,SLOT(setFolderOut(QString)));
     connect(ui->comboBoxAmbitoProyectoOrto,SIGNAL(currentIndexChanged(QString)),punteroRegistroCreateOrto,SLOT(setAmbitoProyecto(QString)));
-    connect(ui->comboBoxTamanoPixelOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarTamanyPixel(int)));
+    connect(ui->comboBoxTamanoPixelOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarTamanyPixel(double)));
     connect(ui->comboBoxUtmOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarUtm(int)));
     connect(ui->comboBoxAnchoPasadaOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarAnchoPasada(int)));
     connect(ui->comboBoxOffsetPasadaOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarOffsetPasada(int)));
@@ -306,11 +306,11 @@ void CreateOrto::cambioestadoLineEdit(QString directorio)
     evaluarEstadoWidgetOrto();
 }
 
-void CreateOrto::VigilarTamanyPixel(int tamanyoPixel)
+void CreateOrto::VigilarTamanyPixel(double tamanyoPixel)
 {
-    int tPixel;
-    tPixel=ui->comboBoxTamanoPixelOrto->itemData(tamanyoPixel).toInt();
-    punteroRegistroCreateOrto->setTamanyPixel(tPixel);
+//    double tPixel;
+//    tPixel=ui->comboBoxTamanoPixelOrto->setValue(tamanyoPixel).toDouble;
+//    punteroRegistroCreateOrto->setTamanyPixel(tPixel);
 }
 void CreateOrto::VigilarUtm(int utm)
 {

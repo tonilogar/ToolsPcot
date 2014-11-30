@@ -152,7 +152,7 @@ void RegistroCreateMet::setAmbitoOperacion(QString ambitoOperacion)
  _ambitoOperacion=ambitoOperacion;
     qDebug()<< _ambitoOperacion << "_ambitoOperacion------------------------------";
 }
-void RegistroCreateMet::setTamanyPixel(int tamanyoPixel)
+void RegistroCreateMet::setTamanyPixel(double tamanyoPixel)
 {
     _tamanyoPixel=tamanyoPixel;
     qDebug()<< _tamanyoPixel << "_tamanyoPixel------------------------------";

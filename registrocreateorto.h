@@ -26,7 +26,7 @@ public slots:
 //setters
     void setFolderOut(QString folderOut);
     void setAmbitoProyecto(QString ambitoProyecto);
-    void setTamanyPixel(int tamanyoPixel);
+    void setTamanyPixel(double tamanyoPixel);
     void setUtm(int utm);
     void setAnchoPasada(int anchoPasada);
     void setOffsetPasada(int offsetPasada);

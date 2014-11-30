@@ -96,7 +96,7 @@ void RegistroCreateOrto::setAmbitoProyecto(QString ambitoProyecto)
 {
 _ambitoProyecto=ambitoProyecto;
 }
-void RegistroCreateOrto::setTamanyPixel(int tamanyoPixel)
+void RegistroCreateOrto::setTamanyPixel(double tamanyoPixel)
 {
 _tamanyoPixel=tamanyoPixel;
 }
