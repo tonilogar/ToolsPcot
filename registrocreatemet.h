@@ -21,8 +21,8 @@ public:
     };
 
     explicit RegistroCreateMet(QObject *parent = 0);
-    RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,int tamanyoPixel,
-                      int coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
+    RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,double tamanyoPixel,
+                      QString coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                       QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                       QString exeExtraction,QString exeResize,QString utmDefecto, QJsonArray listaEjecutables);
 
@@ -32,8 +32,8 @@ public:
     //Getter
     QString getFolderOut();
     QString getAmbitoOperacion();
-    int getCoordinateSystem();
-    int getTamanyPixel();
+    QString getCoordinateSystem();
+    double getTamanyPixel();
     int getTamanyoCorte();
     int getNumeroCanales();
     int getAnchoPasada();
@@ -55,7 +55,7 @@ public slots:
     void setFolderOut(QString folderOut);
     void setAmbitoOperacion(QString ambitoProyecto);
     void setTamanyPixel(double tamanyoPixel);
-    void setCoordinateSystem(int utm);
+    void setCoordinateSystem(QString coordinateSystem);
     void setTamanyoCorte(int tamanyoCorte);
     void setNumeroCanales(int numeroCanales);
     void setAnchoPasada(int anchoPasada);
@@ -84,7 +84,7 @@ private:
     bool _fprintM;
     int _anchoPasada;
     int _offsetPasada;
-    int _coordinateSystem;
+    QString _coordinateSystem;
     QString _ambitoOperacion;
     QString _pathImageMet;
     QString _exeSubScene;

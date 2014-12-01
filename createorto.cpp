@@ -65,7 +65,7 @@ CreateOrto::CreateOrto(QWidget *parent) :
     ui->comboBoxUtmOrto->addItem("França Farmstar",-2);
 
     ui->comboBoxAnchoPasadaOrto->addItem("No seleccionado",-1);
-    for (int i=1; i< 20100; i++)
+    for (double i=1; i< 100; i+=0.10)
         ui->comboBoxAnchoPasadaOrto->addItem(QString::number(i)+" Mts",i);
 
     ui->comboBoxOffsetPasadaOrto->addItem("No seleccionado",-1);

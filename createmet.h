@@ -56,7 +56,7 @@ public slots:
     void cambioestadoLineEdit(QString directorio);
 
     void VigilarTamanyPixel(double tamanyoPixel);
-    void VigilarCoorSysMet(int corSys);
+    void VigilarCoorSysMet(QString corSys);
     void VigilarTamanyoCorte(int tamanyoCorte);
     void VigilarNumeroCanales(int numeroCanales);
     void VigilarAnchoPasada(int anchoPasada);

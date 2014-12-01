@@ -22,9 +22,9 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
     _folderOut=QString();
     //tengo que pasar el Qstring a un valor enum
     _ambitoOperacion=QString();
-    _tamanyoPixel;
+    _tamanyoPixel=-1;
     //tengo que pasar el Qstring a un valor enum
-    _coordinateSystem=-1;
+    _coordinateSystem=QString();
     _dtm=false;
     _tamanyoCorte=-1;
     _numeroCanales=-1;
@@ -42,8 +42,8 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
 
 }
 
-RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,int tamanyoPixel,
-                                     int coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
+RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,double tamanyoPixel,
+                                     QString coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                                      QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables):QObject(parent)
 {
@@ -75,11 +75,11 @@ QString RegistroCreateMet::getAmbitoOperacion()
 {
  return _ambitoOperacion;
 }
-int RegistroCreateMet::getTamanyPixel()
+double RegistroCreateMet::getTamanyPixel()
 {
     return _tamanyoPixel;
 }
-int RegistroCreateMet::getCoordinateSystem()
+QString  RegistroCreateMet::getCoordinateSystem()
 {
     return _coordinateSystem;
 }
@@ -157,7 +157,7 @@ void RegistroCreateMet::setTamanyPixel(double tamanyoPixel)
     _tamanyoPixel=tamanyoPixel;
     qDebug()<< _tamanyoPixel << "_tamanyoPixel------------------------------";
 }
-void RegistroCreateMet::setCoordinateSystem(int coordinateSystem)
+void RegistroCreateMet::setCoordinateSystem(QString coordinateSystem)
 {
     _coordinateSystem=coordinateSystem;
     qDebug()<< _coordinateSystem << "_coordinateSystem------------------------------";
