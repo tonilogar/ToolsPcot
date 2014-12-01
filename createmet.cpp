@@ -55,8 +55,6 @@ CreateMet::CreateMet(QWidget *parent) :
         }
     }
 
-        //ui->comboBoxTamanoPixelMet->setRange(0, 100);
-
     ui->comboBoxTamanoPixelMet->addItem("No seleccionado",-1);
     for (double i=0.00; i< 1001; i+=0.10){
         ui->comboBoxTamanoPixelMet->addItem(QString::number(i),i);
@@ -303,9 +301,9 @@ void CreateMet::onCambioComboBoxAmbitoProyectoMet(int text)
 
 
 
-    QString nombre = ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+5).toString();
+    DataZoneProject::Ambito nombre = (DataZoneProject::Ambito)ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+6).toInt();
     punteroRegistroCreateMet->setAmbitoOperacion(nombre);
-    qDebug()<< nombre <<"nombreitemData(valorAP,Qt::UserRole+5)";
+    qDebug()<< nombre <<"nombreitemData(valorAP,Qt::UserRole+6)";
 
     QJsonArray listaExe=ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+4).toJsonArray();
     punteroRegistroCreateMet->setListaEjecutables(listaExe);

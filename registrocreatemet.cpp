@@ -21,7 +21,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
 {
     _folderOut=QString();
     //tengo que pasar el Qstring a un valor enum
-    _ambitoOperacion=QString();
+    _ambitoOperacion=DataZoneProject::Zone;
     _tamanyoPixel=-1;
     //tengo que pasar el Qstring a un valor enum
     _coordinateSystem=DataZoneProject::Coordinates;
@@ -42,7 +42,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
 
 }
 
-RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,double tamanyoPixel,
+RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
                                      DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                                      QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables):QObject(parent)
@@ -71,7 +71,7 @@ QString RegistroCreateMet::getFolderOut()
 {
     return _folderOut;
 }
-QString RegistroCreateMet::getAmbitoOperacion()
+DataZoneProject::Ambito RegistroCreateMet::getAmbitoOperacion()
 {
  return _ambitoOperacion;
 }
@@ -147,7 +147,7 @@ void RegistroCreateMet::setFolderOut(QString folderOut)
     _folderOut=folderOut;
     qDebug()<< _folderOut << "_folderOut------------------------------";
 }
-void RegistroCreateMet::setAmbitoOperacion(QString ambitoOperacion)
+void RegistroCreateMet::setAmbitoOperacion(DataZoneProject::Ambito ambitoOperacion)
 {
  _ambitoOperacion=ambitoOperacion;
     qDebug()<< _ambitoOperacion << "_ambitoOperacion------------------------------";
