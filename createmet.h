@@ -6,6 +6,7 @@
 #include "tableviewcoordinates.h"
 #include "registrocreatemet.h"
 #include "ficherodatosambitopro.h"
+#include <OperacionPcot/datazoneproject.h>
 
 namespace Ui {
     class CreateMet;
@@ -18,21 +19,6 @@ class CreateMet : public QWidget
     Q_OBJECT
 
 public:
-//    /*!
-//     * Crea e inicializa la variable enum Ambito.
-//     *
-//     */
-//    enum Ambito{
-//        Catalunya, Espanya, Francia, Zone
-//    };
-
-//    /*!
-//     * Crea e inicializa la variable enum sistemaCoor.
-//     *
-//     */
-//    enum sistemaCoor{
-//        Etrs89, Ed50, Ntf, Coordinates
-//    };
 
     explicit CreateMet(QWidget *parent = 0);
     ~CreateMet();
@@ -55,8 +41,8 @@ public slots:
     void cambioestadoComboBox(int estado );
     void cambioestadoLineEdit(QString directorio);
 
-    void VigilarTamanyPixel(double tamanyoPixel);
-    void VigilarCoorSysMet(QString corSys);
+    void VigilarTamanyPixel(int tamanyoPixel);
+    void VigilarCoorSysMet(int corSys);
     void VigilarTamanyoCorte(int tamanyoCorte);
     void VigilarNumeroCanales(int numeroCanales);
     void VigilarAnchoPasada(int anchoPasada);

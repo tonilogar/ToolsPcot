@@ -64,10 +64,11 @@ CreateMet::CreateMet(QWidget *parent) :
 
 
 
-    ui->comboBoxCoordinateSystemMet->addItem("Coordinates",-1);
-    ui->comboBoxCoordinateSystemMet->addItem("Etrs89",30);
-    ui->comboBoxCoordinateSystemMet->addItem("Ed50",31);
-    ui->comboBoxCoordinateSystemMet->addItem("Ntf",-2);
+    ui->comboBoxCoordinateSystemMet->addItem("No seleccionado",3);
+    ui->comboBoxCoordinateSystemMet->addItem("Etrs89",0);
+    ui->comboBoxCoordinateSystemMet->addItem("Ed50",1);
+    ui->comboBoxCoordinateSystemMet->addItem("Ntf",2);
+
 
 
     ui->comboBoxTamanyoCortarMet->addItem("No seleccionado",-1);
@@ -112,8 +113,8 @@ CreateMet::CreateMet(QWidget *parent) :
     //Connectar el estado de los widgets a sus slots correspondientes para cambiar el valor
     connect(ui->lineEditFolderOutMet,SIGNAL(textChanged(QString)),punteroRegistroCreateMet,SLOT(setFolderOut(QString)));
     connect(ui->comboBoxAmbitoProyectoMet,SIGNAL(currentIndexChanged(QString)),punteroRegistroCreateMet,SLOT(setAmbitoOperacion(QString)));
-    connect(ui->comboBoxTamanoPixelMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarTamanyPixel(double)));
-    connect(ui->comboBoxCoordinateSystemMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarCoorSysMet(QString)));
+    connect(ui->comboBoxTamanoPixelMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarTamanyPixel(int)));
+    connect(ui->comboBoxCoordinateSystemMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarCoorSysMet(int)));
     connect(ui->comboBoxTamanyoCortarMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarTamanyoCorte(int)));
     connect(ui->comboBoxNumeroCanalesspasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarNumeroCanales(int)));
     connect(ui->comboBoxAnchoPasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(VigilarAnchoPasada(int)));
@@ -427,16 +428,16 @@ void CreateMet::cambioestadoLineEdit(QString directorio)
     evaluarEstadoWidgetMet();
 }
 
-void CreateMet::VigilarTamanyPixel(double tamanyoPixel)
+void CreateMet::VigilarTamanyPixel(int tamanyoPixel)
 {
     double tPixel;
-    tPixel=ui->comboBoxTamanoPixelMet->currentData(tamanyoPixel).toDouble();
+    tPixel=ui->comboBoxTamanoPixelMet->itemData(tamanyoPixel).toDouble();
     punteroRegistroCreateMet->setTamanyPixel(tPixel);
 }
-void CreateMet::VigilarCoorSysMet(QString corSys)
+void CreateMet::VigilarCoorSysMet(int corSys)
 {
-    QString coordinateS;
-    coordinateS=ui->comboBoxCoordinateSystemMet->currentText();
+    DataZoneProject::sistemaCoor coordinateS;
+    coordinateS=(DataZoneProject::sistemaCoor)ui->comboBoxCoordinateSystemMet->itemData(corSys).toInt();
     punteroRegistroCreateMet->setCoordinateSystem(coordinateS);
 }
 void CreateMet::VigilarTamanyoCorte(int tamanyoCorte)

@@ -24,7 +24,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
     _ambitoOperacion=QString();
     _tamanyoPixel=-1;
     //tengo que pasar el Qstring a un valor enum
-    _coordinateSystem=QString();
+    _coordinateSystem=DataZoneProject::Coordinates;
     _dtm=false;
     _tamanyoCorte=-1;
     _numeroCanales=-1;
@@ -43,14 +43,14 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
 }
 
 RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,QString ambitoOperacion,double tamanyoPixel,
-                                     QString coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
+                                     DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                                      QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables):QObject(parent)
 {
     _folderOut= folderOut;
     _ambitoOperacion= ambitoOperacion;
     _tamanyoPixel= tamanyoPixel;
-    _coordinateSystem= coordinateSystem;
+    _coordinateSystem=coordinateSystem;
     _tamanyoCorte= tamanyoCorte;
     _numeroCanales= numeroCanales;
     _anchoPasada= anchoPasada;
@@ -79,7 +79,7 @@ double RegistroCreateMet::getTamanyPixel()
 {
     return _tamanyoPixel;
 }
-QString  RegistroCreateMet::getCoordinateSystem()
+DataZoneProject::sistemaCoor RegistroCreateMet::getCoordinateSystem()
 {
     return _coordinateSystem;
 }
@@ -157,10 +157,9 @@ void RegistroCreateMet::setTamanyPixel(double tamanyoPixel)
     _tamanyoPixel=tamanyoPixel;
     qDebug()<< _tamanyoPixel << "_tamanyoPixel------------------------------";
 }
-void RegistroCreateMet::setCoordinateSystem(QString coordinateSystem)
+void RegistroCreateMet::setCoordinateSystem(DataZoneProject::sistemaCoor coordinateSystem)
 {
     _coordinateSystem=coordinateSystem;
-    qDebug()<< _coordinateSystem << "_coordinateSystem------------------------------";
 }
 void RegistroCreateMet::setTamanyoCorte(int tamanyoCorte)
 {
