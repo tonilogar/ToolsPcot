@@ -31,9 +31,11 @@
 #include <OperacionPcot/procesoextraction.h>
 #include <OperacionPcot/procesogeotrans.h>
 #include <OperacionPcot/operacionmet.h>
+#include <OperacionPcot/operacionorto.h>
 #include <OperacionPcot/worker.h>
 #include <OperacionPcot/workermet.h>
 #include <OperacionPcot/workerorto.h>
+#include <OperacionPcot/listaprocesos.h>
 #include <QFileInfo>
 #include <QFile>
 #include "controlworker.h"
@@ -77,6 +79,7 @@ private:
  QList <Operacion *> _listadoOperacionCnp;
  QList <Operacion *> _listadoOperacionMet;
  QList <Operacion *> _listadoOperacionOrto;
+ ListaProcesos *_listPro;
  Worker *_Wcnp;
  Worker *_WMet;
  Worker *_WOrto;
@@ -91,6 +94,7 @@ private:
  void createListadoOperacionMet();
  void createListadoOperacionOrto();
  void crearListaIdentificadores();
+ int contadorOperaciones;
 };
 
 #endif // LANZADOROPERACIONES_H

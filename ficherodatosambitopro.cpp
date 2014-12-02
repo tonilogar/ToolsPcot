@@ -132,7 +132,7 @@ QJsonObject FicheroDatosAmbitoPro::CreateJsonMetDefecto()
     ejeCat.insert("Nombre",QJsonValue(QString("exeSubScene")));
     ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageSubescenes.exe")));
     ejecutablesCat.append(ejeCat);
-    ejeCat.insert("Nombre",QJsonValue(QString("exeImaOpeGeTrans")));
+    ejeCat.insert("Nombre",QJsonValue(QString("exeGeoTransform")));
     ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperationsGeocorrection/exe/ICCImageGeoTransformation.exe")));
     ejecutablesCat.append(ejeCat);
     ambitCat.insert("Ejecutables",ejecutablesCat);
@@ -148,7 +148,7 @@ QJsonObject FicheroDatosAmbitoPro::CreateJsonMetDefecto()
     ejeEsp.insert("Nombre",QJsonValue(QString("exeSubScene")));
     ejeEsp.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageSubescenes.exe")));
     ejecutablesEsp.append(ejeEsp);
-    ejeEsp.insert("Nombre",QJsonValue(QString("exeImaOpeGeTrans")));
+    ejeEsp.insert("Nombre",QJsonValue(QString("exeGeoTransform")));
     ejeEsp.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperationsGeocorrection/exe/ICCImageGeoTransformation.exe")));
     ejecutablesEsp.append(ejeEsp);
     ambitEsp.insert("Ejecutables",ejecutablesEsp);
@@ -209,7 +209,7 @@ QJsonObject FicheroDatosAmbitoPro::CreateJsonOrtoDefecto()
     ejeCat.insert("Nombre",QJsonValue(QString("exeSubScene")));
     ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageSubescenes.exe")));
     ejecutablesCat.append(ejeCat);
-    ejeCat.insert("Nombre",QJsonValue(QString("exeImaOpeGeTrans")));
+    ejeCat.insert("Nombre",QJsonValue(QString("exeGeoTransform")));
     ejeCat.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperationsGeocorrection/exe/ICCImageGeoTransformation.exe")));
     ejecutablesCat.append(ejeCat);
     ambitCat.insert("Ejecutables",ejecutablesCat);
@@ -225,7 +225,7 @@ QJsonObject FicheroDatosAmbitoPro::CreateJsonOrtoDefecto()
     ejeEsp.insert("Nombre",QJsonValue(QString("exeSubScene")));
     ejeEsp.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperations/exe/ICCImageSubescenes.exe")));
     ejecutablesEsp.append(ejeEsp);
-    ejeEsp.insert("Nombre",QJsonValue(QString("exeImaOpeGeTrans")));
+    ejeEsp.insert("Nombre",QJsonValue(QString("exeGeoTransform")));
     ejeEsp.insert("Path",QJsonValue(QString("D:/antonio/trabajos/programacion/vEntorno/variables/empuries-produccio/ICCImageOperationsGeocorrection/exe/ICCImageGeoTransformation.exe")));
     ejecutablesEsp.append(ejeEsp);
     ambitEsp.insert("Ejecutables",ejecutablesEsp);
