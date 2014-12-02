@@ -56,7 +56,7 @@ CreateMet::CreateMet(QWidget *parent) :
     }
 
     ui->comboBoxTamanoPixelMet->addItem("No seleccionado",-1);
-    for (double i=0.00; i< 1001; i+=0.10){
+    for (double i=0.00; i< 101; i+=0.10){
         ui->comboBoxTamanoPixelMet->addItem(QString::number(i),i);
     }
 

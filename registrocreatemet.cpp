@@ -21,10 +21,10 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
 {
     _folderOut=QString();
     //tengo que pasar el Qstring a un valor enum
-    _ambitoOperacion=DataZoneProject::Zone;
+    _ambitoOperacion=DataZoneProject::Otro;
     _tamanyoPixel=-1;
     //tengo que pasar el Qstring a un valor enum
-    _coordinateSystem=DataZoneProject::Coordinates;
+    _coordinateSystem=DataZoneProject::vacio;
     _dtm=false;
     _tamanyoCorte=-1;
     _numeroCanales=-1;
@@ -241,7 +241,7 @@ void RegistroCreateMet::setFootprintMask(int fprintM)
 
 void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
 {
-    //dataZP->setAmbitoOperacion(_ambitoOperacion);
+    dataZP->setAmbitoOperacion(_ambitoOperacion);
     dataZP->setAnchoPasada(_anchoPasada);
     dataZP->setCutDtm(_dtm);
     dataZP->setFolderOut(_folderOut);
@@ -251,7 +251,7 @@ void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
     dataZP->setOffsetPasada(_offsetPasada);
     dataZP->setSizeCut(_tamanyoCorte);
     dataZP->setSizePixel(_tamanyoPixel);
-    //dataZP->setCoordinateSystem(_coordinateSystem);
+    dataZP->setCoordinateSystem(_coordinateSystem);
 }
 
 QMap<QString, QString> RegistroCreateMet::getMapExe()
