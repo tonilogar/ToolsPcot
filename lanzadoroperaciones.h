@@ -79,7 +79,6 @@ private:
  QList <Operacion *> _listadoOperacionCnp;
  QList <Operacion *> _listadoOperacionMet;
  QList <Operacion *> _listadoOperacionOrto;
- ListaProcesos *_listPro;
  Worker *_Wcnp;
  Worker *_WMet;
  Worker *_WOrto;

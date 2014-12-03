@@ -168,69 +168,56 @@ void LanzadorOperaciones::launch()
         }
         if (_metActivo)
         {
-         _registroMet->buildDataZoneProject(_dataZoneMet);
-         //borrarListadoOperacion(_listadoOperacionMet);
-         QMap <QString, QString> _qMapEjecutables;
-           if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Catalunya)
-           {
-               _qMapEjecutables.insert("exeExtraction","//nas03//geoproces//dfapplications//ICCDTMOperations//exe//ICCADBDTMEXTRACTIONCONSOLEVERSION.exe");
-               _qMapEjecutables.insert("exeSubScene","//nas03//geoproces//dfapplications//ICCImageOperations//exe//ICCImageSubescenes.exe");
-               _qMapEjecutables.insert("exeGeoTransform","//nas03//geoproces//DFApplications//ICCImageOperationsGeoCorrection//exe//ICCImageGeoTransformation.exe");
-               _qMapEjecutables.insert("exeFootPrintMask","//nas03//geoproces//dfapplications//ICCImageOperations//exe//ICCImageFootPrintMask.exe");
-               _qMapEjecutables.insert("exeResize","//empuries//PRODUCCIO//DFApplications//ICCImageOperations/exe//ICCImageresize.exe");
-           }
-           createListadoOperacionMet();
-           _listPro=new ListaProcesos(this,_qMapEjecutables);
-           QList <Proceso *> listaProcesosMet;
-           listaProcesosMet=_listPro->getListaProcesosMet(_dataZoneMet);
-           _WMet=new WorkerMet(this,listaProcesosMet);
-           connect(_WMet,SIGNAL(workerLibre()),this,SLOT(siguienteProceso()));
-           crearListaIdentificadores();
-           contadorOperaciones=0;
+            _registroMet->buildDataZoneProject(_dataZoneMet);
+            borrarListadoOperacion(_listadoOperacionMet);
+            if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Catalunya)
+            {
+                QMap <QString, QString> _qMapEjecutables;
+                _qMapEjecutables=_registroMet->getMapExe();
+                qDebug()<< _registroMet->getMapExe() << "_registroMet->getMapExe();";
+                _qMapEjecutables.insert("exeExtraction","//nas03//geoproces//dfapplications//ICCDTMOperations//exe//ICCADBDTMEXTRACTIONCONSOLEVERSION.exe");
+                _qMapEjecutables.insert("exeSubScene","//nas03//geoproces//dfapplications//ICCImageOperations//exe//ICCImageSubescenes.exe");
+                _qMapEjecutables.insert("exeGeoTransform","//nas03//geoproces//DFApplications//ICCImageOperationsGeoCorrection//exe//ICCImageGeoTransformation.exe");
+                _qMapEjecutables.insert("exeFootPrintMask","//nas03//geoproces//dfapplications//ICCImageOperations//exe//ICCImageFootPrintMask.exe");
+                _qMapEjecutables.insert("exeResize","//empuries//PRODUCCIO//DFApplications//ICCImageOperations/exe//ICCImageresize.exe");
 
-//            _registroMet->buildDataZoneProject(_dataZoneMet);
-//            borrarListadoOperacion(_listadoOperacionMet);
-//            if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Catalunya)
-//            {
-//                QMap <QString, QString> qMapEjecutables;
-//                qMapEjecutables=_registroMet->getMapExe();
-//                qDebug()<< _registroMet->getMapExe() << "_registroMet->getMapExe();";
-//                QList <Proceso *> listaProcesoMet;
-//                listaProcesoMet.append(new ProcesoExtraction(this,qMapEjecutables.value("exeExtraction")));
-//                listaProcesoMet.append(new ProcesoResize(this,qMapEjecutables.value("exeResize")));
-//                listaProcesoMet.append(new ProcesoGeoTrans(this,qMapEjecutables.value("exeImaOpeGeTrans")));
-//                listaProcesoMet.append(new ProcesoFootPrintMask(this,qMapEjecutables.value("exeFootPrintMask")));
-//                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
-//                if(_WMet!=0)
-//                {
-//                    delete _WMet;
-//                }
-//                _WMet=new WorkerMet(this,listaProcesoMet);
-//                _controlMet->setWorker(_WMet);
-//                createListadoOperacionMet();
-//                _controlMet->setListaOperaciones(_listadoOperacionMet);
-//                _controlMet->start();
+                ListaProcesos *_listPro;
+                _listPro=new ListaProcesos(this,_qMapEjecutables);
 
-//            }
-//            if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Espanya)
-//            {
-//                QMap <QString, QString> qMapEjecutables;
-//                qMapEjecutables=_registroMet->getMapExe();
-//                QList <Proceso *> listaProcesoMet;
-//                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
-//                listaProcesoMet.append(new ProcesoResize(this,qMapEjecutables.value("exeResize")));
-//                listaProcesoMet.append(new ProcesoFootPrintMask(this,qMapEjecutables.value("exeFootPrintMask")));
-//                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
-//                if(_WMet!=0)
-//                {
-//                    delete _WMet;
-//                }
-//                _WMet=new WorkerMet(this,listaProcesoMet);
-//                _controlMet->setWorker(_WMet);
-//                createListadoOperacionMet();
-//                _controlMet->setListaOperaciones(_listadoOperacionMet);
-//                _controlMet->start();
-//            }
+                QList <Proceso *> listaProcesoMet;
+                listaProcesoMet<< _listPro->getListaProcesosMet(_dataZoneMet);
+
+                _listPro=new ListaProcesos(this,_qMapEjecutables);
+                if(_WMet!=0)
+                {
+                    delete _WMet;
+                }
+                _WMet=new WorkerMet(this,listaProcesoMet);
+                _controlMet->setWorker(_WMet);
+                createListadoOperacionMet();
+                _controlMet->setListaOperaciones(_listadoOperacionMet);
+                _controlMet->start();
+
+            }
+            if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Espanya)
+            {
+                QMap <QString, QString> qMapEjecutables;
+                qMapEjecutables=_registroMet->getMapExe();
+                QList <Proceso *> listaProcesoMet;
+                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
+                listaProcesoMet.append(new ProcesoResize(this,qMapEjecutables.value("exeResize")));
+                listaProcesoMet.append(new ProcesoFootPrintMask(this,qMapEjecutables.value("exeFootPrintMask")));
+                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
+                if(_WMet!=0)
+                {
+                    delete _WMet;
+                }
+                _WMet=new WorkerMet(this,listaProcesoMet);
+                _controlMet->setWorker(_WMet);
+                createListadoOperacionMet();
+                _controlMet->setListaOperaciones(_listadoOperacionMet);
+                _controlMet->start();
+            }
         }
         _dialogoProgreso->show();
     }
