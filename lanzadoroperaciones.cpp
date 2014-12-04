@@ -156,7 +156,6 @@ void LanzadorOperaciones::launch()
             delete ide;
         }
         _listaIdentificadores.clear();
-
         crearListaIdentificadores();
         if(_cnpActivo)
         {
@@ -174,20 +173,10 @@ void LanzadorOperaciones::launch()
             {
                 QMap <QString, QString> _qMapEjecutables;
                 _qMapEjecutables=_registroMet->getMapExe();
-                qDebug()<< _registroMet->getMapExe() << "_registroMet->getMapExe();";
-                _qMapEjecutables.insert("exeExtraction","//nas03//geoproces//dfapplications//ICCDTMOperations//exe//ICCADBDTMEXTRACTIONCONSOLEVERSION.exe");
-                _qMapEjecutables.insert("exeSubScene","//nas03//geoproces//dfapplications//ICCImageOperations//exe//ICCImageSubescenes.exe");
-                _qMapEjecutables.insert("exeGeoTransform","//nas03//geoproces//DFApplications//ICCImageOperationsGeoCorrection//exe//ICCImageGeoTransformation.exe");
-                _qMapEjecutables.insert("exeFootPrintMask","//nas03//geoproces//dfapplications//ICCImageOperations//exe//ICCImageFootPrintMask.exe");
-                _qMapEjecutables.insert("exeResize","//empuries//PRODUCCIO//DFApplications//ICCImageOperations/exe//ICCImageresize.exe");
-
                 ListaProcesos *_listPro;
                 _listPro=new ListaProcesos(this,_qMapEjecutables);
-
                 QList <Proceso *> listaProcesoMet;
-                listaProcesoMet<< _listPro->getListaProcesosMet(_dataZoneMet);
-
-                _listPro=new ListaProcesos(this,_qMapEjecutables);
+                listaProcesoMet= _listPro->getListaProcesosMet(_dataZoneMet);
                 if(_WMet!=0)
                 {
                     delete _WMet;
@@ -197,7 +186,6 @@ void LanzadorOperaciones::launch()
                 createListadoOperacionMet();
                 _controlMet->setListaOperaciones(_listadoOperacionMet);
                 _controlMet->start();
-
             }
             if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Espanya)
             {
