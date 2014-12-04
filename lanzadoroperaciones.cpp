@@ -169,8 +169,7 @@ void LanzadorOperaciones::launch()
         {
             _registroMet->buildDataZoneProject(_dataZoneMet);
             borrarListadoOperacion(_listadoOperacionMet);
-            if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Catalunya)
-            {
+
                 QMap <QString, QString> _qMapEjecutables;
                 _qMapEjecutables=_registroMet->getMapExe();
                 ListaProcesos *_listPro;
@@ -186,26 +185,8 @@ void LanzadorOperaciones::launch()
                 createListadoOperacionMet();
                 _controlMet->setListaOperaciones(_listadoOperacionMet);
                 _controlMet->start();
-            }
-            if(_dataZoneMet->getAmbitoOperacion()==DataZoneProject::Espanya)
-            {
-                QMap <QString, QString> qMapEjecutables;
-                qMapEjecutables=_registroMet->getMapExe();
-                QList <Proceso *> listaProcesoMet;
-                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
-                listaProcesoMet.append(new ProcesoResize(this,qMapEjecutables.value("exeResize")));
-                listaProcesoMet.append(new ProcesoFootPrintMask(this,qMapEjecutables.value("exeFootPrintMask")));
-                listaProcesoMet.append(new ProcesoCutFiles(this,qMapEjecutables.value("exeSubScene")));
-                if(_WMet!=0)
-                {
-                    delete _WMet;
-                }
-                _WMet=new WorkerMet(this,listaProcesoMet);
-                _controlMet->setWorker(_WMet);
-                createListadoOperacionMet();
-                _controlMet->setListaOperaciones(_listadoOperacionMet);
-                _controlMet->start();
-            }
+
+
         }
         _dialogoProgreso->show();
     }
