@@ -18,7 +18,7 @@ public:
     RegistroCreateMet(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
                       DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                       QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
-                      QString exeExtraction,QString exeResize,QString utmDefecto, QJsonArray listaEjecutables);
+                      QString exeExtraction,QString exeResize,QString utmDefecto, QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
 
 
 
@@ -27,6 +27,7 @@ public:
     QString getFolderOut();
     DataZoneProject::Ambito getAmbitoOperacion();
     DataZoneProject::sistemaCoor getCoordinateSystem();
+    DataZoneProject::Sensor getSelectSensor();
     double getTamanyPixel();
     int getTamanyoCorte();
     int getNumeroCanales();
@@ -50,6 +51,7 @@ public slots:
     void setAmbitoOperacion(DataZoneProject::Ambito ambitoProyecto);
     void setTamanyPixel(double tamanyoPixel);
     void setCoordinateSystem(DataZoneProject::sistemaCoor coordinateSystem);
+    void setSelectSensor(DataZoneProject::Sensor selectSensor);
     void setTamanyoCorte(int tamanyoCorte);
     void setNumeroCanales(int numeroCanales);
     void setAnchoPasada(int anchoPasada);
@@ -80,6 +82,7 @@ private:
     int _offsetPasada;
     DataZoneProject::sistemaCoor _coordinateSystem;
     DataZoneProject::Ambito _ambitoOperacion;
+    DataZoneProject::Sensor _selectSensor;
     QString _pathImageMet;
     QString _exeSubScene;
     QString _exeImaOpeGeo;

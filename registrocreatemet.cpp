@@ -39,13 +39,15 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
     _exeResize=QString();
     _utmDefecto=QString();
     _listaEjecutables=QJsonArray();
+    _selectSensor=DataZoneProject::Vacio;
 
 }
 
 RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
                                      DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
-                                     QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables):QObject(parent)
+                                     QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables,
+                                     DataZoneProject::Sensor selectSensor):QObject(parent)
 {
     _folderOut= folderOut;
     _ambitoOperacion= ambitoOperacion;
@@ -62,6 +64,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneP
     _exeFootPrintMask=exeFootPrintMask;
     _utmDefecto=utmDefecto;
     _listaEjecutables=listaEjecutables;
+    _selectSensor=selectSensor;
 }
 
 
@@ -75,6 +78,11 @@ DataZoneProject::Ambito RegistroCreateMet::getAmbitoOperacion()
 {
  return _ambitoOperacion;
 }
+DataZoneProject::Sensor RegistroCreateMet::getSelectSensor()
+{
+ return _selectSensor;
+}
+
 double RegistroCreateMet::getTamanyPixel()
 {
     return _tamanyoPixel;
@@ -151,6 +159,11 @@ void RegistroCreateMet::setAmbitoOperacion(DataZoneProject::Ambito ambitoOperaci
 {
  _ambitoOperacion=ambitoOperacion;
     qDebug()<< _ambitoOperacion << "_ambitoOperacion------------------------------";
+}
+void RegistroCreateMet::setSelectSensor(DataZoneProject::Sensor selectSensor)
+{
+ _selectSensor=selectSensor;
+    qDebug()<< _selectSensor << "_selectSensor------------------------------";
 }
 void RegistroCreateMet::setTamanyPixel(double tamanyoPixel)
 {
@@ -252,6 +265,7 @@ void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
     dataZP->setSizeCut(_tamanyoCorte);
     dataZP->setSizePixel(_tamanyoPixel);
     dataZP->setCoordinateSystem(_coordinateSystem);
+    dataZP->setSelectSensor(_selectSensor);
 }
 
 QMap<QString, QString> RegistroCreateMet::getMapExe()

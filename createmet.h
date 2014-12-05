@@ -43,6 +43,7 @@ public slots:
 
     void VigilarTamanyPixel(int tamanyoPixel);
     void VigilarCoorSysMet(int corSys);
+    void VigilarSelectSensor(int sens);
     void VigilarTamanyoCorte(int tamanyoCorte);
     void VigilarNumeroCanales(int numeroCanales);
     void VigilarAnchoPasada(int anchoPasada);
