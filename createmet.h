@@ -61,6 +61,7 @@ private:
     void evaluarEstadoWidgetMet();
     QString _ambitoOperacion;                          ///< Valor del ambito de la operación.
     int _coordinateSystem;                    ///< Valor del sistema de coordenadas.
+    double tP;
 };
 
 #endif // CREATEMET_H

@@ -116,7 +116,7 @@ QJsonObject FicheroDatosAmbitoPro::CreateJsonMetDefecto()
     QJsonArray ejecutablesCat,ejecutablesEsp,ejecutablesFran;
 
     //Crear QJsonObject ambitCat
-    ambitCat.insert("Nombreambito",QJsonValue(QString("Catalunya lidar 1 metre")));
+    ambitCat.insert("Nombreambito",QJsonValue(QString("Catalunya lidar 2 metres")));
     ambitCat.insert("Path",QJsonValue(QString("//nas02/treballcompartit/dtmdbdad/BD_CAT2MLID_ET.RF")));
     ambitCat.insert("TamanyoPixel",QJsonValue(int(1)));
     ambitCat.insert("Utm",QJsonValue(int(31)));
@@ -193,7 +193,7 @@ QJsonObject FicheroDatosAmbitoPro::CreateJsonOrtoDefecto()
     QJsonArray ejecutablesCat,ejecutablesEsp,ejecutablesFran;
 
     //Crear QJsonObject ambitCat
-    ambitCat.insert("Nombreambito",QJsonValue(QString("Catalunya lidar 1 metre")));
+    ambitCat.insert("Nombreambito",QJsonValue(QString("Catalunya lidar 2 metres")));
     ambitCat.insert("Path",QJsonValue(QString("//nas02/treballcompartit/dtmdbdad/BD_CAT2MLID_ET.RF")));
     ambitCat.insert("TamanyoPixel",QJsonValue(int(1)));
     ambitCat.insert("Utm",QJsonValue(int(31)));

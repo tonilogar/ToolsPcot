@@ -148,27 +148,6 @@
     </layout>
    </item>
    <item row="5" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_11">
-     <item>
-      <widget class="QLabel" name="labelSelectSensor">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="text">
-        <string>Select sensor</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QComboBox" name="comboBoxSelectSensor">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </item>
-   <item row="6" column="0">
     <widget class="QCheckBox" name="checkBoxCortarMet">
      <property name="enabled">
       <bool>false</bool>
@@ -178,7 +157,7 @@
      </property>
     </widget>
    </item>
-   <item row="7" column="0">
+   <item row="6" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_14">
      <item>
       <widget class="QLabel" name="labelCortarMet">
@@ -199,7 +178,7 @@
      </item>
     </layout>
    </item>
-   <item row="8" column="0">
+   <item row="7" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_15">
      <item>
       <widget class="QLabel" name="labelNumeroCanalesspasadaMet">
@@ -220,7 +199,7 @@
      </item>
     </layout>
    </item>
-   <item row="9" column="0">
+   <item row="8" column="0">
     <widget class="QCheckBox" name="checkBoxFootPrintMaskMet">
      <property name="enabled">
       <bool>false</bool>
@@ -230,20 +209,20 @@
      </property>
     </widget>
    </item>
-   <item row="10" column="0">
-    <layout class="QHBoxLayout" name="horizontalLayout_12">
+   <item row="9" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_11">
      <item>
-      <widget class="QLabel" name="labelAnchoPasadaMet">
+      <widget class="QLabel" name="labelSelectSensor">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>width flight</string>
+        <string>Select sensor</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBoxAnchoPasadaMet">
+      <widget class="QComboBox" name="comboBoxSelectSensor">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -251,7 +230,7 @@
      </item>
     </layout>
    </item>
-   <item row="11" column="0">
+   <item row="10" column="0">
     <layout class="QHBoxLayout" name="horizontalLayout_13">
      <item>
       <widget class="QLabel" name="labelOffsetPasadaMet">
@@ -265,6 +244,27 @@
      </item>
      <item>
       <widget class="QComboBox" name="comboBoxOffsetPasadaMet">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="11" column="0">
+    <layout class="QHBoxLayout" name="horizontalLayout_12">
+     <item>
+      <widget class="QLabel" name="labelAnchoPasadaMet">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>width flight</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBoxAnchoPasadaMet">
        <property name="enabled">
         <bool>false</bool>
        </property>

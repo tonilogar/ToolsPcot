@@ -56,7 +56,7 @@ CreateMet::CreateMet(QWidget *parent) :
     }
 
     ui->comboBoxTamanoPixelMet->addItem("No seleccionado",-1);
-    for (double i=0.00; i< 20; i+=0.10){
+    for (double i=0.10; i< 20; i+=0.10){
         ui->comboBoxTamanoPixelMet->addItem(QString::number(i),i);
     }
 
@@ -83,11 +83,11 @@ CreateMet::CreateMet(QWidget *parent) :
         ui->comboBoxNumeroCanalesspasadaMet->addItem(QString::number(i),i);
 
     ui->comboBoxAnchoPasadaMet->addItem("No seleccionado",-1);
-    for (int i=1; i< 20100; i++)
+    for (int i=500; i< 20100; i+=10)
         ui->comboBoxAnchoPasadaMet->addItem(QString::number(i)+" Mts",i);
 
     ui->comboBoxOffsetPasadaMet->addItem("No seleccionado",-1);
-    for (int i=10; i< 3010; i+=10)
+    for (int i=10; i< 510; i+=10)
         ui->comboBoxOffsetPasadaMet->addItem(QString::number(i)+" Mts",i);
 
     connect(ui->comboBoxAmbitoProyectoMet,SIGNAL(currentIndexChanged(int)),this,SLOT(onCambioComboBoxAmbitoProyectoMet(int)));
@@ -163,11 +163,9 @@ void CreateMet::enableOrDisableExtraerMet(int chec)
         ui->comboBoxAmbitoProyectoMet->setDisabled(1);
         ui->comboBoxTamanoPixelMet->setDisabled(1);
         ui->comboBoxCoordinateSystemMet->setDisabled(1);
-        ui->comboBoxSelectSensor->setDisabled(1);
         ui->lineEditFolderOutMet->setDisabled(1);
         ui->pushButtonFolderOutMet->setDisabled(1);
         ui->labelAmbitoProyectoMet->setDisabled(1);
-        ui->labelSelectSensor->setDisabled(1);
         ui->labelCoordinateSystemMet->setDisabled(1);
         ui->labelTamanoPixelMet->setDisabled(1);
         qDebug()<< "deseleccionado";
@@ -179,12 +177,10 @@ void CreateMet::enableOrDisableExtraerMet(int chec)
         ui->comboBoxAmbitoProyectoMet->setEnabled(1);
         ui->comboBoxTamanoPixelMet->setEnabled(1);
         ui->comboBoxCoordinateSystemMet->setEnabled(1);
-        ui->comboBoxSelectSensor->setEnabled(1);
         ui->lineEditFolderOutMet->setEnabled(1);
         ui->pushButtonFolderOutMet->setEnabled(1);
         ui->labelAmbitoProyectoMet->setEnabled(1);
         ui->labelCoordinateSystemMet->setEnabled(1);
-        ui->labelSelectSensor->setEnabled(1);
         ui->labelTamanoPixelMet->setEnabled(1);
         qDebug()<< "seleccionado";
     }
@@ -218,17 +214,21 @@ void CreateMet::setPunterotVCoordenadas(TableViewCoordinates *p)
 void CreateMet::calcularOffsetPasada(int offsetPasada)
 {
     int _numberPixelsSensor=0;
-    if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Casi)
-        _numberPixelsSensor=550;
-    else if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Tasi)
-        _numberPixelsSensor=600;
-    else if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa)
-        _numberPixelsSensor=1024;
-    else
-        _numberPixelsSensor=512;
-    double swath=punteroRegistroCreateMet->getTamanyPixel()*_numberPixelsSensor*1.5;
+        if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Casi)
+            _numberPixelsSensor=550;
+        else if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Tasi)
+            _numberPixelsSensor=600;
+        else if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa)
+            _numberPixelsSensor=1024;
+        else
+            _numberPixelsSensor=512;
+        double swath=punteroRegistroCreateMet->getTamanyPixel()*_numberPixelsSensor*1.5;
 
-    ui->comboBoxAnchoPasadaMet->setCurrentIndex(swath);
+        ui->comboBoxAnchoPasadaMet->setCurrentIndex(swath);
+//Codigo anterior
+//        qDebug() << offsetPasada << "ofsetPasada";
+
+//        ui->comboBoxAnchoPasadaMet->setCurrentIndex((offsetPasada*800));
 }
 void CreateMet::enableOrDisableFootPrintMaskMet(int chec)
 {
@@ -236,6 +236,8 @@ void CreateMet::enableOrDisableFootPrintMaskMet(int chec)
     {
         ui->comboBoxAnchoPasadaMet->setDisabled(1);
         ui->comboBoxOffsetPasadaMet->setDisabled(1);
+        ui->comboBoxSelectSensor->setDisabled(1);
+        ui->labelSelectSensor->setDisabled(1);
         ui->labelAnchoPasadaMet->setDisabled(1);
         ui->labelOffsetPasadaMet->setDisabled(1);
         qDebug()<< "deseleccionado";
@@ -244,6 +246,8 @@ void CreateMet::enableOrDisableFootPrintMaskMet(int chec)
     {
         ui->comboBoxAnchoPasadaMet->setDisabled(0);
         ui->comboBoxOffsetPasadaMet->setDisabled(0);
+        ui->comboBoxSelectSensor->setDisabled(0);
+        ui->labelSelectSensor->setDisabled(0);
         ui->labelAnchoPasadaMet->setDisabled(0);
         ui->labelOffsetPasadaMet->setDisabled(0);
         qDebug()<< "seleccionado";
@@ -342,10 +346,10 @@ void CreateMet::on_pushButtonDeleteDatesMet_clicked()
     ui->comboBoxAnchoPasadaMet->setCurrentIndex(0);
     ui->comboBoxNumeroCanalesspasadaMet->setCurrentIndex(0);
     ui->comboBoxOffsetPasadaMet->setCurrentIndex(0);
+    ui->comboBoxSelectSensor->setCurrentIndex(0);
     ui->comboBoxTamanoPixelMet->setCurrentIndex(0);
     ui->comboBoxTamanyoCortarMet->setCurrentIndex(0);
     ui->comboBoxCoordinateSystemMet->setCurrentIndex(0);
-    ui->comboBoxSelectSensor->setCurrentIndex(0);
 }
 
 //Codigo nuevo////////////
@@ -363,8 +367,7 @@ void CreateMet::evaluarEstadoWidgetMet()
     if(!ui->checkBoxCortarMet->isChecked() && !ui->checkBoxFootPrintMaskMet->isChecked())
     {
         if(!ui->lineEditFolderOutMet->text().isEmpty() && ui->comboBoxAmbitoProyectoMet->currentIndex()!=0
-                && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxCoordinateSystemMet->currentIndex()!=0
-                && ui->comboBoxSelectSensor->currentIndex()!=0)
+                && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxCoordinateSystemMet->currentIndex()!=0)
         {
             qDebug() <<  "Icono 1";
             emit cambioEstadoCorreccionMet(1);
@@ -382,8 +385,7 @@ void CreateMet::evaluarEstadoWidgetMet()
         //Si todos los datos de checkBoxExtraerMet y checkBoxCortarMet son correctos
         if(!ui->lineEditFolderOutMet->text().isEmpty() && ui->comboBoxAmbitoProyectoMet->currentIndex()!=0
                 && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxCoordinateSystemMet->currentIndex()!=0
-                && ui->comboBoxSelectSensor->currentIndex()!=0 && ui->comboBoxTamanyoCortarMet->currentIndex()!=0 &&
-                ui->comboBoxNumeroCanalesspasadaMet->currentIndex()!=0 )
+                && ui->comboBoxTamanyoCortarMet->currentIndex()!=0 && ui->comboBoxNumeroCanalesspasadaMet->currentIndex()!=0 )
         {
             qDebug() <<  "Icono 1";
             emit cambioEstadoCorreccionMet(1);
@@ -402,7 +404,8 @@ void CreateMet::evaluarEstadoWidgetMet()
         //Si todos los datos de checkBoxExtraerMet y checkBoxFootPrintMask son correctos
         if(!ui->lineEditFolderOutMet->text().isEmpty() && ui->comboBoxAmbitoProyectoMet->currentIndex()!=0
                 && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxCoordinateSystemMet->currentIndex()!=0
-                && ui->comboBoxAnchoPasadaMet->currentIndex()!=0 && ui->comboBoxOffsetPasadaMet->currentIndex()!=0 )
+                && ui->comboBoxAnchoPasadaMet->currentIndex()!=0 && ui->comboBoxOffsetPasadaMet->currentIndex()!=0
+                && ui->comboBoxSelectSensor->currentIndex()!=0)
         {
             qDebug() <<  "Icono 1";
             emit cambioEstadoCorreccionMet(1);
@@ -420,7 +423,8 @@ void CreateMet::evaluarEstadoWidgetMet()
     if(!ui->lineEditFolderOutMet->text().isEmpty() && ui->comboBoxAmbitoProyectoMet->currentIndex()!=0
             && ui->comboBoxTamanoPixelMet->currentIndex()!=0 && ui->comboBoxCoordinateSystemMet->currentIndex()!=0
             && ui->comboBoxAnchoPasadaMet->currentIndex()!=0 && ui->comboBoxOffsetPasadaMet->currentIndex()!=0
-            && ui->comboBoxTamanyoCortarMet->currentIndex()!=0 && ui->comboBoxNumeroCanalesspasadaMet->currentIndex()!=0)
+            && ui->comboBoxTamanyoCortarMet->currentIndex()!=0 && ui->comboBoxNumeroCanalesspasadaMet->currentIndex()!=0
+            && ui->comboBoxSelectSensor->currentIndex()!=0)
     {
         qDebug() <<  "Icono 1";
         emit cambioEstadoCorreccionMet(1);
@@ -456,6 +460,8 @@ void CreateMet::VigilarTamanyPixel(int tamanyoPixel)
     double tPixel;
     tPixel=ui->comboBoxTamanoPixelMet->itemData(tamanyoPixel).toDouble();
     punteroRegistroCreateMet->setTamanyPixel(tPixel);
+    tP=tPixel;
+
 }
 void CreateMet::VigilarCoorSysMet(int corSys)
 {
