@@ -83,8 +83,8 @@ CreateMet::CreateMet(QWidget *parent) :
         ui->comboBoxNumeroCanalesspasadaMet->addItem(QString::number(i),i);
 
     ui->comboBoxAnchoPasadaMet->addItem("No seleccionado",-1);
-    for (int i=500; i< 20100; i+=10)
-        ui->comboBoxAnchoPasadaMet->addItem(QString::number(i)+" Mts",i);
+    for (int i=10; i< 20100; i++)
+        ui->comboBoxAnchoPasadaMet->addItem(QString::number(i)+" Mts");
 
     ui->comboBoxOffsetPasadaMet->addItem("No seleccionado",-1);
     for (int i=10; i< 510; i+=10)
@@ -214,21 +214,28 @@ void CreateMet::setPunterotVCoordenadas(TableViewCoordinates *p)
 void CreateMet::calcularOffsetPasada(int offsetPasada)
 {
     int _numberPixelsSensor=0;
-        if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Casi)
+    if(ui->comboBoxSelectSensor->currentText()=="Casi")
             _numberPixelsSensor=550;
-        else if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Tasi)
+        if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Tasi)
             _numberPixelsSensor=600;
-        else if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa)
+        if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa)
             _numberPixelsSensor=1024;
-        else
+        if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa_BE)
             _numberPixelsSensor=512;
-        double swath=punteroRegistroCreateMet->getTamanyPixel()*_numberPixelsSensor*1.5;
 
-        ui->comboBoxAnchoPasadaMet->setCurrentIndex(swath);
-//Codigo anterior
-//        qDebug() << offsetPasada << "ofsetPasada";
 
-//        ui->comboBoxAnchoPasadaMet->setCurrentIndex((offsetPasada*800));
+        QString textoTamanyPixel=ui->comboBoxTamanoPixelMet->currentText();
+        double doubleTamanyPixel=textoTamanyPixel.toDouble();
+        double anchoPasada;
+        anchoPasada=doubleTamanyPixel*_numberPixelsSensor*1.5;
+        int anchoPasadaInt=anchoPasada*1;
+        qDebug()<< punteroRegistroCreateMet->getSelectSensor() <<"punteroRegistroCreateMettttttttttt";
+        qDebug()<<  anchoPasada <<  " anchoPasada";
+        qDebug()<<  _numberPixelsSensor<<  " _numberPixelsSensor";
+        qDebug()<< textoTamanyPixel <<  "text";
+        qDebug()<< doubleTamanyPixel <<  "doubleTamanyPixel";
+        qDebug()<< anchoPasadaInt <<  "anchoPasadaInt";
+        ui->comboBoxAnchoPasadaMet->setCurrentText(QString::number(anchoPasadaInt)+" Mts");
 }
 void CreateMet::enableOrDisableFootPrintMaskMet(int chec)
 {
