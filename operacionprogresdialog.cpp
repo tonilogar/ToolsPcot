@@ -52,6 +52,7 @@ operacionProgresdialog::operacionProgresdialog(QWidget *parent) :
     connect(ui->pushButtonClose,SIGNAL(clicked()),this,SLOT(close()));
     resize(this->width(),20);
     setWindowFlags(Qt::WindowTitleHint);
+    _WMet=0;
 }
 
 operacionProgresdialog::~operacionProgresdialog()
@@ -218,7 +219,7 @@ void operacionProgresdialog::on_pushButtonCancelMet_clicked()
 {
     ui->progressBarMet->setVisible(false);
     ui->labelCancelMet->setVisible(true);
-    ui->labelCancelMet->setText("<font color='red'>Operacion Cancelada</font>");   
+    ui->labelCancelMet->setText("<font color='red'>Operacion Cancelada</font>");
 }
 void operacionProgresdialog::on_pushButtonCancelOrto_clicked()
 {

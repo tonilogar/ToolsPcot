@@ -2,7 +2,9 @@
 #define OPERACIONPROGRESDIALOG_H
 #include <QCloseEvent>
 #include <QDialog>
-
+#include <OperacionPcot/worker.h>
+#include <OperacionPcot/workermet.h>
+#include <OperacionPcot/workerorto.h>
 namespace Ui {
 class operacionProgresdialog;
 }
@@ -51,7 +53,6 @@ private:
     bool metTerminado;
     bool ortoTerminado;
     bool cnpTerminado;
-
 protected:
     void closeEvent(QCloseEvent *e);
 private slots:
