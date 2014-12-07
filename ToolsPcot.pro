@@ -39,13 +39,13 @@ SOURCES += main.cpp\
     dialoghelpfilecoordinates.cpp \
     ficherodatosambitopro.cpp \
     debugqprocess.cpp \
-    operacionprogresdialog.cpp \
     ometdatosejecucion.cpp \
     dialogopreferencias.cpp \
     combinecnp.cpp \
     correction.cpp \
     diferences.cpp \
-    controlworker.cpp
+    controlworker.cpp \
+    dialogprogresoope.cpp
 
 HEADERS  += mainwindow.h \
     tableviewcoordinates.h \
@@ -72,13 +72,13 @@ HEADERS  += mainwindow.h \
     dialoghelpfilecoordinates.h \
     ficherodatosambitopro.h \
     debugqprocess.h \
-    operacionprogresdialog.h \
     ometdatosejecucion.h \
     dialogopreferencias.h \
     combinecnp.h \
     correction.h \
     diferences.h \
-    controlworker.h
+    controlworker.h \
+    dialogprogresoope.h
 
 FORMS    += mainwindow.ui \
     tableviewcoordinates.ui \
@@ -91,11 +91,11 @@ FORMS    += mainwindow.ui \
     ficherosraw.ui \
     tableviewrawtasi.ui \
     dialoghelpfilecoordinates.ui \
-    operacionprogresdialog.ui \
     dialogopreferencias.ui \
     combinecnp.ui \
     correction.ui \
-    diferences.ui
+    diferences.ui \
+    dialogprogresoope.ui
 
 RESOURCES += \
     recursos.qrc

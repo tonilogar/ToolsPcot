@@ -24,7 +24,7 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _registroMet=_regMet;
     _registroOrto=_regOrto;
     _tableCoordinates=_tableCoor;
-    _dialogoProgreso=new operacionProgresdialog();
+    _dialogoProgreso=new DialogProgresoOpe();
     _cnpActivo=false;
     _metActivo=false;
     _ortoActivo=false;
@@ -36,27 +36,10 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _dataZoneOrto=new DataZoneProject(this);
     _controlCnp=new ControlWorker(this);
     _controlMet=new ControlWorker(this);
-    _controlOrto=new ControlWorker(this);
-    QList <Proceso *> listaProcesoCnp;
-    listaProcesoCnp<< new PocesoCnp(this,QString());
-    _Wcnp=new Worker(this,listaProcesoCnp);
-    _controlCnp->setWorker(_Wcnp);
-
-
-    connect(_controlCnp,SIGNAL(rangoOperaciones(int,int)),_dialogoProgreso,SLOT(setCnpRange(int,int)));
-    connect(_controlCnp,SIGNAL(actualizarPaso(int)),_dialogoProgreso,SLOT(actualizarBarraCnp(int)));
-    connect(_controlCnp,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(tratarErrores(QString)));
-    connect(_controlCnp,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setCnpTerminado(bool)));
-
-    connect(_controlMet,SIGNAL(rangoOperaciones(int,int)),_dialogoProgreso,SLOT(setMetRange(int,int)));
-    connect(_controlMet,SIGNAL(actualizarPaso(int)),_dialogoProgreso,SLOT(actualizarBarraMet(int)));
-    connect(_controlMet,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(tratarErrores(QString)));
-    connect(_controlMet,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setMetTerminado(bool)));
-
-    connect(_controlOrto,SIGNAL(rangoOperaciones(int,int)),_dialogoProgreso,SLOT(setOrtoRange(int,int)));
-    connect(_controlOrto,SIGNAL(actualizarPaso(int)),_dialogoProgreso,SLOT(actualizarBarraOrto(int)));
-    connect(_controlOrto,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(tratarErrores(QString)));
-    connect(_controlOrto,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setOrtoTerminado(bool)));
+    _controlOrto=new ControlWorker(this);    
+   _dialogoProgreso->conectToControlCnp(_controlCnp);
+   _dialogoProgreso->conectToControlMet(_controlMet);
+   _dialogoProgreso->conectToControlOrto(_controlOrto);
 }
 
 void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCreateCnps *_regCnp)
@@ -159,6 +142,13 @@ void LanzadorOperaciones::launch()
         crearListaIdentificadores();
         if(_cnpActivo)
         {
+            QList <Proceso *> p;
+            p<< new PocesoCnp(this,QString());
+            if(_Wcnp)
+            delete _Wcnp;
+            _Wcnp=new Worker(this,p);
+            _controlCnp->setWorker(_Wcnp);
+
             _registroCnp->buildDataZoneProject(_dataZoneCnp);
             borrarListadoOperacion(_listadoOperacionCnp);
             createListadoOperacionCnp();
@@ -185,8 +175,6 @@ void LanzadorOperaciones::launch()
                 createListadoOperacionMet();
                 _controlMet->setListaOperaciones(_listadoOperacionMet);
                 _controlMet->start();
-
-
         }
         _dialogoProgreso->show();
     }
@@ -200,8 +188,6 @@ void LanzadorOperaciones::borrarListadoOperacion(QList <Operacion *> lista)
     }
     lista.clear();
 }
-
-
 void LanzadorOperaciones::crearListaIdentificadores()
 {
     IdentificadorCoordenadas *ide=0;

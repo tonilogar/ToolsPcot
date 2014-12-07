@@ -17,6 +17,7 @@ void ControlWorker::setWorker(Worker *worker)
     }
     _worker=worker;
     connect(_worker,SIGNAL(workerLibre()),this,SLOT(siguienteOperacion()));
+    emit nuevoWorker(_worker);
 }
 
 

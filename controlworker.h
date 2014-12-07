@@ -20,6 +20,7 @@ signals:
     void actualizarPaso(int paso);
     void enviarError(QString error);
     void operacionesTerminadas(bool end);
+    void nuevoWorker(Worker *w);
 public slots:
     void setWorker(Worker *worker);
     void setListaOperaciones(QList <Operacion *> listaOperaciones);

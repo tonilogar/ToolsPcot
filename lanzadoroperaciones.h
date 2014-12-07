@@ -16,7 +16,7 @@
 #include"debugqprocess.h"
 #include <QProgressDialog>
 #include <QTextStream>
-#include"operacionprogresdialog.h"
+#include"dialogprogresoope.h"
 #include <QApplication>
 #include <OperacionPcot/datazoneproject.h>
 #include <OperacionPcot/identificadorcoordenadas.h>
@@ -68,7 +68,7 @@ private:
  RegistroCreateMet  *_registroMet;
  RegistroCreateOrto *_registroOrto;
  TableViewCoordinates *_tableCoordinates;
- operacionProgresdialog *_dialogoProgreso;
+ DialogProgresoOpe *_dialogoProgreso;
  DataZoneProject *_dataZoneCnp;
  DataZoneProject *_dataZoneMet;
  DataZoneProject *_dataZoneOrto;
