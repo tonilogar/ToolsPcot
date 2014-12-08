@@ -17,6 +17,15 @@ public:
     void conectToControlCnp(ControlWorker *cWorker);
     void conectToControlMet(ControlWorker *cWorker);
     void conectToControlOrto(ControlWorker *cWorker);
+    void visibleCnp(bool b);
+    void visibleMet(bool b);
+    void visibleOrto(bool b);
+    void visibleClose(bool b);
+    void closeDisableEnable();
+    void cnpEnd();
+    void metEnd();
+    void ortoEnd();
+
 
 private slots:
     void nuevoWorkerCnp(Worker *w);
@@ -25,10 +34,17 @@ private slots:
     void errorCnp(QString error);
     void errorMet(QString error);
     void errorOrto(QString error);
-
-
+    void disableCancelCnp();
+    void disableCancelMet();
+    void disableCancelOrto();
+    void setCnpEnd();
+    void setMetEnd();
+    void setOrtoEnd();
 private:
     Ui::DialogProgresoOpe *ui;
+    bool _cnpEnd;
+    bool _metEnd;
+    bool _ortoEnd;
 
 };
 

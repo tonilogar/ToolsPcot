@@ -85,6 +85,9 @@ private:
  bool _cnpActivo;
  bool _metActivo;
  bool _ortoActivo;
+ bool _cnpClose;
+ bool _metClose;
+ bool _ortoClose;
  ControlWorker *_controlCnp;
  ControlWorker *_controlMet;
  ControlWorker *_controlOrto;
@@ -93,7 +96,7 @@ private:
  void createListadoOperacionMet();
  void createListadoOperacionOrto();
  void crearListaIdentificadores();
- int contadorOperaciones;
+
 };
 
 #endif // LANZADOROPERACIONES_H

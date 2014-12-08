@@ -40,6 +40,15 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
    _dialogoProgreso->conectToControlCnp(_controlCnp);
    _dialogoProgreso->conectToControlMet(_controlMet);
    _dialogoProgreso->conectToControlOrto(_controlOrto);
+   _dialogoProgreso->visibleClose(false);
+   connect(_controlCnp,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(disableCancelCnp()));
+   connect(_controlMet,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(disableCancelMet()));
+   connect(_controlOrto,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(disableCancelOrto()));
+   connect(_controlCnp,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setCnpEnd()));
+   connect(_controlMet,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setMetEnd()));
+   connect(_controlOrto,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setOrtoEnd()));
+
+
 }
 
 void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCreateCnps *_regCnp)
@@ -61,6 +70,7 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
 }
 void LanzadorOperaciones::createListadoOperacionCnp()
 {
+     _dialogoProgreso->visibleCnp(true);
     foreach (Operacion *ope,_listadoOperacionCnp)
     {
         delete ope;
@@ -75,6 +85,7 @@ void LanzadorOperaciones::createListadoOperacionCnp()
 
 void LanzadorOperaciones::createListadoOperacionMet()
 {
+    _dialogoProgreso->visibleMet(true);
     foreach (Operacion *ope,_listadoOperacionMet)
     {
         delete ope;
@@ -89,16 +100,17 @@ void LanzadorOperaciones::createListadoOperacionMet()
 
 void LanzadorOperaciones::createListadoOperacionOrto()
 {
-    //    foreach (Operacion *ope,_listadoOperacionOrto)
-    //    {
-    //        delete ope;
-    //    }
-    //    _listadoOperacionOrto.clear();
+    _dialogoProgreso->visibleOrto(true);
+    foreach (Operacion *ope,_listadoOperacionOrto)
+    {
+        delete ope;
+    }
+    _listadoOperacionOrto.clear();
 
-    //    foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
-    //    {
-    //        _listadoOperacionOrto.append(new Oper(this,qVa,_dataZoneOrto));
-    //    }
+    foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
+    {
+        _listadoOperacionOrto.append(new OperacionOrto(this,qVa,_dataZoneOrto));
+    }
 }
 
 void LanzadorOperaciones::setCnpActivo(bool cnpActivo)
@@ -155,6 +167,8 @@ void LanzadorOperaciones::launch()
             _controlCnp->setListaOperaciones(_listadoOperacionCnp);
             _controlCnp->start();
         }
+        else
+            _dialogoProgreso->cnpEnd();
         if (_metActivo)
         {
             _registroMet->buildDataZoneProject(_dataZoneMet);
@@ -176,6 +190,31 @@ void LanzadorOperaciones::launch()
                 _controlMet->setListaOperaciones(_listadoOperacionMet);
                 _controlMet->start();
         }
+        else
+            _dialogoProgreso->metEnd();
+        if (_ortoActivo)
+        {
+//            _registroOrto->buildDataZoneProject(_dataZoneOrto);
+//            borrarListadoOperacion(_listadoOperacionOrto);
+
+//                QMap <QString, QString> _qMapEjecutables;
+//                _qMapEjecutables=_registroOrto->getMapExe();
+//                ListaProcesos *_listPro;
+//                _listPro=new ListaProcesos(this,_qMapEjecutables);
+//                QList <Proceso *> listaProcesoOrto;
+//                listaProcesoOrto= _listPro->getListaProcesosOrto(_dataZoneOrto);
+//                if(_WOrto!=0)
+//                {
+//                    delete _WOrto;
+//                }
+//                _WOrto=new WorkerOrto(this,listaProcesoOrto);
+//                _controlOrto->setWorker(_WOrto);
+//                createListadoOperacionOrto();
+//                _controlOrto->setListaOperaciones(_listadoOperacionOrto);
+//                _controlOrto->start();
+        }
+                else
+                _dialogoProgreso->ortoEnd();
         _dialogoProgreso->show();
     }
 }
