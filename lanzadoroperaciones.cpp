@@ -75,11 +75,7 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
 void LanzadorOperaciones::createListadoOperacionCnp()
 {
      _dialogoProgreso->visibleCnp(true);
-    foreach (Operacion *ope,_listadoOperacionCnp)
-    {
-        delete ope;
-    }
-    _listadoOperacionCnp.clear();
+    borrarListadoOperacion(_listadoOperacionCnp);
 
     foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
     {
@@ -90,11 +86,7 @@ void LanzadorOperaciones::createListadoOperacionCnp()
 void LanzadorOperaciones::createListadoOperacionMet()
 {
     _dialogoProgreso->visibleMet(true);
-    foreach (Operacion *ope,_listadoOperacionMet)
-    {
-        delete ope;
-    }
-    _listadoOperacionMet.clear();
+    borrarListadoOperacion(_listadoOperacionMet);
 
     foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
     {
@@ -105,12 +97,7 @@ void LanzadorOperaciones::createListadoOperacionMet()
 void LanzadorOperaciones::createListadoOperacionOrto()
 {
     _dialogoProgreso->visibleOrto(true);
-    foreach (Operacion *ope,_listadoOperacionOrto)
-    {
-        delete ope;
-    }
-    _listadoOperacionOrto.clear();
-
+    borrarListadoOperacion(_listadoOperacionOrto);
     foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
     {
         _listadoOperacionOrto.append(new OperacionOrto(this,qVa,_dataZoneOrto));
@@ -168,7 +155,6 @@ void LanzadorOperaciones::launch()
             delete _Wcnp;
             _Wcnp=nuevoWorker;
             _registroCnp->buildDataZoneProject(_dataZoneCnp);
-            borrarListadoOperacion(_listadoOperacionCnp);
             createListadoOperacionCnp();
             _controlCnp->setListaOperaciones(_listadoOperacionCnp);
             _controlCnp->start();
@@ -178,8 +164,6 @@ void LanzadorOperaciones::launch()
         if (_metActivo)
         {
             _registroMet->buildDataZoneProject(_dataZoneMet);
-            borrarListadoOperacion(_listadoOperacionMet);
-
                 QMap <QString, QString> _qMapEjecutables;
                 _qMapEjecutables=_registroMet->getMapExe();
                 ListaProcesos *_listPro;
@@ -201,8 +185,6 @@ void LanzadorOperaciones::launch()
         if (_ortoActivo)
         {
 //            _registroOrto->buildDataZoneProject(_dataZoneOrto);
-//            borrarListadoOperacion(_listadoOperacionOrto);
-
 //                QMap <QString, QString> _qMapEjecutables;
 //                _qMapEjecutables=_registroOrto->getMapExe();
 //                ListaProcesos *_listPro;
