@@ -48,6 +48,10 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
    connect(_controlMet,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setMetEnd()));
    connect(_controlOrto,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setOrtoEnd()));
 
+   connect(_controlCnp,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(sowErrors(QString)));
+   connect(_controlMet,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(sowErrors(QString)));
+   connect(_controlOrto,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(sowErrors(QString)));
+
 
 }
 
@@ -154,13 +158,15 @@ void LanzadorOperaciones::launch()
         crearListaIdentificadores();
         if(_cnpActivo)
         {
+            //Mantener el orden de creacion de nuevoWorker porque
+            //el metodo setWorker intenta desconectar el worker antiguo.
             QList <Proceso *> p;
             p<< new PocesoCnp(this,QString());
+            Worker *nuevoWorker=new Worker(this,p);
+            _controlCnp->setWorker(nuevoWorker);
             if(_Wcnp)
             delete _Wcnp;
-            _Wcnp=new Worker(this,p);
-            _controlCnp->setWorker(_Wcnp);
-
+            _Wcnp=nuevoWorker;
             _registroCnp->buildDataZoneProject(_dataZoneCnp);
             borrarListadoOperacion(_listadoOperacionCnp);
             createListadoOperacionCnp();

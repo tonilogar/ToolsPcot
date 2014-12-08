@@ -32,6 +32,11 @@ DialogProgresoOpe::DialogProgresoOpe(QWidget *parent) :
     ui->progressBarOrto->setVisible(false);
     ui->labelOrto->setVisible(false);
     ui->pushButtonCancelOrto->setVisible(false);
+    ui->pushButtonSowErrors->setVisible(false);
+    ui->textBrowserErrors->setVisible(false);
+    ui->labelWarning->setVisible(false);
+    ui->labelWarning->setText("<font color='blue'>Se ha producido un fallo</font>");
+    ui->labelWarningIcon->setVisible(false);
     _cnpEnd=false;
     _metEnd=false;
     _ortoEnd=false;
@@ -184,4 +189,18 @@ void DialogProgresoOpe::closeDisableEnable()
         ui->pushButtonClose->setEnabled(true);
         qDebug()<< "ui->pushButtonClose->setEnabled(true);";
     }
+}
+
+void DialogProgresoOpe::sowErrors(QString error)
+{
+
+    ui->labelWarning->setVisible(true);
+    ui->labelWarningIcon->setVisible(true);
+    ui->pushButtonSowErrors->setVisible(true);
+    ui->textBrowserErrors->insertPlainText(error);
+}
+
+void DialogProgresoOpe::on_pushButtonSowErrors_clicked()
+{
+    ui->textBrowserErrors->setVisible(true);
 }

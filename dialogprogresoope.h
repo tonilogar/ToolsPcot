@@ -26,6 +26,8 @@ public:
     void metEnd();
     void ortoEnd();
 
+public slots :
+    void sowErrors(QString error);
 
 private slots:
     void nuevoWorkerCnp(Worker *w);
@@ -40,6 +42,8 @@ private slots:
     void setCnpEnd();
     void setMetEnd();
     void setOrtoEnd();
+    void on_pushButtonSowErrors_clicked();
+
 private:
     Ui::DialogProgresoOpe *ui;
     bool _cnpEnd;
