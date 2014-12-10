@@ -190,6 +190,7 @@ void DialogProgresoOpe::closeDisableEnable()
         ui->pushButtonClose->setEnabled(true);
         qDebug()<< "ui->pushButtonClose->setEnabled(true);";
     }
+
 }
 
 void DialogProgresoOpe::sowErrors(QString error)

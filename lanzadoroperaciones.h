@@ -91,7 +91,7 @@ private:
  ControlWorker *_controlCnp;
  ControlWorker *_controlMet;
  ControlWorker *_controlOrto;
- void borrarListadoOperacion(QList <Operacion *> lista);
+ void borrarListadoOperacion(QList <Operacion *> &lista);
  void createListadoOperacionCnp();
  void createListadoOperacionMet();
  void createListadoOperacionOrto();

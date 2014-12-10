@@ -76,7 +76,6 @@ void LanzadorOperaciones::createListadoOperacionCnp()
 {
      _dialogoProgreso->visibleCnp(true);
     borrarListadoOperacion(_listadoOperacionCnp);
-
     foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
     {
         _listadoOperacionCnp.append(new OperacionCnp(this,qVa,_dataZoneCnp));
@@ -207,7 +206,7 @@ void LanzadorOperaciones::launch()
     }
 }
 
-void LanzadorOperaciones::borrarListadoOperacion(QList <Operacion *> lista)
+void LanzadorOperaciones::borrarListadoOperacion(QList<Operacion *> &lista)
 {
     foreach (Operacion *ope,lista)
     {
@@ -231,7 +230,6 @@ void LanzadorOperaciones::crearListaIdentificadores()
         _listaIdentificadores<<ide;
     }
 }
-
 
 
 
