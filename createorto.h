@@ -6,6 +6,7 @@
 #include "tableviewcoordinates.h"
 #include "registrocreateorto.h"
 #include "ficherodatosambitopro.h"
+#include <OperacionPcot/datazoneproject.h>
 
 namespace Ui {
     class CreateOrto;
@@ -18,14 +19,15 @@ class CreateOrto : public QWidget
     Q_OBJECT
 
 public:
+
     explicit CreateOrto(QWidget *parent = 0);
     ~CreateOrto();
     RegistroCreateOrto * getObjetoRegistroCreateOrto();
     void setPunterotVCoordenadas(TableViewCoordinates *puntero);
 
 signals:
-    void cambioEstadoOrto(bool state);
-    void cambioEstadoCorreccionOrto(int state);
+   void cambioEstadoOrto(bool state);
+   void cambioEstadoCorreccionOrto(int state);
 
 public slots:
     void activateWidget(bool acti);
@@ -33,13 +35,17 @@ public slots:
     void calcularOffsetPasada(int offsetPasada);
     void enableOrDisableExtraerOrto(int chec);
     void enableOrDisableFootPrintMaskOrto(int chec);
-  //Codigo nuevo
+    void enableOrDisableCortarOrto(int chec);
+    //Codigo nuevo
     void cambioestadoCheckBox(int estado);
     void cambioestadoComboBox(int estado );
     void cambioestadoLineEdit(QString directorio);
 
-    void VigilarTamanyPixel(double tamanyoPixel);
-    void VigilarUtm(int utm);
+    void VigilarTamanyPixel(int tamanyoPixel);
+    void VigilarCoorSysOrto(int corSys);
+    void VigilarSelectSensor(int sens);
+    void VigilarTamanyoCorte(int tamanyoCorte);
+    void VigilarNumeroCanales(int numeroCanales);
     void VigilarAnchoPasada(int anchoPasada);
     void VigilarOffsetPasada(int offsetPasada);
     void recargarModelosAmbito();
@@ -53,6 +59,9 @@ private:
     TableViewCoordinates *tVCoordenadas;
     QString folderOut;
     void evaluarEstadoWidgetOrto();
+    QString _ambitoOperacion;                          ///< Valor del ambito de la operación.
+    int _coordinateSystem;                    ///< Valor del sistema de coordenadas.
+    double tP;
 };
 
 #endif // CREATEORTO_H

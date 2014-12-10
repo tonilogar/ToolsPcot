@@ -102,6 +102,7 @@ int RegistroCreateMet::getNumeroCanales()
 int RegistroCreateMet::getAnchoPasada()
 {
     return _anchoPasada;
+    qDebug()<< _anchoPasada << "_anchoPasada;";
 }
 int RegistroCreateMet::getOffsetPasada()
 {

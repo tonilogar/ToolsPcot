@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <controlworker.h>
+#include <QCloseEvent>
 namespace Ui {
 class DialogProgresoOpe;
 }

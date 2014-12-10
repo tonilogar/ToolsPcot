@@ -184,22 +184,22 @@ void LanzadorOperaciones::launch()
             _dialogoProgreso->metEnd();
         if (_ortoActivo)
         {
-//            _registroOrto->buildDataZoneProject(_dataZoneOrto);
-//                QMap <QString, QString> _qMapEjecutables;
-//                _qMapEjecutables=_registroOrto->getMapExe();
-//                ListaProcesos *_listPro;
-//                _listPro=new ListaProcesos(this,_qMapEjecutables);
-//                QList <Proceso *> listaProcesoOrto;
-//                listaProcesoOrto= _listPro->getListaProcesosOrto(_dataZoneOrto);
-//                if(_WOrto!=0)
-//                {
-//                    delete _WOrto;
-//                }
-//                _WOrto=new WorkerOrto(this,listaProcesoOrto);
-//                _controlOrto->setWorker(_WOrto);
-//                createListadoOperacionOrto();
-//                _controlOrto->setListaOperaciones(_listadoOperacionOrto);
-//                _controlOrto->start();
+            _registroOrto->buildDataZoneProject(_dataZoneOrto);
+                QMap <QString, QString> _qMapEjecutables;
+                _qMapEjecutables=_registroOrto->getMapExe();
+                ListaProcesos *_listPro;
+                _listPro=new ListaProcesos(this,_qMapEjecutables);
+                QList <Proceso *> listaProcesoOrto;
+                listaProcesoOrto= _listPro->getListaProcesosOrto(_dataZoneOrto);
+                if(_WOrto!=0)
+                {
+                    delete _WOrto;
+                }
+                _WOrto=new WorkerOrto(this,listaProcesoOrto);
+                _controlOrto->setWorker(_WOrto);
+                createListadoOperacionOrto();
+                _controlOrto->setListaOperaciones(_listadoOperacionOrto);
+                _controlOrto->start();
         }
                 else
                 _dialogoProgreso->ortoEnd();

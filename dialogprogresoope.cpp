@@ -43,7 +43,8 @@ DialogProgresoOpe::DialogProgresoOpe(QWidget *parent) :
     connect(ui->pushButtonCancelCnp,SIGNAL(clicked()),this,SLOT(disableCancelCnp()));
     connect(ui->pushButtonCancelMet,SIGNAL(clicked()),this,SLOT(disableCancelMet()));
     connect(ui->pushButtonCancelOrto,SIGNAL(clicked()),this,SLOT(disableCancelOrto()));
-
+    resize(this->width(),20);
+    setWindowFlags(Qt::WindowTitleHint);
 
 
 }

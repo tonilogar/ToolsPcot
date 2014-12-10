@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>375</width>
-    <height>469</height>
+    <width>323</width>
+    <height>380</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QVBoxLayout" name="verticalLayout">
-   <item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
       <widget class="QCheckBox" name="checkBoxExtraerOrto">
@@ -51,7 +51,7 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="1" column="0" colspan="2">
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QPushButton" name="pushButtonFolderOutOrto">
@@ -84,15 +84,15 @@
      </item>
     </layout>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_8">
+   <item row="2" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_32">
      <item>
       <widget class="QLabel" name="labelAmbitoProyectoOrto">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Ambit de proyecte</string>
+        <string>Zone project</string>
        </property>
       </widget>
      </item>
@@ -105,15 +105,15 @@
      </item>
     </layout>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_9">
+   <item row="3" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_33">
      <item>
       <widget class="QLabel" name="labelTamanoPixelOrto">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Tamany pixel</string>
+        <string>Pixel size</string>
        </property>
       </widget>
      </item>
@@ -126,20 +126,20 @@
      </item>
     </layout>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_10">
+   <item row="4" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_34">
      <item>
-      <widget class="QLabel" name="labelUtmOrto">
+      <widget class="QLabel" name="labelCoordinateSystemOrto">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>UTM</string>
+        <string>Coordinate system</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBoxUtmOrto">
+      <widget class="QComboBox" name="comboBoxCoordinateSystemOrto">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -147,7 +147,59 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="5" column="0">
+    <widget class="QCheckBox" name="checkBoxCortarOrto">
+     <property name="enabled">
+      <bool>false</bool>
+     </property>
+     <property name="text">
+      <string>Cut DTM</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_35">
+     <item>
+      <widget class="QLabel" name="labelCortarOrto">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Size cut</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBoxTamanyoCortarOrto">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="7" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_36">
+     <item>
+      <widget class="QLabel" name="labelNumeroCanalesspasadaOrto">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Numbers chanels</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBoxNumeroCanalesspasadaOrto">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="8" column="0" colspan="2">
     <widget class="QCheckBox" name="checkBoxFootPrintMaskOrto">
      <property name="enabled">
       <bool>false</bool>
@@ -157,20 +209,20 @@
      </property>
     </widget>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_12">
+   <item row="9" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_37">
      <item>
-      <widget class="QLabel" name="labelAnchoPasadaOrto">
+      <widget class="QLabel" name="labelSelectSensor">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Amplada passada</string>
+        <string>Select sensor</string>
        </property>
       </widget>
      </item>
      <item>
-      <widget class="QComboBox" name="comboBoxAnchoPasadaOrto">
+      <widget class="QComboBox" name="comboBoxSelectSensor">
        <property name="enabled">
         <bool>false</bool>
        </property>
@@ -178,15 +230,15 @@
      </item>
     </layout>
    </item>
-   <item>
-    <layout class="QHBoxLayout" name="horizontalLayout_13">
+   <item row="10" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_38">
      <item>
       <widget class="QLabel" name="labelOffsetPasadaOrto">
        <property name="enabled">
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Offset passada</string>
+        <string>Offset flight</string>
        </property>
       </widget>
      </item>
@@ -199,7 +251,28 @@
      </item>
     </layout>
    </item>
-   <item>
+   <item row="11" column="0" colspan="2">
+    <layout class="QHBoxLayout" name="horizontalLayout_39">
+     <item>
+      <widget class="QLabel" name="labelAnchoPasadaOrto">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>width flight</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBoxAnchoPasadaOrto">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="12" column="1">
     <spacer name="verticalSpacer">
      <property name="orientation">
       <enum>Qt::Vertical</enum>
@@ -207,7 +280,7 @@
      <property name="sizeHint" stdset="0">
       <size>
        <width>20</width>
-       <height>40</height>
+       <height>25</height>
       </size>
      </property>
     </spacer>

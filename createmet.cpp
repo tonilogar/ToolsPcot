@@ -84,7 +84,7 @@ CreateMet::CreateMet(QWidget *parent) :
 
     ui->comboBoxAnchoPasadaMet->addItem("No seleccionado",-1);
     for (int i=10; i< 20100; i++)
-        ui->comboBoxAnchoPasadaMet->addItem(QString::number(i)+" Mts");
+        ui->comboBoxAnchoPasadaMet->addItem(QString::number(i)+" Mts",i);
 
     ui->comboBoxOffsetPasadaMet->addItem("No seleccionado",-1);
     for (int i=10; i< 510; i+=10)
