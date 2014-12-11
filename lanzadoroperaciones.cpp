@@ -36,21 +36,10 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _dataZoneOrto=new DataZoneProject(this);
     _controlCnp=new ControlWorker(this);
     _controlMet=new ControlWorker(this);
-    _controlOrto=new ControlWorker(this);    
-   _dialogoProgreso->conectToControlCnp(_controlCnp);
-   _dialogoProgreso->conectToControlMet(_controlMet);
-   _dialogoProgreso->conectToControlOrto(_controlOrto);
-   _dialogoProgreso->visibleClose(false);
-   connect(_controlCnp,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(disableCancelCnp()));
-   connect(_controlMet,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(disableCancelMet()));
-   connect(_controlOrto,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(disableCancelOrto()));
-   connect(_controlCnp,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setCnpEnd()));
-   connect(_controlMet,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setMetEnd()));
-   connect(_controlOrto,SIGNAL(operacionesTerminadas(bool)),_dialogoProgreso,SLOT(setOrtoEnd()));
-
-   connect(_controlCnp,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(sowErrors(QString)));
-   connect(_controlMet,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(sowErrors(QString)));
-   connect(_controlOrto,SIGNAL(enviarError(QString)),_dialogoProgreso,SLOT(sowErrors(QString)));
+    _controlOrto=new ControlWorker(this);
+    _dialogoProgreso->conectToControlCnp(_controlCnp);
+    _dialogoProgreso->conectToControlMet(_controlMet);
+    _dialogoProgreso->conectToControlOrto(_controlOrto);
 
 
 }
@@ -73,8 +62,7 @@ void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_table
     _tableCoordinates=_tableCoor;
 }
 void LanzadorOperaciones::createListadoOperacionCnp()
-{
-     _dialogoProgreso->visibleCnp(true);
+{    
     borrarListadoOperacion(_listadoOperacionCnp);
     foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
     {
@@ -83,8 +71,7 @@ void LanzadorOperaciones::createListadoOperacionCnp()
 }
 
 void LanzadorOperaciones::createListadoOperacionMet()
-{
-    _dialogoProgreso->visibleMet(true);
+{   
     borrarListadoOperacion(_listadoOperacionMet);
 
     foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
@@ -95,7 +82,6 @@ void LanzadorOperaciones::createListadoOperacionMet()
 
 void LanzadorOperaciones::createListadoOperacionOrto()
 {
-    _dialogoProgreso->visibleOrto(true);
     borrarListadoOperacion(_listadoOperacionOrto);
     foreach (IdentificadorCoordenadas *qVa,_listaIdentificadores)
     {
@@ -134,6 +120,7 @@ bool LanzadorOperaciones::getOrtoActivo()
 }
 void LanzadorOperaciones::launch()
 {
+    _dialogoProgreso->resetDialog();
     if(_cnpActivo || _metActivo || _ortoActivo)
     {
         foreach (IdentificadorCoordenadas *ide, _listaIdentificadores)
@@ -151,57 +138,51 @@ void LanzadorOperaciones::launch()
             Worker *nuevoWorker=new Worker(this,p);
             _controlCnp->setWorker(nuevoWorker);
             if(_Wcnp)
-            delete _Wcnp;
+                delete _Wcnp;
             _Wcnp=nuevoWorker;
             _registroCnp->buildDataZoneProject(_dataZoneCnp);
             createListadoOperacionCnp();
             _controlCnp->setListaOperaciones(_listadoOperacionCnp);
             _controlCnp->start();
         }
-        else
-            _dialogoProgreso->cnpEnd();
         if (_metActivo)
         {
             _registroMet->buildDataZoneProject(_dataZoneMet);
-                QMap <QString, QString> _qMapEjecutables;
-                _qMapEjecutables=_registroMet->getMapExe();
-                ListaProcesos *_listPro;
-                _listPro=new ListaProcesos(this,_qMapEjecutables);
-                QList <Proceso *> listaProcesoMet;
-                listaProcesoMet= _listPro->getListaProcesosMet(_dataZoneMet);
-                if(_WMet!=0)
-                {
-                    delete _WMet;
-                }
-                _WMet=new WorkerMet(this,listaProcesoMet);
-                _controlMet->setWorker(_WMet);
-                createListadoOperacionMet();
-                _controlMet->setListaOperaciones(_listadoOperacionMet);
-                _controlMet->start();
+            QMap <QString, QString> _qMapEjecutables;
+            _qMapEjecutables=_registroMet->getMapExe();
+            ListaProcesos *_listPro;
+            _listPro=new ListaProcesos(this,_qMapEjecutables);
+            QList <Proceso *> listaProcesoMet;
+            listaProcesoMet= _listPro->getListaProcesosMet(_dataZoneMet);
+            if(_WMet!=0)
+            {
+                delete _WMet;
+            }
+            _WMet=new WorkerMet(this,listaProcesoMet);
+            _controlMet->setWorker(_WMet);
+            createListadoOperacionMet();
+            _controlMet->setListaOperaciones(_listadoOperacionMet);
+            _controlMet->start();
         }
-        else
-            _dialogoProgreso->metEnd();
         if (_ortoActivo)
         {
             _registroOrto->buildDataZoneProject(_dataZoneOrto);
-                QMap <QString, QString> _qMapEjecutables;
-                _qMapEjecutables=_registroOrto->getMapExe();
-                ListaProcesos *_listPro;
-                _listPro=new ListaProcesos(this,_qMapEjecutables);
-                QList <Proceso *> listaProcesoOrto;
-                listaProcesoOrto= _listPro->getListaProcesosOrto(_dataZoneOrto);
-                if(_WOrto!=0)
-                {
-                    delete _WOrto;
-                }
-                _WOrto=new WorkerOrto(this,listaProcesoOrto);
-                _controlOrto->setWorker(_WOrto);
-                createListadoOperacionOrto();
-                _controlOrto->setListaOperaciones(_listadoOperacionOrto);
-                _controlOrto->start();
+            QMap <QString, QString> _qMapEjecutables;
+            _qMapEjecutables=_registroOrto->getMapExe();
+            ListaProcesos *_listPro;
+            _listPro=new ListaProcesos(this,_qMapEjecutables);
+            QList <Proceso *> listaProcesoOrto;
+            listaProcesoOrto= _listPro->getListaProcesosOrto(_dataZoneOrto);
+            if(_WOrto!=0)
+            {
+                delete _WOrto;
+            }
+            _WOrto=new WorkerOrto(this,listaProcesoOrto);
+            _controlOrto->setWorker(_WOrto);
+            createListadoOperacionOrto();
+            _controlOrto->setListaOperaciones(_listadoOperacionOrto);
+            _controlOrto->start();
         }
-                else
-                _dialogoProgreso->ortoEnd();
         _dialogoProgreso->show();
     }
 }

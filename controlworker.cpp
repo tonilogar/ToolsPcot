@@ -52,7 +52,6 @@ void ControlWorker::siguienteOperacion()
     else
     {
         emit operacionesTerminadas(true);
-
     }
 }
 

@@ -18,17 +18,12 @@ public:
     void conectToControlCnp(ControlWorker *cWorker);
     void conectToControlMet(ControlWorker *cWorker);
     void conectToControlOrto(ControlWorker *cWorker);
-    void visibleCnp(bool b);
-    void visibleMet(bool b);
-    void visibleOrto(bool b);
-    void visibleClose(bool b);
-    void closeDisableEnable();
-    void cnpEnd();
-    void metEnd();
-    void ortoEnd();
+    void limpiarErrorLog();
+    void resetDialog();
+
 
 public slots :
-    void sowErrors(QString error);
+
 
 private slots:
     void nuevoWorkerCnp(Worker *w);
@@ -37,20 +32,23 @@ private slots:
     void errorCnp(QString error);
     void errorMet(QString error);
     void errorOrto(QString error);
-    void disableCancelCnp();
-    void disableCancelMet();
-    void disableCancelOrto();
-    void setCnpEnd();
-    void setMetEnd();
-    void setOrtoEnd();
     void on_pushButtonSowErrors_clicked();
+    void cnpTerminado();
+    void metTerminado();
+    void ortoTerminado();
 
 private:
     Ui::DialogProgresoOpe *ui;
-    bool _cnpEnd;
-    bool _metEnd;
-    bool _ortoEnd;
-
+    void hideAll();
+    void setVisibleCnp(bool b);
+    void setVisibleMet(bool b);
+    void setVisibleOrto(bool b);
+    void setVisibleErrorLog(bool b);
+    void setVisibleError(bool b);
+    void compruebaOperacionesTerminadas();
+    bool  _cnpTerminado;
+    bool  _metTerminado;
+    bool  _ortoTerminado;
 };
 
 #endif // DIALOGPROGRESOOPE_H

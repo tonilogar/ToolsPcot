@@ -37,21 +37,19 @@ DialogProgresoOpe::DialogProgresoOpe(QWidget *parent) :
     ui->labelWarning->setVisible(false);
     ui->labelWarning->setText("<font color='blue'>Se ha producido un fallo</font>");
     ui->labelWarningIcon->setVisible(false);
-    _cnpEnd=false;
-    _metEnd=false;
-    _ortoEnd=false;
-    connect(ui->pushButtonCancelCnp,SIGNAL(clicked()),this,SLOT(disableCancelCnp()));
-    connect(ui->pushButtonCancelMet,SIGNAL(clicked()),this,SLOT(disableCancelMet()));
-    connect(ui->pushButtonCancelOrto,SIGNAL(clicked()),this,SLOT(disableCancelOrto()));
+    ui->pushButtonClose->setEnabled(false);
+    _cnpTerminado=false;
+    _metTerminado=false;
+    _ortoTerminado=false;
     resize(this->width(),20);
     setWindowFlags(Qt::WindowTitleHint);
-
+    setModal(true);
 
 }
 
 DialogProgresoOpe::~DialogProgresoOpe()
 {
-    delete ui;    
+    delete ui;
 }
 
 void DialogProgresoOpe::conectToControlCnp(ControlWorker *cWorker)
@@ -60,6 +58,8 @@ void DialogProgresoOpe::conectToControlCnp(ControlWorker *cWorker)
     connect(cWorker,SIGNAL(rangoOperaciones(int,int)),ui->progressBarCnp,SLOT(setRange(int,int)));
     connect(cWorker,SIGNAL(actualizarPaso(int)),ui->progressBarCnp,SLOT(setValue(int)));
     connect(cWorker,SIGNAL(enviarError(QString)),this,SLOT(errorCnp(QString)));
+    connect(cWorker,SIGNAL(operacionesTerminadas(bool)),ui->pushButtonCancelCnp,SLOT(setDisabled(bool)));
+    connect(cWorker,SIGNAL(operacionesTerminadas(bool)),this,SLOT(cnpTerminado()));
 }
 void DialogProgresoOpe::conectToControlMet(ControlWorker *cWorker)
 {
@@ -67,6 +67,8 @@ void DialogProgresoOpe::conectToControlMet(ControlWorker *cWorker)
     connect(cWorker,SIGNAL(rangoOperaciones(int,int)),ui->progressBarMet,SLOT(setRange(int,int)));
     connect(cWorker,SIGNAL(actualizarPaso(int)),ui->progressBarMet,SLOT(setValue(int)));
     connect(cWorker,SIGNAL(enviarError(QString)),this,SLOT(errorMet(QString)));
+    connect(cWorker,SIGNAL(operacionesTerminadas(bool)),ui->pushButtonCancelMet,SLOT(setDisabled(bool)));
+    connect(cWorker,SIGNAL(operacionesTerminadas(bool)),this,SLOT(metTerminado()));
 }
 void DialogProgresoOpe::conectToControlOrto(ControlWorker *cWorker)
 {
@@ -74,135 +76,154 @@ void DialogProgresoOpe::conectToControlOrto(ControlWorker *cWorker)
     connect(cWorker,SIGNAL(rangoOperaciones(int,int)),ui->progressBarOrto,SLOT(setRange(int,int)));
     connect(cWorker,SIGNAL(actualizarPaso(int)),ui->progressBarOrto,SLOT(setValue(int)));
     connect(cWorker,SIGNAL(enviarError(QString)),this,SLOT(errorOrto(QString)));
+    connect(cWorker,SIGNAL(operacionesTerminadas(bool)),ui->pushButtonCancelOrto,SLOT(setDisabled(bool)));
+    connect(cWorker,SIGNAL(operacionesTerminadas(bool)),this,SLOT(ortoTerminado()));
 }
 
 
 void DialogProgresoOpe::nuevoWorkerCnp(Worker* w)
 {
+    setVisibleCnp(true);
+    _cnpTerminado=false;
     connect(ui->pushButtonCancelCnp,SIGNAL(clicked()),w,SLOT(cancelar()));
 }
 void DialogProgresoOpe::nuevoWorkerMet(Worker* w)
 {
+    setVisibleMet(true);
+    _metTerminado=false;
     connect(ui->pushButtonCancelMet,SIGNAL(clicked()),w,SLOT(cancelar()));
 }
 void DialogProgresoOpe::nuevoWorkerOrto(Worker* w)
 {
+    setVisibleOrto(true);
+    _ortoTerminado=false;
     connect(ui->pushButtonCancelOrto,SIGNAL(clicked()),w,SLOT(cancelar()));
 }
 
 void DialogProgresoOpe::errorCnp(QString error)
 {
-    qDebug()<< error << "error";
-}
-void DialogProgresoOpe::errorMet(QString error)
-{
-    qDebug()<< error << "error";
-}
-void DialogProgresoOpe::errorOrto(QString error)
-{
-    qDebug()<< error << "error";
-}
-void DialogProgresoOpe::visibleCnp(bool b)
-{
- ui->labelCnp->setVisible(b);
- ui->progressBarCnp->setVisible(b);
- ui->pushButtonCancelCnp->setVisible(b);
-}
-void DialogProgresoOpe::visibleMet(bool b)
-{
- ui->labelMet->setVisible(b);
- ui->progressBarMet->setVisible(b);
- ui->pushButtonCancelMet->setVisible(b);
-}
-void DialogProgresoOpe::visibleOrto(bool b)
-{
- ui->labelOrto->setVisible(b);
- ui->progressBarOrto->setVisible(b);
- ui->pushButtonCancelOrto->setVisible(b);
-}
-void DialogProgresoOpe::visibleClose(bool b)
-{
-
-}
-void DialogProgresoOpe::disableCancelCnp()
-{
-ui->pushButtonCancelCnp->setDisabled(true);
-qDebug()<< "disablet CnpCancel";
-}
-void DialogProgresoOpe::disableCancelMet()
-{
-ui->pushButtonCancelMet->setDisabled(true);
-qDebug()<< "disablet metCancel";
-}
-void DialogProgresoOpe::disableCancelOrto()
-{
-ui->pushButtonCancelOrto->setDisabled(true);
-qDebug()<< "disablet OrtoCancel";
-}
-void DialogProgresoOpe::setCnpEnd()
-{
-  _cnpEnd=true;
-  closeDisableEnable();
-  qDebug()<< "setCnpEnd()";
-}
-
-void DialogProgresoOpe::setMetEnd()
-{
-   _metEnd=true;
-   closeDisableEnable();
-   qDebug()<< "setMetEnd()";
-}
-
-void DialogProgresoOpe::setOrtoEnd()
-{
- _ortoEnd=true;
- closeDisableEnable();
- qDebug()<< "setOrtoEnd()";
-}
-void DialogProgresoOpe::cnpEnd()
-{
-  _cnpEnd=true;
-  closeDisableEnable();
-  qDebug()<< "setCnpEnd()";
-}
-
-void DialogProgresoOpe::metEnd()
-{
-   _metEnd=true;
-   closeDisableEnable();
-   qDebug()<< "setMetEnd()";
-}
-
-void DialogProgresoOpe::ortoEnd()
-{
- _ortoEnd=true;
- closeDisableEnable();
- qDebug()<< "setOrtoEnd()";
-}
-void DialogProgresoOpe::closeDisableEnable()
-{
-    qDebug()<< _cnpEnd << "_cnpEnd";
-    qDebug()<< _metEnd << "_metEnd ";
-    qDebug()<< _ortoEnd << "_ortoEnd";
-    qDebug()<< "closeDisableEnable()";
-    if(_cnpEnd && _metEnd && _ortoEnd)
-    {
-        ui->pushButtonClose->setEnabled(true);
-        qDebug()<< "ui->pushButtonClose->setEnabled(true);";
-    }
-
-}
-
-void DialogProgresoOpe::sowErrors(QString error)
-{
-
     ui->labelWarning->setVisible(true);
     ui->labelWarningIcon->setVisible(true);
     ui->pushButtonSowErrors->setVisible(true);
+    ui->textBrowserErrors->setTextColor(QColor("firebrick"));
+    ui->textBrowserErrors->insertPlainText("[Se ha producido un error en una operación cnp]");
+    ui->textBrowserErrors->setTextColor(QColor("dimgray"));
     ui->textBrowserErrors->insertPlainText(error);
 }
-
+void DialogProgresoOpe::errorMet(QString error)
+{
+    ui->labelWarning->setVisible(true);
+    ui->labelWarningIcon->setVisible(true);
+    ui->pushButtonSowErrors->setVisible(true);
+    ui->textBrowserErrors->setTextColor(QColor("gold"));
+    ui->textBrowserErrors->insertPlainText("[Se ha producido un error en una operación met]");
+    ui->textBrowserErrors->setTextColor(QColor("dimgray"));
+    ui->textBrowserErrors->insertPlainText(error);
+}
+void DialogProgresoOpe::errorOrto(QString error)
+{
+    ui->labelWarning->setVisible(true);
+    ui->labelWarningIcon->setVisible(true);
+    ui->pushButtonSowErrors->setVisible(true);
+    ui->textBrowserErrors->setTextColor(QColor("darkorange"));
+    ui->textBrowserErrors->insertPlainText("[Se ha producido un error en una operación orto]");
+    ui->textBrowserErrors->setTextColor(QColor("dimgray"));
+    ui->textBrowserErrors->insertPlainText(error);
+}
+void DialogProgresoOpe::setVisibleCnp(bool b)
+{
+    ui->labelCnp->setVisible(b);
+    ui->progressBarCnp->setVisible(b);
+    ui->pushButtonCancelCnp->setVisible(b);
+}
+void DialogProgresoOpe::setVisibleMet(bool b)
+{
+    ui->labelMet->setVisible(b);
+    ui->progressBarMet->setVisible(b);
+    ui->pushButtonCancelMet->setVisible(b);
+}
+void DialogProgresoOpe::setVisibleOrto(bool b)
+{
+    ui->labelOrto->setVisible(b);
+    ui->progressBarOrto->setVisible(b);
+    ui->pushButtonCancelOrto->setVisible(b);
+}
 void DialogProgresoOpe::on_pushButtonSowErrors_clicked()
 {
     ui->textBrowserErrors->setVisible(true);
 }
+
+void DialogProgresoOpe::limpiarErrorLog()
+{
+    ui->textBrowserErrors->clear();
+}
+
+void DialogProgresoOpe::resetDialog()
+{
+    ui->progressBarCnp->setValue(0);
+    ui->progressBarMet->setValue(0);
+    ui->progressBarOrto->setValue(0);
+    limpiarErrorLog();
+    hideAll();
+    ui->pushButtonClose->setDisabled(false);
+    ui->pushButtonCancelCnp->setEnabled(true);
+    ui->pushButtonCancelMet->setEnabled(true);
+    ui->pushButtonCancelOrto->setEnabled(true);
+    _cnpTerminado=false;
+    _metTerminado=false;
+    _ortoTerminado=false;
+    resize(this->width(),20);
+}
+
+void DialogProgresoOpe::hideAll()
+{
+    setVisibleCnp(false);
+    setVisibleMet(false);
+    setVisibleOrto(false);
+    setVisibleErrorLog(false);
+    setVisibleError(false);
+}
+void DialogProgresoOpe::setVisibleErrorLog(bool b)
+{
+    ui->textBrowserErrors->setVisible(b);
+}
+
+void DialogProgresoOpe::setVisibleError(bool b)
+{
+    ui->labelWarning->setVisible(b);
+    ui->labelWarningIcon->setVisible(b);
+    ui->pushButtonSowErrors->setVisible(b);
+}
+void DialogProgresoOpe::cnpTerminado()
+{
+    _cnpTerminado=true;
+    compruebaOperacionesTerminadas();
+}
+
+void DialogProgresoOpe::metTerminado()
+{
+    _metTerminado=true;
+    compruebaOperacionesTerminadas();
+}
+
+void DialogProgresoOpe::ortoTerminado()
+{
+    _ortoTerminado=true;
+    compruebaOperacionesTerminadas();
+}
+void DialogProgresoOpe::compruebaOperacionesTerminadas()
+{
+    if(_cnpTerminado && _metTerminado && _ortoTerminado)
+    {
+        ui->pushButtonClose->setEnabled(true);
+    }
+}
+
+
+
+
+
+
+
+
+
