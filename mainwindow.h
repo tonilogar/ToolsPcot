@@ -26,13 +26,10 @@ public:
     ~MainWindow();
 
 public slots:
-    //void setEstadoCnps(bool estado);
-    //void setEstadoMets(bool estado);
-    //void setEstadoOrtos(bool estado);
+
 
 private slots:
     void on_pushButtonEmpezarOperacionesMetOrto_clicked();
-    //void evaluacionCnpsMetsOrtos();
     void on_pushButton_clicked();
     void lanzarDialogoPreferencias();
 

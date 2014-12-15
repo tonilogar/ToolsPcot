@@ -25,7 +25,7 @@ public slots:
     void setEstadoBoton(int estado);
 
     /*!
-      Añadir un nuevo estado y un icono
+      Afegeix un nou estat al boto
        \param numEstado
        \param iconoEstado
      */
@@ -33,7 +33,7 @@ public slots:
 
 
     /*!
-      Elimina un estado del boton
+      Borra un estat del boto
        \param numEstado
      */
     void removeEstado(int numEstado);
@@ -42,12 +42,12 @@ public slots:
 private:
     int index;
 
-    int _estadoActual;          ///< Atributo de estado del boton
-    QMap<int,QIcon*> mapaEstados;   ///< Mapa de estados del boton
+    int _estadoActual;          ///< Atribut del estat del boto.
+    QMap<int,QIcon*> mapaEstados;   ///< Mapa del estat del boto.
 
 private slots:
 
-    void botonPulsado();
+    void botonPulsado();///< Atribut boolea del estat del boto.
 };
 
 #endif // INDEXBUTTON_H

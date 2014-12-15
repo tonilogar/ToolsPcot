@@ -7,6 +7,10 @@ class SignoPasadaDelegate : public QStyledItemDelegate
 {
     Q_OBJECT
 public:
+    /*!
+     * Constructor explicit per defecte, necesita un punter nul.
+     *
+     */
     explicit SignoPasadaDelegate(QObject *parent = 0);
 
 
@@ -14,6 +18,7 @@ public:
                               const QModelIndex &index) const;
 
         void setEditorData(QWidget *editor, const QModelIndex &index) const;
+
         void setModelData(QWidget *editor, QAbstractItemModel *model,
                           const QModelIndex &index) const;
 

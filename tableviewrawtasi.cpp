@@ -17,6 +17,7 @@
 #include "tableviewrawtasi.h"
 #include "ui_tableviewrawtasi.h"
 
+
 TableViewRawTasi::TableViewRawTasi(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TableViewRawTasi)
