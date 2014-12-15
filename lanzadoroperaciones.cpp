@@ -143,8 +143,9 @@ void LanzadorOperaciones::launch()
             _registroCnp->buildDataZoneProject(_dataZoneCnp);
             createListadoOperacionCnp();
             _controlCnp->setListaOperaciones(_listadoOperacionCnp);
-            _controlCnp->start();
+
         }
+
         if (_metActivo)
         {
             _registroMet->buildDataZoneProject(_dataZoneMet);
@@ -162,8 +163,9 @@ void LanzadorOperaciones::launch()
             _controlMet->setWorker(_WMet);
             createListadoOperacionMet();
             _controlMet->setListaOperaciones(_listadoOperacionMet);
-            _controlMet->start();
+
         }
+
         if (_ortoActivo)
         {
             _registroOrto->buildDataZoneProject(_dataZoneOrto);
@@ -181,7 +183,19 @@ void LanzadorOperaciones::launch()
             _controlOrto->setWorker(_WOrto);
             createListadoOperacionOrto();
             _controlOrto->setListaOperaciones(_listadoOperacionOrto);
-            _controlOrto->start();
+
+        }
+        if(_cnpActivo)
+        {
+             _controlCnp->start();
+        }
+        if(_metActivo)
+        {
+             _controlMet->start();
+        }
+        if(_ortoActivo)
+        {
+             _controlOrto->start();
         }
         _dialogoProgreso->show();
     }

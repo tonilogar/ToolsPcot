@@ -25,6 +25,7 @@ public:
 public slots :
 
 
+
 private slots:
     void nuevoWorkerCnp(Worker *w);
     void nuevoWorkerMet(Worker *w);

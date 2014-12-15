@@ -38,9 +38,9 @@ DialogProgresoOpe::DialogProgresoOpe(QWidget *parent) :
     ui->labelWarning->setText("<font color='blue'>Se ha producido un fallo</font>");
     ui->labelWarningIcon->setVisible(false);
     ui->pushButtonClose->setEnabled(false);
-    _cnpTerminado=false;
-    _metTerminado=false;
-    _ortoTerminado=false;
+    _cnpTerminado=true;
+    _metTerminado=true;
+    _ortoTerminado=true;
     resize(this->width(),20);
     setWindowFlags(Qt::WindowTitleHint);
     setModal(true);
@@ -165,13 +165,13 @@ void DialogProgresoOpe::resetDialog()
     ui->progressBarOrto->setValue(0);
     limpiarErrorLog();
     hideAll();
-    ui->pushButtonClose->setDisabled(false);
+    ui->pushButtonClose->setEnabled(false);
     ui->pushButtonCancelCnp->setEnabled(true);
     ui->pushButtonCancelMet->setEnabled(true);
     ui->pushButtonCancelOrto->setEnabled(true);
-    _cnpTerminado=false;
-    _metTerminado=false;
-    _ortoTerminado=false;
+    _cnpTerminado=true;
+    _metTerminado=true;
+    _ortoTerminado=true;
     resize(this->width(),20);
 }
 
