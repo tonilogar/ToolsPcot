@@ -3,7 +3,10 @@
 
 #include <QObject>
 #include <OperacionPcot/datazoneproject.h>
-
+/*!
+ * @class  RegistroCreateOrto
+ * @brief  Classe amb les dades necessàries per fer els processos de cnp.
+ */
 class RegistroCreateCnps : public QObject
 {
     Q_OBJECT

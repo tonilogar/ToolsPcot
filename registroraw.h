@@ -2,7 +2,10 @@
 #define REGISTRORAW_H
 
 #include <QObject>
-
+/*!
+ * @class RegistroRaw
+ * @brief Classe amb les dades necessàries per fer els cavis de format.
+ */
 class RegistroRaw : public QObject
 {
     Q_OBJECT

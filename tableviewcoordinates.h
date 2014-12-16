@@ -10,7 +10,11 @@
 #include "modelocoordenadas.h"
 #include <QWidget>
 #include  "dialoghelpfilecoordinates.h"
-
+/*!
+ * @class TableViewCoordinates
+ * @brief Recopila les dades del interface gràfica per crear el model de coordenades i
+ * comprobar el fitxer de coordenades.
+ */
 
 namespace Ui {
     class TableViewCoordinates;

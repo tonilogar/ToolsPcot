@@ -2,7 +2,11 @@
 #define REGISTROCOORDENADAS_H
 
 #include <QObject>
-
+/*!
+ * @class  RegistroCoordenadas
+ * @brief  Classe amb les dades del identificador de les coordenades i les coordenades
+ * Est Oest Nord Sud.
+ */
 class RegistroCoordenadas : public QObject
 {
     Q_OBJECT

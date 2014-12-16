@@ -22,7 +22,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Extreure Orto</string>
+        <string>Extract Orto</string>
        </property>
       </widget>
      </item>
@@ -59,7 +59,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Directori desti</string>
+        <string>Out folder</string>
        </property>
       </widget>
      </item>

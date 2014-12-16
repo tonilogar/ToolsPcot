@@ -4,6 +4,10 @@
 #include <QAbstractTableModel>
 #include <QList>
 #include "registroraw.h"
+/*!
+ * @class  ModeloRaw
+ * @brief  Classe per crea el model per tractar les dades del fitxers raw
+ */
 class ModeloRaw : public QAbstractTableModel
 {
     Q_OBJECT
@@ -155,7 +159,6 @@ private:
     QString _ficheroAttsync;   ///< Valor path fitxer Attsync.
     QString _datosRadCorr;     ///< Valor parametres per el fitxer RadCorr.
     QString _datosAttsync;     ///< Valor parametres per el fitxer Attsync.
-
     bool _flagStripNumber;     ///< Valor boolea per el número de passada.
     bool _flagFilenumber;      ///< Valor boolea per el número de fitxer.
     bool _flagSignoPasada;     ///< Valor boolea per el signe de passada.

@@ -7,7 +7,10 @@
 #include <QJsonValue>
 #include <QJsonObject>
 #include <OperacionPcot/datazoneproject.h>
-
+/*!
+ * @class  RegistroCreateOrto
+ * @brief  Classe amb les dades necessàries per fer els processos de met.
+ */
 class RegistroCreateMet : public QObject
 {
     Q_OBJECT

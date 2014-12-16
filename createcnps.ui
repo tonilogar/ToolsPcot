@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>313</width>
-    <height>74</height>
+    <height>80</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,7 +22,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Crear cnps</string>
+        <string>Create cnps</string>
        </property>
       </widget>
      </item>
@@ -59,7 +59,7 @@
         <bool>false</bool>
        </property>
        <property name="text">
-        <string>Directori desti</string>
+        <string>Out folder</string>
        </property>
       </widget>
      </item>

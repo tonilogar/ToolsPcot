@@ -2,7 +2,11 @@
 #define TABLEVIEWRAWTASI_H
 
 #include <QWidget>
-
+/*!
+ * @class TableViewRawTasi
+ * @brief Interfice grafica per els fitxers raw dels sensors tasi.
+ *
+ */
 namespace Ui {
     class TableViewRawTasi;
 }

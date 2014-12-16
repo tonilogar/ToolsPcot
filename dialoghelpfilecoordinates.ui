@@ -35,14 +35,14 @@
    <item>
     <widget class="QLabel" name="label">
      <property name="text">
-      <string>El fichero de coordenadas tiene que estar construido de esta manera:
-Identificador coordenada x,y coordenada x´y´
+      <string>El fitxer de coordenades ha de estar construït de la següent manera::
+Identificador coordenada Xa,Ya coordenada Xb,Yb.
 
-Las coordenadas de Catalunya tienen queser en uso 31 etrs89
+Les coordenades de Catalunya han de ser fus 31 etrs89.
 
-Las coordenadas de España tienen queser en uso 30 etrs89
+Les coordenades d’Espanya han de ser fus 30 etrs89.
 
-Las coordenadas de Francia tienen queser en uso lambert</string>
+Les coordenades de França han de ser fus lambert ntf.</string>
      </property>
      <property name="wordWrap">
       <bool>true</bool>

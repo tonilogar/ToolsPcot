@@ -29,14 +29,14 @@
      <item>
       <widget class="QPushButton" name="pushButtonSelectCnpT">
        <property name="text">
-        <string>Select cnps terra</string>
+        <string>Select control points </string>
        </property>
       </widget>
      </item>
      <item>
       <widget class="QPushButton" name="pushButtonSelectCnpH">
        <property name="text">
-        <string>Select cnp homoleg</string>
+        <string>Select tail points</string>
        </property>
       </widget>
      </item>
@@ -50,7 +50,7 @@
      <item>
       <widget class="QPushButton" name="pushButtonFolderOut">
        <property name="text">
-        <string>folder Out</string>
+        <string>Out folder</string>
        </property>
       </widget>
      </item>

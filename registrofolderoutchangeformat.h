@@ -2,7 +2,10 @@
 #define REGISTROFOLDEROUTCHANGEFORMAT_H
 
 #include <QObject>
-
+/*!
+ * @class  RegistroFolderOutChangeFormat
+ * @brief Classe per mostrar o canvia els path de directoris de sortida.
+ */
 class RegistroFolderOutChangeFormat : public QObject
 {
     Q_OBJECT

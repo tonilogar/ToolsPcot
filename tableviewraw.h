@@ -11,7 +11,10 @@
 #include <QLineEdit>
 #include "modeloraw.h"
 #include "signopasadadelegate.h"
-
+/*!
+ * @class TableViewRaw
+ * @brief Recopila les dades del interface gràfica per caviar de format  els fitxers raw a att, atp, pix, rf i jpg.
+ */
 namespace Ui {
 class TableViewRaw;
 }

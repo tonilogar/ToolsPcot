@@ -27,7 +27,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>Tria fitxer de coordenades</string>
+          <string>Select coordinates file</string>
          </property>
         </widget>
        </item>
@@ -40,7 +40,7 @@
           </sizepolicy>
          </property>
          <property name="text">
-          <string>borrar llistat</string>
+          <string>Delete list</string>
          </property>
         </widget>
        </item>

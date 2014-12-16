@@ -4,7 +4,10 @@
 #include <QAbstractTableModel>
 #include <QList>
 #include "registrocoordenadas.h"
-
+/*!
+ * @class  ModeloCoordenadas
+ * @brief  Classe per crea el model per tractar les dades del fitxers raw
+ */
 class ModeloCoordenadas : public QAbstractTableModel
 {
     Q_OBJECT

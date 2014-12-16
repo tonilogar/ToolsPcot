@@ -19,7 +19,7 @@
      <item>
       <widget class="QGroupBox" name="groupBox_2">
        <property name="title">
-        <string>Original files tasi</string>
+        <string>Original tasi files</string>
        </property>
        <layout class="QVBoxLayout" name="verticalLayout">
         <item>
@@ -64,7 +64,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox">
          <property name="title">
-          <string>Dates original files</string>
+          <string>Original data files</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
@@ -81,28 +81,28 @@
               <item>
                <widget class="QLabel" name="labelNombreAvion">
                 <property name="text">
-                 <string>Nom avio</string>
+                 <string>Name plane</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLabel" name="labelNumeroVuelo">
                 <property name="text">
-                 <string>Nº-vuelo</string>
+                 <string>Nº-fly</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLabel" name="labelCodigoSensor">
                 <property name="text">
-                 <string>Codi sensor</string>
+                 <string>Code sensor</string>
                 </property>
                </widget>
               </item>
               <item>
                <widget class="QLabel" name="labelRangoPasada">
                 <property name="text">
-                 <string>Rang passada</string>
+                 <string>Range strip</string>
                 </property>
                </widget>
               </item>
@@ -310,7 +310,7 @@
        <item>
         <widget class="QGroupBox" name="groupBox_3">
          <property name="title">
-          <string>Folders out</string>
+          <string>Out folders</string>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <item>
@@ -326,7 +326,7 @@
    <item>
     <widget class="QPushButton" name="armButton">
      <property name="text">
-      <string>CambisFormat </string>
+      <string>Change formats</string>
      </property>
     </widget>
    </item>
