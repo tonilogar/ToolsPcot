@@ -105,7 +105,7 @@ void DialogProgresoOpe::errorCnp(QString error)
     ui->labelWarning->setVisible(true);
     ui->labelWarningIcon->setVisible(true);
     ui->pushButtonSowErrors->setVisible(true);
-    ui->textBrowserErrors->setTextColor(QColor("firebrick"));
+    ui->textBrowserErrors->setTextColor(QColor("darkred"));
     ui->textBrowserErrors->insertPlainText("[Se ha producido un error en una operación cnp]");
     ui->textBrowserErrors->setTextColor(QColor("dimgray"));
     ui->textBrowserErrors->insertPlainText(error);
@@ -115,7 +115,7 @@ void DialogProgresoOpe::errorMet(QString error)
     ui->labelWarning->setVisible(true);
     ui->labelWarningIcon->setVisible(true);
     ui->pushButtonSowErrors->setVisible(true);
-    ui->textBrowserErrors->setTextColor(QColor("gold"));
+    ui->textBrowserErrors->setTextColor(QColor("darkred"));
     ui->textBrowserErrors->insertPlainText("[Se ha producido un error en una operación met]");
     ui->textBrowserErrors->setTextColor(QColor("dimgray"));
     ui->textBrowserErrors->insertPlainText(error);
@@ -125,7 +125,7 @@ void DialogProgresoOpe::errorOrto(QString error)
     ui->labelWarning->setVisible(true);
     ui->labelWarningIcon->setVisible(true);
     ui->pushButtonSowErrors->setVisible(true);
-    ui->textBrowserErrors->setTextColor(QColor("darkorange"));
+    ui->textBrowserErrors->setTextColor(QColor("darkred"));
     ui->textBrowserErrors->insertPlainText("[Se ha producido un error en una operación orto]");
     ui->textBrowserErrors->setTextColor(QColor("dimgray"));
     ui->textBrowserErrors->insertPlainText(error);
