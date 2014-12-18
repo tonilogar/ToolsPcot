@@ -6,16 +6,16 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>849</width>
-    <height>658</height>
+    <width>856</width>
+    <height>859</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_6">
-    <item>
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
      <widget class="QStackedWidget" name="stackedWidgetVistas">
       <property name="currentIndex">
        <number>0</number>
@@ -390,7 +390,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>849</width>
+     <width>856</width>
      <height>24</height>
     </rect>
    </property>

@@ -120,7 +120,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->page1Cnp,SIGNAL(cambioEstadoCorreccionCnps(int)),ui->pushButtonOptionsCnp,SLOT(setEstadoBoton(int)));
 
 
- //Preparar botones de cambio de opciones orto
+    //Preparar botones de cambio de opciones orto
     ui->pushButtonOptionsOrto->addEstado(0,new QIcon()); //No seleccionado
     ui->pushButtonOptionsOrto->addEstado(1,new QIcon(":/imagenes/correcto"));   //Correcto
     ui->pushButtonOptionsOrto->addEstado(2,new QIcon(":/imagenes/parcialmenteCorrecto"));       // Parcialmente correcto
@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Conectar
     connect(ui->page3Orto,SIGNAL(cambioEstadoCorreccionOrto(int)),ui->pushButtonOptionsOrto,SLOT(setEstadoBoton(int)));
 
- //Preparar botones de cambio de opciones Met
+    //Preparar botones de cambio de opciones Met
     ui->pushButtonOptionsMet->addEstado(0,new QIcon()); //No seleccionado
     ui->pushButtonOptionsMet->addEstado(1,new QIcon(":/imagenes/correcto"));   //Correcto
     ui->pushButtonOptionsMet->addEstado(2,new QIcon(":/imagenes/parcialmenteCorrecto"));       // Parcialmente correcto
@@ -139,49 +139,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Conectar
     connect(ui->page2Met,SIGNAL(cambioEstadoCorreccionMet(int)),ui->pushButtonOptionsMet,SLOT(setEstadoBoton(int)));
-//Inicializar lanzador de operaciones.
+    //Inicializar lanzador de operaciones.
 
     _lanzadorOpe=new LanzadorOperaciones(this,ui->page1Cnp->getObjetoRegistroCreateCnps(),ui->page2Met->getObjetoRegistroCreateMet(),
                                          ui->page3Orto->getObjetoRegistroCreateOrto(),ui->widgetCoordinates);
-
-
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
 }
-
-//void MainWindow::setEstadoCnps(bool estado)
-//{
-//  _estadoCreateCnps=estado;
-//  qDebug()<< estado << "estado mainwindow";
-//}
-//void MainWindow::setEstadoMets(bool estado)
-//{
-//  _estadoCreateMets=estado;
-//}
-//void MainWindow::setEstadoOrtos(bool estado)
-//{
-//  _estadoCreateOrtos=estado;
-//}
-
-/*void MainWindow::evaluacionCnpsMetsOrtos()
-{
-
-    if(_estadoCreateCnps || _estadoCreateMets || _estadoCreateOrtos)
-    {
-         //armButton.setEnabled(bool);
-        ui->pushButtonEmpezarOperacionesMetOrto->setEnabled(true);
-         qDebug()<< "cambioEstado true Mainwindows cnpsMetsOrtos";
-    }
-    else
-    {
-        ui->pushButtonEmpezarOperacionesMetOrto->setEnabled(false);
-        qDebug()<< "cambioEstado false Mainwindows cnpsMetsOrtos";
-    }
-
-}*/
 
 void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
 {
@@ -223,56 +190,31 @@ void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
             mensajeWarning=mensajeWarning + tr("\n\t- Operacion ORTO");
         QMessageBox::warning(this,tr("ToolsPCot - Cnp Met Orto"),mensajeWarning);
         return;
-
     }
-   _lanzadorOpe->setCnpActivo(false);
-   _lanzadorOpe->setMetActivo(false);
-   _lanzadorOpe->setOrtoActivo(false);
+    _lanzadorOpe->setCnpActivo(false);
+    _lanzadorOpe->setMetActivo(false);
+    _lanzadorOpe->setOrtoActivo(false);
     //si llegamos a este linea cambiamos las variables boleanas necesarias
-    qDebug()<< "Todos los datos son correctos, Comenzar operaciones cnp met orto";
 
     //Si el icono cnp es verde cambiamos el la variable a true y empezamos los procesos
     if((ui->pushButtonOptionsCnp->getEstadoBoton()==1))
     {
         iconoCnp==true;
-     _lanzadorOpe->setCnpActivo(true);
-     qDebug()<< "Creando cnps";
+        _lanzadorOpe->setCnpActivo(true);
     }
     //Si el icono met es verde cambiamos el la variable a true y empezamos los procesos
     if((ui->pushButtonOptionsMet->getEstadoBoton()==1))
     {
-
         iconoMet==true;
-      _lanzadorOpe->setMetActivo(true);
-qDebug()<< "Creando met";
+        _lanzadorOpe->setMetActivo(true);
     }
     //Si el icono orto es verde cambiamos el la variable a true y empezamos los procesos
     if((ui->pushButtonOptionsOrto->getEstadoBoton()==1))
     {
-      iconoOrto==true;
-       _lanzadorOpe->setOrtoActivo(true);
-      qDebug()<< "Creando orto";
+        iconoOrto==true;
+        _lanzadorOpe->setOrtoActivo(true);
     }
-   _lanzadorOpe->launch();
-}
-
-void MainWindow::on_pushButton_clicked()
-{
-
-    //prueba clase registrocreateMet
-  qDebug()<< "pepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepe";
-  RegistroCreateMet *punteroRCMet;
-  RegistroCreateOrto *punteroRCOrto;
-  punteroRCMet=ui->page2Met->getObjetoRegistroCreateMet();
-  qDebug()<< punteroRCMet->getAmbitoOperacion() <<"getAmbitoOperacion";
-  qDebug()<< punteroRCMet->getAnchoPasada() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getCutDtm() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getFolderOut() <<"getAmbitoProyectoMetmetmet";
-  qDebug()<< punteroRCOrto->getFolderOut() <<"getAmbitoProyectoOrto";
-  qDebug()<< punteroRCMet->getFootPrintMask() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getNumeroCanales() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getOffsetPasada() <<"getAmbitoProyectoMet";
-
+    _lanzadorOpe->launch();
 }
 
 void MainWindow::lanzarDialogoPreferencias()

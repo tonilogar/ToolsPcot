@@ -30,19 +30,15 @@ public slots:
 
 private slots:
     void on_pushButtonEmpezarOperacionesMetOrto_clicked();
-    void on_pushButton_clicked();
     void lanzarDialogoPreferencias();
 
 private:
     Ui::MainWindow *ui;
-    bool _estadoCreateCnps;
-    bool _estadoCreateMets;
-    bool _estadoCreateOrtos;
+
 
     //Atributo de signal mapper
     QSignalMapper *mapeadorVistas;
     LanzadorOperaciones *_lanzadorOpe;
-    RegistroCreateMet  ObjetoRegistroCreateMet;
 };
 
 #endif // MAINWINDOW_H
