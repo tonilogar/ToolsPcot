@@ -42,9 +42,7 @@ private:
     //Atributo de signal mapper
     QSignalMapper *mapeadorVistas;
     LanzadorOperaciones *_lanzadorOpe;
-
-
-RegistroCreateMet  ObjetoRegistroCreateMet;
+    RegistroCreateMet  ObjetoRegistroCreateMet;
 };
 
 #endif // MAINWINDOW_H
