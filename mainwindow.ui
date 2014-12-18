@@ -21,15 +21,15 @@
        <number>0</number>
       </property>
       <widget class="QWidget" name="page1CnpMetOrto">
-       <layout class="QVBoxLayout" name="verticalLayout_4">
-        <item>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
          <widget class="QSplitter" name="splitter_2">
           <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+           <enum>Qt::Vertical</enum>
           </property>
           <widget class="QSplitter" name="splitter">
            <property name="orientation">
-            <enum>Qt::Vertical</enum>
+            <enum>Qt::Horizontal</enum>
            </property>
            <widget class="QGroupBox" name="groupBoxCoordinatesFile">
             <property name="title">
@@ -157,6 +157,8 @@
          </widget>
         </item>
        </layout>
+       <zorder>splitter_2</zorder>
+       <zorder>splitter_2</zorder>
       </widget>
       <widget class="QWidget" name="page2renameChangeFormats">
        <layout class="QVBoxLayout" name="verticalLayout_14">
