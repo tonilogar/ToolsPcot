@@ -39,7 +39,9 @@ signals:
 
 private slots:
 
-
+    void openFileCoordinates();
+    void cleanTableView();
+    void help();
 private:
     Ui::TableViewCoordinates *ui;                       ///< Nom del interface grafica.
     QString _pathFileCoordinates;                       ///< Nom del fitxer de coordenades.
