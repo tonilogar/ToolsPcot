@@ -44,7 +44,8 @@ SOURCES += main.cpp\
     correction.cpp \
     diferences.cpp \
     controlworker.cpp \
-    dialogprogresoope.cpp
+    dialogprogresoope.cpp \
+    readercoordinates.cpp
 
 HEADERS  += mainwindow.h \
     tableviewcoordinates.h \
@@ -76,7 +77,8 @@ HEADERS  += mainwindow.h \
     correction.h \
     diferences.h \
     controlworker.h \
-    dialogprogresoope.h
+    dialogprogresoope.h \
+    readercoordinates.h
 
 FORMS    += mainwindow.ui \
     tableviewcoordinates.ui \
