@@ -3,7 +3,7 @@
 
 #include <QAbstractTableModel>
 #include <QList>
-#include "registrocoordenadas.h"
+#include <OperacionPcot/identificadorcoordenadas.h>
 /*!
  * @class  ModeloCoordenadas
  * @brief  Classe per crea el model per tractar les dades del fitxers raw
@@ -13,9 +13,9 @@ class ModeloCoordenadas : public QAbstractTableModel
     Q_OBJECT
 public:
     /*!
-     * Constructor explicit per defecte, necesita un punter nul i un llistat de registre de coordenades.
+     * Constructor explicit per defecte, necesita un punter nul i un llistat IdentificadorCoordenades.
      */
-    explicit ModeloCoordenadas(QObject *parent = 0,QList<RegistroCoordenadas*> lista=QList<RegistroCoordenadas*>());
+    explicit ModeloCoordenadas(QObject *parent = 0,QList<IdentificadorCoordenadas*> lista=QList<IdentificadorCoordenadas*>());
 
     /*!
      * Mostrar el número de files del model.
@@ -45,20 +45,24 @@ public:
 
     //Metodos propios
     /*!
-     * Borra les dades del model i de la llista de registres.
+     * Borra les dades del model i de la llista de IdentificadorCoordenades.
      */
     void clear();
     /*!
-     * Canvia els valors de la llista de registres.
+     * Canvia els valors de la llista de IdentificadorCoordenades.
      */
-    void setListaRegistro(QList<RegistroCoordenadas*> nuevaLista);
+    void setListaRegistro(QList<IdentificadorCoordenadas*> nuevaLista);
+    /*!
+     * retorna el llistat de IdentificadorCoordenades.
+     */
+    QList <IdentificadorCoordenadas*> getListaRegistro();
 signals:
     
 public slots:
 private:
 
 
-    QList<RegistroCoordenadas*> _listaRegistros;///< Llista dels registres seleccionats.
+    QList<IdentificadorCoordenadas*> _listaRegistros;///< Llista dels IdentificadorCoordenades seleccionats.
 };
 
 #endif // MODELOCOORDENADAS_H

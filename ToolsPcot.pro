@@ -16,7 +16,6 @@ LIBS += -L../libs -lOperacionPcot
 SOURCES += main.cpp\
         mainwindow.cpp \
     tableviewcoordinates.cpp \
-    registrocoordenadas.cpp \
     modelocoordenadas.cpp \
     createorto.cpp \
     createmet.cpp \
@@ -49,7 +48,6 @@ SOURCES += main.cpp\
 
 HEADERS  += mainwindow.h \
     tableviewcoordinates.h \
-    registrocoordenadas.h \
     modelocoordenadas.h \
     registrocreateorto.h \
     registrocreatemet.h \

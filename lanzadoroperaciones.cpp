@@ -211,19 +211,7 @@ void LanzadorOperaciones::borrarListadoOperacion(QList<Operacion *> &lista)
 }
 void LanzadorOperaciones::crearListaIdentificadores()
 {
-    IdentificadorCoordenadas *ide=0;
-    ModeloCoordenadas *modelo=_tableCoordinates->getModeloCoordenadas();
-    int numFilas=modelo->rowCount();
-    for(int i=0;i<numFilas;i++)
-    {
-        ide=new IdentificadorCoordenadas(this);
-        ide->setIdentificador(modelo->index(i,0).data().toString());
-        ide->setXa(modelo->index(i,1).data().toDouble());
-        ide->setYa(modelo->index(i,2).data().toDouble());
-        ide->setXb(modelo->index(i,3).data().toDouble());
-        ide->setYb(modelo->index(i,4).data().toDouble());
-        _listaIdentificadores<<ide;
-    }
+   _listaIdentificadores=_tableCoordinates->getModeloCoordenadas()->getListaRegistro();
 }
 
 

@@ -16,7 +16,7 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "modelocoordenadas.h"
 
-ModeloCoordenadas::ModeloCoordenadas(QObject *parent,QList<RegistroCoordenadas*> lista) :
+ModeloCoordenadas::ModeloCoordenadas(QObject *parent,QList<IdentificadorCoordenadas*> lista) :
     QAbstractTableModel(parent)
 {
     _listaRegistros=lista;  //Inicializando la lista de registros
@@ -43,7 +43,7 @@ QVariant ModeloCoordenadas::data(const QModelIndex &index, int role) const
         return QVariant();
 
     QVariant resultado;
-    RegistroCoordenadas *registro = _listaRegistros.at(index.row());
+    IdentificadorCoordenadas *registro = _listaRegistros.at(index.row());
 
     /*
      * Al trabajar con los datos de un archivo de coordenadas, me he dado
@@ -60,17 +60,17 @@ QVariant ModeloCoordenadas::data(const QModelIndex &index, int role) const
             resultado=registro->getIdentificador();
             break;
         case 1:
-            resultado=QString::number(registro->getXA(),'f',2); //Formato f, numero tal cual (p.e 401392)
+            resultado=QString::number(registro->getXa(),'f',2); //Formato f, numero tal cual (p.e 401392)
                                                                 //El numero 2 representa el total de decimales que queremos mostrar
             break;
         case 2:
-            resultado=QString::number(registro->getYA(),'f',2);
+            resultado=QString::number(registro->getYa(),'f',2);
             break;
         case 3:
-            resultado=QString::number(registro->getXB(),'f',2);
+            resultado=QString::number(registro->getXb(),'f',2);
             break;
         case 4:
-            resultado=QString::number(registro->getYB(),'f',2);
+            resultado=QString::number(registro->getYb(),'f',2);
             break;
         default:
             break;
@@ -85,16 +85,16 @@ QVariant ModeloCoordenadas::data(const QModelIndex &index, int role) const
             resultado=registro->getIdentificador();
             break;
         case 1:
-            resultado=registro->getXA();
+            resultado=registro->getXa();
             break;
         case 2:
-            resultado=registro->getYA();
+            resultado=registro->getYa();
             break;
         case 3:
-            resultado=registro->getXB();
+            resultado=registro->getXb();
             break;
         case 4:
-            resultado=registro->getYB();
+            resultado=registro->getYb();
             break;
         default:
             break;
@@ -140,23 +140,23 @@ bool ModeloCoordenadas::setData(const QModelIndex &index, const QVariant &value,
         return false;
 
     if(role==Qt::EditRole) {
-        RegistroCoordenadas *registro = _listaRegistros.value(index.row());
+        IdentificadorCoordenadas *registro = _listaRegistros.value(index.row());
 
         switch(index.column()) {
         case 0:
             registro->setIdentificador(value.toString());
             break;
         case 1:
-            registro->setXA(value.toDouble());
+            registro->setXa(value.toDouble());
             break;
         case 2:
-            registro->setYA(value.toDouble());
+            registro->setYa(value.toDouble());
             break;
         case 3:
-            registro->setXB(value.toDouble());
+            registro->setXb(value.toDouble());
             break;
         case 4:
-            registro->setYB(value.toDouble());
+            registro->setYb(value.toDouble());
             break;
         default:
             break;
@@ -174,10 +174,14 @@ void ModeloCoordenadas::clear()
     endResetModel();
 }
 
-void ModeloCoordenadas::setListaRegistro(QList<RegistroCoordenadas *> nuevaLista)
+void ModeloCoordenadas::setListaRegistro(QList<IdentificadorCoordenadas *> nuevaLista)
 {
     beginResetModel();
     _listaRegistros.clear();
     _listaRegistros=nuevaLista;
     endResetModel();
+}
+QList <IdentificadorCoordenadas*> ModeloCoordenadas::getListaRegistro()
+{
+  return _listaRegistros;
 }
