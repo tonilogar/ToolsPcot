@@ -20,9 +20,6 @@ SOURCES += main.cpp\
     createorto.cpp \
     createmet.cpp \
     createcnps.cpp \
-    registrocreatemet.cpp \
-    registrocreatecnps.cpp \
-    registrocreateorto.cpp \
     tableviewraw.cpp \
     signopasadadelegate.cpp \
     registroraw.cpp \
@@ -45,14 +42,14 @@ SOURCES += main.cpp\
     diferences.cpp \
     controlworker.cpp \
     dialogprogresoope.cpp \
-    readercoordinates.cpp
+    readercoordinates.cpp \
+    registrocnps.cpp \
+    registromet.cpp \
+    registroorto.cpp
 
 HEADERS  += mainwindow.h \
     tableviewcoordinates.h \
     modelocoordenadas.h \
-    registrocreateorto.h \
-    registrocreatemet.h \
-    registrocreatecnps.h \
     createorto.h \
     createmet.h \
     createcnps.h \
@@ -78,7 +75,10 @@ HEADERS  += mainwindow.h \
     diferences.h \
     controlworker.h \
     dialogprogresoope.h \
-    readercoordinates.h
+    readercoordinates.h \
+    registrocnps.h \
+    registromet.h \
+    registroorto.h
 
 FORMS    += mainwindow.ui \
     tableviewcoordinates.ui \

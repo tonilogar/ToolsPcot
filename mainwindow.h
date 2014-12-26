@@ -7,9 +7,9 @@
 #include "createmet.h"
 #include "createorto.h"
 #include "lanzadoroperaciones.h"
-#include "registrocreatecnps.h"
-#include "registrocreatemet.h"
-#include "registrocreateorto.h"
+#include "registrocnps.h"
+#include "registromet.h"
+#include "registroorto.h"
 #include "dialogopreferencias.h"
 #include <QSignalMapper>
 #include <QSettings>

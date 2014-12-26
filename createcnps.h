@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include "tableviewcoordinates.h"
-#include "registrocreatecnps.h"
+#include "registrocnps.h"
 
 namespace Ui {
     class CreateCnps;
@@ -18,7 +18,7 @@ class CreateCnps : public QWidget
 public:
     explicit CreateCnps(QWidget *parent = 0);
     ~CreateCnps();
-    RegistroCreateCnps * getObjetoRegistroCreateCnps();   
+    RegistroCnps * getObjetoRegistroCnps();
     void setPunterotVCoordenadas(TableViewCoordinates *puntero);
     bool comprobarChecFolderCnps();
     //void createCnp();
@@ -41,7 +41,7 @@ private slots:
 
 private:
     Ui::CreateCnps *ui;
-    RegistroCreateCnps *punteroRegistroCreateCnps;
+    RegistroCnps *punteroRegistroCnps;
     TableViewCoordinates *tVCoordenadas;
     QString folderOut;
 

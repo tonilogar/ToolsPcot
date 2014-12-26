@@ -141,8 +141,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->page2Met,SIGNAL(cambioEstadoCorreccionMet(int)),ui->pushButtonOptionsMet,SLOT(setEstadoBoton(int)));
     //Inicializar lanzador de operaciones.
 
-    _lanzadorOpe=new LanzadorOperaciones(this,ui->page1Cnp->getObjetoRegistroCreateCnps(),ui->page2Met->getObjetoRegistroCreateMet(),
-                                         ui->page3Orto->getObjetoRegistroCreateOrto(),ui->widgetCoordinates);
+    _lanzadorOpe=new LanzadorOperaciones(this,ui->page1Cnp->getObjetoRegistroCnps(),ui->page2Met->getObjetoRegistroMet(),
+                                         ui->page3Orto->getObjetoRegistroOrto(),ui->widgetCoordinates);
 }
 
 MainWindow::~MainWindow()

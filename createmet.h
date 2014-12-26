@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QSettings>
 #include "tableviewcoordinates.h"
-#include "registrocreatemet.h"
+#include "registromet.h"
 #include "ficherodatosambitopro.h"
 #include <OperacionPcot/datazoneproject.h>
 
@@ -22,7 +22,7 @@ public:
 
     explicit CreateMet(QWidget *parent = 0);
     ~CreateMet();
-    RegistroCreateMet * getObjetoRegistroCreateMet();
+    RegistroMet * getObjetoRegistroMet();
     void setPunterotVCoordenadas(TableViewCoordinates *puntero);
 
 signals:
@@ -55,7 +55,7 @@ private slots:
 
 private:
     Ui::CreateMet *ui;
-    RegistroCreateMet *punteroRegistroCreateMet;
+    RegistroMet *punteroRegistroMet;
     TableViewCoordinates *tVCoordenadas;
     QString folderOut;
     void evaluarEstadoWidgetMet();

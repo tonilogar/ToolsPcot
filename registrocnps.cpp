@@ -14,15 +14,15 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#include "registrocreatecnps.h"
+#include "registrocnps.h"
 
-RegistroCreateCnps::RegistroCreateCnps(QObject *parent) :
+RegistroCnps::RegistroCnps(QObject *parent) :
     QObject(parent)
 {
     _folderOut=QString();
 }
 
-RegistroCreateCnps::RegistroCreateCnps(QObject *parent,QString folderOut):
+RegistroCnps::RegistroCnps(QObject *parent,QString folderOut):
     QObject(parent)
 {
    _folderOut= folderOut;
@@ -30,17 +30,17 @@ RegistroCreateCnps::RegistroCreateCnps(QObject *parent,QString folderOut):
 
 //Getter
 
-QString RegistroCreateCnps::getFolderOut()
+QString RegistroCnps::getFolderOut()
 {
 return _folderOut;
 }
 
 //setters
-void RegistroCreateCnps::setFolderOut(QString folderOut)
+void RegistroCnps::setFolderOut(QString folderOut)
 {
 _folderOut=folderOut;
 }
-void RegistroCreateCnps::buildDataZoneProject(DataZoneProject *dataZP)
+void RegistroCnps::buildDataZoneProject(DataZoneProject *dataZP)
 {
  dataZP->setFolderOut(_folderOut);
 }

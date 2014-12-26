@@ -16,8 +16,8 @@
 #include "lanzadoroperaciones.h"
 #include <QDateTime>
 
-LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_regCnp,RegistroCreateMet  *_regMet,
-                                         RegistroCreateOrto *_regOrto,TableViewCoordinates *_tableCoor ) :
+LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCnps *_regCnp,RegistroMet  *_regMet,
+                                         RegistroOrto *_regOrto,TableViewCoordinates *_tableCoor ) :
     QObject(parent)
 {
     _registroCnp=_regCnp;
@@ -44,16 +44,16 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
 
 }
 
-void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCreateCnps *_regCnp)
+void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCnps *_regCnp)
 {
     _registroCnp=_regCnp;
 }
 
-void LanzadorOperaciones::setObjetoRegistroMet(RegistroCreateMet *_regMet)
+void LanzadorOperaciones::setObjetoRegistroMet(RegistroMet *_regMet)
 {
     _registroMet=_regMet;
 }
-void LanzadorOperaciones::setObjetoRegistroOrto(RegistroCreateOrto *_regOrto)
+void LanzadorOperaciones::setObjetoRegistroOrto(RegistroOrto *_regOrto)
 {
     _registroOrto=_regOrto;
 }

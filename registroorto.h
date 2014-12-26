@@ -1,5 +1,5 @@
-#ifndef REGISTROCREATEMET_H
-#define REGISTROCREATEMET_H
+#ifndef REGISTROORTO_H
+#define REGISTROORTO_H
 
 #include <QObject>
 #include <QDebug>
@@ -8,22 +8,26 @@
 #include <QJsonObject>
 #include <OperacionPcot/datazoneproject.h>
 /*!
- * @class  RegistroCreateOrto
- * @brief  Classe amb les dades necessàries per fer els processos de met.
+ * @class  RegistroOrto
+ * @brief  Classe amb les dades necessàries per fer els processos de orto.
  */
-class RegistroCreateMet : public QObject
+class RegistroOrto : public QObject
 {
     Q_OBJECT
 public:
+
     /*!
      * Constructor explicit per defecte, necesita un punter nul.
      */
-    explicit RegistroCreateMet(QObject *parent = 0);
-
-    RegistroCreateMet(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
+    explicit RegistroOrto(QObject *parent = 0);
+    /*!
+     * Constructor explicit per defecte, necesita un punter nul.
+     *
+     */
+    RegistroOrto(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
                       DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
-                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
-                      QString exeExtraction,QString exeResize,QString utmDefecto, QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
+                      QString pathImageOrto,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
+                      QString exeExtraction,QString exeResize,QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
 
     //Getter
     /*!
@@ -47,7 +51,7 @@ public:
      */
     double getTamanyPixel();
     /*!
-     * Mostrar el valor del tamany de tall  del fitxer met.
+     * Mostrar el valor del tamany de tall  del fitxer orto.
      */
     int getTamanyoCorte();
     /*!
@@ -71,9 +75,9 @@ public:
      */
     bool getFootPrintMask();
     /*!
-     * Mostrar el path de imatge met.
+     * Mostrar el path de imatge orto.
      */
-    QString getPathImageMet();
+    QString getPathImageOrto();
     /*!
      * Mostrar el path de ExeSubScene.
      */
@@ -87,17 +91,13 @@ public:
      */
     QString getExeFootPrintMask();
     /*!
-     * Mostrar imatge original del met.
+     * Mostrar el path de Extraction.
      */
     QString getExeExtraction();
     /*!
      * Mostrar el path de Resize.
      */
     QString getExeResize();
-    /*!
-     * Mostrar el valor del utm per defecte.
-     */
-    QString getUtmDefecto();
     /*!
      * Mostrar el llistat d'executables.
      */
@@ -138,8 +138,8 @@ public slots:
      */
     void setSelectSensor(DataZoneProject::Sensor selectSensor);
     /*!
-     * Canvia valor del tamany de tall  del fitxer met.
-     * @param nou valor del tamany de tall  del fitxer met.
+     * Canvia valor del tamany de tall  del fitxer orto.
+     * @param nou valor del tamany de tall  del fitxer orto.
      */
     void setTamanyoCorte(int tamanyoCorte);
     /*!
@@ -168,10 +168,10 @@ public slots:
      */
     void setFootprintMask(int fprintM);
     /*!
-     * Canvia el path de imatge met.
-     * @param nou path de imatge met.
+     * Canvia el path de imatge orto.
+     * @param nou path de imatge orto.
      */
-    void setPathImageMet(QString pathImageMet);
+    void setPathImageOrto(QString pathImageOrto);
     /*!
      * Canvia valor path de SubScene.
      * @param nou path de SubScene.
@@ -198,16 +198,10 @@ public slots:
      */
     void setExeResize(QString exeResize);
     /*!
-     * Canvia valor del utm per defecte.
-     * @param nou valor del utm per defecte.
-     */
-    void setUtmDefecto(QString utmDefecto);
-    /*!
      * Canvia valor del llistat del executables.
      * @param nou valor del llistat del executables.
      */
     void setListaEjecutables(QJsonArray listaEjecutables);
-
 
 signals:
 
@@ -225,15 +219,14 @@ private:
     DataZoneProject::sistemaCoor _coordinateSystem; ///< Valor sistema de coordenades.
     DataZoneProject::Ambito _ambitoOperacion;       ///< Valor ambit de projecte.
     DataZoneProject::Sensor _selectSensor;          ///< Valor sensor de vol.
-    QString _pathImageMet;       ///< Valor de la imatge met inicial.
+    QString _pathImageOrto;       ///< Valor servidor wms de imatge orto.
     QString _exeSubScene;         ///< Valor path SubScene.
     QString _exeImaOpeGeo;        ///< Valor path ImaOpeGeo.
     QString _exeFootPrintMask;    ///< Valor path FootPrintMask.
     QString _exeExtraction;       ///< Valor path Extraction.
     QString _exeResize;           ///< Valor path Resize.
-    QString _utmDefecto;          ///< Valor utm per defecte .
     QJsonArray _listaEjecutables; ///< Llistat de executables .
 
 };
 
-#endif // REGISTROCREATEMET_H
+#endif // REGISTROORTO_H

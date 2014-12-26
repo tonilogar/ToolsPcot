@@ -23,10 +23,10 @@ CreateCnps::CreateCnps(QWidget *parent) :
     ui(new Ui::CreateCnps)
 {
     ui->setupUi(this);
-    punteroRegistroCreateCnps=new RegistroCreateCnps(this);
+    punteroRegistroCnps=new RegistroCnps(this);
  connect(ui->checkBoxCreaCnps,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableCreateCnp(int)));
  connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),this,SLOT(comprobarCorreccion(QString)));
- connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),punteroRegistroCreateCnps,SLOT(setFolderOut(QString)));
+ connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),punteroRegistroCnps,SLOT(setFolderOut(QString)));
 
 }
 
@@ -130,7 +130,7 @@ void CreateCnps::comprobarCorreccion(QString dato)
     }
 }
 
-RegistroCreateCnps* CreateCnps::getObjetoRegistroCreateCnps()
+RegistroCnps* CreateCnps::getObjetoRegistroCnps()
 {
-return punteroRegistroCreateCnps;
+return punteroRegistroCnps;
 }

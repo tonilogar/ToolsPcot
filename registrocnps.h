@@ -1,24 +1,24 @@
-#ifndef REGISTROCREATECNPS_H
-#define REGISTROCREATECNPS_H
+#ifndef REGISTROCNPS_H
+#define REGISTROCNPS_H
 
 #include <QObject>
 #include <OperacionPcot/datazoneproject.h>
 /*!
- * @class  RegistroCreateOrto
+ * @class  RegistroOrto
  * @brief  Classe amb les dades necessàries per fer els processos de cnp.
  */
-class RegistroCreateCnps : public QObject
+class RegistroCnps : public QObject
 {
     Q_OBJECT
 public:
     /*!
      * Constructor explicit per defecte, necesita un punter nul.
      */
-    explicit RegistroCreateCnps(QObject *parent = 0);
+    explicit RegistroCnps(QObject *parent = 0);
     /*!
      * El constructor necessita un punter this i la variable del directori de sortida.
      */
- RegistroCreateCnps(QObject *parent,QString folderOut);
+ RegistroCnps(QObject *parent,QString folderOut);
 
 
     //Getters
@@ -46,4 +46,4 @@ private:
 
 };
 
-#endif // REGISTROCREATECNPS_H
+#endif // REGISTROCNPS_H

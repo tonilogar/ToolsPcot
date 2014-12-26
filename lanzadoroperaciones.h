@@ -9,9 +9,9 @@
 #include <QMessageBox>
 #include <QDebug>
 #include"modelocoordenadas.h"
-#include"registrocreatecnps.h"
-#include"registrocreatemet.h"
-#include"registrocreateorto.h"
+#include"registrocnps.h"
+#include"registromet.h"
+#include"registroorto.h"
 #include"tableviewcoordinates.h"
 #include"debugqprocess.h"
 #include <QProgressDialog>
@@ -44,11 +44,11 @@ class LanzadorOperaciones : public QObject
     Q_OBJECT
 public:
     /*!
-     * Constructor explicit per defecte, necesita un punter nul,tres punters de RegistroCreateCnps,RegistroCreateMet, RegistroCreateOrto
+     * Constructor explicit per defecte, necesita un punter nul,tres punters de RegistroCnps,RegistroMet, RegistroOrto
      *i TableViewCoordinates.
      */
-    explicit LanzadorOperaciones(QObject *parent = 0, RegistroCreateCnps *_regCnp=0,RegistroCreateMet  *_regMet=0,
-                                 RegistroCreateOrto *_regOrto=0,TableViewCoordinates *_tableCoor=0);
+    explicit LanzadorOperaciones(QObject *parent = 0, RegistroCnps *_regCnp=0,RegistroMet  *_regMet=0,
+                                 RegistroOrto *_regOrto=0,TableViewCoordinates *_tableCoor=0);
     /*!
      * Mostra el valor del boolea del proces cnp.
      */
@@ -69,20 +69,20 @@ signals:
 
     public slots:
     /*!
-     * Canvia el valor del objecte RegistroCreateCnps.
-     * @param Nou valor del objecte RegistroCreateCnps.
+     * Canvia el valor del objecte RegistroCnps.
+     * @param Nou valor del objecte RegistroCnps.
      */
- void setObjetoRegistroCnp(RegistroCreateCnps *_regCnp); 
+ void setObjetoRegistroCnp(RegistroCnps *_regCnp);
  /*!
-  * Canvia el valor del objecte RegistroCreateMet.
-  * @param Nou valor del objecte RegistroCreateMet.
+  * Canvia el valor del objecte RegistroMet.
+  * @param Nou valor del objecte RegistroMet.
   */
- void setObjetoRegistroMet(RegistroCreateMet *_regMet);
+ void setObjetoRegistroMet(RegistroMet *_regMet);
  /*!
-  * Canvia el valor del objecte RegistroCreateOrto.
-  * @param Nou valor del objecte RegistroCreateOrto.
+  * Canvia el valor del objecte RegistroOrto.
+  * @param Nou valor del objecte RegistroOrto.
   */
- void setObjetoRegistroOrto(RegistroCreateOrto *_regOrto);
+ void setObjetoRegistroOrto(RegistroOrto *_regOrto);
  /*!
   * Canvia el valor del objecte TableViewCoordinates.
   * @param Nou valor del objecte TableViewCoordinates.
@@ -106,9 +106,9 @@ signals:
 
 
 private:
- RegistroCreateCnps *_registroCnp;  ///< Valor del objecte RegistroCreateCnps.
- RegistroCreateMet  *_registroMet;  ///< Valor del objecte RegistroCreateMet.
- RegistroCreateOrto *_registroOrto; ///< Valor del objecte RegistroCreateOrto.
+ RegistroCnps *_registroCnp;  ///< Valor del objecte RegistroCnps.
+ RegistroMet  *_registroMet;  ///< Valor del objecte RegistroMet.
+ RegistroOrto *_registroOrto; ///< Valor del objecte RegistroOrto.
  TableViewCoordinates *_tableCoordinates; ///< Valor del objecte TableViewCoordinates.
  DialogProgresoOpe *_dialogoProgreso; ///< Valor del objecte DialogProgresoOpe.
  DataZoneProject *_dataZoneCnp; ///< Valor del objecte DataZoneProject cnp.

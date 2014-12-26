@@ -14,9 +14,9 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#include "registrocreatemet.h"
+#include "registroorto.h"
 
-RegistroCreateMet::RegistroCreateMet(QObject *parent) :
+RegistroOrto::RegistroOrto(QObject *parent) :
     QObject(parent)
 {
     _folderOut=QString();
@@ -31,22 +31,21 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
     _fprintM=false;
     _anchoPasada=-1;
     _offsetPasada=-1;
-    _pathImageMet=QString();
+    _pathImageOrto=QString();
     _exeSubScene=QString();
     _exeImaOpeGeo=QString();
     _exeFootPrintMask=QString();
     _exeExtraction=QString();
     _exeResize=QString();
-    _utmDefecto=QString();
     _listaEjecutables=QJsonArray();
     _selectSensor=DataZoneProject::Vacio;
 
 }
 
-RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
+RegistroOrto::RegistroOrto(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
                                      DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
-                                     QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
-                                     QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables,
+                                     QString pathImageOrto,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
+                                     QString exeExtraction, QString exeResize, QJsonArray listaEjecutables,
                                      DataZoneProject::Sensor selectSensor):QObject(parent)
 {
     _folderOut= folderOut;
@@ -59,10 +58,9 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneP
     _offsetPasada= offsetPasada;
     _dtm=false;
     _fprintM=false;
-    _pathImageMet= pathImageMet;
+    _pathImageOrto= pathImageOrto;
     _exeSubScene=exeSubScene;
     _exeFootPrintMask=exeFootPrintMask;
-    _utmDefecto=utmDefecto;
     _listaEjecutables=listaEjecutables;
     _selectSensor=selectSensor;
 }
@@ -70,181 +68,169 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneP
 
 //Getter
 
-QString RegistroCreateMet::getFolderOut()
+QString RegistroOrto::getFolderOut()
 {
     return _folderOut;
 }
-DataZoneProject::Ambito RegistroCreateMet::getAmbitoOperacion()
+DataZoneProject::Ambito RegistroOrto::getAmbitoOperacion()
 {
  return _ambitoOperacion;
 }
-DataZoneProject::Sensor RegistroCreateMet::getSelectSensor()
+DataZoneProject::Sensor RegistroOrto::getSelectSensor()
 {
  return _selectSensor;
 }
 
-double RegistroCreateMet::getTamanyPixel()
+double RegistroOrto::getTamanyPixel()
 {
     return _tamanyoPixel;
 }
-DataZoneProject::sistemaCoor RegistroCreateMet::getCoordinateSystem()
+DataZoneProject::sistemaCoor RegistroOrto::getCoordinateSystem()
 {
     return _coordinateSystem;
 }
-int RegistroCreateMet::getTamanyoCorte()
+int RegistroOrto::getTamanyoCorte()
 {
     return _tamanyoCorte;
 }
-int RegistroCreateMet::getNumeroCanales()
+int RegistroOrto::getNumeroCanales()
 {
     return _numeroCanales;
 }
-int RegistroCreateMet::getAnchoPasada()
+int RegistroOrto::getAnchoPasada()
 {
     return _anchoPasada;
     qDebug()<< _anchoPasada << "_anchoPasada;";
 }
-int RegistroCreateMet::getOffsetPasada()
+int RegistroOrto::getOffsetPasada()
 {
     return _offsetPasada;
 }
-bool RegistroCreateMet::getCutDtm()
+bool RegistroOrto::getCutDtm()
 {
     return _dtm;
 }
-bool RegistroCreateMet::getFootPrintMask()
+bool RegistroOrto::getFootPrintMask()
 {
     return _fprintM;
 }
-QString RegistroCreateMet::getPathImageMet()
+QString RegistroOrto::getPathImageOrto()
 {
-    return _pathImageMet;
+    return _pathImageOrto;
 }
-QString RegistroCreateMet::getExeSubScene()
+QString RegistroOrto::getExeSubScene()
 {
     return _exeSubScene;
 }
-QString RegistroCreateMet::getExeImaOpeGeo()
+QString RegistroOrto::getExeImaOpeGeo()
 {
     return _exeImaOpeGeo;
 }
 
-QString RegistroCreateMet::getExeFootPrintMask()
+QString RegistroOrto::getExeFootPrintMask()
 {
     return _exeFootPrintMask;
 }
-QString RegistroCreateMet::getExeExtraction()
+QString RegistroOrto::getExeExtraction()
 {
     return _exeExtraction;
 }
-QString RegistroCreateMet::getExeResize()
+QString RegistroOrto::getExeResize()
 {
     return _exeResize;
 }
-QString RegistroCreateMet::getUtmDefecto()
-{
-    return _utmDefecto;
-}
-QJsonArray RegistroCreateMet::getListaEjecutables()
+QJsonArray RegistroOrto::getListaEjecutables()
 {
     return _listaEjecutables;
 }
 
 //setters
-void RegistroCreateMet::setFolderOut(QString folderOut)
+void RegistroOrto::setFolderOut(QString folderOut)
 {
     _folderOut=folderOut;
     qDebug()<< _folderOut << "_folderOut------------------------------";
 }
-void RegistroCreateMet::setAmbitoOperacion(DataZoneProject::Ambito ambitoOperacion)
+void RegistroOrto::setAmbitoOperacion(DataZoneProject::Ambito ambitoOperacion)
 {
  _ambitoOperacion=ambitoOperacion;
     qDebug()<< _ambitoOperacion << "_ambitoOperacion------------------------------";
 }
-void RegistroCreateMet::setSelectSensor(DataZoneProject::Sensor selectSensor)
+void RegistroOrto::setSelectSensor(DataZoneProject::Sensor selectSensor)
 {
  _selectSensor=selectSensor;
     qDebug()<< _selectSensor << "_selectSensor------------------------------";
 }
-void RegistroCreateMet::setTamanyPixel(double tamanyoPixel)
+void RegistroOrto::setTamanyPixel(double tamanyoPixel)
 {
     _tamanyoPixel=tamanyoPixel;
     qDebug()<< _tamanyoPixel << "_tamanyoPixel------------------------------";
 }
-void RegistroCreateMet::setCoordinateSystem(DataZoneProject::sistemaCoor coordinateSystem)
+void RegistroOrto::setCoordinateSystem(DataZoneProject::sistemaCoor coordinateSystem)
 {
     _coordinateSystem=coordinateSystem;
 }
-void RegistroCreateMet::setTamanyoCorte(int tamanyoCorte)
+void RegistroOrto::setTamanyoCorte(int tamanyoCorte)
 {
     _tamanyoCorte=tamanyoCorte;
     qDebug()<< _tamanyoCorte << "_tamanyoCorte------------------------------";
 }
-void RegistroCreateMet::setNumeroCanales(int numeroCanales)
+void RegistroOrto::setNumeroCanales(int numeroCanales)
 {
     _numeroCanales=numeroCanales;
     qDebug()<< _numeroCanales << "_numeroCanales------------------------------";
 }
-void RegistroCreateMet::setAnchoPasada(int anchoPasada)
+void RegistroOrto::setAnchoPasada(int anchoPasada)
 {
     _anchoPasada=anchoPasada;
     qDebug()<< _anchoPasada << "_ambitoProyecto------------------------------";
 }
-void RegistroCreateMet::setOffsetPasada(int offsetPasada)
+void RegistroOrto::setOffsetPasada(int offsetPasada)
 {
     _offsetPasada=offsetPasada;
     qDebug()<< _offsetPasada << "_ambitoProyecto------------------------------";
 }
-void RegistroCreateMet::setPathImageMet(QString pathImageMet)
+void RegistroOrto::setPathImageOrto(QString pathImageOrto)
 {
-    _pathImageMet=pathImageMet;
-    qDebug()<< _pathImageMet << "_pathImageMet------------------------------";
+    _pathImageOrto=pathImageOrto;
+    qDebug()<< _pathImageOrto << "_pathImageOrto------------------------------";
 }
-void RegistroCreateMet::setExeSubScene(QString exeSubScene)
+void RegistroOrto::setExeSubScene(QString exeSubScene)
 {
     _exeSubScene=exeSubScene;
     qDebug()<< _exeSubScene << "_exeSubScene------------------------------";
 }
-void RegistroCreateMet::setExeImaOpeGeo(QString exeImaOpeGeo)
+void RegistroOrto::setExeImaOpeGeo(QString exeImaOpeGeo)
 {
     _exeImaOpeGeo=exeImaOpeGeo;
     qDebug()<< _exeImaOpeGeo << "_exeImaOpeGeo------------------------------";
 }
-
-void RegistroCreateMet::setExeFootPrintMask(QString exeFootPrintMask)
+void RegistroOrto::setExeFootPrintMask(QString exeFootPrintMask)
 {
     _exeFootPrintMask=exeFootPrintMask;
     qDebug()<< _exeFootPrintMask << "_exeFootPrintMask------------------------------";
 }
-void RegistroCreateMet::setExeExtraction(QString exeExtraction)
+void RegistroOrto::setExeExtraction(QString exeExtraction)
 {
     _exeExtraction=exeExtraction;
     qDebug()<< _exeExtraction << "_exeExtraction------------------------------";
 }
-void RegistroCreateMet::setExeResize(QString exeResize)
+void RegistroOrto::setExeResize(QString exeResize)
 {
     _exeResize=exeResize;
     qDebug()<< _exeResize << "_exeResize------------------------------";
 }
-void RegistroCreateMet::setUtmDefecto(QString utmDefecto)
-{
-    _utmDefecto=utmDefecto;
-    qDebug()<< _utmDefecto << "_utmDefecto------------------------------";
-}
-void RegistroCreateMet::setListaEjecutables(QJsonArray listaEjecutables)
+void RegistroOrto::setListaEjecutables(QJsonArray listaEjecutables)
 {
     _listaEjecutables=listaEjecutables;
 }
-
-
-void RegistroCreateMet::setCutDtm(int dtm)
+void RegistroOrto::setCutDtm(int dtm)
 {
     if(dtm==2)
         _dtm=true;
     else
         _dtm=false;
 }
-void RegistroCreateMet::setFootprintMask(int fprintM)
+void RegistroOrto::setFootprintMask(int fprintM)
 {
 
     if(fprintM==2)
@@ -253,14 +239,14 @@ void RegistroCreateMet::setFootprintMask(int fprintM)
         _fprintM=false;
 }
 
-void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
+void RegistroOrto::buildDataZoneProject(DataZoneProject *dataZP)
 {
     dataZP->setAmbitoOperacion(_ambitoOperacion);
     dataZP->setAnchoPasada(_anchoPasada);
     dataZP->setCutDtm(_dtm);
     dataZP->setFolderOut(_folderOut);
     dataZP->setFootPrintMask(_fprintM);
-    dataZP->setImageProject(_pathImageMet);
+    dataZP->setImageProject(_pathImageOrto);
     dataZP->setNumberCanals(_numeroCanales);
     dataZP->setOffsetPasada(_offsetPasada);
     dataZP->setSizeCut(_tamanyoCorte);
@@ -269,7 +255,7 @@ void RegistroCreateMet::buildDataZoneProject(DataZoneProject *dataZP)
     dataZP->setSelectSensor(_selectSensor);
 }
 
-QMap<QString, QString> RegistroCreateMet::getMapExe()
+QMap<QString, QString> RegistroOrto::getMapExe()
 {
     qDebug()<< _listaEjecutables <<"_listaEjecutables";
  QMap<QString, QString> qMapExe;

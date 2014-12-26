@@ -4,7 +4,7 @@
 #include <QWidget>
 #include <QSettings>
 #include "tableviewcoordinates.h"
-#include "registrocreateorto.h"
+#include "registroorto.h"
 #include "ficherodatosambitopro.h"
 #include <OperacionPcot/datazoneproject.h>
 
@@ -22,7 +22,7 @@ public:
 
     explicit CreateOrto(QWidget *parent = 0);
     ~CreateOrto();
-    RegistroCreateOrto * getObjetoRegistroCreateOrto();
+    RegistroOrto * getObjetoRegistroOrto();
     void setPunterotVCoordenadas(TableViewCoordinates *puntero);
 
 signals:
@@ -55,7 +55,7 @@ private slots:
 
 private:
     Ui::CreateOrto *ui;
-    RegistroCreateOrto *punteroRegistroCreateOrto;
+    RegistroOrto *punteroRegistroOrto;
     TableViewCoordinates *tVCoordenadas;
     QString folderOut;
     void evaluarEstadoWidgetOrto();
