@@ -45,7 +45,8 @@ SOURCES += main.cpp\
     readercoordinates.cpp \
     registrocnps.cpp \
     registromet.cpp \
-    registroorto.cpp
+    registroorto.cpp \
+    readercoordinatesbasico.cpp
 
 HEADERS  += mainwindow.h \
     tableviewcoordinates.h \
@@ -78,7 +79,8 @@ HEADERS  += mainwindow.h \
     readercoordinates.h \
     registrocnps.h \
     registromet.h \
-    registroorto.h
+    registroorto.h \
+    readercoordinatesbasico.h
 
 FORMS    += mainwindow.ui \
     tableviewcoordinates.ui \
