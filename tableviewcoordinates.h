@@ -10,6 +10,7 @@
 #include "modelocoordenadas.h"
 #include <QWidget>
 #include  "dialoghelpfilecoordinates.h"
+#include  "readercoordinatesbasico.h"
 /*!
  * @class TableViewCoordinates
  * @brief Interface grafica per mostra el fitxer de coordenades.

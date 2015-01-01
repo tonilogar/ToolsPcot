@@ -4,6 +4,9 @@
 #include <QFileInfo>
 #include <QFile>
 #include <QTextStream>
+#include <QDebug>
+#include <QRegExp>
+
 /*!
  * @class ReaderCoordinates
  * @brief Interface per llegir fitxers de coordenades basic.

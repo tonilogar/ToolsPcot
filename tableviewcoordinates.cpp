@@ -53,30 +53,48 @@ TableViewCoordinates::~TableViewCoordinates()
 {
     delete ui;
 }
-
-
 ModeloCoordenadas *TableViewCoordinates::getModeloCoordenadas()
 {
     return _modelo;
-
 }
 void TableViewCoordinates::openFileCoordinates()
 {
+    ReaderCoordinatesBasico readCoor;
     _pathFileCoordinates=QFileDialog::getOpenFileName(this,"Select file coordinates",QString(),"text files(*.txt)");
-
+    if(readCoor.canRead(_pathFileCoordinates))
+    {
+        if(readCoor.tryRead(_pathFileCoordinates))
+        {
+            _modelo->setListaRegistro(readCoor.getListCoordinates());
+            _filledCoordenadas=true;
+            emit filledTableView(_filledCoordenadas);
+        }
+        else
+        {
+            QMessageBox::warning(this, "File coordinates - error",readCoor.lastError());
+            _filledCoordenadas=false;
+            emit filledTableView(_filledCoordenadas);
+        }
+    }
+    else
+    {
+        QMessageBox::warning(this, "File coordinates - error","el fitxer de coordenades no es un format valid");
+        _filledCoordenadas=false;
+        emit filledTableView(_filledCoordenadas);
+    }
 }
 
 void TableViewCoordinates::cleanTableView()
 {
     _modelo->clear();
     _pathFileCoordinates=QString();
-     _filledCoordenadas=false;
+    _filledCoordenadas=false;
     emit filledTableView(_filledCoordenadas);
 }
 
 void TableViewCoordinates::help()
 {
-  DialogHelpFilecoordinates dialogo;
-  dialogo.exec();
+    DialogHelpFilecoordinates dialogo;
+    dialogo.exec();
 }
 
