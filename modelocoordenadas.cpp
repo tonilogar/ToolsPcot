@@ -60,17 +60,17 @@ QVariant ModeloCoordenadas::data(const QModelIndex &index, int role) const
             resultado=registro->getIdentificador();
             break;
         case 1:
-            resultado=QString::number(registro->getXa(),'f',2); //Formato f, numero tal cual (p.e 401392)
+            resultado=QString::number(registro->getXa(),'f',6); //Formato f, numero tal cual (p.e 401392)
                                                                 //El numero 2 representa el total de decimales que queremos mostrar
             break;
         case 2:
-            resultado=QString::number(registro->getYa(),'f',2);
+            resultado=QString::number(registro->getYa(),'f',6);
             break;
         case 3:
-            resultado=QString::number(registro->getXb(),'f',2);
+            resultado=QString::number(registro->getXb(),'f',6);
             break;
         case 4:
-            resultado=QString::number(registro->getYb(),'f',2);
+            resultado=QString::number(registro->getYb(),'f',6);
             break;
         default:
             break;
