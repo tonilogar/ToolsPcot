@@ -13,7 +13,6 @@
 #include"registromet.h"
 #include"registroorto.h"
 #include"tableviewcoordinates.h"
-#include"debugqprocess.h"
 #include <QProgressDialog>
 #include <QTextStream>
 #include"dialogprogresoope.h"

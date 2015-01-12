@@ -20,26 +20,11 @@ SOURCES += main.cpp\
     createorto.cpp \
     createmet.cpp \
     createcnps.cpp \
-    tableviewraw.cpp \
-    signopasadadelegate.cpp \
-    registroraw.cpp \
-    registrofolderoutchangeformat.cpp \
-    modeloraw.cpp \
-    foldersoutchangeformat.cpp \
-    dialogoraw.cpp \
-    armclasefilesout.cpp \
     indexbutton.cpp \
-    ficherosraw.cpp \
-    tableviewrawtasi.cpp \
     lanzadoroperaciones.cpp \
     dialoghelpfilecoordinates.cpp \
     ficherodatosambitopro.cpp \
-    debugqprocess.cpp \
-    ometdatosejecucion.cpp \
     dialogopreferencias.cpp \
-    combinecnp.cpp \
-    correction.cpp \
-    diferences.cpp \
     controlworker.cpp \
     dialogprogresoope.cpp \
     readercoordinates.cpp \
@@ -54,26 +39,11 @@ HEADERS  += mainwindow.h \
     createorto.h \
     createmet.h \
     createcnps.h \
-    tableviewraw.h \
-    signopasadadelegate.h \
-    registroraw.h \
-    registrofolderoutchangeformat.h \
-    modeloraw.h \
-    foldersoutchangeformat.h \
-    dialogoraw.h \
-    armclasefilesout.h \
     indexbutton.h \
-    ficherosraw.h \
-    tableviewrawtasi.h \
     lanzadoroperaciones.h \
     dialoghelpfilecoordinates.h \
     ficherodatosambitopro.h \
-    debugqprocess.h \
-    ometdatosejecucion.h \
     dialogopreferencias.h \
-    combinecnp.h \
-    correction.h \
-    diferences.h \
     controlworker.h \
     dialogprogresoope.h \
     readercoordinates.h \
@@ -87,16 +57,8 @@ FORMS    += mainwindow.ui \
     createorto.ui \
     createmet.ui \
     createcnps.ui \
-    foldersoutchangeformat.ui \
-    dialogoraw.ui \
-    tableviewraw.ui \
-    ficherosraw.ui \
-    tableviewrawtasi.ui \
     dialoghelpfilecoordinates.ui \
     dialogopreferencias.ui \
-    combinecnp.ui \
-    correction.ui \
-    diferences.ui \
     dialogprogresoope.ui
 
 RESOURCES += \
