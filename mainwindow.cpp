@@ -24,14 +24,16 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
+    //visibilidad de la barra de botones cambio de vista izquierda
+    ui->toolBar->setVisible(false);
+
     ui->pushButtonOptionsCnp->setIndiceButton(0);
     ui->pushButtonOptionsMet->setIndiceButton(1);
     ui->pushButtonOptionsOrto->setIndiceButton(2);
 
-    ui->pushButtonCasi->setIndiceButton(0);
-    ui->pushButtonTasi->setIndiceButton(1);
-    ui->pushButtonAisa->setIndiceButton(2);
+
 
 
     connect(ui->widgetCoordinates,SIGNAL(filledTableView(bool)),ui->page1Cnp,SLOT(activateWidget(bool)));
@@ -44,9 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->pushButtonOptionsMet,SIGNAL(clicked(int)),ui->stackedWidgetOpciones,SLOT(setCurrentIndex(int)));
     connect(ui->pushButtonOptionsOrto,SIGNAL(clicked(int)),ui->stackedWidgetOpciones,SLOT(setCurrentIndex(int)));
 
-    connect(ui->pushButtonCasi,SIGNAL(clicked(int)),ui->stackedWidgetCasitasiAisa,SLOT(setCurrentIndex(int)));
-    connect(ui->pushButtonTasi,SIGNAL(clicked(int)),ui->stackedWidgetCasitasiAisa,SLOT(setCurrentIndex(int)));
-    connect(ui->pushButtonAisa,SIGNAL(clicked(int)),ui->stackedWidgetCasitasiAisa,SLOT(setCurrentIndex(int)));
 
     //Conectar accion de dialogo de preferencias
     connect(ui->actionPreferencias,SIGNAL(triggered()),this,SLOT(lanzarDialogoPreferencias()));
@@ -56,11 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QActionGroup *grupoVista=new QActionGroup(this);
 
     grupoVista->addAction(ui->actionCnps_met_orto);
-    grupoVista->addAction(ui->actionCnps_combine_cnps);
-    grupoVista->addAction(ui->actionCnps_rename_change_format);
-    grupoVista->addAction(ui->actionCnps_correction);
-    grupoVista->addAction(ui->actionCnps_view_html);
-    grupoVista->addAction(ui->actionCnps_diferences);
+
 
     grupoVista->setExclusive(true); //Este flag evita que puedan estar activas dos acciones del grupo al mismo tiempo
 
@@ -69,20 +64,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
 
     //Establecer el mapeado
-    mapeadorVistas->setMapping(ui->actionCnps_met_orto,0);
-    mapeadorVistas->setMapping(ui->actionCnps_rename_change_format,1);
-    mapeadorVistas->setMapping(ui->actionCnps_combine_cnps,2);
-    mapeadorVistas->setMapping(ui->actionCnps_correction,3);
-    mapeadorVistas->setMapping(ui->actionCnps_diferences,4);
-    mapeadorVistas->setMapping(ui->actionCnps_view_html,5);
+    mapeadorVistas->setMapping(ui->actionCnps_met_orto,0);    
+
 
     //Conectar las señales de los objetos al mapeador
     connect(ui->actionCnps_met_orto,SIGNAL(triggered()),mapeadorVistas,SLOT(map()));
-    connect(ui->actionCnps_combine_cnps,SIGNAL(triggered()),mapeadorVistas,SLOT(map()));
-    connect(ui->actionCnps_correction,SIGNAL(triggered()),mapeadorVistas,SLOT(map()));
-    connect(ui->actionCnps_rename_change_format,SIGNAL(triggered()),mapeadorVistas,SLOT(map()));
-    connect(ui->actionCnps_view_html,SIGNAL(triggered()),mapeadorVistas,SLOT(map()));
-    connect(ui->actionCnps_diferences,SIGNAL(triggered()),mapeadorVistas,SLOT(map()));
+
 
     //Conectamos la señal mapeada con el slot correspondiente
     connect(mapeadorVistas,SIGNAL(mapped(int)),ui->stackedWidgetVistas,SLOT(setCurrentIndex(int)));
@@ -100,9 +87,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Agrupar los botones de Casi Tasi Aisa
     QButtonGroup *grupoBotonesCasiTasiaisa=new QButtonGroup(this);
 
-    grupoBotonesCasiTasiaisa->addButton(ui->pushButtonCasi);
-    grupoBotonesCasiTasiaisa->addButton(ui->pushButtonTasi);
-    grupoBotonesCasiTasiaisa->addButton(ui->pushButtonAisa);
+
 
     grupoBotonesCasiTasiaisa->setExclusive(true);
 
