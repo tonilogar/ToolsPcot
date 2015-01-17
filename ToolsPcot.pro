@@ -6,3 +6,5 @@
 
 
 TEMPLATE = subdirs
+
+SUBDIRS += OpePcot
