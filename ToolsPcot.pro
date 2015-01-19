@@ -7,4 +7,5 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS += OpePcot
+SUBDIRS += OpePcot \
+    CoordinatesTP
