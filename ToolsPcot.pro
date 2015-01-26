@@ -9,4 +9,5 @@ TEMPLATE = subdirs
 
 SUBDIRS += OpePcot \
     CoordinatesTP \
-    ComponentesTP
+    ComponentesTP \
+    CnpMetOrtoTP
