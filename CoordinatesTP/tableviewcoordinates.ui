@@ -58,10 +58,6 @@
          <property name="text">
           <string/>
          </property>
-         <property name="icon">
-          <iconset resource="recursos.qrc">
-           <normaloff>:/imagenes/imagenes/help-browser-2.png</normaloff>:/imagenes/imagenes/help-browser-2.png</iconset>
-         </property>
         </widget>
        </item>
       </layout>
@@ -77,8 +73,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="recursos.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

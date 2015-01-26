@@ -1,5 +1,6 @@
 #ifndef READERCOORDINATESBASICO_H
 #define READERCOORDINATESBASICO_H
+#include "coordinatestp_global.h"
 #include "readercoordinates.h"
 #include <QFileInfo>
 #include <QFile>
@@ -13,7 +14,7 @@
  *
  * Aquesta clase penja de la clase readercoordinates.
  */
-class ReaderCoordinatesBasico : public ReaderCoordinates
+class COORDINATESTPSHARED_EXPORT ReaderCoordinatesBasico : public ReaderCoordinates
 {
     Q_OBJECT
 public:

@@ -1,14 +1,14 @@
 #ifndef MODELOCOORDENADAS_H
 #define MODELOCOORDENADAS_H
-
+#include "coordinatestp_global.h"
 #include <QAbstractTableModel>
 #include <QList>
-#include <OperacionPcot/identificadorcoordenadas.h>
+#include <OpePcot/identificadorcoordenadas.h>
 /*!
  * @class  ModeloCoordenadas
  * @brief  Classe per crea el model per tractar les dades del fitxers raw
  */
-class ModeloCoordenadas : public QAbstractTableModel
+class COORDINATESTPSHARED_EXPORT ModeloCoordenadas : public QAbstractTableModel
 {
     Q_OBJECT
 public:

@@ -8,4 +8,5 @@
 TEMPLATE = subdirs
 
 SUBDIRS += OpePcot \
-    CoordinatesTP
+    CoordinatesTP \
+    ComponentesTP

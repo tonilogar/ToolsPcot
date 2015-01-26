@@ -1,15 +1,15 @@
 #ifndef READERCOORDINATES_H
 #define READERCOORDINATES_H
-
+#include "coordinatestp_global.h"
 #include <QObject>
-#include <OperacionPcot/identificadorcoordenadas.h>
+#include <OpePcot/identificadorcoordenadas.h>
 /*!
  * @class ReaderCoordinates
  * @brief Interface per llegir fitxers de coordenades.
  *
  * Aquesta es la clase pare de la gerarquia per llegir fitxers.
  */
-class ReaderCoordinates : public QObject
+class COORDINATESTPSHARED_EXPORT ReaderCoordinates : public QObject
 {
     Q_OBJECT
 public:

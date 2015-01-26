@@ -1,6 +1,6 @@
 #ifndef TABLEVIEWCOORDINATES_H
 #define TABLEVIEWCOORDINATES_H
-
+#include "coordinatestp_global.h"
 #include <QWidget>
 #include <QFileDialog>
 #include <QTextStream>
@@ -20,7 +20,7 @@ namespace Ui {
     class TableViewCoordinates;
 }
 
-class TableViewCoordinates : public QWidget
+class COORDINATESTPSHARED_EXPORT TableViewCoordinates : public QWidget
 {
     Q_OBJECT
 

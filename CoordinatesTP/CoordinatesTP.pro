@@ -9,20 +9,28 @@ QT       += widgets
 TARGET = CoordinatesTP
 TEMPLATE = lib
 
+INCLUDEPATH += ..
+
+DESTDIR =../libs
+
+LIBS += -L../libs -lOpePcot
+
 DEFINES += COORDINATESTP_LIBRARY
 
 SOURCES += \
-    tableviewcoordinates.cpp \
-    readercoordinatesbasico.cpp \
+    modelocoordenadas.cpp \
     readercoordinates.cpp \
-    modelocoordenadas.cpp
+    readercoordinatesbasico.cpp \   
+    tableviewcoordinates.cpp \
+    dialoghelpfilecoordinates.cpp
 
 HEADERS +=\
         coordinatestp_global.h \
-    tableviewcoordinates.h \
-    readercoordinatesbasico.h \
+    modelocoordenadas.h \
     readercoordinates.h \
-    modelocoordenadas.h
+    readercoordinatesbasico.h \
+    tableviewcoordinates.h \
+    dialoghelpfilecoordinates.h
 
 unix:!symbian {
     maemo5 {
@@ -34,7 +42,8 @@ unix:!symbian {
 }
 
 FORMS += \
-    tableviewcoordinates.ui
+    tableviewcoordinates.ui \
+    dialoghelpfilecoordinates.ui
 
-RESOURCES += \
-    recursos.qrc
+
+
