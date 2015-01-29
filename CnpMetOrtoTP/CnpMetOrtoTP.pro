@@ -14,6 +14,7 @@ DEFINES += CNPMETORTOTP_LIBRARY
 INCLUDEPATH += ..
 DESTDIR =../libs
 LIBS += -L../libs -lOpePcot
+
 SOURCES += \
     registrocreateorto.cpp \
     registrocreatemet.cpp \
