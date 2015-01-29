@@ -1,0 +1,48 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+#include <QDebug>
+#include <CnpMetOrtoTP/createcnps.h>
+#include <CnpMetOrtoTP/createmet.h>
+#include <CnpMetOrtoTP/createorto.h>
+#include <ControlOpeTP/lanzadoroperaciones.h>
+#include <CnpMetOrtoTP/registrocreatecnps.h>
+#include <CnpMetOrtoTP/registrocreatemet.h>
+#include <CnpMetOrtoTP/registrocreateorto.h>
+#include "dialogopreferencias.h"
+#include <QSignalMapper>
+#include <QSettings>
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+    
+public:
+    explicit MainWindow(QWidget *parent = 0);
+    ~MainWindow();
+
+public slots:
+
+
+private slots:
+    void on_pushButtonEmpezarOperacionesMetOrto_clicked();
+    void on_pushButton_clicked();
+    void lanzarDialogoPreferencias();
+
+private:
+    Ui::MainWindow *ui;
+    bool _estadoCreateCnps;
+    bool _estadoCreateMets;
+    bool _estadoCreateOrtos;
+
+    //Atributo de signal mapper
+    QSignalMapper *mapeadorVistas;
+    LanzadorOperaciones *_lanzadorOpe;
+    RegistroCreateMet  ObjetoRegistroCreateMet;
+};
+
+#endif // MAINWINDOW_H
