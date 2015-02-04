@@ -13,6 +13,7 @@
 #include "dialogopreferencias.h"
 #include <QSignalMapper>
 #include <QSettings>
+#include "dialogprogresoope.h"
 namespace Ui {
 class MainWindow;
 }
@@ -43,6 +44,7 @@ private:
     QSignalMapper *mapeadorVistas;
     LanzadorOperaciones *_lanzadorOpe;
     RegistroCreateMet  ObjetoRegistroCreateMet;
+    DialogProgresoOpe *_dialogoProgreso;
 };
 
 #endif // MAINWINDOW_H

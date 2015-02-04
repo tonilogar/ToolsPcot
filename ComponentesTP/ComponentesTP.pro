@@ -6,7 +6,8 @@
 
 QT       += widgets
 
-TARGET = ComponentesTP
+win32:CONFIG(release,debug|release):TARGET = ComponentesTP
+else:win32:CONFIG(debug,debug|release):TARGET = ComponentesTPd
 TEMPLATE = lib
 
 INCLUDEPATH += ..

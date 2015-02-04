@@ -24,7 +24,6 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _registroMet=_regMet;
     _registroOrto=_regOrto;
     _tableCoordinates=_tableCoor;
-    _dialogoProgreso=new DialogProgresoOpe();
     _cnpActivo=false;
     _metActivo=false;
     _ortoActivo=false;
@@ -37,11 +36,6 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _controlCnp=new ControlWorker(this);
     _controlMet=new ControlWorker(this);
     _controlOrto=new ControlWorker(this);
-    _dialogoProgreso->conectToControlCnp(_controlCnp);
-    _dialogoProgreso->conectToControlMet(_controlMet);
-    _dialogoProgreso->conectToControlOrto(_controlOrto);
-
-
 }
 
 void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCreateCnps *_regCnp)
@@ -120,7 +114,6 @@ bool LanzadorOperaciones::getOrtoActivo()
 }
 void LanzadorOperaciones::launch()
 {
-    _dialogoProgreso->resetDialog();
     if(_cnpActivo || _metActivo || _ortoActivo)
     {
         foreach (IdentificadorCoordenadas *ide, _listaIdentificadores)
@@ -143,9 +136,7 @@ void LanzadorOperaciones::launch()
             _registroCnp->buildDataZoneProject(_dataZoneCnp);
             createListadoOperacionCnp();
             _controlCnp->setListaOperaciones(_listadoOperacionCnp);
-
         }
-
         if (_metActivo)
         {
             _registroMet->buildDataZoneProject(_dataZoneMet);
@@ -197,7 +188,6 @@ void LanzadorOperaciones::launch()
         {
              _controlOrto->start();
         }
-        _dialogoProgreso->show();
     }
 }
 
@@ -226,7 +216,20 @@ void LanzadorOperaciones::crearListaIdentificadores()
     }
 }
 
+ControlWorker *LanzadorOperaciones::getControlCnp()
+{
+  return _controlCnp;
+}
 
+ControlWorker *LanzadorOperaciones::getControlMet()
+{
+ return _controlMet;
+}
+
+ControlWorker *LanzadorOperaciones::getControlOrto()
+{
+ return _controlOrto;
+}
 
 
 

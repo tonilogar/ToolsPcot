@@ -5,15 +5,19 @@
 #-------------------------------------------------
 
 QT       += widgets
-
+win32:CONFIG(release,debug|release){
 TARGET = CoordinatesTP
+LIBS += -L../libs -lOpePcot
+}
+else:win32:CONFIG(debug,debug|release) {
+TARGET = CoordinatesTPd
+LIBS += -L../libs -lOpePcotd
+}
 TEMPLATE = lib
 
 INCLUDEPATH += ..
 
 DESTDIR =../libs
-
-LIBS += -L../libs -lOpePcot
 
 DEFINES += COORDINATESTP_LIBRARY
 

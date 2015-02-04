@@ -5,15 +5,21 @@
 #-------------------------------------------------
 
 QT       += widgets
-
+win32:CONFIG(release,debug|release){
 TARGET = ControlOpeTP
+LIBS += -L../libs -lOpePcot -lCnpMetOrtoTP -lCoordinatesTP
+}
+else:win32:CONFIG(debug,debug|release) {
+TARGET = ControlOpeTPd
+LIBS += -L../libs -lOpePcotd -lCnpMetOrtoTPd -lCoordinatesTPd
+}
 TEMPLATE = lib
 
 DEFINES += CONTROLOPETP_LIBRARY
 
 INCLUDEPATH += ..
 DESTDIR =../libs
-LIBS += -L../libs -lOpePcot
+
 
 SOURCES += \
     lanzadoroperaciones.cpp \

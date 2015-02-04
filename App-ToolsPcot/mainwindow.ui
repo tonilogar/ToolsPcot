@@ -250,10 +250,10 @@
             <item>
              <widget class="QStackedWidget" name="stackedWidgetCasitasiAisa">
               <property name="currentIndex">
-               <number>0</number>
+               <number>1</number>
               </property>
-              <widget class="TableViewRaw" name="page1ChangeFormatsCasi"/>
-              <widget class="TableViewRawTasi" name="page2ChangeFormatsTasi"/>
+              <widget class="QWidget" name="page1ChangeFormatsCasi"/>
+              <widget class="QWidget" name="page2ChangeFormatsTasi"/>
               <widget class="QWidget" name="page3ChangeFormatsAisa"/>
              </widget>
             </item>
@@ -286,7 +286,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_7">
             <item>
-             <widget class="CombineCnp" name="widgetCombineCnp" native="true"/>
+             <widget class="QWidget" name="widgetCombineCnp" native="true"/>
             </item>
            </layout>
           </widget>
@@ -317,7 +317,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_10">
             <item>
-             <widget class="Correction" name="widget" native="true"/>
+             <widget class="QWidget" name="widget" native="true"/>
             </item>
            </layout>
           </widget>
@@ -355,7 +355,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_12">
             <item>
-             <widget class="Diferences" name="widget_2" native="true"/>
+             <widget class="QWidget" name="widget_2" native="true"/>
             </item>
            </layout>
           </widget>
@@ -581,62 +581,32 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>TableViewCoordinates</class>
-   <extends>QWidget</extends>
-   <header>tableviewcoordinates.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>CreateCnps</class>
-   <extends>QWidget</extends>
-   <header>createcnps.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
    <class>CreateMet</class>
    <extends>QWidget</extends>
-   <header>createmet.h</header>
+   <header>../CnpMetOrtoTP/createmet.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>CreateOrto</class>
    <extends>QWidget</extends>
-   <header>createorto.h</header>
+   <header>../CnpMetOrtoTP/createorto.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>TableViewRaw</class>
+   <class>CreateCnps</class>
    <extends>QWidget</extends>
-   <header>tableviewraw.h</header>
+   <header>../CnpMetOrtoTP/createcnps.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>IndexButton</class>
    <extends>QPushButton</extends>
-   <header>indexbutton.h</header>
+   <header>../ComponentesTP/indexbutton.h</header>
   </customwidget>
   <customwidget>
-   <class>TableViewRawTasi</class>
+   <class>TableViewCoordinates</class>
    <extends>QWidget</extends>
-   <header>tableviewrawtasi.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>CombineCnp</class>
-   <extends>QWidget</extends>
-   <header location="global">combinecnp.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Correction</class>
-   <extends>QWidget</extends>
-   <header location="global">correction.h</header>
-   <container>1</container>
-  </customwidget>
-  <customwidget>
-   <class>Diferences</class>
-   <extends>QWidget</extends>
-   <header location="global">diferences.h</header>
+   <header>../CoordinatesTP/tableviewcoordinates.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

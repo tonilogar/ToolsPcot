@@ -144,6 +144,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _lanzadorOpe=new LanzadorOperaciones(this,ui->page1Cnp->getObjetoRegistroCreateCnps(),ui->page2Met->getObjetoRegistroCreateMet(),
                                          ui->page3Orto->getObjetoRegistroCreateOrto(),ui->widgetCoordinates);
 
+    _dialogoProgreso= new DialogProgresoOpe(this);
 
 }
 

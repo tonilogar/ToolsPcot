@@ -5,8 +5,9 @@
 #-------------------------------------------------
 
 QT       += widgets
+win32:CONFIG(release,debug|release):TARGET = OpePcot
+else:win32:CONFIG(debug,debug|release):TARGET = OpePcotd
 
-TARGET = OpePcot
 TEMPLATE = lib
 
 DEFINES += OPERACIONPCOT_LIBRARY

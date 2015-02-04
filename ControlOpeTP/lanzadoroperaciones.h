@@ -9,11 +9,11 @@
 #include <QProcess>
 #include <QMessageBox>
 #include <QDebug>
-#include "CoordinatesTP/modelocoordenadas.h"
-#include "CnpMetOrtoTP/registrocreatecnps.h"
-#include "CnpMetOrtoTP/registrocreatemet.h"
-#include "CnpMetOrtoTP/registrocreateorto.h"
-#include "CoordinatesTP/tableviewcoordinates.h"
+#include <CoordinatesTP/modelocoordenadas.h>
+#include <CnpMetOrtoTP/registrocreatecnps.h>
+#include <CnpMetOrtoTP/registrocreatemet.h>
+#include <CnpMetOrtoTP/registrocreateorto.h>
+#include <CoordinatesTP/tableviewcoordinates.h>
 #include <QProgressDialog>
 #include <QTextStream>
 #include <QApplication>
@@ -64,6 +64,9 @@ public:
      * Identifica les operacions seleccionades i les llença.
      */
     void launch();
+    ControlWorker *getControlCnp();
+    ControlWorker *getControlMet();
+    ControlWorker *getControlOrto();
 signals:
 
     public slots:
@@ -109,7 +112,6 @@ private:
  RegistroCreateMet  *_registroMet;  ///< Valor del objecte RegistroCreateMet.
  RegistroCreateOrto *_registroOrto; ///< Valor del objecte RegistroCreateOrto.
  TableViewCoordinates *_tableCoordinates; ///< Valor del objecte TableViewCoordinates.
- DialogProgresoOpe *_dialogoProgreso; ///< Valor del objecte DialogProgresoOpe.
  DataZoneProject *_dataZoneCnp; ///< Valor del objecte DataZoneProject cnp.
  DataZoneProject *_dataZoneMet; ///< Valor del objecte DataZoneProject met.
  DataZoneProject *_dataZoneOrto; ///< Valor del objecte DataZoneProject orto.

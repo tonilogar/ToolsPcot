@@ -6,14 +6,20 @@
 
 QT       += widgets
 
+win32:CONFIG(release,debug|release){
 TARGET = CnpMetOrtoTP
+LIBS += -L../libs -lOpePcot
+}
+else:win32:CONFIG(debug,debug|release) {
+TARGET = CnpMetOrtoTPd
+LIBS += -L../libs -lOpePcotd
+}
 TEMPLATE = lib
 
 DEFINES += CNPMETORTOTP_LIBRARY
 
 INCLUDEPATH += ..
 DESTDIR =../libs
-LIBS += -L../libs -lOpePcot
 
 SOURCES += \
     registrocreateorto.cpp \
