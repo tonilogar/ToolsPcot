@@ -484,6 +484,10 @@
    </attribute>
   </widget>
   <action name="actionNew_project">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/imagenes/imagenes/document-new.png</normaloff>:/imagenes/imagenes/document-new.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;New project</string>
    </property>
@@ -492,21 +496,37 @@
    </property>
   </action>
   <action name="actionOpen_project">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/imagenes/imagenes/document-open.png</normaloff>:/imagenes/imagenes/document-open.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Open project</string>
    </property>
   </action>
   <action name="actionSave_project">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/imagenes/imagenes/document-save.png</normaloff>:/imagenes/imagenes/document-save.png</iconset>
+   </property>
    <property name="text">
     <string>&amp;Save project</string>
    </property>
   </action>
   <action name="actionSave_as">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/imagenes/imagenes/document-save-as.png</normaloff>:/imagenes/imagenes/document-save-as.png</iconset>
+   </property>
    <property name="text">
     <string>S&amp;ave as</string>
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="resources.qrc">
+     <normaloff>:/imagenes/imagenes/application-exit.png</normaloff>:/imagenes/imagenes/application-exit.png</iconset>
+   </property>
    <property name="text">
     <string>E&amp;xit</string>
    </property>
@@ -610,7 +630,9 @@
    <container>1</container>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="resources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>actionExit</sender>

@@ -90,4 +90,3 @@ void IndexButton::removeEstado(int numEstado)
         }
     }
 }
-

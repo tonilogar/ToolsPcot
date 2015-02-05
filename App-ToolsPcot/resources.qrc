@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/imagenes">
+        <file alias="correcto">imagenes/apply.png</file>
+        <file alias="parcialmenteCorrecto">imagenes/adept_notifier_warning.png</file>
+        <file>imagenes/document-save-as.png</file>
+        <file>imagenes/application-exit.png</file>
+        <file>imagenes/document-new.png</file>
+        <file>imagenes/document-open.png</file>
+        <file>imagenes/document-save.png</file>
+    </qresource>
+</RCC>
