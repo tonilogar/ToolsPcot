@@ -188,6 +188,7 @@ void LanzadorOperaciones::launch()
         {
              _controlOrto->start();
         }
+      emit inicioOperaciones();
     }
 }
 
@@ -230,6 +231,7 @@ ControlWorker *LanzadorOperaciones::getControlOrto()
 {
  return _controlOrto;
 }
+
 
 
 

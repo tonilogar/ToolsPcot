@@ -49,5 +49,8 @@ FORMS += \
     tableviewcoordinates.ui \
     dialoghelpfilecoordinates.ui
 
+RESOURCES += \
+    resources.qrc
+
 
 

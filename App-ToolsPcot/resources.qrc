@@ -7,5 +7,11 @@
         <file>imagenes/document-new.png</file>
         <file>imagenes/document-open.png</file>
         <file>imagenes/document-save.png</file>
+        <file>imagenes/view_inform_HTML.png</file>
+        <file>imagenes/cnp_met_orto.png</file>
+        <file>imagenes/combine_cnps.png</file>
+        <file>imagenes/Diference_orto_correctio.png</file>
+        <file>imagenes/geo-correction.png</file>
+        <file alias="noSeleccionado">imagenes/cancel.png</file>
     </qresource>
 </RCC>

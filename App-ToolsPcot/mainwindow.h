@@ -33,6 +33,7 @@ private slots:
     void on_pushButtonEmpezarOperacionesMetOrto_clicked();
     void on_pushButton_clicked();
     void lanzarDialogoPreferencias();
+    void mostrarDialogoProgreso();
 
 private:
     Ui::MainWindow *ui;

@@ -68,6 +68,7 @@ public:
     ControlWorker *getControlMet();
     ControlWorker *getControlOrto();
 signals:
+    void inicioOperaciones();
 
     public slots:
     /*!

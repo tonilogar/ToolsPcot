@@ -145,7 +145,10 @@ MainWindow::MainWindow(QWidget *parent) :
                                          ui->page3Orto->getObjetoRegistroCreateOrto(),ui->widgetCoordinates);
 
     _dialogoProgreso= new DialogProgresoOpe(this);
-
+    _dialogoProgreso->conectToControlCnp(_lanzadorOpe->getControlCnp());
+    _dialogoProgreso->conectToControlMet(_lanzadorOpe->getControlMet());
+    _dialogoProgreso->conectToControlOrto(_lanzadorOpe->getControlOrto());
+    connect(_lanzadorOpe,SIGNAL(inicioOperaciones()),this,SLOT(mostrarDialogoProgreso()));
 }
 
 MainWindow::~MainWindow()
@@ -186,6 +189,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
 {
+
     //Creanmos 3 variables boleanas false por defect,o si el icono es correcto "1 verde " cambiaremos la variable a true
     bool iconoCnp=false;
     bool iconoMet=false;
@@ -254,7 +258,9 @@ qDebug()<< "Creando met";
        _lanzadorOpe->setOrtoActivo(true);
       qDebug()<< "Creando orto";
     }
+    _dialogoProgreso->resetDialog();
    _lanzadorOpe->launch();
+   _dialogoProgreso->exec();
 }
 
 void MainWindow::on_pushButton_clicked()
@@ -282,4 +288,8 @@ void MainWindow::lanzarDialogoPreferencias()
     connect(&dialogo,SIGNAL(cambiosArchivoMet()),ui->page2Met,SLOT(recargarModelosAmbito()));
     connect(&dialogo,SIGNAL(cambiosArchivoOrto()),ui->page3Orto,SLOT(recargarModelosAmbito()));
     dialogo.exec();
+}
+void MainWindow::mostrarDialogoProgreso()
+{
+    _dialogoProgreso->show();
 }
