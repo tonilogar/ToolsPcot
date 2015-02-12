@@ -144,11 +144,11 @@ MainWindow::MainWindow(QWidget *parent) :
     _lanzadorOpe=new LanzadorOperaciones(this,ui->page1Cnp->getObjetoRegistroCreateCnps(),ui->page2Met->getObjetoRegistroCreateMet(),
                                          ui->page3Orto->getObjetoRegistroCreateOrto(),ui->widgetCoordinates);
 
-    _dialogoProgreso= new DialogProgresoOpe(this);
+    _dialogoProgreso= new DialogProgresoOpe(0);
     _dialogoProgreso->conectToControlCnp(_lanzadorOpe->getControlCnp());
     _dialogoProgreso->conectToControlMet(_lanzadorOpe->getControlMet());
     _dialogoProgreso->conectToControlOrto(_lanzadorOpe->getControlOrto());
-    connect(_lanzadorOpe,SIGNAL(inicioOperaciones()),this,SLOT(mostrarDialogoProgreso()));
+    connect(_lanzadorOpe,SIGNAL(inicioOperaciones()),_dialogoProgreso,SLOT(exec()));
 }
 
 MainWindow::~MainWindow()
