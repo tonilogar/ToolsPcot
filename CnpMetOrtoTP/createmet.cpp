@@ -210,7 +210,7 @@ void CreateMet::activateWidget(bool acti)
 void CreateMet::calcularOffsetPasada(int offsetPasada)
 {
     int _numberPixelsSensor=0;
-    if(ui->comboBoxSelectSensor->currentText()=="Casi")
+    if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Casi)
             _numberPixelsSensor=550;
         if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Tasi)
             _numberPixelsSensor=600;

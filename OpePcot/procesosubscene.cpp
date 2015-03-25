@@ -43,16 +43,19 @@ void ProcesoSubScene::procesoIniciado()
     if(metodoInvocado==Met)
     {
         _flujo << _opeActual->getFileOrigen() << endl;
+        qDebug()<< _opeActual->getFileOrigen() << "imagenBase";
         _flujo << "s" << endl;
         _flujo << "n" << endl;
         _flujo << _opeActual->getOeste() << " " << _opeActual->getEste() << " "<< _opeActual->getNorte() << " "<< _opeActual->getSur() << " " << endl;
-        qDebug()<< _opeActual->getNorte()<< "_opeActual->getNorte()";
-        qDebug()<< _opeActual->getSur()<< "_opeActual->getSur()";
-        qDebug()<< _opeActual->getEste()<< "_opeActual->getEste()";
-        qDebug()<< _opeActual->getOeste()<< "_opeActual->getOeste()";
+        qDebug()<< _opeActual->getOeste() << " " << _opeActual->getEste() << " "<< _opeActual->getNorte() << " "<< _opeActual->getSur() << "las 4 coordenadas " << endl ;
+        qDebug()<< _opeActual->getNorte()<< "_opeActual->getNorte()SubScene";
+        qDebug()<< _opeActual->getSur()<< "_opeActual->getSur()SubScene";
+        qDebug()<< _opeActual->getEste()<< "_opeActual->getEste()SubScene";
+        qDebug()<< _opeActual->getOeste()<< "_opeActual->getOeste()SubScene";
         _flujo << "n" << endl;
         _flujo << "n" << endl;
         _flujo << _opeActual->getFileDestino() << endl;
+        qDebug()<< _opeActual->getFileDestino() << "identificador";
         _flujo << endl;
     }
     if(metodoInvocado==Orto)
@@ -114,14 +117,6 @@ void ProcesoSubScene::procesoIniciado()
                     _flujo << "13" << endl;
                     //Trunco el tamanyo de pixel porque el fichero que le pase a la operacion geotrans
                     //tiene que tener el tamanyo de pixel integer sin decimales
-//                    float sizePixel=_opeActual->getDataZoneProyect()->getSizePixel();
-//                    sizePixel=(int)trunc(sizePixel);
-//                    if(sizePixel==0)
-//                    {
-//                     sizePixel=1;
-//                    }
-//                    _flujo << sizePixel << endl;
-//                    _flujo << sizePixel << endl;
                     _flujo << _opeActual->getDataZoneProyect()->getSizePixel() << endl;
                     _flujo << _opeActual->getDataZoneProyect()->getSizePixel() << endl;
                     _flujo << endl;
@@ -142,14 +137,6 @@ void ProcesoSubScene::procesoIniciado()
                     _flujo << "1" << endl;
                     //Trunco el tamanyo de pixel porque el fichero que le pase a la operacion geotrans
                     //tiene que tener el tamanyo de pixel integer sin decimales
-//                    float sizePixel=_opeActual->getDataZoneProyect()->getSizePixel();
-//                    sizePixel=(int)trunc(sizePixel);
-//                    if(sizePixel==0)
-//                    {
-//                     sizePixel=1;
-//                    }
-//                    _flujo << sizePixel << endl;
-//                    _flujo << sizePixel << endl;
                     _flujo << _opeActual->getDataZoneProyect()->getSizePixel() << endl;
                     _flujo << _opeActual->getDataZoneProyect()->getSizePixel() << endl;
                     _flujo << "6" << endl;
@@ -246,12 +233,6 @@ void ProcesoSubScene::procesoIniciado()
                         _flujo << endl;
                     }
                 }
-
-
-
-
-
-
                 if(_opeActual->getDataZoneProyect()->getAmbitoOperacion()==DataZoneProject::Catalunya)
                 {
                     _flujo << "8" << endl;

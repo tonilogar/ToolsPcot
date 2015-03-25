@@ -13,6 +13,8 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "operacionmet.h"
 #include <math.h>
+#define MIN(a,b) ((a)<(b)? (a):(b))
+#define MAX(a,b) ((a)>(b)? (a):(b))
 OperacionMet::OperacionMet(QObject *parent,IdentificadorCoordenadas *idCoor, DataZoneProject *dataZP) :
     Operacion(parent,idCoor,dataZP)
 {
@@ -49,163 +51,77 @@ QString OperacionMet::getFileCnpOrigen()
 }
 void OperacionMet::recalcularTablaFPM()
 {
-    double esteF, oesteF, norteF, surF, este1, oeste1, norte1, sur1, este2, oeste2, norte2, sur2, xa ,ya ,xb ,yb;
-    double x1 ,y1 ,x2 ,y2, x3 ,y3 ,x4 ,y4;
-    xa=_idCoor->getXa();
-    xb=_idCoor->getXb();
-    ya=_idCoor->getYa();
-    yb=_idCoor->getYb();
+       double esteF, oesteF, norteF, surF, este1, oeste1, norte1, sur1, este2, oeste2, norte2, sur2, xa ,ya ,xb ,yb;
+       double x1 ,y1 ,x2 ,y2, x3 ,y3 ,x4 ,y4;
+       xa=_idCoor->getXa();
+       xb=_idCoor->getXb();
+       ya=_idCoor->getYa();
+       yb=_idCoor->getYb();
 
-    double swath=_dataZP->getSizePixel()*_numberPixelsSensor*1.5;
-    double xVector=(xa-xb)/sqrt((xa-xb)*(xa-xb)+(ya-yb)*(ya-yb));
-    double yVector=(ya-yb)/sqrt((xa-xb)*(xa-xb)+(ya-yb)*(ya-yb));
+       double swath=_dataZP->getSizePixel()*_numberPixelsSensor*1.5;
+       double xVector=(xa-xb)/sqrt((xa-xb)*(xa-xb)+(ya-yb)*(ya-yb));
+       double yVector=(ya-yb)/sqrt((xa-xb)*(xa-xb)+(ya-yb)*(ya-yb));
 
-    x1=xa+0.5*swath*(-yVector);
-    y1=ya+0.5*swath*(xVector);
+       qDebug()<< xVector <<"xVector";
+       qDebug()<< yVector <<"yVector";
 
-    x2=xa-0.5*swath*(-yVector);
-    y2=ya-0.5*swath*(xVector);
+       x1=xa-0.5*swath*(yVector);
+       y1=ya+0.5*swath*(xVector);
 
-    x3=xb-0.5*swath*(-yVector);
-    y3=yb-0.5*swath*(xVector);
+       x2=xa+0.5*swath*(yVector);
+       y2=ya-0.5*swath*(xVector);
 
-    x4=xb+0.5*swath*(-yVector);
-    y4=yb+0.5*swath*(xVector);
-    //Calcular este oeste
-    if(x1==x2 || x1>x2)
-    {
-        este1=x1;
-        oeste1=x2;
-    }
-    else
-    {
-        oeste1=x1;
-        este1=x2;
-    }
-    if(x3==x4 || x3>x4)
-    {
-        este2=x3;
-        oeste2=x4;
-    }
-    else
-    {
-        oeste2=x3;
-        este2=x4;
-    }
+       x3=xb+0.5*swath*(yVector);
+       y3=yb-0.5*swath*(xVector);
 
-    if(este1==este2 || este1>este2)
-    {
-        esteF=este1;
-    }
-    else
-    {
-        esteF=este2;
-    }
+       x4=xb-0.5*swath*(yVector);
+       y4=yb+0.5*swath*(xVector);
+       //Calcular este oeste
 
-    if(oeste1==oeste2 || oeste1>oeste2)
-    {
-        oesteF=este2;
-    }
-    else
-    {
-        oesteF=oeste1;
-    }
+//       esteF= MAX(x1,x2);
+//       esteF= MAX(esteF,x3);
+//       esteF= MAX(esteF,x4);
 
-//Calcular norte sur
-    if(y1==y2 || y1>y2)
-    {
-        norte1=y1;
-        sur1=y2;
-    }
-    else
-    {
-        sur1=y1;
-        norte1=y2;
-    }
-    if(y3==y4 || y3>y4)
-    {
-        norte2=y3;
-        sur2=y4;
-    }
-    else
-    {
-        sur2=y3;
-        norte2=y4;
-    }
+//       oesteF= MIN(x1,x2);
+//       oesteF= MIN(oesteF,x3);
+//       oesteF= MIN(oesteF,x4);
+       QList<float> esteOeste;
+       esteOeste << x1 << x2 << x3 << x4;
+       qSort(esteOeste.begin(), esteOeste.end());
+       esteF=esteOeste.last();
+       oesteF=esteOeste.first();
 
-    if(norte1==norte2 || norte1>norte2)
-    {
-        norteF=norte1;
-    }
-    else
-    {
-        norteF=norte2;
-    }
-
-    if(sur1==sur2 || sur1>sur2)
-    {
-        surF=sur2;
-    }
-    else
-    {
-        surF=sur1;
-    }
+   //Calcular norte sur
+       QList<float> norteSur;
+       norteSur << y1 << y2 << y3 << y4;
+       qSort(norteSur.begin(), norteSur.end());
+       norteF=norteSur.last();
+       surF=norteSur.first();
 
 
-    qDebug()<< x1 <<"x1";
-    qDebug()<< x2 <<"x2";
-    qDebug()<< x3 <<"x3";
-    qDebug()<< x4 <<"x4";
-    qDebug()<< esteF <<"esteF";
-    qDebug()<< oesteF <<"oesteF";
-    qDebug()<< y1 <<"y1";
-    qDebug()<< y2 <<"y2";
-    qDebug()<< y3 <<"y3";
-    qDebug()<< y4 <<"y4";
-    qDebug()<< norteF <<"norteF";
-    qDebug()<< surF <<"surF";
-    qDebug()<< _dataZP->getSizePixel() <<"_dataZP->getSizePixel()";
-    qDebug()<< _numberPixelsSensor <<"_numberPixelsSensor";
+       qDebug()<< x1 <<"x1";
+       qDebug()<< x2 <<"x2";
+       qDebug()<< x3 <<"x3";
+       qDebug()<< x4 <<"x4";
+       qDebug()<< esteF <<"esteF";
+       qDebug()<< oesteF <<"oesteF";
+       qDebug()<< y1 <<"y1";
+       qDebug()<< y2 <<"y2";
+       qDebug()<< y3 <<"y3";
+       qDebug()<< y4 <<"y4";
+       qDebug()<< norteF <<"norteF";
+       qDebug()<< surF <<"surF";
+       qDebug()<< _dataZP->getSizePixel() <<"_dataZP->getSizePixel()";
+       qDebug()<< _numberPixelsSensor <<"_numberPixelsSensor";
 
-    _idCoorFPM=new IdentificadorCoordenadas(this);
+       _idCoorFPM=new IdentificadorCoordenadas(this);
+       _coordenadas=_idCoorFPM;
+       _idCoorFPM->setIdentificador(_idCoor->getIdentificador());
 
-
-
-
-//    if(xa==xb || xa>xb)
-//    {
-//        esteF=xa+((_dataZP->getSizePixel())*sizePixel*_numberPixelsSensor*2);
-//        oesteF=xb-((_dataZP->getSizePixel())*sizePixel*_numberPixelsSensor*2);
-//        xa=esteF;
-//        xb=oesteF;
-//    }
-//    else
-//    {
-//        oesteF=xa-((_dataZP->getSizePixel())*sizePixel*_numberPixelsSensor*2);
-//        esteF=xb+((_dataZP->getSizePixel())*sizePixel*_numberPixelsSensor*2);
-//        xa=oesteF;
-//        xb=esteF;
-//    }
-//    if(ya==yb || ya>yb)
-//    {
-//        norteF=ya+((_dataZP->getSizePixel())*sizePixel*_numberPixelsSensor*2);
-//        surF=yb-((_dataZP->getSizePixel())*sizePixel*_numberPixelsSensor*2);
-//        ya=norteF;
-//        yb=surF;
-//    }
-//    else
-//    {
-//        surF=ya-((_dataZP->getSizePixel())*sizePixel*_numberPixelsSensor*2);
-//        norteF=yb+((_dataZP->getSizePixel())*sizePixel*_numberPixelsSensor*2);
-//        ya=surF;
-//        yb=norteF;
-//    }
-    _coordenadas=_idCoorFPM;
-    _idCoorFPM->setIdentificador(_idCoor->getIdentificador());
-    _idCoorFPM->setXa(esteF);
-    _idCoorFPM->setXb(oesteF);
-    _idCoorFPM->setYa(surF);
-    _idCoorFPM->setYb(norteF);
+       _idCoorFPM->setXa(esteF);
+       _idCoorFPM->setXb(oesteF);
+       _idCoorFPM->setYa(surF);
+       _idCoorFPM->setYb(norteF);
 }
 
 void OperacionMet::aceptarProceso(Proceso *p)
@@ -421,22 +337,24 @@ QString OperacionMet::getFileDestino()
     qDebug()<< _fileDestino << "_filedestino";
     return _fileDestino;
 }
-
-
 double OperacionMet::getEste()
 {
     if(_dataZP->getFootPrintMask())
     {
         if(contadorpasos>2)
         {
+            qDebug()<< listaCortes.at(contadorpasos-3)->getColumnDer() << "Este" << _coordenadas->getIdentificador();
             return listaCortes.at(contadorpasos-3)->getColumnDer();
         }
+        qDebug()<< Operacion::getEste() << "Este" << _coordenadas->getIdentificador();
         return Operacion::getEste();
     }
     if(contadorpasos>1)
     {
+        qDebug()<< listaCortes.at(contadorpasos-2)->getColumnDer() << "Este" << _coordenadas->getIdentificador();
         return listaCortes.at(contadorpasos-2)->getColumnDer();
     }
+    qDebug()<< Operacion::getEste() << "Este" << _coordenadas->getIdentificador();
     return Operacion::getEste();
 }
 
@@ -446,14 +364,18 @@ double OperacionMet::getOeste()
     {
         if(contadorpasos>2)
         {
+            qDebug()<< listaCortes.at(contadorpasos-3)->getColumnIz() << "Oeste" << _coordenadas->getIdentificador();
             return listaCortes.at(contadorpasos-3)->getColumnIz();
         }
+        qDebug()<< Operacion::getOeste() << "Oeste" << _coordenadas->getIdentificador();
         return Operacion::getOeste();
     }
     if(contadorpasos>1)
     {
+        qDebug()<< listaCortes.at(contadorpasos-2)->getColumnIz() << "Oeste" << _coordenadas->getIdentificador();
         return listaCortes.at(contadorpasos-2)->getColumnIz();
     }
+    qDebug()<< Operacion::getOeste() << "Oeste" << _coordenadas->getIdentificador();
     return Operacion::getOeste();
 }
 double OperacionMet::getNorte()
@@ -462,14 +384,18 @@ double OperacionMet::getNorte()
     {
         if(contadorpasos>2)
         {
+            qDebug()<< listaCortes.at(contadorpasos-3)->getFilaSup() << "Norte" << _coordenadas->getIdentificador();
             return listaCortes.at(contadorpasos-3)->getFilaSup();
         }
+        qDebug()<< Operacion::getNorte() << "Norte" << _coordenadas->getIdentificador();
         return Operacion::getNorte();
     }
     if(contadorpasos>1)
     {
+        qDebug()<< listaCortes.at(contadorpasos-2)->getFilaSup() << "Norte" << _coordenadas->getIdentificador();
         return listaCortes.at(contadorpasos-2)->getFilaSup();
     }
+    qDebug()<< Operacion::getNorte() << "Norte" << _coordenadas->getIdentificador();
     return Operacion::getNorte();
 }
 double OperacionMet::getSur()
@@ -478,14 +404,18 @@ double OperacionMet::getSur()
     {
         if(contadorpasos>2)
         {
+            qDebug()<< listaCortes.at(contadorpasos-3)->getFilaInf() << "Sur" << _coordenadas->getIdentificador();
             return listaCortes.at(contadorpasos-3)->getFilaInf();
         }
+        qDebug()<< Operacion::getSur() << "Sur" << _coordenadas->getIdentificador();
         return Operacion::getSur();
     }
     if(contadorpasos>1)
     {
+        qDebug()<< listaCortes.at(contadorpasos-2)->getFilaInf() << "Sur" << _coordenadas->getIdentificador();
         return listaCortes.at(contadorpasos-2)->getFilaInf();
     }
+    qDebug()<< Operacion::getSur() << "Sur" << _coordenadas->getIdentificador();
     return Operacion::getSur();
 }
 

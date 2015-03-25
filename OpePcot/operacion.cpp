@@ -38,20 +38,41 @@ QString Operacion::getIdentificador()
 }
 double Operacion::getEste()
 {
-    return _wCoor->getEste();
-    qDebug()<< "getEste Operacion";
+    if(_wCoor->getEste()==_wCoor->getOeste())
+    {
+        return _wCoor->getEste()+3000;
+        qDebug()<< "getEste Operacion";
+    }
+    else
+        return _wCoor->getEste();
+
 }
 double Operacion::getOeste()
 {
-    return _wCoor->getOeste();
+    if(_wCoor->getOeste()==_wCoor->getEste())
+    {
+        return _wCoor->getOeste()-3000;
+    }
+    else
+        return _wCoor->getOeste();
 }
 double Operacion::getNorte()
 {
-    return _wCoor->getNorte();
+    if(_wCoor->getNorte()==_wCoor->getSur())
+    {
+        return _wCoor->getNorte()+3000;
+    }
+    else
+        return _wCoor->getNorte();
 }
 double Operacion::getSur()
 {
-    return _wCoor->getSur();
+    if(_wCoor->getSur()==_wCoor->getNorte())
+    {
+        return _wCoor->getSur()-3000;
+    }
+    else
+        return _wCoor->getSur();
 }
 QString Operacion::getFileOrigen()
 {
@@ -59,7 +80,7 @@ QString Operacion::getFileOrigen()
 }
 QString Operacion::getFileDestino()
 {
- return QString();
+    return QString();
 }
 QString Operacion::getFileCnpOrigen()
 {
@@ -92,7 +113,7 @@ void Operacion::incrementarPasos()
 }
 IdentificadorCoordenadas* Operacion::getidenCoor()
 {
- return _idCoor;
+    return _idCoor;
 }
 
 /*!
@@ -102,20 +123,20 @@ IdentificadorCoordenadas* Operacion::getidenCoor()
  * Emito el SIGNAL operacionFallida con los parametros de QString error y un entero indicand el paso en que se creo el error
  * El SIGNAL operacionFallida esta conectado con el SLOT errorOperacion de la clase mainWindows
  */
- void Operacion::setFallida(QString error)
- {
-  _error=error;
-  fallida=true;
-  int pasos=_totalPasos-contadorpasos;
-  emit operacionFallida(_error, pasos);
- }
+void Operacion::setFallida(QString error)
+{
+    _error=error;
+    fallida=true;
+    int pasos=_totalPasos-contadorpasos;
+    emit operacionFallida(_error, pasos);
+}
 bool Operacion::isFallida()
 {
-  return fallida;
+    return fallida;
 }
 bool Operacion::isCompleta()
 {
- return completo;
+    return completo;
 }
 /*!
  * resetOperation.
