@@ -12,4 +12,5 @@ SUBDIRS += OpePcot \
     ComponentesTP \
     CnpMetOrtoTP \
     ControlOpeTP \
-    App-ToolsPcot
+    App-ToolsPcot \
+    ProyectoTP

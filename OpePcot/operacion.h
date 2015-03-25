@@ -2,7 +2,7 @@
 #define OPERACION_H
 #include "operacionpcot_global.h"
 #include <QObject>
-#include <Qdebug>
+#include <QDebug>
 #include "identificadorcoordenadas.h"
 #include "datazoneproject.h"
 #include "workcoordinates.h"
