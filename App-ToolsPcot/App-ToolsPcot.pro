@@ -54,6 +54,10 @@ win32:CONFIG(release, debug|release): LIBS += -L../libs -lCoordinatesTP
 else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lCoordinatesTPd
 else:unix:!macx: LIBS += -L../libs -lCoordinatesTP
 
+win32:CONFIG(release, debug|release): LIBS += -L../libs -lProyectoTP
+else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lProyectoTPd
+else:unix:!macx: LIBS += -L../libs -lProyectoTP
+
 RESOURCES += \
     resources.qrc
 

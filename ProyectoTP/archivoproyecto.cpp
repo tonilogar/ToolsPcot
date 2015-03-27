@@ -21,6 +21,11 @@ ArchivoProyecto::ArchivoProyecto(QObject *parent, QString nameFileProyect):
 {
     _nameFileProyect=nameFileProyect;
 }
+ArchivoProyecto::~ArchivoProyecto()
+{
+
+}
+
 bool ArchivoProyecto::exist()
 {
     return QFileInfo::exists(_nameFileProyect);

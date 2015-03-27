@@ -14,6 +14,7 @@
 #include <QSignalMapper>
 #include <QSettings>
 #include "dialogprogresoope.h"
+#include <ProyectoTP/archivoproyecto.h>
 namespace Ui {
 class MainWindow;
 }
@@ -34,6 +35,7 @@ private slots:
     void on_pushButton_clicked();
     void lanzarDialogoPreferencias();
     void mostrarDialogoProgreso();
+    void nuevoProyecto();
 
 private:
     Ui::MainWindow *ui;

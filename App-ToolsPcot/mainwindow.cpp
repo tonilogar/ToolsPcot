@@ -149,6 +149,7 @@ MainWindow::MainWindow(QWidget *parent) :
     _dialogoProgreso->conectToControlMet(_lanzadorOpe->getControlMet());
     _dialogoProgreso->conectToControlOrto(_lanzadorOpe->getControlOrto());
     connect(_lanzadorOpe,SIGNAL(inicioOperaciones()),_dialogoProgreso,SLOT(exec()));
+    connect(ui->actionNew_project,SIGNAL(triggered()),this,SLOT(nuevoProyecto()));
 }
 
 MainWindow::~MainWindow()
@@ -292,4 +293,15 @@ void MainWindow::lanzarDialogoPreferencias()
 void MainWindow::mostrarDialogoProgreso()
 {
     _dialogoProgreso->show();
+}
+void MainWindow::nuevoProyecto()
+{
+    QString rutaArchivo("/home/tonilogar/Documentos/TrabajosAntonio/programacion/repositoriosLocales/nombreDelProyecto.tpc");
+
+ArchivoProyecto aproyecto(this, rutaArchivo);
+if(aproyecto.exist())
+{
+    return;
+}
+aproyecto.build("nombre del proyecto", "proyecto de prueba", "Antonio");
 }

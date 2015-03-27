@@ -16,6 +16,7 @@ class PROYECTOTPSHARED_EXPORT ArchivoProyecto:public QObject
     Q_OBJECT
 public:
     explicit ArchivoProyecto(QObject *parent = 0, QString nameFileProyect=QString());
+    ~ArchivoProyecto();
     QString getnameFileProyect();
     QString getnameProyect();
     QString getdescriptionProyecte();
