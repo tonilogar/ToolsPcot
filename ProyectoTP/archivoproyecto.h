@@ -23,9 +23,10 @@ public:
     QString getautorProyect();
     QDate   getdateAcces();
     QDate   getdateCreate();
+    QDate   getdateflight();
     virtual QString getnumberVersion();
     bool exist();
-    virtual bool build(QString nameProyect,QString descriptionProyecte, QString autorProyect);
+    virtual bool build(QString nameProyect,QString descriptionProyecte, QString autorProyect, QDate dateFlight);
 
 public slots:
     void setnameFileProyect(QString nameFileProyect);
@@ -34,6 +35,7 @@ public slots:
     void setautorProyect(QString autorProyect);
     void setdateAcces(QDate dateAcces);
     void setdateCreate(QDate dateCreate);
+    void setdateflight(QDate dateFlight);
 protected:
     QString _nameFileProyect;
     QString _nameProyect;
@@ -41,6 +43,7 @@ protected:
     QString _autorProyect;
     QDate _dateAcces;
     QDate _dateCreate;
+    QDate _dateFlight;
 
 
 

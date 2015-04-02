@@ -15,6 +15,7 @@
 #include <QSettings>
 #include "dialogprogresoope.h"
 #include <ProyectoTP/archivoproyecto.h>
+#include "newprojectdialog.h"
 namespace Ui {
 class MainWindow;
 }

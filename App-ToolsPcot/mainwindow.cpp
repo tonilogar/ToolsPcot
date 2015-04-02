@@ -296,12 +296,6 @@ void MainWindow::mostrarDialogoProgreso()
 }
 void MainWindow::nuevoProyecto()
 {
-    QString rutaArchivo("/home/tonilogar/Documentos/TrabajosAntonio/programacion/repositoriosLocales/nombreDelProyecto.tpc");
-
-ArchivoProyecto aproyecto(this, rutaArchivo);
-if(aproyecto.exist())
-{
-    return;
-}
-aproyecto.build("nombre del proyecto", "proyecto de prueba", "Antonio");
+NewProjectDialog welcome;
+welcome.exec();
 }

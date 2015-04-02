@@ -18,17 +18,23 @@ SOURCES += \
     dialogprogresoope.cpp \
     dialogopreferencias.cpp \
     mainwindow.cpp \
-    main.cpp
+    main.cpp \
+    newprojectdialog.cpp \
+    calendardialog.cpp
 
 HEADERS  += \
     dialogprogresoope.h \
     dialogopreferencias.h \
-    mainwindow.h
+    mainwindow.h \
+    newprojectdialog.h \
+    calendardialog.h
 
 FORMS    += \
     dialogprogresoope.ui \
     dialogopreferencias.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    newprojectdialog.ui \
+    calendardialog.ui
 
 
 

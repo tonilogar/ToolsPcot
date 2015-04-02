@@ -59,7 +59,10 @@ QString ArchivoProyecto::getnumberVersion()
 {
     return QString("0.0");
 }
-
+QDate ArchivoProyecto::getdateflight()
+{
+    return _dateFlight;
+}
 void ArchivoProyecto::setnameFileProyect(QString nameFileProyect)
 {
     _nameFileProyect=nameFileProyect;
@@ -84,7 +87,11 @@ void ArchivoProyecto::setdateCreate(QDate dateCreate)
 {
     _dateCreate=dateCreate;
 }
-bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QString autorProyect)
+void ArchivoProyecto::setdateflight(QDate dateFlight)
+{
+    _dateFlight=dateFlight;
+}
+bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QString autorProyect, QDate dateFlight)
 {
     QDate dateCreate=QDate::currentDate();
 
@@ -98,6 +105,7 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     proyecto.insert("proyecto",nameProyect);
     proyecto.insert("autor",autorProyect);
     proyecto.insert("descripcion",descriptionProyecte);
+    proyecto.insert("fechavuelo",dateCreate.toString("dd-MM-yyyy"));
     proyecto.insert("fechacreacion",dateCreate.toString("dd-MM-yyyy"));
     proyecto.insert("fechaultimoacceso",dateCreate.toString("dd-MM-yyyy"));
     QJsonDocument documentProyecto;
@@ -114,6 +122,7 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     _descriptionProyecte=descriptionProyecte;
     _dateCreate=dateCreate;
     _dateAcces=dateCreate;
+    _dateFlight=dateFlight;
 
 }
 
