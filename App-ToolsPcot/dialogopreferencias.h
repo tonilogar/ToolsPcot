@@ -25,6 +25,7 @@ public:
 signals:
     void cambiosArchivoMet();
     void cambiosArchivoOrto();
+    void cambiosDirectorioProyecto();
 
 private:
     Ui::DialogoPreferencias *ui;
@@ -34,6 +35,7 @@ private slots:
 
     void buscarArchivoMET();
     void buscarArchivoORTO();
+    void buscarDirectorioProyectos();
 };
 
 #endif // DIALOGOPREFERENCIAS_H

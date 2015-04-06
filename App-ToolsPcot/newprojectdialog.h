@@ -2,7 +2,11 @@
 #define NEWPROJECTDIALOG_H
 
 #include <QDialog>
+#include <QSettings>
+#include <QDir>
+#include <QFileInfo>
 #include "calendardialog.h"
+#include <ProyectoTP/archivoproyecto.h>
 namespace Ui {
 class NewProjectDialog;
 }
@@ -18,10 +22,12 @@ private slots:
     void generarNombreFicheroProyecto(QString valor);
     void lanzarCalendario();
     void cambiarFechaFichero(QDate fecha);
+    void crearArchivoProyecto();
 
 
 private:
     Ui::NewProjectDialog *ui;
+    ArchivoProyecto _aProyecto;
 };
 
 #endif // NEWPROJECTDIALOG_H

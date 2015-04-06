@@ -10,17 +10,19 @@ DialogoPreferencias::DialogoPreferencias(QWidget *parent) :
     //Conecto señales de los botones con los slots de busqueda
     connect(ui->metButton,SIGNAL(clicked()),this,SLOT(buscarArchivoMET()));
     connect(ui->ortoButton,SIGNAL(clicked()),this,SLOT(buscarArchivoORTO()));
-
+    connect(ui->buttonDirectorioProyectos,SIGNAL(clicked()),this,SLOT(buscarDirectorioProyectos()));
     //Cargar datos de settings
     QSettings settings("tologar","ToolsPCOT",this);
 
-    QString pathMet,pathOrto;
+    QString pathMet,pathOrto,pathDirectorioProyectos;
 
     pathMet=settings.value("variablesMET").toString();
     pathOrto=settings.value("variablesORTO").toString();
+    pathDirectorioProyectos=settings.value("directorioProyectos").toString();
     qDebug()<< pathMet << "pathMet";
     ui->metEdit->setText(pathMet);
     ui->ortoEdit->setText(pathOrto);
+    ui->editDirectorioProyectos->setText(pathDirectorioProyectos);
 
     _isChanged=false;
 }
@@ -57,6 +59,16 @@ void DialogoPreferencias::buscarArchivoORTO()
     ui->ortoEdit->setText(path);
     _isChanged=true;
 }
+void DialogoPreferencias::buscarDirectorioProyectos()
+{
+    QString path=QFileDialog::getExistingDirectory(this,
+                                              "Preferencias - Seleccionar directorio de proyectos",
+                                              qApp->applicationDirPath());
+    if(path.isNull() || path.isEmpty())
+        return;
+    ui->editDirectorioProyectos->setText(path);
+    _isChanged=true;
+}
 
 void DialogoPreferencias::accept()
 {
@@ -64,10 +76,10 @@ void DialogoPreferencias::accept()
 
     settings.setValue("variablesMET",ui->metEdit->text());
     settings.setValue("variablesORTO",ui->ortoEdit->text());
-    QString pathMet=settings.value("variablesMET").toString();
-    qDebug() << pathMet << "pathmetDentroPreferencias";
+    settings.setValue("directorioProyectos",ui->editDirectorioProyectos->text());
     emit cambiosArchivoMet();
     emit cambiosArchivoOrto();
+    emit cambiosDirectorioProyecto();
     QDialog::accept();
 
 }

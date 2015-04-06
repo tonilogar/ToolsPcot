@@ -1,7 +1,6 @@
 //    ToolsPcot
 //    Copyright (C) {2014}  {Antonio López García}
 //    tologar@gmail.com
-
 //    This program is free software: you can redistribute it and/or modify
 //    it under the terms of the GNU General Public License as published by
 //    the Free Software Foundation, either version 3 of the License, or
@@ -105,7 +104,7 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     proyecto.insert("proyecto",nameProyect);
     proyecto.insert("autor",autorProyect);
     proyecto.insert("descripcion",descriptionProyecte);
-    proyecto.insert("fechavuelo",dateCreate.toString("dd-MM-yyyy"));
+    proyecto.insert("fechavuelo",dateFlight.toString("dd-MM-yyyy"));
     proyecto.insert("fechacreacion",dateCreate.toString("dd-MM-yyyy"));
     proyecto.insert("fechaultimoacceso",dateCreate.toString("dd-MM-yyyy"));
     QJsonDocument documentProyecto;

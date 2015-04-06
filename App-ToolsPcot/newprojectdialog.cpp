@@ -9,6 +9,7 @@ NewProjectDialog::NewProjectDialog(QWidget *parent) :
     connect(ui->lineEditProject,SIGNAL(textChanged(QString)),this,SLOT(generarNombreFicheroProyecto(QString)));
 connect(ui->toolButtonDateFlight,SIGNAL(clicked()),this,SLOT(lanzarCalendario()));
 connect(ui->dateEditDateFlight,SIGNAL(dateChanged(QDate)),this,SLOT(cambiarFechaFichero(QDate)));
+connect(ui->buttonBox,SIGNAL(accepted()),this,SLOT(crearArchivoProyecto()));
 ui->dateEditDateFlight->setDisplayFormat("dd/MM/yyyy");
 ui->dateEditDateFlight->setDate(QDate::currentDate());
 }
@@ -44,4 +45,18 @@ void NewProjectDialog::cambiarFechaFichero(QDate fecha)
   }
   QString fechaText=fecha.toString("ddMMyyyy");
   ui->lineEditProjectFile->setText(ui->lineEditProject->text()+"_"+fechaText+".tpc");
+}
+void NewProjectDialog::crearArchivoProyecto()
+{
+    QSettings settings("tologar","ToolsPCOT",this);
+QString dirProyecto=settings.value("directorioProyectos").toString();
+//Casos de la direccion en windows o linux barras inclinadas
+
+QFileInfo archivo;
+archivo.setFile(QDir(dirProyecto),ui->lineEditProjectFile->text());
+_aProyecto.setnameFileProyect(archivo.filePath());
+_aProyecto.build(ui->lineEditProject->text(), ui->textEditDescription->toPlainText(), ui->lineEditAutor->text(),
+                 ui->dateEditDateFlight->date());
+
+
 }
