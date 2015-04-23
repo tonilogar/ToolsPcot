@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QDir>
 #include <QFileInfo>
+#include <QFileDialog>
 #include "calendardialog.h"
 #include <ProyectoTP/archivoproyecto.h>
 namespace Ui {
@@ -22,6 +23,7 @@ private slots:
     void generarNombreFicheroProyecto(QString valor);
     void lanzarCalendario();
     void cambiarFechaFichero(QDate fecha);
+    void cambiarFolderProject();
     void crearArchivoProyecto();
 
 
