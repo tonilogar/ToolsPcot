@@ -1,5 +1,5 @@
 //    ToolsPcot
-//    Copyright (C) {2014}  {Antonio López García}
+//    Copyright (C) {2014}  {Antonio L?pez Garc?a}
 //    tologar@gmail.com
 
 //    This program is free software: you can redistribute it and/or modify
@@ -45,7 +45,7 @@ CreateOrto::CreateOrto(QWidget *parent) :
         {
             //Crear un archivo Json por defecto
             lectorModelos.CreateJsonOrtoDefecto();
-            //Paso la dirección por de fecto al valor de path de settings
+            //Paso la direcci?n por de fecto al valor de path de settings
             QSettings settings("tologar","ToolsPCOT",this);
             QString pathDefectoFileJson=qApp->applicationDirPath()+"/variablespcotOrto.txt";
             FicheroDatosAmbitoPro lectorOuts(this,pathDefectoFileJson);
@@ -91,8 +91,8 @@ CreateOrto::CreateOrto(QWidget *parent) :
         ui->comboBoxOffsetPasadaOrto->addItem(QString::number(i)+" Mts",i);
 
     connect(ui->comboBoxAmbitoProyectoOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(onCambioComboBoxAmbitoProyectoOrto(int)));
-    connect(ui->comboBoxTamanoPixelOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(calcularOffsetPasada(int)));
-    connect(ui->comboBoxSelectSensor,SIGNAL(currentIndexChanged(int)),this,SLOT(calcularOffsetPasada(int)));
+    connect(ui->comboBoxTamanoPixelOrto,SIGNAL(activated(int)),this,SLOT(calcularOffsetPasada(int)));
+    connect(ui->comboBoxSelectSensor,SIGNAL(activated(int)),this,SLOT(calcularOffsetPasada(int)));
     connect(ui->checkBoxExtraerOrto,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableExtraerOrto(int)));
     connect(ui->checkBoxCortarOrto,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableCortarOrto(int)));
     connect(ui->checkBoxFootPrintMaskOrto,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableFootPrintMaskOrto(int)));
@@ -210,7 +210,7 @@ void CreateOrto::activateWidget(bool acti)
 void CreateOrto::calcularOffsetPasada(int offsetPasada)
 {
     int _numberPixelsSensor=0;
-    if(ui->comboBoxSelectSensor->currentText()=="Casi")
+    if(punteroRegistroCreateOrto->getSelectSensor()==DataZoneProject::Casi)
             _numberPixelsSensor=550;
         if(punteroRegistroCreateOrto->getSelectSensor()==DataZoneProject::Tasi)
             _numberPixelsSensor=600;

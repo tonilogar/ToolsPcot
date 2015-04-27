@@ -3,6 +3,7 @@
 #include "operacionpcot_global.h"
 #include "calculocortes.h"
 #include <QDebug>
+#include <QList>
 #include "math.h"
 
 /*!

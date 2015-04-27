@@ -13,8 +13,6 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "operacionmet.h"
 #include <math.h>
-#define MIN(a,b) ((a)<(b)? (a):(b))
-#define MAX(a,b) ((a)>(b)? (a):(b))
 OperacionMet::OperacionMet(QObject *parent,IdentificadorCoordenadas *idCoor, DataZoneProject *dataZP) :
     Operacion(parent,idCoor,dataZP)
 {
@@ -77,14 +75,6 @@ void OperacionMet::recalcularTablaFPM()
        x4=xb-0.5*swath*(yVector);
        y4=yb+0.5*swath*(xVector);
        //Calcular este oeste
-
-//       esteF= MAX(x1,x2);
-//       esteF= MAX(esteF,x3);
-//       esteF= MAX(esteF,x4);
-
-//       oesteF= MIN(x1,x2);
-//       oesteF= MIN(oesteF,x3);
-//       oesteF= MIN(oesteF,x4);
        QList<float> esteOeste;
        esteOeste << x1 << x2 << x3 << x4;
        qSort(esteOeste.begin(), esteOeste.end());

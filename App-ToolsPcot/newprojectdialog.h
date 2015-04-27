@@ -6,6 +6,7 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QMessageBox>
 #include "calendardialog.h"
 #include <ProyectoTP/archivoproyecto.h>
 namespace Ui {
@@ -19,12 +20,14 @@ class NewProjectDialog : public QDialog
 public:
     explicit NewProjectDialog(QWidget *parent = 0);
     ~NewProjectDialog();
+    bool checkDates();
 private slots:
     void generarNombreFicheroProyecto(QString valor);
     void lanzarCalendario();
     void cambiarFechaFichero(QDate fecha);
     void cambiarFolderProject();
     void crearArchivoProyecto();
+
 
 
 private:

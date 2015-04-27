@@ -91,8 +91,8 @@ CreateMet::CreateMet(QWidget *parent) :
         ui->comboBoxOffsetPasadaMet->addItem(QString::number(i)+" Mts",i);
 
     connect(ui->comboBoxAmbitoProyectoMet,SIGNAL(currentIndexChanged(int)),this,SLOT(onCambioComboBoxAmbitoProyectoMet(int)));
-    connect(ui->comboBoxTamanoPixelMet,SIGNAL(currentIndexChanged(int)),this,SLOT(calcularOffsetPasada(int)));
-    connect(ui->comboBoxSelectSensor,SIGNAL(currentIndexChanged(int)),this,SLOT(calcularOffsetPasada(int)));
+    connect(ui->comboBoxTamanoPixelMet,SIGNAL(activated(int)),this,SLOT(calcularOffsetPasada(int)));
+    connect(ui->comboBoxSelectSensor,SIGNAL(activated(int)),this,SLOT(calcularOffsetPasada(int)));
     connect(ui->checkBoxExtraerMet,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableExtraerMet(int)));
     connect(ui->checkBoxCortarMet,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableCortarMet(int)));
     connect(ui->checkBoxFootPrintMaskMet,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableFootPrintMaskMet(int)));

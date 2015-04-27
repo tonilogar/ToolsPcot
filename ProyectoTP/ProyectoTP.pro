@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       -= gui widgets
+QT       += widgets
 win32:CONFIG(release,debug|release){
 TARGET = ProyectoTP
 }

@@ -44,7 +44,40 @@ protected:
     QDate _dateAcces;
     QDate _dateCreate;
     QDate _dateFlight;
+    QString _pathNameFileCoordinates;
+    QString _nameFileCoordinates;
 
+    bool _createMet;
+    QString _folderOutCnp;
+    QString _IncidentsCnp;
+
+    bool _checkExtractMet;
+    QString _folderOutMet;
+    QString _zoneProjectMet;
+    double _pixelSizeMet;
+    QString _coordinateSystemMet;
+    bool _checkCutMet;
+    int _sizeCutMet;
+    int _numberChanelsMet;
+    bool checkFootPrintMaskMet;
+    QString _selectSensorMet;
+    int _offsetFlightMet;
+    int _widthFlightMet;
+    QString _IncidentsMet;
+
+    bool _checkExtractOrto;
+    QString _folderOutOrto;
+    QString _zoneProjectOrto;
+    double _pixelSizeOrto;
+    QString _coordinateSystemOrto;
+    bool _checkCutOrto;
+    int _sizeCutOrto;
+    int _numberChanelsOrto;
+    bool checkFootPrintMaskOrto;
+    QString _selectSensorOrto;
+    int _offsetFlightOrto;
+    int _widthFlightOrto;
+    QString _IncidentsOrto;
 
 
 

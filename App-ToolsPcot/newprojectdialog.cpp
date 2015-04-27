@@ -63,6 +63,12 @@ ui->lineEditFolderProject->setText(newFolderProject);
 void NewProjectDialog::crearArchivoProyecto()
 {
 
+if(!checkDates())
+{
+        QMessageBox::warning(this,tr("ToolsPCot - New projecto"),tr("write de name of project"));
+        return;
+}
+
     QString dirProyecto=ui->lineEditFolderProject->text();
     //Casos de la direccion en windows o linux barras inclinadas
 
@@ -71,6 +77,12 @@ void NewProjectDialog::crearArchivoProyecto()
     _aProyecto.setnameFileProyect(archivo.filePath());
     _aProyecto.build(ui->lineEditProject->text(), ui->textEditDescription->toPlainText(), ui->lineEditAutor->text(),
                      ui->dateEditDateFlight->date());
-
-
+}
+bool NewProjectDialog::checkDates()
+{
+ if(ui->lineEditProject->text().isEmpty() || ui->lineEditProject->text().isNull() )
+ {
+ return false;
+ }
+ return true;
 }

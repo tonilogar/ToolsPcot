@@ -24,8 +24,16 @@ CCMet::CCMet(QObject *parent, IdentificadorCoordenadas *ideCoordenadas, DataZone
 QList <CorteMet*> CCMet::generaListaCortes()
 {
     QList <CorteMet*> listaCortes;
-    int este, oeste, norte, sur, xa ,ya ,xb ,yb;
     QString identificador;
+    int _numberPixelsSensor=0;
+    if(_dataZProject->getSelectSensor()==DataZoneProject::Casi)
+        _numberPixelsSensor=550;
+    else if(_dataZProject->getSelectSensor()==DataZoneProject::Tasi)
+        _numberPixelsSensor=600;
+    else if(_dataZProject->getSelectSensor()==DataZoneProject::Aisa)
+        _numberPixelsSensor=1024;
+    else if(_dataZProject->getSelectSensor()==DataZoneProject::Aisa_BE)
+        _numberPixelsSensor=512;
 
     if(_dataZProject->getCoordinateSystem()==DataZoneProject::Etrs89 || _dataZProject->getCoordinateSystem()==DataZoneProject::Ntf)
     {
@@ -50,57 +58,98 @@ QList <CorteMet*> CCMet::generaListaCortes()
         identificador=_dataZProject->getFolderOut()+"\\"+_ideCoordenadas->getIdentificador()+"_ImaOpeGeO.rf";
     }
 
-
-    qDebug()<< identificador <<"identificador" << endl;
+    double esteNew, oesteNew, norteNew, surNew, esteF, oesteF, norteF, surF, este1, oeste1, norte1, sur1, este2, oeste2, norte2, sur2, xa ,ya ,xb ,yb;
+    double x1 ,y1 ,x2 ,y2, x3 ,y3 ,x4 ,y4;
+    double pixelOld;
+    if(_dataZProject->getAmbitoOperacion()==DataZoneProject::Catalunya)
+    {
+      pixelOld=2;
+    }
+    if(_dataZProject->getAmbitoOperacion()==DataZoneProject::Espanya)
+    {
+      pixelOld=5;
+    }
+    if(_dataZProject->getAmbitoOperacion()==DataZoneProject::Francia)
+    {
+      pixelOld=90;
+    }
     xa=_ideCoordenadas->getXa();
     xb=_ideCoordenadas->getXb();
     ya=_ideCoordenadas->getYa();
     yb=_ideCoordenadas->getYb();
-    //Calculo que coordenada es este, oeste, norte, sur
-    if(xa==xb || xa>xb)
-    {
-        este=xa;
-        oeste=xb;
-    }
-    else
-    {
-        oeste=xa;
-        este=xb;
-    }
-    if(ya==yb || ya>yb)
-    {
-        norte=ya;
-        sur=yb;
-    }
-    else
-    {
-        sur=ya;
-        norte=yb;
-    }
+
+    double swath=_dataZProject->getSizePixel()*_numberPixelsSensor*1.5;
+    double xVector=(xa-xb)/sqrt((xa-xb)*(xa-xb)+(ya-yb)*(ya-yb));
+    double yVector=(ya-yb)/sqrt((xa-xb)*(xa-xb)+(ya-yb)*(ya-yb));
+
+    qDebug()<< xVector <<"xVector";
+    qDebug()<< yVector <<"yVector";
+
+    x1=xa-0.5*swath*(yVector);
+    y1=ya+0.5*swath*(xVector);
+
+    x2=xa+0.5*swath*(yVector);
+    y2=ya-0.5*swath*(xVector);
+
+    x3=xb+0.5*swath*(yVector);
+    y3=yb-0.5*swath*(xVector);
+
+    x4=xb-0.5*swath*(yVector);
+    y4=yb+0.5*swath*(xVector);
+    //Calcular este oeste
+
+
+    QList<float> esteOeste;
+    esteOeste << x1 << x2 << x3 << x4;
+    qSort(esteOeste.begin(), esteOeste.end());
+    esteF=esteOeste.last();
+    oesteF=esteOeste.first();
+
+//Calcular norte sur
+    QList<float> norteSur;
+    norteSur << y1 << y2 << y3 << y4;
+    qSort(norteSur.begin(), norteSur.end());
+    norteF=norteSur.last();
+    surF=norteSur.first();
+
     //Calculo el numero de columnas y filas que tiene el Met
-    qDebug()<< este << "este";
-    qDebug()<< oeste << "oeste";
-    qDebug()<< norte << "norte";
-    qDebug()<< sur << "sur";
+    qDebug()<< esteF << "este";
+    qDebug()<< oesteF << "oeste";
+    qDebug()<< norteF << "norte";
+    qDebug()<< surF << "sur";
 
-    int numeroColumTotal=((este-oeste)/_dataZProject->getSizePixel())+1;
-    qDebug()<< numeroColumTotal << "numeroColumTotal";
-    numeroColumTotal=numeroColumTotal-50;
-    qDebug()<< numeroColumTotal << "numeroColumTotal - 50";
-
-
-    int numeroFilaTotal=((norte-sur)/_dataZProject->getSizePixel())+1;
+    int numeroColumTotal=((esteF-oesteF)/pixelOld);
+    qDebug()<< numeroColumTotal << "numeroColumTotalSubScene";
+    int numeroFilaTotal=((norteF-surF)/pixelOld);
+    qDebug()<< numeroFilaTotal << "numeroColumTotalSubScene";
 
 
-    qDebug()<< numeroFilaTotal << "numeroFilaTotal";
-    numeroFilaTotal=numeroFilaTotal-50;
-    qDebug()<< numeroFilaTotal << "numeroFilaTotal - 50";
+    norteNew=(norteF+(pixelOld/2))-_dataZProject->getSizePixel()/2;
+    oesteNew=(oesteF+(pixelOld/2))-_dataZProject->getSizePixel()/2;
+
+    int lin=numeroFilaTotal*(pixelOld/_dataZProject->getSizePixel());
+    int col=numeroColumTotal*(pixelOld/_dataZProject->getSizePixel());
+    surNew=norteNew-(lin-1)*_dataZProject->getSizePixel();
+    esteNew=oesteNew+(col-1)*_dataZProject->getSizePixel();
+
+
+    qDebug()<< esteNew << "esteNew";
+    qDebug()<< oesteNew << "oesteNew";
+    qDebug()<< norteNew << "norteNew";
+    qDebug()<< surNew << "surNew";
+
+    numeroColumTotal=((esteNew-oesteNew)/_dataZProject->getSizePixel())+1;
+    qDebug()<< numeroColumTotal << "numeroColumTotalNew";
+    numeroFilaTotal=((norteNew-surNew)/_dataZProject->getSizePixel())+1;
+    qDebug()<< numeroFilaTotal << "numeroFilaTotalNew";
+
     int filaSup, filaInf, ColumnIz, ColumnDe;
     if(numeroColumTotal < numeroFilaTotal)
     {
 
         int verticalSize=(_dataZProject->getSizeCut()*1024*1024)/(4*(_dataZProject->getNumberCanals())*numeroColumTotal);
         float numeroTall=(float)numeroFilaTotal/verticalSize;
+        qDebug()<< identificador << "identificador";
         qDebug()<< numeroTall << "numeroTall";
         numeroTall=(int)ceil(numeroTall);
         int verticalSizeDef=numeroFilaTotal/numeroTall;
