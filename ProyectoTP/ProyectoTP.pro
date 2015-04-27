@@ -19,10 +19,14 @@ DEFINES += PROYECTOTP_LIBRARY
 INCLUDEPATH += ..
 DESTDIR =../libs
 
-SOURCES += archivoproyecto.cpp
+SOURCES += archivoproyecto.cpp \
+    aprotpsection.cpp \
+    aprocnpmetortosection.cpp
 
 HEADERS += archivoproyecto.h\
-        proyectotp_global.h
+        proyectotp_global.h \
+    aprotpsection.h \
+    aprocnpmetortosection.h
 
 unix {
     target.path = /usr/lib

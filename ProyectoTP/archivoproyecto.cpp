@@ -12,6 +12,7 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #include "archivoproyecto.h"
 
 
@@ -19,10 +20,12 @@ ArchivoProyecto::ArchivoProyecto(QObject *parent, QString nameFileProyect):
     QObject(parent)
 {
     _nameFileProyect=nameFileProyect;
+    _seccionCnpMetOrto=new AProCnpMetOrtoSection(this);
 }
 ArchivoProyecto::~ArchivoProyecto()
 {
-
+    if(_seccionCnpMetOrto)
+        delete _seccionCnpMetOrto;
 }
 
 bool ArchivoProyecto::exist()
@@ -107,6 +110,10 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     proyecto.insert("fechavuelo",dateFlight.toString("dd-MM-yyyy"));
     proyecto.insert("fechacreacion",dateCreate.toString("dd-MM-yyyy"));
     proyecto.insert("fechaultimoacceso",dateCreate.toString("dd-MM-yyyy"));
+
+    QJsonObject cnpMetOrto=_seccionCnpMetOrto->writeSection();
+    proyecto.insert("cnpMetOrto",cnpMetOrto);
+
     QJsonDocument documentProyecto;
     documentProyecto.setObject(proyecto);
     QFile ficheroProyecto(_nameFileProyect);
@@ -123,6 +130,12 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     _dateAcces=dateCreate;
     _dateFlight=dateFlight;
 
+}
+
+bool ArchivoProyecto::read(QString pathProyectFile)
+{
+    /// @todo Implementar el metodo read
+    return false;
 }
 
 
