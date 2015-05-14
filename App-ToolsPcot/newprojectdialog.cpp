@@ -74,8 +74,9 @@ if(!checkDates())
 
     QFileInfo archivo;
     archivo.setFile(QDir(dirProyecto),ui->lineEditProjectFile->text());
-    _aProyecto.setnameFileProyect(archivo.filePath());
-    _aProyecto.build(ui->lineEditProject->text(), ui->textEditDescription->toPlainText(), ui->lineEditAutor->text(),
+    _aProyecto=new ArchivoProyecto();
+    _aProyecto->setnameFileProyect(archivo.filePath());
+    _aProyecto->build(ui->lineEditProject->text(), ui->textEditDescription->toPlainText(), ui->lineEditAutor->text(),
                      ui->dateEditDateFlight->date());
 }
 bool NewProjectDialog::checkDates()
@@ -85,4 +86,9 @@ bool NewProjectDialog::checkDates()
  return false;
  }
  return true;
+}
+
+ArchivoProyecto * NewProjectDialog::getArchivoProyecto()
+{
+   return _aProyecto;
 }

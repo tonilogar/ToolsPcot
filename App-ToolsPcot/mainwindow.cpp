@@ -298,4 +298,7 @@ void MainWindow::nuevoProyecto()
 {
 NewProjectDialog welcome;
 welcome.exec();
+_aProyecto=welcome.getArchivoProyecto();
+
+this->setWindowTitle("ToolsPcot - "+_aProyecto->getnameProyect());
 }

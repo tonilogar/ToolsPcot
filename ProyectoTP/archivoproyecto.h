@@ -34,22 +34,6 @@ public:
     virtual bool build(QString nameProyect,QString descriptionProyecte, QString autorProyect, QDate dateFlight);
     virtual bool read(QString pathProyectFile);
 
-    // Seccion CNP MET ORTO
-    bool CnpMetOrto_isCnpEnabled() const {
-        return _seccionCnpMetOrto->isCnpEnabled();
-    }
-
-    bool CnpMetOrto_isMetEnabled() const {
-        return _seccionCnpMetOrto->isMetEnabled();
-    }
-
-    bool CnpMetOrto_isOrtoEnabled() const {
-        return _seccionCnpMetOrto->isOrtoEnabled();
-    }
-
-    QString CnpMetOrto_cnpFolderOut() {
-        return _seccionCnpMetOrto->cnpFolderOut();
-    }
 
 public slots:
     void setnameFileProyect(QString nameFileProyect);
@@ -60,21 +44,7 @@ public slots:
     void setdateCreate(QDate dateCreate);
     void setdateflight(QDate dateFlight);
 
-    void CnpMetOrto_setCnpEnable(bool v) {
-        _seccionCnpMetOrto->enableCNP(v);
-    }
 
-    void CnpMetOrto_setMetEnable(bool v) {
-        _seccionCnpMetOrto->enableMet(v);
-    }
-
-    void CnpMetOrto_setOrtoEnable(bool v) {
-        _seccionCnpMetOrto->enableOrto(v);
-    }
-
-    void CnpMetOrto_setCnpFolderOut(QString f) {
-        _seccionCnpMetOrto->setCnpFolderOut(f);
-    }
 
 protected:
     QString _nameFileProyect;
@@ -84,8 +54,8 @@ protected:
     QDate _dateAcces;
     QDate _dateCreate;
     QDate _dateFlight;
-
     AProCnpMetOrtoSection *_seccionCnpMetOrto;
+    //Lista de punteros AProCnpMetOrtoSection.
 
 };
 

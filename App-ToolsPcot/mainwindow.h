@@ -16,6 +16,7 @@
 #include "dialogprogresoope.h"
 #include <ProyectoTP/archivoproyecto.h>
 #include "newprojectdialog.h"
+
 namespace Ui {
 class MainWindow;
 }
@@ -27,6 +28,7 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
 
 public slots:
 
@@ -49,6 +51,7 @@ private:
     LanzadorOperaciones *_lanzadorOpe;
     RegistroCreateMet  ObjetoRegistroCreateMet;
     DialogProgresoOpe *_dialogoProgreso;
+    ArchivoProyecto *_aProyecto;
 };
 
 #endif // MAINWINDOW_H
