@@ -111,8 +111,10 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     proyecto.insert("fechacreacion",dateCreate.toString("dd-MM-yyyy"));
     proyecto.insert("fechaultimoacceso",dateCreate.toString("dd-MM-yyyy"));
 
+    // ESCRIBIR INFORMACION DE SECCION CNP MET ORTO
     QJsonObject cnpMetOrto=_seccionCnpMetOrto->writeSection();
     proyecto.insert("cnpMetOrto",cnpMetOrto);
+    // -------
 
     QJsonDocument documentProyecto;
     documentProyecto.setObject(proyecto);
