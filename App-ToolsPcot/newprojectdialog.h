@@ -21,6 +21,10 @@ public:
     explicit NewProjectDialog(QWidget *parent = 0);
     ~NewProjectDialog();
     bool checkDates();
+    ArchivoProyecto *getArchivoProyecto() {
+        return _aProyecto;
+    }
+
 private slots:
     void generarNombreFicheroProyecto(QString valor);
     void lanzarCalendario();
@@ -29,10 +33,9 @@ private slots:
     void crearArchivoProyecto();
 
 
-
 private:
     Ui::NewProjectDialog *ui;
-    ArchivoProyecto _aProyecto;
+    ArchivoProyecto *_aProyecto;
 };
 
 #endif // NEWPROJECTDIALOG_H

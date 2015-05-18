@@ -120,7 +120,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->page1Cnp,SIGNAL(cambioEstadoCorreccionCnps(int)),ui->pushButtonOptionsCnp,SLOT(setEstadoBoton(int)));
 
 
- //Preparar botones de cambio de opciones orto
+    //Preparar botones de cambio de opciones orto
     ui->pushButtonOptionsOrto->addEstado(0,new QIcon()); //No seleccionado
     ui->pushButtonOptionsOrto->addEstado(1,new QIcon(":/imagenes/correcto"));   //Correcto
     ui->pushButtonOptionsOrto->addEstado(2,new QIcon(":/imagenes/parcialmenteCorrecto"));       // Parcialmente correcto
@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Conectar
     connect(ui->page3Orto,SIGNAL(cambioEstadoCorreccionOrto(int)),ui->pushButtonOptionsOrto,SLOT(setEstadoBoton(int)));
 
- //Preparar botones de cambio de opciones Met
+    //Preparar botones de cambio de opciones Met
     ui->pushButtonOptionsMet->addEstado(0,new QIcon()); //No seleccionado
     ui->pushButtonOptionsMet->addEstado(1,new QIcon(":/imagenes/correcto"));   //Correcto
     ui->pushButtonOptionsMet->addEstado(2,new QIcon(":/imagenes/parcialmenteCorrecto"));       // Parcialmente correcto
@@ -139,7 +139,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Conectar
     connect(ui->page2Met,SIGNAL(cambioEstadoCorreccionMet(int)),ui->pushButtonOptionsMet,SLOT(setEstadoBoton(int)));
-//Inicializar lanzador de operaciones.
+    //Inicializar lanzador de operaciones.
 
     _lanzadorOpe=new LanzadorOperaciones(this,ui->page1Cnp->getObjetoRegistroCreateCnps(),ui->page2Met->getObjetoRegistroCreateMet(),
                                          ui->page3Orto->getObjetoRegistroCreateOrto(),ui->widgetCoordinates);
@@ -150,6 +150,12 @@ MainWindow::MainWindow(QWidget *parent) :
     _dialogoProgreso->conectToControlOrto(_lanzadorOpe->getControlOrto());
     connect(_lanzadorOpe,SIGNAL(inicioOperaciones()),_dialogoProgreso,SLOT(exec()));
     connect(ui->actionNew_project,SIGNAL(triggered()),this,SLOT(nuevoProyecto()));
+
+    //Crear el archivo de proyecto por defecto
+    //ESTO ES TEMPORAL HASTA QUE CONSTRUYAMOS MEJOR EL MECANISMO DE CARGA DE PROYECTOS
+    _archivoProyecto=new ArchivoProyecto(this);
+    _archivoProyecto->addSection(ui->page1Cnp->getObjetoRegistroCreateCnps());
+    //Resto de secciones conforme se preparen
 }
 
 MainWindow::~MainWindow()
@@ -231,9 +237,9 @@ void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
         return;
 
     }
-   _lanzadorOpe->setCnpActivo(false);
-   _lanzadorOpe->setMetActivo(false);
-   _lanzadorOpe->setOrtoActivo(false);
+    _lanzadorOpe->setCnpActivo(false);
+    _lanzadorOpe->setMetActivo(false);
+    _lanzadorOpe->setOrtoActivo(false);
     //si llegamos a este linea cambiamos las variables boleanas necesarias
     qDebug()<< "Todos los datos son correctos, Comenzar operaciones cnp met orto";
 
@@ -241,45 +247,45 @@ void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
     if((ui->pushButtonOptionsCnp->getEstadoBoton()==1))
     {
         iconoCnp==true;
-     _lanzadorOpe->setCnpActivo(true);
-     qDebug()<< "Creando cnps";
+        _lanzadorOpe->setCnpActivo(true);
+        qDebug()<< "Creando cnps";
     }
     //Si el icono met es verde cambiamos el la variable a true y empezamos los procesos
     if((ui->pushButtonOptionsMet->getEstadoBoton()==1))
     {
 
         iconoMet==true;
-      _lanzadorOpe->setMetActivo(true);
-qDebug()<< "Creando met";
+        _lanzadorOpe->setMetActivo(true);
+        qDebug()<< "Creando met";
     }
     //Si el icono orto es verde cambiamos el la variable a true y empezamos los procesos
     if((ui->pushButtonOptionsOrto->getEstadoBoton()==1))
     {
-      iconoOrto==true;
-       _lanzadorOpe->setOrtoActivo(true);
-      qDebug()<< "Creando orto";
+        iconoOrto==true;
+        _lanzadorOpe->setOrtoActivo(true);
+        qDebug()<< "Creando orto";
     }
     _dialogoProgreso->resetDialog();
-   _lanzadorOpe->launch();
-   _dialogoProgreso->exec();
+    _lanzadorOpe->launch();
+    _dialogoProgreso->exec();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
 
     //prueba clase registrocreateMet
-  qDebug()<< "pepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepe";
-  RegistroCreateMet *punteroRCMet;
-  RegistroCreateOrto *punteroRCOrto;
-  punteroRCMet=ui->page2Met->getObjetoRegistroCreateMet();
-  qDebug()<< punteroRCMet->getAmbitoOperacion() <<"getAmbitoOperacion";
-  qDebug()<< punteroRCMet->getAnchoPasada() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getCutDtm() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getFolderOut() <<"getAmbitoProyectoMetmetmet";
-  qDebug()<< punteroRCOrto->getFolderOut() <<"getAmbitoProyectoOrto";
-  qDebug()<< punteroRCMet->getFootPrintMask() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getNumeroCanales() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getOffsetPasada() <<"getAmbitoProyectoMet";
+    qDebug()<< "pepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepe";
+    RegistroCreateMet *punteroRCMet;
+    RegistroCreateOrto *punteroRCOrto;
+    punteroRCMet=ui->page2Met->getObjetoRegistroCreateMet();
+    qDebug()<< punteroRCMet->getAmbitoOperacion() <<"getAmbitoOperacion";
+    qDebug()<< punteroRCMet->getAnchoPasada() <<"getAmbitoProyectoMet";
+    qDebug()<< punteroRCMet->getCutDtm() <<"getAmbitoProyectoMet";
+    qDebug()<< punteroRCMet->getFolderOut() <<"getAmbitoProyectoMetmetmet";
+    qDebug()<< punteroRCOrto->getFolderOut() <<"getAmbitoProyectoOrto";
+    qDebug()<< punteroRCMet->getFootPrintMask() <<"getAmbitoProyectoMet";
+    qDebug()<< punteroRCMet->getNumeroCanales() <<"getAmbitoProyectoMet";
+    qDebug()<< punteroRCMet->getOffsetPasada() <<"getAmbitoProyectoMet";
 
 }
 
@@ -296,6 +302,20 @@ void MainWindow::mostrarDialogoProgreso()
 }
 void MainWindow::nuevoProyecto()
 {
-NewProjectDialog welcome;
-welcome.exec();
+    NewProjectDialog welcome;
+    welcome.exec();
+
+    ArchivoProyecto *nuevoArchivo=welcome.getArchivoProyecto();
+    if(nuevoArchivo) {
+        QList<AProTPSection*> listaSecciones=_archivoProyecto->getListaSections();
+        foreach(AProTPSection *section,listaSecciones) {
+            section->resetSection();
+            _archivoProyecto->removeSection(section);
+            nuevoArchivo->addSection(section);
+        }
+
+        delete _archivoProyecto;
+        _archivoProyecto=nuevoArchivo;
+        _archivoProyecto->build();
+    }
 }

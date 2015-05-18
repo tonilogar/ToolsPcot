@@ -19,16 +19,35 @@
 #include "ui_createcnps.h"
 #include <QDebug>
 #include <QDateTime>
+
+#include "registrocreatecnps.h"
+
 CreateCnps::CreateCnps(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateCnps)
 {
     ui->setupUi(this);
     punteroRegistroCreateCnps=new RegistroCreateCnps(this);
+    punteroRegistroCreateCnps->setWidget(this);
  connect(ui->checkBoxCreaCnps,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableCreateCnp(int)));
  connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),this,SLOT(comprobarCorreccion(QString)));
- connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),punteroRegistroCreateCnps,SLOT(setFolderOut(QString)));
+ connectRegistro();
+}
 
+void CreateCnps::connectRegistro()
+{
+    ui->lineEditFolderOutCnps->setText(punteroRegistroCreateCnps->getFolderOut());
+    if(punteroRegistroCreateCnps->getFolderOut().isEmpty()) {
+        ui->checkBoxCreaCnps->setChecked(false);
+    }
+    else ui->checkBoxCreaCnps->setChecked(true);
+    connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),punteroRegistroCreateCnps,SLOT(setFolderOut(QString)));
+    comprobarChecFolderCnps();
+}
+
+void CreateCnps::disconnectRegistro()
+{
+    ui->lineEditFolderOutCnps->disconnect(punteroRegistroCreateCnps);
 }
 
 CreateCnps::~CreateCnps()

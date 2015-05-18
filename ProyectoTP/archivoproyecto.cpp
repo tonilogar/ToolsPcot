@@ -20,12 +20,14 @@ ArchivoProyecto::ArchivoProyecto(QObject *parent, QString nameFileProyect):
     QObject(parent)
 {
     _nameFileProyect=nameFileProyect;
-    _seccionCnpMetOrto=new AProCnpMetOrtoSection(this);
+    _estadoProyecto=true;
+
 }
 ArchivoProyecto::~ArchivoProyecto()
 {
-    if(_seccionCnpMetOrto)
-        delete _seccionCnpMetOrto;
+    foreach(AProTPSection *seccion,_listaSecciones)
+        delete seccion;
+    _listaSecciones.clear();
 }
 
 bool ArchivoProyecto::exist()
@@ -93,6 +95,7 @@ void ArchivoProyecto::setdateflight(QDate dateFlight)
 {
     _dateFlight=dateFlight;
 }
+
 bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QString autorProyect, QDate dateFlight)
 {
     QDate dateCreate=QDate::currentDate();
@@ -111,10 +114,11 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     proyecto.insert("fechacreacion",dateCreate.toString("dd-MM-yyyy"));
     proyecto.insert("fechaultimoacceso",dateCreate.toString("dd-MM-yyyy"));
 
-    // ESCRIBIR INFORMACION DE SECCION CNP MET ORTO
-    QJsonObject cnpMetOrto=_seccionCnpMetOrto->writeSection();
-    proyecto.insert("cnpMetOrto",cnpMetOrto);
-    // -------
+    // ESCRIBIR INFORMACION DE SECCIONES
+    foreach(AProTPSection *section,_listaSecciones) {
+        QJsonObject sectionObject=section->writeSection();
+        proyecto.insert(section->getNombreSection(),sectionObject);
+    }
 
     QJsonDocument documentProyecto;
     documentProyecto.setObject(proyecto);
@@ -131,7 +135,75 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     _dateCreate=dateCreate;
     _dateAcces=dateCreate;
     _dateFlight=dateFlight;
+    _estadoProyecto=true;
+    emit this->sectionHasChanged(_estadoProyecto);
+    return true;
+}
 
+bool ArchivoProyecto::build()
+{
+    _dateCreate=QDate::currentDate();
+
+    if (_nameProyect.isEmpty() || _nameProyect.isNull())
+    {
+        return false;
+    }
+    QJsonObject proyecto;
+    proyecto.insert("cabecera","PROYECTOTPC");
+    proyecto.insert("version",getnumberVersion());
+    proyecto.insert("proyecto",_nameProyect);
+    proyecto.insert("autor",_autorProyect);
+    proyecto.insert("descripcion",_descriptionProyecte);
+    proyecto.insert("fechavuelo",_dateFlight.toString("dd-MM-yyyy"));
+    proyecto.insert("fechacreacion",_dateCreate.toString("dd-MM-yyyy"));
+    proyecto.insert("fechaultimoacceso",_dateCreate.toString("dd-MM-yyyy"));
+
+    // ESCRIBIR INFORMACION DE SECCIONES
+    foreach(AProTPSection *section,_listaSecciones) {
+        QJsonObject sectionObject=section->writeSection();
+        proyecto.insert(section->getNombreSection(),sectionObject);
+    }
+
+    QJsonDocument documentProyecto;
+    documentProyecto.setObject(proyecto);
+    QFile ficheroProyecto(_nameFileProyect);
+    if(!ficheroProyecto.open(QFile::Text | QFile::WriteOnly))
+    {
+        return false;
+    }
+    ficheroProyecto.write(documentProyecto.toJson());
+    ficheroProyecto.close();
+    emit this->sectionHasChanged(_estadoProyecto);
+    return true;
+}
+
+void ArchivoProyecto::sectionHasChanged(bool estado)
+{
+    if(!estado) {
+        _estadoProyecto=!estado;
+        emit this->sectionHasChanged(_estadoProyecto);
+    }
+}
+
+void ArchivoProyecto::addSection(AProTPSection *section)
+{
+    if(!_listaSecciones.contains(section)) {
+        _listaSecciones.append(section);
+        connect(section,SIGNAL(estaActualizado(bool)),this,SLOT(sectionHasChanged(bool)));
+    }
+}
+
+void ArchivoProyecto::removeSection(AProTPSection *section)
+{
+    if(_listaSecciones.contains(section)) {
+        this->disconnect(section);
+        _listaSecciones.removeAll(section);
+    }
+}
+
+QList<AProTPSection*> ArchivoProyecto::getListaSections()
+{
+    return _listaSecciones;
 }
 
 bool ArchivoProyecto::read(QString pathProyectFile)

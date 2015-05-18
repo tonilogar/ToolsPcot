@@ -21,6 +21,11 @@ DEFINES += CNPMETORTOTP_LIBRARY
 INCLUDEPATH += ..
 DESTDIR =../libs
 
+win32:CONFIG(release, debug|release): LIBS += -L../libs -lProyectoTP
+else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lProyectoTPd
+else:unix:!macx: LIBS += -L../libs -lProyectoTP
+
+
 SOURCES += \
     registrocreateorto.cpp \
     registrocreatemet.cpp \
@@ -48,6 +53,7 @@ unix:!symbian {
     }
     INSTALLS += target
 }
+
 
 FORMS += \
     createmet.ui \

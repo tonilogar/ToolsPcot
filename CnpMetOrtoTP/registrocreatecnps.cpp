@@ -14,18 +14,27 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
 #include "registrocreatecnps.h"
+#include "createcnps.h"
 
 RegistroCreateCnps::RegistroCreateCnps(QObject *parent) :
-    QObject(parent)
+    AProTPSection(parent)
 {
     _folderOut=QString();
+    _widgetCnps=0;
 }
 
 RegistroCreateCnps::RegistroCreateCnps(QObject *parent,QString folderOut):
-    QObject(parent)
+    AProTPSection(parent)
 {
    _folderOut= folderOut;
+   _widgetCnps=0;
+}
+
+void RegistroCreateCnps::setWidget(CreateCnps *widget)
+{
+    _widgetCnps=widget;
 }
 
 //Getter
@@ -38,9 +47,50 @@ return _folderOut;
 //setters
 void RegistroCreateCnps::setFolderOut(QString folderOut)
 {
-_folderOut=folderOut;
+    _folderOut=folderOut;
+    AProTPSection::_stateChanged=false;
+    emit this->estaActualizado(_stateChanged);
 }
 void RegistroCreateCnps::buildDataZoneProject(DataZoneProject *dataZP)
 {
  dataZP->setFolderOut(_folderOut);
+}
+
+QString RegistroCreateCnps::getNombreSection() const
+{
+    return QString("sectionCNP");
+}
+
+QJsonObject RegistroCreateCnps::writeSection()
+{
+    QJsonObject resultado;
+    resultado.insert("folderOut",this->_folderOut);
+
+    return resultado;
+    AProTPSection::_stateChanged=true;
+    emit this->estaActualizado(_stateChanged);
+}
+
+bool RegistroCreateCnps::processSection(QJsonObject archivo)
+{
+    _widgetCnps->disconnectRegistro();
+    if(!archivo.contains("sectionCNP"))
+        return false;
+
+    QJsonObject section=archivo.value("sectionCNP").toObject();
+    _folderOut=section.value("folderOut").toString();
+    _stateChanged=true;
+    emit estaActualizado(_stateChanged);
+    _widgetCnps->connectRegistro();
+
+    return true;
+}
+
+void RegistroCreateCnps::resetSection()
+{
+    _widgetCnps->disconnectRegistro();
+    _folderOut.clear();
+    _stateChanged=true;
+    emit estaActualizado(_stateChanged);
+    _widgetCnps->connectRegistro();
 }

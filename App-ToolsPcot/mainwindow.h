@@ -38,6 +38,8 @@ private slots:
     void mostrarDialogoProgreso();
     void nuevoProyecto();
 
+    void cambiosEnProyecto();
+
 private:
     Ui::MainWindow *ui;
     bool _estadoCreateCnps;
@@ -49,6 +51,8 @@ private:
     LanzadorOperaciones *_lanzadorOpe;
     RegistroCreateMet  ObjetoRegistroCreateMet;
     DialogProgresoOpe *_dialogoProgreso;
+
+    ArchivoProyecto *_archivoProyecto;
 };
 
 #endif // MAINWINDOW_H

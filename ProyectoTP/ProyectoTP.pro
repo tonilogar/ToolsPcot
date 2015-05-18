@@ -20,13 +20,11 @@ INCLUDEPATH += ..
 DESTDIR =../libs
 
 SOURCES += archivoproyecto.cpp \
-    aprotpsection.cpp \
-    aprocnpmetortosection.cpp
+    aprotpsection.cpp
 
 HEADERS += archivoproyecto.h\
         proyectotp_global.h \
-    aprotpsection.h \
-    aprocnpmetortosection.h
+    aprotpsection.h
 
 unix {
     target.path = /usr/lib

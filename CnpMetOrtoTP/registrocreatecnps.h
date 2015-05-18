@@ -1,9 +1,15 @@
 #ifndef REGISTROCREATECNPS_H
 #define REGISTROCREATECNPS_H
+
 #include "cnpmetortotp_global.h"
 #include <QObject>
 #include <OpePcot/datazoneproject.h>
-class CNPMETORTOTPSHARED_EXPORT RegistroCreateCnps : public QObject
+
+#include <ProyectoTP/aprotpsection.h>
+
+class CreateCnps;
+
+class CNPMETORTOTPSHARED_EXPORT RegistroCreateCnps : public AProTPSection
 {
     Q_OBJECT
 public:
@@ -16,6 +22,8 @@ public:
      */
  RegistroCreateCnps(QObject *parent,QString folderOut);
 
+ void setWidget(CreateCnps *widget);
+
 
     //Getters
  /*!
@@ -26,6 +34,14 @@ public:
   * Crear l'objecte DataZoneProject.
   */
     void buildDataZoneProject(DataZoneProject *dataZP);
+
+    //Metodos de interfaz AProTPSection
+
+    virtual QString getNombreSection() const;
+    virtual bool processSection(QJsonObject archivo);
+    virtual QJsonObject writeSection();
+    virtual void resetSection();
+
 signals:
 
 public slots:
@@ -38,6 +54,7 @@ public slots:
 private:
 
     QString _folderOut;  ///< Nom del directori de sortida.
+    CreateCnps *_widgetCnps;    ///< Widget grafico asociado
 
 
 };

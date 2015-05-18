@@ -11,10 +11,10 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonValue>
+#include <QList>
 
 //Secciones
 #include "aprotpsection.h"
-#include "aprocnpmetortosection.h"
 
 class PROYECTOTPSHARED_EXPORT ArchivoProyecto:public QObject
 {
@@ -31,25 +31,21 @@ public:
     QDate   getdateflight();
     virtual QString getnumberVersion();
     bool exist();
+    bool estaActualizado() const {
+        return _estadoProyecto;
+    }
+
     virtual bool build(QString nameProyect,QString descriptionProyecte, QString autorProyect, QDate dateFlight);
+    virtual bool build();
     virtual bool read(QString pathProyectFile);
 
-    // Seccion CNP MET ORTO
-    bool CnpMetOrto_isCnpEnabled() const {
-        return _seccionCnpMetOrto->isCnpEnabled();
-    }
+    void addSection(AProTPSection *section);
+    void removeSection(AProTPSection *section);
+    QList<AProTPSection*> getListaSections();
 
-    bool CnpMetOrto_isMetEnabled() const {
-        return _seccionCnpMetOrto->isMetEnabled();
-    }
+signals:
 
-    bool CnpMetOrto_isOrtoEnabled() const {
-        return _seccionCnpMetOrto->isOrtoEnabled();
-    }
-
-    QString CnpMetOrto_cnpFolderOut() {
-        return _seccionCnpMetOrto->cnpFolderOut();
-    }
+    void cambioActualizado(bool estado);
 
 public slots:
     void setnameFileProyect(QString nameFileProyect);
@@ -60,21 +56,13 @@ public slots:
     void setdateCreate(QDate dateCreate);
     void setdateflight(QDate dateFlight);
 
-    void CnpMetOrto_setCnpEnable(bool v) {
-        _seccionCnpMetOrto->enableCNP(v);
-    }
+protected slots:
 
-    void CnpMetOrto_setMetEnable(bool v) {
-        _seccionCnpMetOrto->enableMet(v);
-    }
+    /*!
+      Alguna de las secciones ha aceptado cambios en su estado
+      */
 
-    void CnpMetOrto_setOrtoEnable(bool v) {
-        _seccionCnpMetOrto->enableOrto(v);
-    }
-
-    void CnpMetOrto_setCnpFolderOut(QString f) {
-        _seccionCnpMetOrto->setCnpFolderOut(f);
-    }
+    void sectionHasChanged(bool estado);
 
 protected:
     QString _nameFileProyect;
@@ -85,8 +73,10 @@ protected:
     QDate _dateCreate;
     QDate _dateFlight;
 
-    AProCnpMetOrtoSection *_seccionCnpMetOrto;
+    bool _estadoProyecto;   ///< True: el proyecto esta actualizado, false: el proyecto ha cambiado
 
+    //Lista de secciones
+    QList<AProTPSection*> _listaSecciones;
 };
 
 
