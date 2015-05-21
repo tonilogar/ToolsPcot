@@ -27,6 +27,11 @@ public:
 
     //Getters
  /*!
+   Devuelve si la seccion esta o no activada
+   */
+
+ bool getCnpsEnabled() const;
+ /*!
  * Mostrar el valors del directori de sortida.
  */
     QString getFolderOut();
@@ -51,9 +56,12 @@ public slots:
      * @param nou valor del fitxer de sortida.
      */
         void setFolderOut(QString folderOut);
+
+        void setCnpsEnabled(bool enabled);
 private:
 
     QString _folderOut;  ///< Nom del directori de sortida.
+    bool _cnpsEnabled;  ///< Seccion CNPS activada
     CreateCnps *_widgetCnps;    ///< Widget grafico asociado
 
 

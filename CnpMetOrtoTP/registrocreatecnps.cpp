@@ -44,6 +44,11 @@ QString RegistroCreateCnps::getFolderOut()
 return _folderOut;
 }
 
+bool RegistroCreateCnps::getCnpsEnabled() const
+{
+    return _cnpsEnabled;
+}
+
 //setters
 void RegistroCreateCnps::setFolderOut(QString folderOut)
 {
@@ -51,6 +56,14 @@ void RegistroCreateCnps::setFolderOut(QString folderOut)
     AProTPSection::_stateChanged=false;
     emit this->estaActualizado(_stateChanged);
 }
+
+void RegistroCreateCnps::setCnpsEnabled(bool enabled)
+{
+    _cnpsEnabled=enabled;
+    AProTPSection::_stateChanged=false;
+    emit estaActualizado(_stateChanged);
+}
+
 void RegistroCreateCnps::buildDataZoneProject(DataZoneProject *dataZP)
 {
  dataZP->setFolderOut(_folderOut);
@@ -65,6 +78,7 @@ QJsonObject RegistroCreateCnps::writeSection()
 {
     QJsonObject resultado;
     resultado.insert("folderOut",this->_folderOut);
+    resultado.insert("cnpsEnabled",_cnpsEnabled);
 
     return resultado;
     AProTPSection::_stateChanged=true;
@@ -79,6 +93,7 @@ bool RegistroCreateCnps::processSection(QJsonObject archivo)
 
     QJsonObject section=archivo.value("sectionCNP").toObject();
     _folderOut=section.value("folderOut").toString();
+    _cnpsEnabled=section.value("cnpsEnabled").toBool();
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
     _widgetCnps->connectRegistro();
