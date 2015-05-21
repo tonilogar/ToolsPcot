@@ -38,6 +38,7 @@ public:
     virtual bool build(QString nameProyect,QString descriptionProyecte, QString autorProyect, QDate dateFlight);
     virtual bool build();
     virtual bool read(QString pathProyectFile);
+    virtual bool save();
 
     void addSection(AProTPSection *section);
     void removeSection(AProTPSection *section);

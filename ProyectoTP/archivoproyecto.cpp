@@ -192,6 +192,44 @@ bool ArchivoProyecto::build()
     return true;
 }
 
+bool ArchivoProyecto::save()
+{
+    _dateAcces=QDate::currentDate();
+
+    if (_nameProyect.isEmpty() || _nameProyect.isNull())
+    {
+        return false;
+    }
+    QJsonObject proyecto;
+    proyecto.insert("cabecera","PROYECTOTPC");
+    proyecto.insert("version",getnumberVersion());
+    proyecto.insert("proyecto",_nameProyect);
+    proyecto.insert("autor",_autorProyect);
+    proyecto.insert("descripcion",_descriptionProyecte);
+    proyecto.insert("fechavuelo",_dateFlight.toString("dd-MM-yyyy"));
+    proyecto.insert("fechacreacion",_dateCreate.toString("dd-MM-yyyy"));
+    proyecto.insert("fechaultimoacceso",_dateCreate.toString("dd-MM-yyyy"));
+
+    // ESCRIBIR INFORMACION DE SECCIONES
+    foreach(AProTPSection *section,_listaSecciones) {
+        QJsonObject sectionObject=section->writeSection();
+        proyecto.insert(section->getNombreSection(),sectionObject);
+    }
+
+    QJsonDocument documentProyecto;
+    documentProyecto.setObject(proyecto);
+    QFile ficheroProyecto(_nameFileProyect);
+    if(!ficheroProyecto.open(QFile::Text | QFile::WriteOnly))
+    {
+        return false;
+    }
+    ficheroProyecto.write(documentProyecto.toJson());
+    ficheroProyecto.close();
+    _estadoProyecto=true;
+    emit cambioActualizado(_estadoProyecto);
+    return true;
+}
+
 void ArchivoProyecto::sectionHasChanged(bool estado)
 {
     if(!estado) {
