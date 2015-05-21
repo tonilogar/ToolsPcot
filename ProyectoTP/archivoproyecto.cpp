@@ -70,30 +70,44 @@ QDate ArchivoProyecto::getdateflight()
 void ArchivoProyecto::setnameFileProyect(QString nameFileProyect)
 {
     _nameFileProyect=nameFileProyect;
+    _estadoProyecto=false;
+    emit cambioActualizado(_estadoProyecto);
 }
 void ArchivoProyecto::setnameProyect(QString nameProyect)
 {
     _nameProyect=nameProyect;
+    _estadoProyecto=false;
+    emit cambioActualizado(_estadoProyecto);
 }
 void ArchivoProyecto::setdescriptionProyecte(QString descriptionProyecte)
 {
     _descriptionProyecte=descriptionProyecte;
+    _estadoProyecto=false;
+    emit cambioActualizado(_estadoProyecto);
 }
 void ArchivoProyecto::setautorProyect(QString autorProyect)
 {
     _autorProyect=autorProyect;
+    _estadoProyecto=false;
+    emit cambioActualizado(_estadoProyecto);
 }
 void ArchivoProyecto::setdateAcces(QDate dateAcces)
 {
     _dateAcces=dateAcces;
+    _estadoProyecto=false;
+    emit cambioActualizado(_estadoProyecto);
 }
 void ArchivoProyecto::setdateCreate(QDate dateCreate)
 {
     _dateCreate=dateCreate;
+    _estadoProyecto=false;
+    emit cambioActualizado(_estadoProyecto);
 }
 void ArchivoProyecto::setdateflight(QDate dateFlight)
 {
     _dateFlight=dateFlight;
+    _estadoProyecto=false;
+    emit cambioActualizado(_estadoProyecto);
 }
 
 bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QString autorProyect, QDate dateFlight)
@@ -136,7 +150,7 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
     _dateAcces=dateCreate;
     _dateFlight=dateFlight;
     _estadoProyecto=true;
-    emit this->sectionHasChanged(_estadoProyecto);
+    emit cambioActualizado(_estadoProyecto);
     return true;
 }
 
@@ -173,15 +187,16 @@ bool ArchivoProyecto::build()
     }
     ficheroProyecto.write(documentProyecto.toJson());
     ficheroProyecto.close();
-    emit this->sectionHasChanged(_estadoProyecto);
+    _estadoProyecto=true;
+    emit cambioActualizado(_estadoProyecto);
     return true;
 }
 
 void ArchivoProyecto::sectionHasChanged(bool estado)
 {
     if(!estado) {
-        _estadoProyecto=!estado;
-        emit this->sectionHasChanged(_estadoProyecto);
+        _estadoProyecto=estado;
+        emit this->cambioActualizado(_estadoProyecto);
     }
 }
 

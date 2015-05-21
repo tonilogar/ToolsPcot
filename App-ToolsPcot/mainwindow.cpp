@@ -153,8 +153,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Crear el archivo de proyecto por defecto
     //ESTO ES TEMPORAL HASTA QUE CONSTRUYAMOS MEJOR EL MECANISMO DE CARGA DE PROYECTOS
-    _archivoProyecto=new ArchivoProyecto(this);
-    _archivoProyecto->addSection(ui->page1Cnp->getObjetoRegistroCreateCnps());
+    _archivoProyecto=0;
     //Resto de secciones conforme se preparen
 }
 
@@ -306,16 +305,29 @@ void MainWindow::nuevoProyecto()
     welcome.exec();
 
     ArchivoProyecto *nuevoArchivo=welcome.getArchivoProyecto();
+    QList<AProTPSection*> listaSecciones;
+    if(_archivoProyecto)
+        listaSecciones=_archivoProyecto->getListaSections();
+    else {
+        listaSecciones.append(ui->page1Cnp->getObjetoRegistroCreateCnps());
+    }
+
     if(nuevoArchivo) {
-        QList<AProTPSection*> listaSecciones=_archivoProyecto->getListaSections();
         foreach(AProTPSection *section,listaSecciones) {
             section->resetSection();
-            _archivoProyecto->removeSection(section);
+            if(_archivoProyecto)
+                _archivoProyecto->removeSection(section);
             nuevoArchivo->addSection(section);
         }
 
-        delete _archivoProyecto;
+        if(_archivoProyecto)
+            delete _archivoProyecto;
         _archivoProyecto=nuevoArchivo;
         _archivoProyecto->build();
     }
+}
+
+void MainWindow::cambiosEnProyecto()
+{
+
 }
