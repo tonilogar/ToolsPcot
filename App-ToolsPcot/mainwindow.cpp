@@ -162,36 +162,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//void MainWindow::setEstadoCnps(bool estado)
-//{
-//  _estadoCreateCnps=estado;
-//  qDebug()<< estado << "estado mainwindow";
-//}
-//void MainWindow::setEstadoMets(bool estado)
-//{
-//  _estadoCreateMets=estado;
-//}
-//void MainWindow::setEstadoOrtos(bool estado)
-//{
-//  _estadoCreateOrtos=estado;
-//}
 
-/*void MainWindow::evaluacionCnpsMetsOrtos()
-{
-
-    if(_estadoCreateCnps || _estadoCreateMets || _estadoCreateOrtos)
-    {
-         //armButton.setEnabled(bool);
-        ui->pushButtonEmpezarOperacionesMetOrto->setEnabled(true);
-         qDebug()<< "cambioEstado true Mainwindows cnpsMetsOrtos";
-    }
-    else
-    {
-        ui->pushButtonEmpezarOperacionesMetOrto->setEnabled(false);
-        qDebug()<< "cambioEstado false Mainwindows cnpsMetsOrtos";
-    }
-
-}*/
 
 void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
 {
@@ -319,15 +290,23 @@ void MainWindow::nuevoProyecto()
                 _archivoProyecto->removeSection(section);
             nuevoArchivo->addSection(section);
         }
-
         if(_archivoProyecto)
+        {this->disconnect(_archivoProyecto);
             delete _archivoProyecto;
+            }
         _archivoProyecto=nuevoArchivo;
         _archivoProyecto->build();
+        connect(_archivoProyecto,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
+        this->setWindowTitle(_archivoProyecto->getnameProyect()+tr(" - ToolsPcot"));
     }
 }
 
-void MainWindow::cambiosEnProyecto()
+void MainWindow::cambiosEnProyecto(bool estado)
 {
-
+if(!estado)
+{
+    this->setWindowTitle(_archivoProyecto->getnameProyect()+tr("*")+tr(" - ToolsPcot"));
+}
+else
+    this->setWindowTitle(_archivoProyecto->getnameProyect()+tr(" - ToolsPcot"));
 }

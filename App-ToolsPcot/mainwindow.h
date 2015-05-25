@@ -38,7 +38,7 @@ private slots:
     void mostrarDialogoProgreso();
     void nuevoProyecto();
 
-    void cambiosEnProyecto();
+    void cambiosEnProyecto(bool estado);
 
 private:
     Ui::MainWindow *ui;

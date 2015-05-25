@@ -10,8 +10,8 @@ TEMPLATE = subdirs
 SUBDIRS += OpePcot \
     CoordinatesTP \
     ComponentesTP \
-    CnpMetOrtoTP \
-    ControlOpeTP \
     ProyectoTP \
+    CnpMetOrtoTP \
+    ControlOpeTP \   
     App-ToolsPcot
 
