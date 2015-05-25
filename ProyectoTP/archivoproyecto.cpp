@@ -262,7 +262,29 @@ QList<AProTPSection*> ArchivoProyecto::getListaSections()
 bool ArchivoProyecto::read(QString pathProyectFile)
 {
     /// @todo Implementar el metodo read
-    return false;
+    QFile archivo(pathProyectFile);
+    //Abrir archivo proyecto QFile
+    archivo.open(QFile::Text | QFile::ReadOnly);
+    //leerlo
+    QByteArray lecturaArchivo=archivo.readAll();
+    //Pasar la informacion a objeto Json
+    QJsonDocument archivoJsonDoc=QJsonDocument::fromBinaryData(lecturaArchivo);
+      //procesar objeto Json
+    QJsonObject objetoProyecto=archivoJsonDoc.object();
+    //Extraer los datos para sustituir el archivo de proyecto antiguo por los nuevos datos
+    _nameProyect=objetoProyecto.value("proyecto").toString();
+    _autorProyect=objetoProyecto.value("autor").toString();
+    _descriptionProyecte=objetoProyecto.value("descripcion").toString();
+    _dateFlight=QDate::fromString(objetoProyecto.value("fechavuelo").toString(),"dd-MM-yyyy");
+    _dateCreate=QDate::fromString(objetoProyecto.value("fechacreacion").toString(),"dd-MM-yyyy");
+    _dateAcces=QDate::fromString(objetoProyecto.value("fechaultimoacceso").toString(),"dd-MM-yyyy");
+    foreach(AProTPSection *section,_listaSecciones)
+    {
+        section->processSection(objetoProyecto);
+    }
+    _estadoProyecto=true;
+    emit cambioActualizado(_estadoProyecto);
+    return true;
 }
 
 
