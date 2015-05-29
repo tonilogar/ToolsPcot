@@ -100,9 +100,10 @@ void CreateCnps::enableOrDisableCreateCnp (int chec)
 void CreateCnps::on_pushButtonFolderOutCnps_clicked()
 {
     folderOut=QString();
-    QString pbSelectFolder = "Q:\soft\Antonio";//el primer valor de el QStringList es donde se abrira la ventana
+    //QString pbSelectFolder = "Q:\soft\Antonio";//el primer valor de el QStringList es donde se abrira la ventana
+    QString pbSelectFolder;
     folderOut=QFileDialog::getExistingDirectory
-    (0,("Triar carpeta sortida"),(pbSelectFolder));
+    (this,("Triar carpeta sortida"),(pbSelectFolder));
     qDebug() << folderOut << "DirectorioMet1";
     if(!folderOut.isNull() && !folderOut.isEmpty())
     {

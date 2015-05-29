@@ -268,7 +268,7 @@ bool ArchivoProyecto::read(QString pathProyectFile)
     //leerlo
     QByteArray lecturaArchivo=archivo.readAll();
     //Pasar la informacion a objeto Json
-    QJsonDocument archivoJsonDoc=QJsonDocument::fromBinaryData(lecturaArchivo);
+    QJsonDocument archivoJsonDoc=QJsonDocument::fromJson(lecturaArchivo);
       //procesar objeto Json
     QJsonObject objetoProyecto=archivoJsonDoc.object();
     //Extraer los datos para sustituir el archivo de proyecto antiguo por los nuevos datos
