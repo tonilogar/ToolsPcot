@@ -76,7 +76,7 @@ void NewProjectDialog::crearArchivoProyecto()
     QFileInfo archivo;
     archivo.setFile(QDir(dirProyecto),ui->lineEditProjectFile->text());
 
-    _aProyecto=new ArchivoProyecto(this,archivo.filePath());
+    _aProyecto=new ArchivoProyecto(0,archivo.filePath());
     _aProyecto->setnameProyect(ui->lineEditProject->text());
     _aProyecto->setdescriptionProyecte(ui->textEditDescription->toPlainText());
     _aProyecto->setautorProyect(ui->lineEditAutor->text());

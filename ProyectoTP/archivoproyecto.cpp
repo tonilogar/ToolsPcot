@@ -208,7 +208,7 @@ bool ArchivoProyecto::save()
     proyecto.insert("descripcion",_descriptionProyecte);
     proyecto.insert("fechavuelo",_dateFlight.toString("dd-MM-yyyy"));
     proyecto.insert("fechacreacion",_dateCreate.toString("dd-MM-yyyy"));
-    proyecto.insert("fechaultimoacceso",_dateCreate.toString("dd-MM-yyyy"));
+    proyecto.insert("fechaultimoacceso",_dateAcces.toString("dd-MM-yyyy"));
 
     // ESCRIBIR INFORMACION DE SECCIONES
     foreach(AProTPSection *section,_listaSecciones) {
@@ -228,6 +228,11 @@ bool ArchivoProyecto::save()
     _estadoProyecto=true;
     emit cambioActualizado(_estadoProyecto);
     return true;
+}
+bool ArchivoProyecto::saveAs()
+{
+
+
 }
 
 void ArchivoProyecto::sectionHasChanged(bool estado)

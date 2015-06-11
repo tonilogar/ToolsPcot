@@ -22,7 +22,6 @@ RegistroCreateCnps::RegistroCreateCnps(QObject *parent) :
     AProTPSection(parent)
 {
     _folderOut=QString();
-    _cnpsEnabled=false;
     _widgetCnps=0;
 }
 
@@ -30,7 +29,6 @@ RegistroCreateCnps::RegistroCreateCnps(QObject *parent,QString folderOut):
     AProTPSection(parent)
 {
    _folderOut= folderOut;
-   _cnpsEnabled=false;
    _widgetCnps=0;
 }
 
@@ -94,8 +92,8 @@ bool RegistroCreateCnps::processSection(QJsonObject archivo)
         return false;
 
     QJsonObject section=archivo.value("sectionCNP").toObject();
-    _cnpsEnabled=section.value("cnpsEnabled").toBool();
     _folderOut=section.value("folderOut").toString();
+    _cnpsEnabled=section.value("cnpsEnabled").toBool();
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
     _widgetCnps->connectRegistro();

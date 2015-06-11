@@ -39,6 +39,7 @@ private slots:
     void nuevoProyecto();
     void cambiosEnProyecto(bool estado);
     void abrirProyecto();
+    void guardarProyecto();
 
 private:
     Ui::MainWindow *ui;

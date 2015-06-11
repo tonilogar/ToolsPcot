@@ -151,6 +151,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(_lanzadorOpe,SIGNAL(inicioOperaciones()),_dialogoProgreso,SLOT(exec()));
     connect(ui->actionNew_project,SIGNAL(triggered()),this,SLOT(nuevoProyecto()));
     connect(ui->actionOpen_project,SIGNAL(triggered()),this,SLOT(abrirProyecto()));
+    connect(ui->actionSave_project,SIGNAL(triggered()),this,SLOT(guardarProyecto()));
+
     //Crear el archivo de proyecto por defecto
     //ESTO ES TEMPORAL HASTA QUE CONSTRUYAMOS MEJOR EL MECANISMO DE CARGA DE PROYECTOS
     _archivoProyecto=0;
@@ -294,12 +296,19 @@ void MainWindow::nuevoProyecto()
         {this->disconnect(_archivoProyecto);
             delete _archivoProyecto;
             }
-        _archivoProyecto=nuevoArchivo;
-        _archivoProyecto->build();
+        _archivoProyecto=nuevoArchivo;       
         connect(_archivoProyecto,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
-        this->setWindowTitle(_archivoProyecto->getnameProyect()+tr(" - ToolsPcot"));
+        _archivoProyecto->build();
     }
 }
+void MainWindow::guardarProyecto()
+{
+ if(_archivoProyecto)
+ {
+     _archivoProyecto->save();
+ }
+}
+
 void MainWindow::abrirProyecto()
 {
  QString archivoProyecto=QFileDialog::getOpenFileName(this,"select file project");
@@ -317,7 +326,6 @@ void MainWindow::abrirProyecto()
      _archivoProyecto->addSection(ui->page1Cnp->getObjetoRegistroCreateCnps());
      connect(_archivoProyecto,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
      _archivoProyecto->read(archivoProyecto);
-
  }
 
 }

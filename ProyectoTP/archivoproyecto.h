@@ -39,6 +39,7 @@ public:
     virtual bool build();
     virtual bool read(QString pathProyectFile);
     virtual bool save();
+    virtual bool saveAs();
 
     void addSection(AProTPSection *section);
     void removeSection(AProTPSection *section);
