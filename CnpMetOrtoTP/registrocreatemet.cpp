@@ -20,6 +20,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent) :
     QObject(parent)
 {
     _folderOut=QString();
+    _widgetMet=0;
     //tengo que pasar el Qstring a un valor enum
     _ambitoOperacion=DataZoneProject::Otro;
     _tamanyoPixel=-1;
@@ -50,6 +51,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneP
                                      DataZoneProject::Sensor selectSensor):QObject(parent)
 {
     _folderOut= folderOut;
+    _widgetMet=0;
     _ambitoOperacion= ambitoOperacion;
     _tamanyoPixel= tamanyoPixel;
     _coordinateSystem=coordinateSystem;
@@ -67,12 +69,19 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneP
     _selectSensor=selectSensor;
 }
 
-
+void RegistroCreateMet::setWidget(CreateMet *widget)
+{
+    _widgetMet=widget;
+}
 //Getter
 
 QString RegistroCreateMet::getFolderOut()
 {
     return _folderOut;
+}
+bool RegistroCreateMet::getCnpsEnabled() const
+{
+    return _metEnabled;
 }
 DataZoneProject::Ambito RegistroCreateMet::getAmbitoOperacion()
 {
@@ -154,45 +163,69 @@ QJsonArray RegistroCreateMet::getListaEjecutables()
 void RegistroCreateMet::setFolderOut(QString folderOut)
 {
     _folderOut=folderOut;
+    AProTPSection::_stateChanged=false;
+    emit this->estaActualizado(_stateChanged);
     qDebug()<< _folderOut << "_folderOut------------------------------";
+}
+void RegistroCreateMet::setMetEnabled(bool enabled)
+{
+    _metEnabled=enabled;
+    AProTPSection::_stateChanged=false;
+    emit estaActualizado(_stateChanged);
 }
 void RegistroCreateMet::setAmbitoOperacion(DataZoneProject::Ambito ambitoOperacion)
 {
  _ambitoOperacion=ambitoOperacion;
+ AProTPSection::_stateChanged=false;
+ emit this->estaActualizado(_stateChanged);
     qDebug()<< _ambitoOperacion << "_ambitoOperacion------------------------------";
 }
 void RegistroCreateMet::setSelectSensor(DataZoneProject::Sensor selectSensor)
 {
  _selectSensor=selectSensor;
+ AProTPSection::_stateChanged=false;
+ emit this->estaActualizado(_stateChanged);
     qDebug()<< _selectSensor << "_selectSensor------------------------------";
 }
 void RegistroCreateMet::setTamanyPixel(double tamanyoPixel)
 {
     _tamanyoPixel=tamanyoPixel;
+    AProTPSection::_stateChanged=false;
+    emit this->estaActualizado(_stateChanged);
     qDebug()<< _tamanyoPixel << "_tamanyoPixel------------------------------";
 }
 void RegistroCreateMet::setCoordinateSystem(DataZoneProject::sistemaCoor coordinateSystem)
 {
     _coordinateSystem=coordinateSystem;
+    AProTPSection::_stateChanged=false;
+    emit this->estaActualizado(_stateChanged);
 }
 void RegistroCreateMet::setTamanyoCorte(int tamanyoCorte)
 {
     _tamanyoCorte=tamanyoCorte;
+    AProTPSection::_stateChanged=false;
+    emit this->estaActualizado(_stateChanged);
     qDebug()<< _tamanyoCorte << "_tamanyoCorte------------------------------";
 }
 void RegistroCreateMet::setNumeroCanales(int numeroCanales)
 {
     _numeroCanales=numeroCanales;
+    AProTPSection::_stateChanged=false;
+    emit this->estaActualizado(_stateChanged);
     qDebug()<< _numeroCanales << "_numeroCanales------------------------------";
 }
 void RegistroCreateMet::setAnchoPasada(int anchoPasada)
 {
     _anchoPasada=anchoPasada;
+    AProTPSection::_stateChanged=false;
+    emit this->estaActualizado(_stateChanged);
     qDebug()<< _anchoPasada << "_ambitoProyecto------------------------------";
 }
 void RegistroCreateMet::setOffsetPasada(int offsetPasada)
 {
     _offsetPasada=offsetPasada;
+    AProTPSection::_stateChanged=false;
+    emit this->estaActualizado(_stateChanged);
     qDebug()<< _offsetPasada << "_ambitoProyecto------------------------------";
 }
 void RegistroCreateMet::setPathImageMet(QString pathImageMet)
@@ -283,5 +316,84 @@ QMap<QString, QString> RegistroCreateMet::getMapExe()
  }
  return qMapExe;
 }
+
+QString RegistroCreateMet::getNombreSection() const
+{
+    return QString("sectionMET");
+}
+
+QJsonObject RegistroCreateMet::writeSection()
+{
+    QJsonObject resultado;
+    resultado.insert("folderOut",this->_folderOut);
+    resultado.insert("metEnabled",_metEnabled);
+
+    return resultado;
+    AProTPSection::_stateChanged=true;
+    emit this->estaActualizado(_stateChanged);
+}
+
+bool RegistroCreateMet::processSection(QJsonObject archivo)
+{
+    _widgetMet->disconnectRegistro();
+    if(!archivo.contains("sectionMET"))
+        return false;
+
+    QJsonObject section=archivo.value("sectionMET").toObject();
+    _folderOut=section.value("folderOut").toString();
+    _metEnabled=section.value("metEnabled").toBool();
+    _stateChanged=true;
+    emit estaActualizado(_stateChanged);
+    _widgetMet->connectRegistro();
+
+    return true;
+}
+
+void RegistroCreateMet::resetSection()
+{
+    _widgetMet->disconnectRegistro();
+    _folderOut.clear();
+    _stateChanged=true;
+    emit estaActualizado(_stateChanged);
+    _widgetMet->connectRegistro();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

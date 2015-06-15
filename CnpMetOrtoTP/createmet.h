@@ -23,6 +23,9 @@ public:
     explicit CreateMet(QWidget *parent = 0);
     ~CreateMet();
     RegistroCreateMet * getObjetoRegistroCreateMet();
+    bool comprobarChecFolderMet();
+    void disconnectRegistro();
+    void connectRegistro();
 
 signals:
    void cambioEstadoMet(bool state);
@@ -33,6 +36,7 @@ public slots:
     void onCambioComboBoxAmbitoProyectoMet(int text);
     void calcularOffsetPasada(int offsetPasada);
     void enableOrDisableExtraerMet(int chec);
+    void comprobarCorreccion(QString dato);
     void enableOrDisableFootPrintMaskMet(int chec);
     void enableOrDisableCortarMet(int chec);
     //Codigo nuevo

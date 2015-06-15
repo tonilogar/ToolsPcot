@@ -119,7 +119,7 @@ bool ArchivoProyecto::build(QString nameProyect,QString descriptionProyecte, QSt
         return false;
     }
     QJsonObject proyecto;
-    proyecto.insert("cabecera","PROYECTOTPC");
+    //proyecto.insert("cabecera","PROYECTOTPC");
     proyecto.insert("version",getnumberVersion());
     proyecto.insert("proyecto",nameProyect);
     proyecto.insert("autor",autorProyect);
@@ -163,7 +163,7 @@ bool ArchivoProyecto::build()
         return false;
     }
     QJsonObject proyecto;
-    proyecto.insert("cabecera","PROYECTOTPC");
+    //proyecto.insert("cabecera","PROYECTOTPC");
     proyecto.insert("version",getnumberVersion());
     proyecto.insert("proyecto",_nameProyect);
     proyecto.insert("autor",_autorProyect);
@@ -201,7 +201,7 @@ bool ArchivoProyecto::save()
         return false;
     }
     QJsonObject proyecto;
-    proyecto.insert("cabecera","PROYECTOTPC");
+    //proyecto.insert("cabecera","PROYECTOTPC");
     proyecto.insert("version",getnumberVersion());
     proyecto.insert("proyecto",_nameProyect);
     proyecto.insert("autor",_autorProyect);

@@ -4,7 +4,6 @@
 #include "cnpmetortotp_global.h"
 #include <QObject>
 #include <OpePcot/datazoneproject.h>
-
 #include <ProyectoTP/aprotpsection.h>
 
 class CreateCnps;
@@ -29,7 +28,6 @@ public:
  /*!
    Devuelve si la seccion esta o no activada
    */
-
  bool getCnpsEnabled() const;
  /*!
  * Mostrar el valors del directori de sortida.

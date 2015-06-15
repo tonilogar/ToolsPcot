@@ -20,7 +20,6 @@
 #include <QDebug>
 #include <QDateTime>
 
-#include "registrocreatecnps.h"
 
 CreateCnps::CreateCnps(QWidget *parent) :
     QWidget(parent),
