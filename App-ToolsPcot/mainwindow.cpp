@@ -283,6 +283,7 @@ void MainWindow::nuevoProyecto()
         listaSecciones=_archivoProyecto->getListaSections();
     else {
         listaSecciones.append(ui->page1Cnp->getObjetoRegistroCreateCnps());
+        listaSecciones.append(ui->widgetCoordinates->getSectionCoordinates());
     }
 
     if(nuevoArchivo) {
@@ -324,6 +325,7 @@ void MainWindow::abrirProyecto()
  {
      _archivoProyecto=new ArchivoProyecto(this);
      _archivoProyecto->addSection(ui->page1Cnp->getObjetoRegistroCreateCnps());
+     _archivoProyecto->addSection(ui->widgetCoordinates->getSectionCoordinates());
      connect(_archivoProyecto,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
      _archivoProyecto->read(archivoProyecto);
  }

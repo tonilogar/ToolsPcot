@@ -29,6 +29,7 @@ TableViewCoordinates::TableViewCoordinates(QWidget *parent) :
 
     // Codigo para el ModeloCoordenadas
     _modelo=new ModeloCoordenadas(this);
+    _sCoordinates=new SectionCoordinates(0);
 
     //Ens permet ordenar les dades del tableView
     QSortFilterProxyModel *modeloFiltrado=new QSortFilterProxyModel(this);
@@ -98,3 +99,7 @@ void TableViewCoordinates::help()
     dialogo.exec();
 }
 
+SectionCoordinates *TableViewCoordinates::getSectionCoordinates()
+{
+    return _sCoordinates;
+}
