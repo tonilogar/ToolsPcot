@@ -23,6 +23,7 @@ RegistroCreateCnps::RegistroCreateCnps(QObject *parent) :
 {
     _folderOut=QString();
     _widgetCnps=0;
+    _cnpsEnabled=false;
 }
 
 RegistroCreateCnps::RegistroCreateCnps(QObject *parent,QString folderOut):
@@ -30,6 +31,7 @@ RegistroCreateCnps::RegistroCreateCnps(QObject *parent,QString folderOut):
 {
    _folderOut= folderOut;
    _widgetCnps=0;
+   _cnpsEnabled=false;
 }
 
 void RegistroCreateCnps::setWidget(CreateCnps *widget)

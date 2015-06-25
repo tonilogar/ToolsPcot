@@ -16,10 +16,8 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "createmet.h"
 #include "ui_createmet.h"
-#include <QLineEdit>
-#include <QFileDialog>
-#include <QDebug>
-#include <QDateTime>
+#include "registrocreatemet.h"
+
 
 CreateMet::CreateMet(QWidget *parent) :
     QWidget(parent),

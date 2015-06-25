@@ -1,13 +1,17 @@
 #ifndef CREATEMET_H
 #define CREATEMET_H
 #include "cnpmetortotp_global.h"
+
 #include <QWidget>
 #include <QSettings>
-#include "registrocreatemet.h"
 #include "ficherodatosambitopro.h"
 #include <OpePcot/datazoneproject.h>
 #include <QMessageBox>
-
+#include <QLineEdit>
+#include <QFileDialog>
+#include <QDebug>
+#include <QDateTime>
+class RegistroCreateMet;
 namespace Ui {
     class CreateMet;
 }

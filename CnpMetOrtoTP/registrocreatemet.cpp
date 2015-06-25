@@ -15,9 +15,10 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "registrocreatemet.h"
+#include "createmet.h"
 
 RegistroCreateMet::RegistroCreateMet(QObject *parent) :
-    QObject(parent)
+    AProTPSection(parent)
 {
     _folderOut=QString();
     _widgetMet=0;
@@ -48,7 +49,7 @@ RegistroCreateMet::RegistroCreateMet(QObject *parent,QString folderOut,DataZoneP
                                      DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                                      QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                                      QString exeExtraction, QString exeResize, QString utmDefecto, QJsonArray listaEjecutables,
-                                     DataZoneProject::Sensor selectSensor):QObject(parent)
+                                     DataZoneProject::Sensor selectSensor):AProTPSection(parent)
 {
     _folderOut= folderOut;
     _widgetMet=0;
@@ -79,7 +80,7 @@ QString RegistroCreateMet::getFolderOut()
 {
     return _folderOut;
 }
-bool RegistroCreateMet::getCnpsEnabled() const
+bool RegistroCreateMet::getMetEnabled() const
 {
     return _metEnabled;
 }

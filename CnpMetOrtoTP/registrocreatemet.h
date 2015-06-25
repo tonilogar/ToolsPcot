@@ -10,7 +10,8 @@
 #include <OpePcot/datazoneproject.h>
 #include <ProyectoTP/aprotpsection.h>
 #include <CnpMetOrtoTP/createmet.h>
-#include "registrocreatemet.h"
+class CreateMet;
+
 class CNPMETORTOTPSHARED_EXPORT RegistroCreateMet : public AProTPSection
 {
     Q_OBJECT
