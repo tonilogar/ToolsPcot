@@ -41,11 +41,11 @@ public:
     /*!
      * Genera un fitxer Json per defecte de les dades met.
      */
-    QJsonObject CreateJsonMetDefecto();
+    void CreateJsonMetDefecto();
     /*!
      * Genera un fitxer Json per defecte de les dades orto.
      */
-    QJsonObject CreateJsonOrtoDefecto();
+    void CreateJsonOrtoDefecto();
     //Getter
     /*!
      * Mostra la imatge origen del met de Catalunya.

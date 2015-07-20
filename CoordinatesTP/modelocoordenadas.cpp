@@ -172,6 +172,7 @@ void ModeloCoordenadas::clear()
     beginResetModel();
     _listaRegistros.clear();
     endResetModel();
+    emit loadedModelo(false);
 }
 
 void ModeloCoordenadas::setListaRegistro(QList<IdentificadorCoordenadas *> nuevaLista)
@@ -180,6 +181,7 @@ void ModeloCoordenadas::setListaRegistro(QList<IdentificadorCoordenadas *> nueva
     _listaRegistros.clear();
     _listaRegistros=nuevaLista;
     endResetModel();
+    emit loadedModelo(true);
 }
 QList <IdentificadorCoordenadas*> ModeloCoordenadas::getListaRegistro()
 {

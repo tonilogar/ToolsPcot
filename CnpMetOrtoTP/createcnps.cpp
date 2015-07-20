@@ -39,6 +39,7 @@ void CreateCnps::connectRegistro()
     folderOut=punteroRegistroCreateCnps->getFolderOut();
     connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),punteroRegistroCreateCnps,SLOT(setFolderOut(QString)));
     ui->checkBoxCreaCnps->setChecked(punteroRegistroCreateCnps->getCnpsEnabled());
+
 }
 
 void CreateCnps::disconnectRegistro()
@@ -118,13 +119,10 @@ void CreateCnps::activateWidget(bool acti)
     else
     {
         ui->checkBoxCreaCnps->setEnabled(false);
-        ui->checkBoxCreaCnps->setChecked(false);
+        //ui->checkBoxCreaCnps->setChecked(false);
         ui->pushButtonDeleteDatesCnps->setEnabled(false);
     }
 }
-
-
-
 void CreateCnps::on_pushButtonDeleteDatesCnps_clicked()
 {
     folderOut=QString();

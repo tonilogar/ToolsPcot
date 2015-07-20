@@ -80,11 +80,10 @@ QJsonObject RegistroCreateCnps::writeSection()
 {
     QJsonObject resultado;
     resultado.insert("folderOut",this->_folderOut);
-    resultado.insert("cnpsEnabled",_cnpsEnabled);
-
-    return resultado;
+    resultado.insert("cnpsEnabled",_cnpsEnabled);  
     AProTPSection::_stateChanged=true;
     emit this->estaActualizado(_stateChanged);
+    return resultado;
 }
 
 bool RegistroCreateCnps::processSection(QJsonObject archivo)

@@ -41,14 +41,10 @@ TableViewCoordinates::TableViewCoordinates(QWidget *parent) :
     // ENDCODE
 
     ui->tableViewCoordenadas->setSortingEnabled(true);//Esta funci�n abilita la ordenaci�n del tableview
-    //    ui->tableViewCoordenadas->horizontalHeader()->setSectionResizeMode(0,QHeaderView::Stretch);
-    //    ui->tableViewCoordenadas->horizontalHeader()->setSectionResizeMode(1,QHeaderView::Stretch);
-    //    ui->tableViewCoordenadas->horizontalHeader()->setSectionResizeMode(2,QHeaderView::Stretch);
-    //    ui->tableViewCoordenadas->horizontalHeader()->setSectionResizeMode(3,QHeaderView::Stretch);
-    //    ui->tableViewCoordenadas->horizontalHeader()->setSectionResizeMode(4,QHeaderView::Stretch);
     connect(ui->pushButtonSelecionarTxtCoordenadas,SIGNAL(clicked()),this,SLOT(openFileCoordinates()));
     connect(ui->pushButtonBorrarListadoCoordenadas,SIGNAL(clicked()),this,SLOT(cleanTableView()));
     connect(ui->pushButtonHelpFilecoordinates,SIGNAL(clicked()),this,SLOT(help()));
+    connect(_modelo,SIGNAL(loadedModelo(bool)),this,SIGNAL(filledTableView(bool)));
 }
 
 TableViewCoordinates::~TableViewCoordinates()

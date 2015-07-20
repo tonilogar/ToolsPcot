@@ -281,8 +281,9 @@ void MainWindow::nuevoProyecto()
     QList<AProTPSection*> listaSecciones;
     if(_archivoProyecto)
         listaSecciones=_archivoProyecto->getListaSections();
-    else {
+    else {       
         listaSecciones.append(ui->page1Cnp->getObjetoRegistroCreateCnps());
+        listaSecciones.append(ui->page2Met->getObjetoRegistroCreateMet());
         listaSecciones.append(ui->widgetCoordinates->getSectionCoordinates());
     }
 
@@ -325,6 +326,7 @@ void MainWindow::abrirProyecto()
  {
      _archivoProyecto=new ArchivoProyecto(this);
      _archivoProyecto->addSection(ui->page1Cnp->getObjetoRegistroCreateCnps());
+      _archivoProyecto->addSection(ui->page2Met->getObjetoRegistroCreateMet());
      _archivoProyecto->addSection(ui->widgetCoordinates->getSectionCoordinates());
      connect(_archivoProyecto,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
      _archivoProyecto->read(archivoProyecto);

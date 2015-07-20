@@ -326,12 +326,65 @@ QString RegistroCreateMet::getNombreSection() const
 QJsonObject RegistroCreateMet::writeSection()
 {
     QJsonObject resultado;
-    resultado.insert("folderOut",this->_folderOut);
+    resultado.insert("folderOut",this->_folderOut);   
     resultado.insert("metEnabled",_metEnabled);
-
-    return resultado;
+    resultado.insert("tamanyoPixel",_tamanyoPixel);
+    resultado.insert("dtm",_dtm);
+    resultado.insert("tamanyoCorte",_tamanyoCorte);
+    resultado.insert("numeroCanales",_numeroCanales);
+    resultado.insert("fprintM",_fprintM);
+    resultado.insert("offsetPasada",_offsetPasada);
+    switch (_coordinateSystem) {
+    case DataZoneProject::Etrs89:
+        resultado.insert("coordinateSystem","Etrs89");
+        break;
+    case DataZoneProject::Ed50:
+        resultado.insert("coordinateSystem","Ed50");
+        break;
+    case DataZoneProject::Ntf:
+        resultado.insert("coordinateSystem","Ntf");
+        break;
+        default:
+        resultado.insert("coordinateSystem","vacio");
+        break;
+    }
+    switch (_ambitoOperacion) {
+    case DataZoneProject::Catalunya:
+        resultado.insert("ambitoOperacion","Catalunya");
+        break;
+    case DataZoneProject::Espanya:
+        resultado.insert("ambitoOperacion","Espanya");
+        break;
+    case DataZoneProject::Francia:
+        resultado.insert("ambitoOperacion","Francia");
+        break;
+    default:
+         resultado.insert("ambitoOperacion","Otro");
+        break;
+    }
+    switch (_selectSensor) {
+    case DataZoneProject::Casi:
+        resultado.insert("selectSensor","Casi");
+        break;
+    case DataZoneProject::Tasi:
+        resultado.insert("selectSensor","Tasi");
+        break;
+    case DataZoneProject::Aisa:
+        resultado.insert("selectSensor","Aisa");
+        break;
+    case DataZoneProject::Aisa_BE:
+        resultado.insert("selectSensor","Aisa_BE");
+        break;
+    default:
+         resultado.insert("selectSensor","Vacio");
+        break;
+    }
+    resultado.insert("anchoPasada",_anchoPasada);
+    resultado.insert("pathImageMet",_pathImageMet);
+    resultado.insert("utmDefecto",_utmDefecto);
     AProTPSection::_stateChanged=true;
     emit this->estaActualizado(_stateChanged);
+    return resultado;
 }
 
 bool RegistroCreateMet::processSection(QJsonObject archivo)
@@ -343,18 +396,92 @@ bool RegistroCreateMet::processSection(QJsonObject archivo)
     QJsonObject section=archivo.value("sectionMET").toObject();
     _folderOut=section.value("folderOut").toString();
     _metEnabled=section.value("metEnabled").toBool();
+    _tamanyoPixel=section.value("tamanyoPixel").toDouble();
+    _dtm=section.value("dtm").toBool();
+    _numeroCanales=section.value("numeroCanales").toInt();
+    _tamanyoCorte=section.value("tamanyoCorte").toInt();
+    _fprintM=section.value("fprintM").toBool();
+    _offsetPasada=section.value("offsetPasada").toInt();
+    _anchoPasada=section.value("anchoPasada").toInt();
+    _pathImageMet=section.value("pathImageMet").toString();
+    _utmDefecto=section.value("utmDefecto").toString();
+
+    QString coordinateSystem=section.value("coordinateSystem").toString();
+    if (coordinateSystem=="Etrs89")
+    {
+      _coordinateSystem=DataZoneProject::Etrs89;
+    }
+    else if(coordinateSystem=="Ed50")
+    {
+      _coordinateSystem=DataZoneProject::Ed50;
+    }
+    else if(coordinateSystem=="Ntf")
+    {
+      _coordinateSystem=DataZoneProject::Ntf;
+    }
+    else
+       _coordinateSystem=DataZoneProject::vacio;
+
+    QString ambitoOperacion=section.value("ambitoOperacion").toString();
+
+    if (ambitoOperacion=="Catalunya")
+    {
+      _ambitoOperacion=DataZoneProject::Catalunya;
+    }
+    else if(ambitoOperacion=="Espanya")
+    {
+      _ambitoOperacion=DataZoneProject::Espanya;
+    }
+    else if(ambitoOperacion=="Francia")
+    {
+      _ambitoOperacion=DataZoneProject::Francia;
+    }
+    else
+       _ambitoOperacion=DataZoneProject::Otro;
+
+   QString selectSensor=section.value("selectSensor").toString();
+   if (selectSensor=="Casi")
+   {
+     _selectSensor=DataZoneProject::Casi;
+   }
+   else if(selectSensor=="Tasi")
+   {
+     _selectSensor=DataZoneProject::Tasi;
+   }
+   else if(selectSensor=="Aisa")
+   {
+     _selectSensor=DataZoneProject::Aisa;
+   }
+   else if(selectSensor=="Aisa_BE")
+   {
+     _selectSensor=DataZoneProject::Aisa_BE;
+   }
+   else
+      _selectSensor=DataZoneProject::Vacio;
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
     _widgetMet->connectRegistro();
-
     return true;
 }
 
 void RegistroCreateMet::resetSection()
 {
     _widgetMet->disconnectRegistro();
-    _folderOut.clear();
-    _stateChanged=true;
+    _folderOut=QString();
+    //tengo que pasar el Qstring a un valor enum
+    _ambitoOperacion=DataZoneProject::Otro;
+    _tamanyoPixel=-1;
+    //tengo que pasar el Qstring a un valor enum
+    _coordinateSystem=DataZoneProject::vacio;
+    _dtm=false;
+    _tamanyoCorte=-1;
+    _numeroCanales=-1;
+    _fprintM=false;
+    _anchoPasada=-1;
+    _offsetPasada=-1;
+    _utmDefecto=QString();
+    _selectSensor=DataZoneProject::Vacio;
+    _stateChanged=true;    
     emit estaActualizado(_stateChanged);
     _widgetMet->connectRegistro();
 }

@@ -1,7 +1,6 @@
-#ifndef CREATEMET_H
+ #ifndef CREATEMET_H
 #define CREATEMET_H
 #include "cnpmetortotp_global.h"
-
 #include <QWidget>
 #include <QSettings>
 #include "ficherodatosambitopro.h"
