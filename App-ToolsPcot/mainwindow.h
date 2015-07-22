@@ -51,6 +51,7 @@ private:
     QSignalMapper *mapeadorVistas;
     LanzadorOperaciones *_lanzadorOpe;
     RegistroCreateMet  ObjetoRegistroCreateMet;
+    RegistroCreateOrto  ObjetoRegistroCreateOrto;
     DialogProgresoOpe *_dialogoProgreso;
 
     ArchivoProyecto *_archivoProyecto;

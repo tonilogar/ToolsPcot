@@ -7,12 +7,14 @@
 #include <QJsonValue>
 #include <QJsonObject>
 #include <OpePcot/datazoneproject.h>
+#include <ProyectoTP/aprotpsection.h>
+#include <CnpMetOrtoTP/createorto.h>
+class CreateOrto;
 
-class CNPMETORTOTPSHARED_EXPORT RegistroCreateOrto : public QObject
+class CNPMETORTOTPSHARED_EXPORT RegistroCreateOrto : public AProTPSection
 {
     Q_OBJECT
 public:
-
     /*!
      * Constructor explicit per defecte, necesita un punter nul.
      */
@@ -26,7 +28,13 @@ public:
                       QString pathImageOrto,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                       QString exeExtraction,QString exeResize,QString utmDefecto, QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
 
+    void setWidget(CreateOrto *widget);
+
     //Getter
+    /*!
+      Devuelve si la seccion esta o no activada
+      */
+    bool getOrtoEnabled() const;
     /*!
      * Mostrar el valors del directori de sortida.
      */
@@ -111,6 +119,14 @@ public:
      * Mostrar valor de l'executable.
      */
     QMap<QString, QString> getMapExe();
+
+    //Metodos de interfaz AProTPSection
+
+    virtual QString getNombreSection() const;
+    virtual bool processSection(QJsonObject archivo);
+    virtual QJsonObject writeSection();
+    virtual void resetSection();
+
 public slots:
     //setters
     /*!
@@ -209,6 +225,8 @@ public slots:
      */
     void setListaEjecutables(QJsonArray listaEjecutables);
 
+    void setOrtoEnabled(bool enabled);
+
 signals:
 
 private:
@@ -233,6 +251,8 @@ private:
     QString _exeResize;           ///< Valor path Resize.
     QString _utmDefecto;          ///< Valor utm per defecte .
     QJsonArray _listaEjecutables; ///< Llistat de executables .
+    bool _ortoEnabled;  ///< Seccion CNPS activada
+    CreateOrto *_widgetOrto;    ///< Widget grafico asociado
 
 };
 

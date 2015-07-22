@@ -1,6 +1,5 @@
 #ifndef REGISTROCREATEMET_H
 #define REGISTROCREATEMET_H
-
 #include "cnpmetortotp_global.h"
 #include <QObject>
 #include <QDebug>
@@ -20,7 +19,10 @@ public:
      * Constructor explicit per defecte, necesita un punter nul.
      */
     explicit RegistroCreateMet(QObject *parent = 0);
-
+    /*!
+     * Constructor explicit per defecte, necesita un punter nul.
+     *
+     */
     RegistroCreateMet(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
                       DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                       QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
@@ -117,7 +119,6 @@ public:
      * Mostrar valor de l'executable.
      */
     QMap<QString, QString> getMapExe();
-
 
     //Metodos de interfaz AProTPSection
 

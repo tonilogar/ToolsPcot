@@ -1,4 +1,4 @@
- #ifndef CREATEMET_H
+#ifndef CREATEMET_H
 #define CREATEMET_H
 #include "cnpmetortotp_global.h"
 #include <QWidget>
@@ -10,11 +10,11 @@
 #include <QFileDialog>
 #include <QDebug>
 #include <QDateTime>
+#include "registrocreatemet.h"
 class RegistroCreateMet;
 namespace Ui {
     class CreateMet;
 }
-
 //Posibles estados de correccion
 // 0 - no seleccionado, 1 - correcto, 2 - parcialmente correcto
 class CNPMETORTOTPSHARED_EXPORT CreateMet : public QWidget

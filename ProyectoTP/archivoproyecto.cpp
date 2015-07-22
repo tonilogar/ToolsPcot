@@ -232,7 +232,7 @@ bool ArchivoProyecto::save()
 bool ArchivoProyecto::saveAs()
 {
 
-
+return true;
 }
 
 void ArchivoProyecto::sectionHasChanged(bool estado)
