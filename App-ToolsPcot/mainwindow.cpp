@@ -284,6 +284,7 @@ void MainWindow::nuevoProyecto()
     else {       
         listaSecciones.append(ui->page1Cnp->getObjetoRegistroCreateCnps());
         listaSecciones.append(ui->page2Met->getObjetoRegistroCreateMet());
+        listaSecciones.append(ui->page3Orto->getObjetoRegistroCreateOrto());
         listaSecciones.append(ui->widgetCoordinates->getSectionCoordinates());
     }
 
