@@ -53,7 +53,7 @@ bool ReaderCoordinatesBasico::tryRead(QString pathFile)
       if (!ideError) error=true;
       if (xa==0 || ya==0 || xb==0 || yb==0)
       {
-          error=true;
+          //error=true;
       }
       if (!error)
       {

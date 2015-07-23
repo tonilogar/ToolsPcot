@@ -58,6 +58,8 @@ public:
     QList <IdentificadorCoordenadas*> getListaRegistro();
 signals:
     
+    void loadedModelo(bool);
+
 public slots:
 private:
 

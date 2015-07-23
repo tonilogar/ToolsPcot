@@ -16,18 +16,14 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "createmet.h"
 #include "ui_createmet.h"
-#include <QLineEdit>
-#include <QFileDialog>
-#include <QDebug>
 
 CreateMet::CreateMet(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateMet)
 {
     ui->setupUi(this);
-
     punteroRegistroCreateMet=new RegistroCreateMet(this);
-
+    punteroRegistroCreateMet->setWidget(this);
     //Cargamos desde settings
     QSettings settings("tologar","ToolsPCOT",this);
     QString pathMet=settings.value("variablesMET").toString();
@@ -51,17 +47,12 @@ CreateMet::CreateMet(QWidget *parent) :
             FicheroDatosAmbitoPro lectorOuts(this,pathDefectoFileJson);
             settings.setValue("variablesMET",pathDefectoFileJson);
             ui->comboBoxAmbitoProyectoMet->setModel(lectorOuts.obtenerModelo());
-
         }
     }
-
     ui->comboBoxTamanoPixelMet->addItem("No seleccionado",-1);
     for (double i=0.10; i< 20; i+=0.10){
         ui->comboBoxTamanoPixelMet->addItem(QString::number(i),i);
     }
-
-
-
     ui->comboBoxCoordinateSystemMet->addItem("No seleccionado",3);
     ui->comboBoxCoordinateSystemMet->addItem("Etrs89",0);
     ui->comboBoxCoordinateSystemMet->addItem("Ed50",1);
@@ -104,11 +95,11 @@ CreateMet::CreateMet(QWidget *parent) :
     connect(ui->comboBoxCoordinateSystemMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
     connect(ui->comboBoxSelectSensor,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
     connect(ui->lineEditFolderOutMet,SIGNAL(textChanged(QString)),this,SLOT(cambioestadoLineEdit(QString)));
+    connect(ui->lineEditFolderOutMet,SIGNAL(textChanged(QString)),this,SLOT(comprobarCorreccion(QString)));
 
     connect(ui->checkBoxFootPrintMaskMet,SIGNAL(stateChanged(int)),this,SLOT(cambioestadoCheckBox(int)));
     connect(ui->comboBoxAnchoPasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
     connect(ui->comboBoxOffsetPasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
-
 
     connect(ui->checkBoxCortarMet,SIGNAL(stateChanged(int)),this,SLOT(cambioestadoCheckBox(int)));
     connect(ui->comboBoxNumeroCanalesspasadaMet,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
@@ -130,12 +121,45 @@ CreateMet::CreateMet(QWidget *parent) :
     //Conectar los check con los metodos de registroCreateMet para comprobar el estado de selecionado o no seleccionado
     connect(ui->checkBoxCortarMet,SIGNAL(stateChanged(int)),punteroRegistroCreateMet,SLOT(setCutDtm(int)));
     connect(ui->checkBoxFootPrintMaskMet,SIGNAL(stateChanged(int)),punteroRegistroCreateMet,SLOT(setFootprintMask(int)));
+    connectRegistro();
+}
+void CreateMet::connectRegistro()
+{
+    ui->lineEditFolderOutMet->setText(punteroRegistroCreateMet->getFolderOut());
+    if(punteroRegistroCreateMet->getFolderOut().isEmpty()) {
+        ui->checkBoxExtraerMet->setChecked(false);
+    }
+    else ui->checkBoxExtraerMet->setChecked(true);
+    connect(ui->lineEditFolderOutMet,SIGNAL(textChanged(QString)),punteroRegistroCreateMet,SLOT(setFolderOut(QString)));
+    comprobarChecFolderMet();
 }
 
+void CreateMet::disconnectRegistro()
+{
+    ui->lineEditFolderOutMet->disconnect(punteroRegistroCreateMet);
+}
 CreateMet::~CreateMet()
 {
     delete ui;
 }
+bool CreateMet::comprobarChecFolderMet()
+{
+
+ qDebug() << folderOut << "Directorio3";
+ if(!folderOut.isNull() && !folderOut.isEmpty())
+ {
+     emit cambioEstadoMet(true);
+    qDebug() << folderOut << "Directorio4";
+    return true;
+ }
+ else
+ {
+     emit cambioEstadoMet(false);
+     return false;
+ }
+ return false;
+}
+
 RegistroCreateMet * CreateMet::getObjetoRegistroCreateMet()
 {
     return punteroRegistroCreateMet;
@@ -184,12 +208,6 @@ void CreateMet::enableOrDisableExtraerMet(int chec)
         ui->labelTamanoPixelMet->setEnabled(1);
         qDebug()<< "seleccionado";
     }
-    //    if(ui->comboBoxAmbitoProyectoMet->currentIndex()==3)
-    //    {
-    //        qDebug()<< "pepepepeooooooooo";
-    //        ui->comboBoxCoordinateSystemMet->setDisabled(1);
-    //    }
-
 }
 
 void CreateMet::activateWidget(bool acti)
@@ -211,27 +229,21 @@ void CreateMet::calcularOffsetPasada(int offsetPasada)
 {
     int _numberPixelsSensor=0;
     if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Casi)
-            _numberPixelsSensor=550;
-        if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Tasi)
-            _numberPixelsSensor=600;
-        if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa)
-            _numberPixelsSensor=1024;
-        if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa_BE)
-            _numberPixelsSensor=512;
+        _numberPixelsSensor=550;
+    if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Tasi)
+        _numberPixelsSensor=600;
+    if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa)
+        _numberPixelsSensor=1024;
+    if(punteroRegistroCreateMet->getSelectSensor()==DataZoneProject::Aisa_BE)
+        _numberPixelsSensor=512;
 
 
-        QString textoTamanyPixel=ui->comboBoxTamanoPixelMet->currentText();
-        double doubleTamanyPixel=textoTamanyPixel.toDouble();
-        double anchoPasada;
-        anchoPasada=doubleTamanyPixel*_numberPixelsSensor*1.5;
-        int anchoPasadaInt=anchoPasada*1;
-        qDebug()<< punteroRegistroCreateMet->getSelectSensor() <<"punteroRegistroCreateMettttttttttt";
-        qDebug()<<  anchoPasada <<  " anchoPasada";
-        qDebug()<<  _numberPixelsSensor<<  " _numberPixelsSensor";
-        qDebug()<< textoTamanyPixel <<  "text";
-        qDebug()<< doubleTamanyPixel <<  "doubleTamanyPixel";
-        qDebug()<< anchoPasadaInt <<  "anchoPasadaInt";
-        ui->comboBoxAnchoPasadaMet->setCurrentText(QString::number(anchoPasadaInt)+" Mts");
+    QString textoTamanyPixel=ui->comboBoxTamanoPixelMet->currentText();
+    double doubleTamanyPixel=textoTamanyPixel.toDouble();
+    double anchoPasada;
+    anchoPasada=doubleTamanyPixel*_numberPixelsSensor*1.5;
+    int anchoPasadaInt=anchoPasada*1;    
+    ui->comboBoxAnchoPasadaMet->setCurrentText(QString::number(anchoPasadaInt)+" Mts");
 }
 void CreateMet::enableOrDisableFootPrintMaskMet(int chec)
 {
@@ -326,10 +338,6 @@ void CreateMet::onCambioComboBoxAmbitoProyectoMet(int text)
     punteroRegistroCreateMet->setPathImageMet(path);
     qDebug()<< path <<"pathitemData(valorAP,Qt::UserRole+1)";
 
-
-
-
-
     DataZoneProject::Ambito nombre = (DataZoneProject::Ambito)ui->comboBoxAmbitoProyectoMet->itemData(valorAP,Qt::UserRole+6).toInt();
     punteroRegistroCreateMet->setAmbitoOperacion(nombre);
     qDebug()<< nombre <<"nombreitemData(valorAP,Qt::UserRole+6)";
@@ -353,6 +361,18 @@ void CreateMet::on_pushButtonDeleteDatesMet_clicked()
     ui->comboBoxTamanoPixelMet->setCurrentIndex(0);
     ui->comboBoxTamanyoCortarMet->setCurrentIndex(0);
     ui->comboBoxCoordinateSystemMet->setCurrentIndex(0);
+}
+
+void CreateMet::comprobarCorreccion(QString dato)
+{
+    //Comprobar el estado de chequeo y comprobar checFolderCnps
+    if(!ui->checkBoxExtraerMet->isChecked())
+        emit cambioEstadoCorreccionMet(0);
+    else {
+        if(comprobarChecFolderMet())
+            emit cambioEstadoCorreccionMet(1);
+        else emit cambioEstadoCorreccionMet(2);
+    }
 }
 
 //Codigo nuevo////////////

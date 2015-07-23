@@ -37,12 +37,16 @@ FORMS    += \
     calendardialog.ui
 
 
+win32:CONFIG(release, debug|release): LIBS += -L../libs -lProyectoTP
+else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lProyectoTPd
+else:unix:!macx: LIBS += -L../libs -lProyectoTP
 
 win32:CONFIG(release, debug|release): LIBS += -L../libs -lCnpMetOrtoTP
 else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lCnpMetOrtoTPd
 else:unix:!macx: LIBS += -L../libs -lCnpMetOrtoTP
 
 DEPENDPATH += ../libs
+
 
 win32:CONFIG(release, debug|release): LIBS += -L../libs -lComponentesTP
 else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lComponentesTPd
@@ -60,9 +64,6 @@ win32:CONFIG(release, debug|release): LIBS += -L../libs -lCoordinatesTP
 else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lCoordinatesTPd
 else:unix:!macx: LIBS += -L../libs -lCoordinatesTP
 
-win32:CONFIG(release, debug|release): LIBS += -L../libs -lProyectoTP
-else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lProyectoTPd
-else:unix:!macx: LIBS += -L../libs -lProyectoTP
 
 RESOURCES += \
     resources.qrc

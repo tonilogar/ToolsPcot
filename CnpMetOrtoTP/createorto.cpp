@@ -16,18 +16,14 @@
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "createorto.h"
 #include "ui_createorto.h"
-#include <QLineEdit>
-#include <QFileDialog>
-#include <QDebug>
 
 CreateOrto::CreateOrto(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateOrto)
 {
     ui->setupUi(this);
-
     punteroRegistroCreateOrto=new RegistroCreateOrto(this);
-
+    punteroRegistroCreateOrto->setWidget(this);
     //Cargamos desde settings
     QSettings settings("tologar","ToolsPCOT",this);
     QString pathOrto=settings.value("variablesOrto").toString();
@@ -51,17 +47,12 @@ CreateOrto::CreateOrto(QWidget *parent) :
             FicheroDatosAmbitoPro lectorOuts(this,pathDefectoFileJson);
             settings.setValue("variablesOrto",pathDefectoFileJson);
             ui->comboBoxAmbitoProyectoOrto->setModel(lectorOuts.obtenerModelo());
-
         }
     }
-
     ui->comboBoxTamanoPixelOrto->addItem("No seleccionado",-1);
     for (double i=0.10; i< 20; i+=0.10){
         ui->comboBoxTamanoPixelOrto->addItem(QString::number(i),i);
     }
-
-
-
     ui->comboBoxCoordinateSystemOrto->addItem("No seleccionado",3);
     ui->comboBoxCoordinateSystemOrto->addItem("Etrs89",0);
     ui->comboBoxCoordinateSystemOrto->addItem("Ed50",1);
@@ -104,11 +95,11 @@ CreateOrto::CreateOrto(QWidget *parent) :
     connect(ui->comboBoxCoordinateSystemOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
     connect(ui->comboBoxSelectSensor,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
     connect(ui->lineEditFolderOutOrto,SIGNAL(textChanged(QString)),this,SLOT(cambioestadoLineEdit(QString)));
+    connect(ui->lineEditFolderOutOrto,SIGNAL(textChanged(QString)),this,SLOT(comprobarCorreccion(QString)));
 
     connect(ui->checkBoxFootPrintMaskOrto,SIGNAL(stateChanged(int)),this,SLOT(cambioestadoCheckBox(int)));
     connect(ui->comboBoxAnchoPasadaOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
     connect(ui->comboBoxOffsetPasadaOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
-
 
     connect(ui->checkBoxCortarOrto,SIGNAL(stateChanged(int)),this,SLOT(cambioestadoCheckBox(int)));
     connect(ui->comboBoxNumeroCanalesspasadaOrto,SIGNAL(currentIndexChanged(int)),this,SLOT(cambioestadoComboBox(int)));
@@ -130,12 +121,45 @@ CreateOrto::CreateOrto(QWidget *parent) :
     //Conectar los check con los Ortoodos de registroCreateOrto para comprobar el estado de selecionado o no seleccionado
     connect(ui->checkBoxCortarOrto,SIGNAL(stateChanged(int)),punteroRegistroCreateOrto,SLOT(setCutDtm(int)));
     connect(ui->checkBoxFootPrintMaskOrto,SIGNAL(stateChanged(int)),punteroRegistroCreateOrto,SLOT(setFootprintMask(int)));
+    connectRegistro();
+}
+void CreateOrto::connectRegistro()
+{
+    ui->lineEditFolderOutOrto->setText(punteroRegistroCreateOrto->getFolderOut());
+    if(punteroRegistroCreateOrto->getFolderOut().isEmpty()) {
+        ui->checkBoxExtraerOrto->setChecked(false);
+    }
+    else ui->checkBoxExtraerOrto->setChecked(true);
+    connect(ui->lineEditFolderOutOrto,SIGNAL(textChanged(QString)),punteroRegistroCreateOrto,SLOT(setFolderOut(QString)));
+    comprobarChecFolderOrto();
 }
 
+void CreateOrto::disconnectRegistro()
+{
+    ui->lineEditFolderOutOrto->disconnect(punteroRegistroCreateOrto);
+}
 CreateOrto::~CreateOrto()
 {
     delete ui;
 }
+bool CreateOrto::comprobarChecFolderOrto()
+{
+
+ qDebug() << folderOut << "Directorio3";
+ if(!folderOut.isNull() && !folderOut.isEmpty())
+ {
+     emit cambioEstadoOrto(true);
+    qDebug() << folderOut << "Directorio4";
+    return true;
+ }
+ else
+ {
+     emit cambioEstadoOrto(false);
+     return false;
+ }
+ return false;
+}
+
 RegistroCreateOrto * CreateOrto::getObjetoRegistroCreateOrto()
 {
     return punteroRegistroCreateOrto;
@@ -184,12 +208,6 @@ void CreateOrto::enableOrDisableExtraerOrto(int chec)
         ui->labelTamanoPixelOrto->setEnabled(1);
         qDebug()<< "seleccionado";
     }
-    //    if(ui->comboBoxAmbitoProyectoOrto->currentIndex()==3)
-    //    {
-    //        qDebug()<< "pepepepeooooooooo";
-    //        ui->comboBoxCoordinateSystemOrto->setDisabled(1);
-    //    }
-
 }
 
 void CreateOrto::activateWidget(bool acti)
@@ -225,12 +243,6 @@ void CreateOrto::calcularOffsetPasada(int offsetPasada)
         double anchoPasada;
         anchoPasada=doubleTamanyPixel*_numberPixelsSensor*1.5;
         int anchoPasadaInt=anchoPasada*1;
-        qDebug()<< punteroRegistroCreateOrto->getSelectSensor() <<"punteroRegistroCreateOrtotttttttttt";
-        qDebug()<<  anchoPasada <<  " anchoPasada";
-        qDebug()<<  _numberPixelsSensor<<  " _numberPixelsSensor";
-        qDebug()<< textoTamanyPixel <<  "text";
-        qDebug()<< doubleTamanyPixel <<  "doubleTamanyPixel";
-        qDebug()<< anchoPasadaInt <<  "anchoPasadaInt";
         ui->comboBoxAnchoPasadaOrto->setCurrentText(QString::number(anchoPasadaInt)+" Mts");
 }
 void CreateOrto::enableOrDisableFootPrintMaskOrto(int chec)
@@ -326,10 +338,6 @@ void CreateOrto::onCambioComboBoxAmbitoProyectoOrto(int text)
     punteroRegistroCreateOrto->setPathImageOrto(path);
     qDebug()<< path <<"pathitemData(valorAP,Qt::UserRole+1)";
 
-
-
-
-
     DataZoneProject::Ambito nombre = (DataZoneProject::Ambito)ui->comboBoxAmbitoProyectoOrto->itemData(valorAP,Qt::UserRole+6).toInt();
     punteroRegistroCreateOrto->setAmbitoOperacion(nombre);
     qDebug()<< nombre <<"nombreitemData(valorAP,Qt::UserRole+6)";
@@ -353,6 +361,18 @@ void CreateOrto::on_pushButtonDeleteDatesOrto_clicked()
     ui->comboBoxTamanoPixelOrto->setCurrentIndex(0);
     ui->comboBoxTamanyoCortarOrto->setCurrentIndex(0);
     ui->comboBoxCoordinateSystemOrto->setCurrentIndex(0);
+}
+
+void CreateOrto::comprobarCorreccion(QString dato)
+{
+    //Comprobar el estado de chequeo y comprobar checFolderCnps
+    if(!ui->checkBoxExtraerOrto->isChecked())
+        emit cambioEstadoCorreccionOrto(0);
+    else {
+        if(comprobarChecFolderOrto())
+            emit cambioEstadoCorreccionOrto(1);
+        else emit cambioEstadoCorreccionOrto(2);
+    }
 }
 
 //Codigo nuevo////////////

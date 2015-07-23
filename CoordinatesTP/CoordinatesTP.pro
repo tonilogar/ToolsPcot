@@ -7,11 +7,11 @@
 QT       += widgets
 win32:CONFIG(release,debug|release){
 TARGET = CoordinatesTP
-LIBS += -L../libs -lOpePcot
+LIBS += -L../libs -lOpePcot -lProyectoTP
 }
 else:win32:CONFIG(debug,debug|release) {
 TARGET = CoordinatesTPd
-LIBS += -L../libs -lOpePcotd
+LIBS += -L../libs -lOpePcotd -lProyectoTPd
 }
 TEMPLATE = lib
 
@@ -26,7 +26,8 @@ SOURCES += \
     readercoordinates.cpp \
     readercoordinatesbasico.cpp \   
     tableviewcoordinates.cpp \
-    dialoghelpfilecoordinates.cpp
+    dialoghelpfilecoordinates.cpp \
+    sectioncoordinates.cpp
 
 HEADERS +=\
         coordinatestp_global.h \
@@ -34,7 +35,8 @@ HEADERS +=\
     readercoordinates.h \
     readercoordinatesbasico.h \
     tableviewcoordinates.h \
-    dialoghelpfilecoordinates.h
+    dialoghelpfilecoordinates.h \
+    sectioncoordinates.h
 
 unix:!symbian {
     maemo5 {

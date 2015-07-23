@@ -2,8 +2,11 @@
 #define CREATECNPS_H
 #include "cnpmetortotp_global.h"
 #include <QWidget>
-#include "registrocreatecnps.h"
 #include <QFileDialog>
+#include "registrocreatecnps.h"
+
+class RegistroCreateCnps;
+
 namespace Ui {
     class CreateCnps;
 }
@@ -19,7 +22,8 @@ public:
     ~CreateCnps();
     RegistroCreateCnps * getObjetoRegistroCreateCnps();   
     bool comprobarChecFolderCnps();
-    //void createCnp();
+    void disconnectRegistro();
+    void connectRegistro();
 
 signals:
 

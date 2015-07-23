@@ -11,6 +11,7 @@
 #include <QWidget>
 #include  "dialoghelpfilecoordinates.h"
 #include  "readercoordinatesbasico.h"
+#include "sectioncoordinates.h"
 /*!
  * @class TableViewCoordinates
  * @brief Interface grafica per mostra el fitxer de coordenades.
@@ -32,6 +33,8 @@ public:
     ~TableViewCoordinates();
 
     ModeloCoordenadas *getModeloCoordenadas();
+    SectionCoordinates *getSectionCoordinates();
+
 signals:
     /*!
     * TableView ple.
@@ -48,7 +51,7 @@ private:
     QString _pathFileCoordinates;                       ///< Nom del fitxer de coordenades.
     bool _filledCoordenadas;                            ///< Estat ple o buit.
     ModeloCoordenadas *_modelo;                         ///< Nom del model de punter modeloCoordenades.
-
+    SectionCoordinates *_sCoordinates;
 };
 
 #endif // TABLEVIEWCOORDINATES_H

@@ -16,6 +16,8 @@ NewProjectDialog::NewProjectDialog(QWidget *parent) :
     ui->lineEditFolderProject->setText(dirProyecto);
     ui->dateEditDateFlight->setDisplayFormat("dd/MM/yyyy");
     ui->dateEditDateFlight->setDate(QDate::currentDate());
+
+    _aProyecto=0;
 }
 
 NewProjectDialog::~NewProjectDialog()
@@ -53,39 +55,41 @@ void NewProjectDialog::cambiarFechaFichero(QDate fecha)
 void NewProjectDialog::cambiarFolderProject()
 {
     QString newFolderProject=QFileDialog::getExistingDirectory(this,tr("select folder project"),ui->lineEditFolderProject->text());
-if(newFolderProject.isEmpty())
-{
-    return;
-}
-ui->lineEditFolderProject->setText(newFolderProject);
+    if(newFolderProject.isEmpty())
+    {
+        return;
+    }
+    ui->lineEditFolderProject->setText(newFolderProject);
 }
 
 void NewProjectDialog::crearArchivoProyecto()
 {
-
-if(!checkDates())
-{
+    if(!checkDates())
+    {
         QMessageBox::warning(this,tr("ToolsPCot - New projecto"),tr("write de name of project"));
         return;
-}
+    }
 
     QString dirProyecto=ui->lineEditFolderProject->text();
     //Casos de la direccion en windows o linux barras inclinadas
 
     QFileInfo archivo;
     archivo.setFile(QDir(dirProyecto),ui->lineEditProjectFile->text());
-    _aProyecto=new ArchivoProyecto();
-    _aProyecto->setnameFileProyect(archivo.filePath());
-    _aProyecto->build(ui->lineEditProject->text(), ui->textEditDescription->toPlainText(), ui->lineEditAutor->text(),
-                     ui->dateEditDateFlight->date());
+
+    _aProyecto=new ArchivoProyecto(0,archivo.filePath());
+    _aProyecto->setnameProyect(ui->lineEditProject->text());
+    _aProyecto->setdescriptionProyecte(ui->textEditDescription->toPlainText());
+    _aProyecto->setautorProyect(ui->lineEditAutor->text());
+    _aProyecto->setdateflight(ui->dateEditDateFlight->date());
+
 }
 bool NewProjectDialog::checkDates()
 {
- if(ui->lineEditProject->text().isEmpty() || ui->lineEditProject->text().isNull() )
- {
- return false;
- }
- return true;
+    if(ui->lineEditProject->text().isEmpty() || ui->lineEditProject->text().isNull() )
+    {
+        return false;
+    }
+    return true;
 }
 
 ArchivoProyecto * NewProjectDialog::getArchivoProyecto()

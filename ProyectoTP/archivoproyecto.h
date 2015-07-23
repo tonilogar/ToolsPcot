@@ -11,10 +11,10 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QJsonValue>
+#include <QList>
 
 //Secciones
 #include "aprotpsection.h"
-#include "aprocnpmetortosection.h"
 
 class PROYECTOTPSHARED_EXPORT ArchivoProyecto:public QObject
 {
@@ -31,8 +31,24 @@ public:
     QDate   getdateflight();
     virtual QString getnumberVersion();
     bool exist();
+    bool estaActualizado() const {
+        return _estadoProyecto;
+    }
+
     virtual bool build(QString nameProyect,QString descriptionProyecte, QString autorProyect, QDate dateFlight);
+    virtual bool build();
     virtual bool read(QString pathProyectFile);
+    virtual bool save();
+    virtual bool saveAs();
+
+
+    void addSection(AProTPSection *section);
+    void removeSection(AProTPSection *section);
+    QList<AProTPSection*> getListaSections();
+
+signals:
+
+    void cambioActualizado(bool estado);
 
 
 public slots:
@@ -45,6 +61,14 @@ public slots:
     void setdateflight(QDate dateFlight);
 
 
+protected slots:
+
+    /*!
+      Alguna de las secciones ha aceptado cambios en su estado
+      */
+
+    void sectionHasChanged(bool estado);
+
 
 protected:
     QString _nameFileProyect;
@@ -54,9 +78,11 @@ protected:
     QDate _dateAcces;
     QDate _dateCreate;
     QDate _dateFlight;
-    AProCnpMetOrtoSection *_seccionCnpMetOrto;
-    //Lista de punteros AProCnpMetOrtoSection.
 
+
+    bool _estadoProyecto;   ///< True: el proyecto esta actualizado, false: el proyecto ha cambiado
+    //Lista de secciones
+    QList<AProTPSection*> _listaSecciones;
 };
 
 

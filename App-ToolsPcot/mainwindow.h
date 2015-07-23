@@ -39,6 +39,9 @@ private slots:
     void lanzarDialogoPreferencias();
     void mostrarDialogoProgreso();
     void nuevoProyecto();
+    void cambiosEnProyecto(bool estado);
+    void abrirProyecto();
+    void guardarProyecto();
 
 private:
     Ui::MainWindow *ui;
@@ -50,8 +53,9 @@ private:
     QSignalMapper *mapeadorVistas;
     LanzadorOperaciones *_lanzadorOpe;
     RegistroCreateMet  ObjetoRegistroCreateMet;
+    RegistroCreateOrto  ObjetoRegistroCreateOrto;
     DialogProgresoOpe *_dialogoProgreso;
-    ArchivoProyecto *_aProyecto;
+    ArchivoProyecto *_archivoProyecto;
 };
 
 #endif // MAINWINDOW_H

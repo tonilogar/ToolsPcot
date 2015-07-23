@@ -103,11 +103,7 @@ QStandardItemModel*  FicheroDatosAmbitoPro::obtenerModelo()
     }
     return modelo;
 }
-
-
-
-
-QJsonObject FicheroDatosAmbitoPro::CreateJsonMetDefecto()
+void FicheroDatosAmbitoPro::CreateJsonMetDefecto()
 {
     //  QString directorioExe;
     //  directorioExe=qApp->applicationDirPath();
@@ -189,7 +185,7 @@ QJsonObject FicheroDatosAmbitoPro::CreateJsonMetDefecto()
     value.setDevice(&documentoTexto);
     value << documento.toJson();
 }
-QJsonObject FicheroDatosAmbitoPro::CreateJsonOrtoDefecto()
+void FicheroDatosAmbitoPro::CreateJsonOrtoDefecto()
 {
     //  QString directorioExe;
     //  directorioExe=qApp->applicationDirPath();

@@ -120,7 +120,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->page1Cnp,SIGNAL(cambioEstadoCorreccionCnps(int)),ui->pushButtonOptionsCnp,SLOT(setEstadoBoton(int)));
 
 
- //Preparar botones de cambio de opciones orto
+    //Preparar botones de cambio de opciones orto
     ui->pushButtonOptionsOrto->addEstado(0,new QIcon()); //No seleccionado
     ui->pushButtonOptionsOrto->addEstado(1,new QIcon(":/imagenes/correcto"));   //Correcto
     ui->pushButtonOptionsOrto->addEstado(2,new QIcon(":/imagenes/parcialmenteCorrecto"));       // Parcialmente correcto
@@ -130,7 +130,7 @@ MainWindow::MainWindow(QWidget *parent) :
     //Conectar
     connect(ui->page3Orto,SIGNAL(cambioEstadoCorreccionOrto(int)),ui->pushButtonOptionsOrto,SLOT(setEstadoBoton(int)));
 
- //Preparar botones de cambio de opciones Met
+    //Preparar botones de cambio de opciones Met
     ui->pushButtonOptionsMet->addEstado(0,new QIcon()); //No seleccionado
     ui->pushButtonOptionsMet->addEstado(1,new QIcon(":/imagenes/correcto"));   //Correcto
     ui->pushButtonOptionsMet->addEstado(2,new QIcon(":/imagenes/parcialmenteCorrecto"));       // Parcialmente correcto
@@ -139,7 +139,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     //Conectar
     connect(ui->page2Met,SIGNAL(cambioEstadoCorreccionMet(int)),ui->pushButtonOptionsMet,SLOT(setEstadoBoton(int)));
-//Inicializar lanzador de operaciones.
+    //Inicializar lanzador de operaciones.
 
     _lanzadorOpe=new LanzadorOperaciones(this,ui->page1Cnp->getObjetoRegistroCreateCnps(),ui->page2Met->getObjetoRegistroCreateMet(),
                                          ui->page3Orto->getObjetoRegistroCreateOrto(),ui->widgetCoordinates);
@@ -150,6 +150,13 @@ MainWindow::MainWindow(QWidget *parent) :
     _dialogoProgreso->conectToControlOrto(_lanzadorOpe->getControlOrto());
     connect(_lanzadorOpe,SIGNAL(inicioOperaciones()),_dialogoProgreso,SLOT(exec()));
     connect(ui->actionNew_project,SIGNAL(triggered()),this,SLOT(nuevoProyecto()));
+    connect(ui->actionOpen_project,SIGNAL(triggered()),this,SLOT(abrirProyecto()));
+    connect(ui->actionSave_project,SIGNAL(triggered()),this,SLOT(guardarProyecto()));
+
+    //Crear el archivo de proyecto por defecto
+    //ESTO ES TEMPORAL HASTA QUE CONSTRUYAMOS MEJOR EL MECANISMO DE CARGA DE PROYECTOS
+    _archivoProyecto=0;
+    //Resto de secciones conforme se preparen
 }
 
 MainWindow::~MainWindow()
@@ -157,36 +164,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//void MainWindow::setEstadoCnps(bool estado)
-//{
-//  _estadoCreateCnps=estado;
-//  qDebug()<< estado << "estado mainwindow";
-//}
-//void MainWindow::setEstadoMets(bool estado)
-//{
-//  _estadoCreateMets=estado;
-//}
-//void MainWindow::setEstadoOrtos(bool estado)
-//{
-//  _estadoCreateOrtos=estado;
-//}
 
-/*void MainWindow::evaluacionCnpsMetsOrtos()
-{
-
-    if(_estadoCreateCnps || _estadoCreateMets || _estadoCreateOrtos)
-    {
-         //armButton.setEnabled(bool);
-        ui->pushButtonEmpezarOperacionesMetOrto->setEnabled(true);
-         qDebug()<< "cambioEstado true Mainwindows cnpsMetsOrtos";
-    }
-    else
-    {
-        ui->pushButtonEmpezarOperacionesMetOrto->setEnabled(false);
-        qDebug()<< "cambioEstado false Mainwindows cnpsMetsOrtos";
-    }
-
-}*/
 
 void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
 {
@@ -231,9 +209,9 @@ void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
         return;
 
     }
-   _lanzadorOpe->setCnpActivo(false);
-   _lanzadorOpe->setMetActivo(false);
-   _lanzadorOpe->setOrtoActivo(false);
+    _lanzadorOpe->setCnpActivo(false);
+    _lanzadorOpe->setMetActivo(false);
+    _lanzadorOpe->setOrtoActivo(false);
     //si llegamos a este linea cambiamos las variables boleanas necesarias
     qDebug()<< "Todos los datos son correctos, Comenzar operaciones cnp met orto";
 
@@ -241,45 +219,45 @@ void MainWindow::on_pushButtonEmpezarOperacionesMetOrto_clicked()
     if((ui->pushButtonOptionsCnp->getEstadoBoton()==1))
     {
         iconoCnp==true;
-     _lanzadorOpe->setCnpActivo(true);
-     qDebug()<< "Creando cnps";
+        _lanzadorOpe->setCnpActivo(true);
+        qDebug()<< "Creando cnps";
     }
     //Si el icono met es verde cambiamos el la variable a true y empezamos los procesos
     if((ui->pushButtonOptionsMet->getEstadoBoton()==1))
     {
 
         iconoMet==true;
-      _lanzadorOpe->setMetActivo(true);
-qDebug()<< "Creando met";
+        _lanzadorOpe->setMetActivo(true);
+        qDebug()<< "Creando met";
     }
     //Si el icono orto es verde cambiamos el la variable a true y empezamos los procesos
     if((ui->pushButtonOptionsOrto->getEstadoBoton()==1))
     {
-      iconoOrto==true;
-       _lanzadorOpe->setOrtoActivo(true);
-      qDebug()<< "Creando orto";
+        iconoOrto==true;
+        _lanzadorOpe->setOrtoActivo(true);
+        qDebug()<< "Creando orto";
     }
     _dialogoProgreso->resetDialog();
-   _lanzadorOpe->launch();
-   _dialogoProgreso->exec();
+    _lanzadorOpe->launch();
+    _dialogoProgreso->exec();
 }
 
 void MainWindow::on_pushButton_clicked()
 {
 
     //prueba clase registrocreateMet
-  qDebug()<< "pepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepe";
-  RegistroCreateMet *punteroRCMet;
-  RegistroCreateOrto *punteroRCOrto;
-  punteroRCMet=ui->page2Met->getObjetoRegistroCreateMet();
-  qDebug()<< punteroRCMet->getAmbitoOperacion() <<"getAmbitoOperacion";
-  qDebug()<< punteroRCMet->getAnchoPasada() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getCutDtm() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getFolderOut() <<"getAmbitoProyectoMetmetmet";
-  qDebug()<< punteroRCOrto->getFolderOut() <<"getAmbitoProyectoOrto";
-  qDebug()<< punteroRCMet->getFootPrintMask() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getNumeroCanales() <<"getAmbitoProyectoMet";
-  qDebug()<< punteroRCMet->getOffsetPasada() <<"getAmbitoProyectoMet";
+    qDebug()<< "pepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepepe";
+    RegistroCreateMet *punteroRCMet;
+    RegistroCreateOrto *punteroRCOrto;
+    punteroRCMet=ui->page2Met->getObjetoRegistroCreateMet();
+    qDebug()<< punteroRCMet->getAmbitoOperacion() <<"getAmbitoOperacion";
+    qDebug()<< punteroRCMet->getAnchoPasada() <<"getAmbitoProyectoMet";
+    qDebug()<< punteroRCMet->getCutDtm() <<"getAmbitoProyectoMet";
+    qDebug()<< punteroRCMet->getFolderOut() <<"getAmbitoProyectoMetmetmet";
+    qDebug()<< punteroRCOrto->getFolderOut() <<"getAmbitoProyectoOrto";
+    qDebug()<< punteroRCMet->getFootPrintMask() <<"getAmbitoProyectoMet";
+    qDebug()<< punteroRCMet->getNumeroCanales() <<"getAmbitoProyectoMet";
+    qDebug()<< punteroRCMet->getOffsetPasada() <<"getAmbitoProyectoMet";
 
 }
 
@@ -296,9 +274,74 @@ void MainWindow::mostrarDialogoProgreso()
 }
 void MainWindow::nuevoProyecto()
 {
-NewProjectDialog welcome;
-welcome.exec();
-_aProyecto=welcome.getArchivoProyecto();
+    NewProjectDialog welcome;
+    welcome.exec();
 
-this->setWindowTitle("ToolsPcot - "+_aProyecto->getnameProyect());
+    ArchivoProyecto *nuevoArchivo=welcome.getArchivoProyecto();
+    QList<AProTPSection*> listaSecciones;
+    if(_archivoProyecto)
+        listaSecciones=_archivoProyecto->getListaSections();
+    else {       
+        listaSecciones.append(ui->page1Cnp->getObjetoRegistroCreateCnps());
+        listaSecciones.append(ui->page2Met->getObjetoRegistroCreateMet());
+        listaSecciones.append(ui->page3Orto->getObjetoRegistroCreateOrto());
+        listaSecciones.append(ui->widgetCoordinates->getSectionCoordinates());
+    }
+
+    if(nuevoArchivo) {
+        foreach(AProTPSection *section,listaSecciones) {
+            section->resetSection();
+            if(_archivoProyecto)
+                _archivoProyecto->removeSection(section);
+            nuevoArchivo->addSection(section);
+        }
+        if(_archivoProyecto)
+        {this->disconnect(_archivoProyecto);
+            delete _archivoProyecto;
+            }
+        _archivoProyecto=nuevoArchivo;       
+        connect(_archivoProyecto,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
+        _archivoProyecto->build();
+    }
+}
+void MainWindow::guardarProyecto()
+{
+ if(_archivoProyecto)
+ {
+     _archivoProyecto->save();
+ }
+}
+
+void MainWindow::abrirProyecto()
+{
+ QString archivoProyecto=QFileDialog::getOpenFileName(this,"select file project");
+ if(archivoProyecto.isNull() || archivoProyecto.isEmpty())
+ {
+     return;
+ }
+ if (_archivoProyecto)
+ {
+     _archivoProyecto->read(archivoProyecto);
+ }
+ else
+ {
+     _archivoProyecto=new ArchivoProyecto(this);
+     _archivoProyecto->addSection(ui->page1Cnp->getObjetoRegistroCreateCnps());
+      _archivoProyecto->addSection(ui->page2Met->getObjetoRegistroCreateMet());
+      _archivoProyecto->addSection(ui->page3Orto->getObjetoRegistroCreateOrto());
+     _archivoProyecto->addSection(ui->widgetCoordinates->getSectionCoordinates());
+     connect(_archivoProyecto,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
+     _archivoProyecto->read(archivoProyecto);
+ }
+
+}
+
+void MainWindow::cambiosEnProyecto(bool estado)
+{
+if(!estado)
+{
+    this->setWindowTitle(_archivoProyecto->getnameProyect()+tr("*")+tr(" - ToolsPcot"));
+}
+else
+    this->setWindowTitle(_archivoProyecto->getnameProyect()+tr(" - ToolsPcot"));
 }

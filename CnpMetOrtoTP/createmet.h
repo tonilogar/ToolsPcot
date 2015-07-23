@@ -3,15 +3,18 @@
 #include "cnpmetortotp_global.h"
 #include <QWidget>
 #include <QSettings>
-#include "registrocreatemet.h"
 #include "ficherodatosambitopro.h"
 #include <OpePcot/datazoneproject.h>
 #include <QMessageBox>
-
+#include <QLineEdit>
+#include <QFileDialog>
+#include <QDebug>
+#include <QDateTime>
+#include "registrocreatemet.h"
+class RegistroCreateMet;
 namespace Ui {
     class CreateMet;
 }
-
 //Posibles estados de correccion
 // 0 - no seleccionado, 1 - correcto, 2 - parcialmente correcto
 class CNPMETORTOTPSHARED_EXPORT CreateMet : public QWidget
@@ -23,6 +26,9 @@ public:
     explicit CreateMet(QWidget *parent = 0);
     ~CreateMet();
     RegistroCreateMet * getObjetoRegistroCreateMet();
+    bool comprobarChecFolderMet();
+    void disconnectRegistro();
+    void connectRegistro();
 
 signals:
    void cambioEstadoMet(bool state);
@@ -33,6 +39,7 @@ public slots:
     void onCambioComboBoxAmbitoProyectoMet(int text);
     void calcularOffsetPasada(int offsetPasada);
     void enableOrDisableExtraerMet(int chec);
+    void comprobarCorreccion(QString dato);
     void enableOrDisableFootPrintMaskMet(int chec);
     void enableOrDisableCortarMet(int chec);
     //Codigo nuevo

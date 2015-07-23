@@ -7,8 +7,11 @@
 #include <QJsonValue>
 #include <QJsonObject>
 #include <OpePcot/datazoneproject.h>
+#include <ProyectoTP/aprotpsection.h>
+#include <CnpMetOrtoTP/createmet.h>
+class CreateMet;
 
-class CNPMETORTOTPSHARED_EXPORT RegistroCreateMet : public QObject
+class CNPMETORTOTPSHARED_EXPORT RegistroCreateMet : public AProTPSection
 {
     Q_OBJECT
 public:
@@ -16,13 +19,22 @@ public:
      * Constructor explicit per defecte, necesita un punter nul.
      */
     explicit RegistroCreateMet(QObject *parent = 0);
-
+    /*!
+     * Constructor explicit per defecte, necesita un punter nul.
+     *
+     */
     RegistroCreateMet(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
                       DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                       QString pathImageMet,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
                       QString exeExtraction,QString exeResize,QString utmDefecto, QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
 
+    void setWidget(CreateMet *widget);
+
     //Getter
+    /*!
+      Devuelve si la seccion esta o no activada
+      */
+    bool getMetEnabled() const;
     /*!
      * Mostrar el valors del directori de sortida.
      */
@@ -107,6 +119,14 @@ public:
      * Mostrar valor de l'executable.
      */
     QMap<QString, QString> getMapExe();
+
+    //Metodos de interfaz AProTPSection
+
+    virtual QString getNombreSection() const;
+    virtual bool processSection(QJsonObject archivo);
+    virtual QJsonObject writeSection();
+    virtual void resetSection();
+
 public slots:
     //setters
     /*!
@@ -205,6 +225,7 @@ public slots:
      */
     void setListaEjecutables(QJsonArray listaEjecutables);
 
+    void setMetEnabled(bool enabled);
 
 signals:
 
@@ -230,6 +251,8 @@ private:
     QString _exeResize;           ///< Valor path Resize.
     QString _utmDefecto;          ///< Valor utm per defecte .
     QJsonArray _listaEjecutables; ///< Llistat de executables .
+    bool _metEnabled;  ///< Seccion CNPS activada
+    CreateMet *_widgetMet;    ///< Widget grafico asociado
 
 };
 

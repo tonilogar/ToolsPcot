@@ -19,16 +19,32 @@
 #include "ui_createcnps.h"
 #include <QDebug>
 #include <QDateTime>
+
+
 CreateCnps::CreateCnps(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::CreateCnps)
 {
     ui->setupUi(this);
     punteroRegistroCreateCnps=new RegistroCreateCnps(this);
+    punteroRegistroCreateCnps->setWidget(this);
  connect(ui->checkBoxCreaCnps,SIGNAL(stateChanged(int)),this,SLOT(enableOrDisableCreateCnp(int)));
  connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),this,SLOT(comprobarCorreccion(QString)));
- connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),punteroRegistroCreateCnps,SLOT(setFolderOut(QString)));
+ connectRegistro();
+}
 
+void CreateCnps::connectRegistro()
+{
+    ui->lineEditFolderOutCnps->setText(punteroRegistroCreateCnps->getFolderOut());
+    folderOut=punteroRegistroCreateCnps->getFolderOut();
+    connect(ui->lineEditFolderOutCnps,SIGNAL(textChanged(QString)),punteroRegistroCreateCnps,SLOT(setFolderOut(QString)));
+    ui->checkBoxCreaCnps->setChecked(punteroRegistroCreateCnps->getCnpsEnabled());
+
+}
+
+void CreateCnps::disconnectRegistro()
+{
+    ui->lineEditFolderOutCnps->disconnect(punteroRegistroCreateCnps);
 }
 
 CreateCnps::~CreateCnps()
@@ -63,6 +79,7 @@ void CreateCnps::enableOrDisableCreateCnp (int chec)
 
      comprobarChecFolderCnps();
      emit cambioEstadoCorreccionCnps(0);    ///Estado no seleccionado
+     punteroRegistroCreateCnps->setCnpsEnabled(false);
     }
     if (chec==2)
     {
@@ -72,6 +89,7 @@ void CreateCnps::enableOrDisableCreateCnp (int chec)
         if(comprobarChecFolderCnps())
             emit cambioEstadoCorreccionCnps(1);
         else emit cambioEstadoCorreccionCnps(2);
+        punteroRegistroCreateCnps->setCnpsEnabled(true);
     }
     qDebug()<< chec <<"chec";
 }
@@ -101,13 +119,10 @@ void CreateCnps::activateWidget(bool acti)
     else
     {
         ui->checkBoxCreaCnps->setEnabled(false);
-        ui->checkBoxCreaCnps->setChecked(false);
+        //ui->checkBoxCreaCnps->setChecked(false);
         ui->pushButtonDeleteDatesCnps->setEnabled(false);
     }
 }
-
-
-
 void CreateCnps::on_pushButtonDeleteDatesCnps_clicked()
 {
     folderOut=QString();
