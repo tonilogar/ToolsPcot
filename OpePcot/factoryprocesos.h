@@ -12,16 +12,16 @@
 #include "procesoextraction.h"
 #include "procesogeotrans.h"
 /*!
- * @class ListaProcesos
+ * @class FactoryProcesos
  * Crea el listado de de punteros de objetos proceso, según los datos del objeto DataZoneProject.
  */
-class  OPERACIONPCOTSHARED_EXPORT ListaProcesos : public QObject
+class  OPERACIONPCOTSHARED_EXPORT FactoryProcesos : public QObject
 {
     Q_OBJECT
 public:
-    explicit ListaProcesos(QObject *parent,  QMap <QString, QString> qMapEjecutables);
-    QList <Proceso *> getListaProcesosMet(DataZoneProject *dataZoPro);
-    QList <Proceso *> getListaProcesosOrto(DataZoneProject *dataZoPro);
+    explicit FactoryProcesos(QObject *parent,  QMap <QString, QString> qMapEjecutables);
+    QList <Proceso *> buildListaProcesosMet(DataZoneProject *dataZoPro);
+    QList <Proceso *> buildListaProcesosOrto(DataZoneProject *dataZoPro);
 
 
 signals:

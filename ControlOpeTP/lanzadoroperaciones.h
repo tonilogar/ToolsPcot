@@ -34,7 +34,7 @@
 #include <OpePcot/worker.h>
 #include <OpePcot/workermet.h>
 #include <OpePcot/workerorto.h>
-#include <OpePcot/listaprocesos.h>
+#include <OpePcot/factoryprocesos.h>
 #include <QFileInfo>
 #include <QFile>
 #include "controlworker.h"

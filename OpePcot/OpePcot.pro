@@ -34,7 +34,7 @@ SOURCES += \
     cortemet.cpp \
     operacionorto.cpp \
     workerorto.cpp \
-    listaprocesos.cpp
+    factoryprocesos.cpp
 
 HEADERS +=\
         operacionpcot_global.h \
@@ -59,7 +59,7 @@ HEADERS +=\
     cortemet.h \
     operacionorto.h \
     workerorto.h \
-    listaprocesos.h
+    factoryprocesos.h
 
 unix:!symbian {
     maemo5 {

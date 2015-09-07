@@ -142,10 +142,9 @@ void LanzadorOperaciones::launch()
             _registroMet->buildDataZoneProject(_dataZoneMet);
             QMap <QString, QString> _qMapEjecutables;
             _qMapEjecutables=_registroMet->getMapExe();
-            ListaProcesos *_listPro;
-            _listPro=new ListaProcesos(this,_qMapEjecutables);
+            FactoryProcesos *_factoryPro=new FactoryProcesos(this,_qMapEjecutables);
             QList <Proceso *> listaProcesoMet;
-            listaProcesoMet= _listPro->getListaProcesosMet(_dataZoneMet);
+            listaProcesoMet= _factoryPro->buildListaProcesosMet(_dataZoneMet);
             if(_WMet!=0)
             {
                 delete _WMet;
@@ -162,10 +161,9 @@ void LanzadorOperaciones::launch()
             _registroOrto->buildDataZoneProject(_dataZoneOrto);
             QMap <QString, QString> _qMapEjecutables;
             _qMapEjecutables=_registroOrto->getMapExe();
-            ListaProcesos *_listPro;
-            _listPro=new ListaProcesos(this,_qMapEjecutables);
+            FactoryProcesos *_factoryPro=new FactoryProcesos(this,_qMapEjecutables);
             QList <Proceso *> listaProcesoOrto;
-            listaProcesoOrto= _listPro->getListaProcesosOrto(_dataZoneOrto);
+            listaProcesoOrto= _factoryPro->buildListaProcesosOrto(_dataZoneOrto);
             if(_WOrto!=0)
             {
                 delete _WOrto;

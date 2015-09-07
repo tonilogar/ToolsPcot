@@ -1,11 +1,11 @@
-#include "listaprocesos.h"
+#include "factoryprocesos.h"
 
-ListaProcesos::ListaProcesos(QObject *parent, QMap <QString, QString> qMapEjecutables) :
+FactoryProcesos::FactoryProcesos(QObject *parent, QMap <QString, QString> qMapEjecutables) :
     QObject(parent)
 {
     _qMapEjecutables=qMapEjecutables;
 }
-QList <Proceso *> ListaProcesos::getListaProcesosMet(DataZoneProject *dataZoPro)
+QList <Proceso *> FactoryProcesos::buildListaProcesosMet(DataZoneProject *dataZoPro)
 {
     QList <Proceso *> listaProcesos;
     if(dataZoPro->getCoordinateSystem()==DataZoneProject::Etrs89)
@@ -72,7 +72,7 @@ QList <Proceso *> ListaProcesos::getListaProcesosMet(DataZoneProject *dataZoPro)
     return listaProcesos;
 }
 
-QList <Proceso *> ListaProcesos::getListaProcesosOrto(DataZoneProject *dataZoPro)
+QList <Proceso *> FactoryProcesos::buildListaProcesosOrto(DataZoneProject *dataZoPro)
 {
     QList <Proceso *> listaProcesos;
     if(dataZoPro->getCoordinateSystem()==DataZoneProject::Ed50)
