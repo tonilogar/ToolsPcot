@@ -21,10 +21,7 @@ public:
     explicit NewProjectDialog(QWidget *parent = 0);
     ~NewProjectDialog();
     bool checkDates();
-    ArchivoProyecto *getArchivoProyecto() {
-        return _aProyecto;
-    }
-
+    ArchivoProyecto *getArchivoProyecto();
 private slots:
     void generarNombreFicheroProyecto(QString valor);
     void lanzarCalendario();
