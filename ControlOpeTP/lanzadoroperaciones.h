@@ -13,7 +13,6 @@
 #include <CnpMetOrtoTP/registrocreatecnps.h>
 #include <CnpMetOrtoTP/registrocreatemet.h>
 #include <CnpMetOrtoTP/registrocreateorto.h>
-#include <CoordinatesTP/tableviewcoordinates.h>
 #include <QProgressDialog>
 #include <QTextStream>
 #include <QApplication>
@@ -46,8 +45,8 @@ public:
      * Constructor explicit per defecte, necesita un punter nul,tres punters de RegistroCreateCnps,RegistroCreateMet, RegistroCreateOrto
      *i TableViewCoordinates.
      */
-    explicit LanzadorOperaciones(QObject *parent = 0, RegistroCreateCnps *_regCnp=0,RegistroCreateMet  *_regMet=0,
-                                 RegistroCreateOrto *_regOrto=0,TableViewCoordinates *_tableCoor=0);
+    explicit LanzadorOperaciones(QObject *parent = 0, RegistroCreateCnps *_regCnp=0, RegistroCreateMet  *_regMet=0,
+                                 RegistroCreateOrto *_regOrto=0, ModeloCoordenadas *_modeloCoor=0);
     /*!
      * Mostra el valor del boolea del proces cnp.
      */
@@ -90,7 +89,7 @@ signals:
   * Canvia el valor del objecte TableViewCoordinates.
   * @param Nou valor del objecte TableViewCoordinates.
   */
- void setObjetotableCoordinates(TableViewCoordinates *_tableCoor);
+ void setObjetoModeloCoordenadas(ModeloCoordenadas *_mCoor);
  /*!
   * Canvia el valor del boolea del proces cnp.
   * @param Nou valor del boolea del proces cnp.
@@ -112,7 +111,7 @@ private:
  RegistroCreateCnps *_registroCnp;  ///< Valor del objecte RegistroCreateCnps.
  RegistroCreateMet  *_registroMet;  ///< Valor del objecte RegistroCreateMet.
  RegistroCreateOrto *_registroOrto; ///< Valor del objecte RegistroCreateOrto.
- TableViewCoordinates *_tableCoordinates; ///< Valor del objecte TableViewCoordinates.
+ ModeloCoordenadas *_modeloCoordenadas; ///< Valor del objecte TableViewCoordinates.
  DataZoneProject *_dataZoneCnp; ///< Valor del objecte DataZoneProject cnp.
  DataZoneProject *_dataZoneMet; ///< Valor del objecte DataZoneProject met.
  DataZoneProject *_dataZoneOrto; ///< Valor del objecte DataZoneProject orto.

@@ -16,14 +16,14 @@
 #include "lanzadoroperaciones.h"
 #include <QDateTime>
 
-LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_regCnp,RegistroCreateMet  *_regMet,
-                                         RegistroCreateOrto *_regOrto,TableViewCoordinates *_tableCoor ) :
+LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_regCnp, RegistroCreateMet  *_regMet,
+                                         RegistroCreateOrto *_regOrto, ModeloCoordenadas *_modeloCoor ) :
     QObject(parent)
 {
     _registroCnp=_regCnp;
     _registroMet=_regMet;
     _registroOrto=_regOrto;
-    _tableCoordinates=_tableCoor;
+    _modeloCoordenadas=_modeloCoor;
     _cnpActivo=false;
     _metActivo=false;
     _ortoActivo=false;
@@ -51,9 +51,9 @@ void LanzadorOperaciones::setObjetoRegistroOrto(RegistroCreateOrto *_regOrto)
 {
     _registroOrto=_regOrto;
 }
-void LanzadorOperaciones::setObjetotableCoordinates(TableViewCoordinates *_tableCoor)
+void LanzadorOperaciones::setObjetoModeloCoordenadas(ModeloCoordenadas *_mCoor)
 {
-    _tableCoordinates=_tableCoor;
+    _modeloCoordenadas=_mCoor;
 }
 void LanzadorOperaciones::createListadoOperacionCnp()
 {    
@@ -201,16 +201,15 @@ void LanzadorOperaciones::borrarListadoOperacion(QList<Operacion *> &lista)
 void LanzadorOperaciones::crearListaIdentificadores()
 {
     IdentificadorCoordenadas *ide=0;
-    ModeloCoordenadas *modelo=_tableCoordinates->getModeloCoordenadas();
     int numFilas=modelo->rowCount();
     for(int i=0;i<numFilas;i++)
     {
         ide=new IdentificadorCoordenadas(this);
-        ide->setIdentificador(modelo->index(i,0).data().toString());
-        ide->setXa(modelo->index(i,1).data().toDouble());
-        ide->setYa(modelo->index(i,2).data().toDouble());
-        ide->setXb(modelo->index(i,3).data().toDouble());
-        ide->setYb(modelo->index(i,4).data().toDouble());
+        ide->setIdentificador(_modeloCoordenadas->index(i,0).data().toString());
+        ide->setXa(_modeloCoordenadas->index(i,1).data().toDouble());
+        ide->setYa(_modeloCoordenadas->index(i,2).data().toDouble());
+        ide->setXb(_modeloCoordenadas->index(i,3).data().toDouble());
+        ide->setYb(_modeloCoordenadas->index(i,4).data().toDouble());
         _listaIdentificadores<<ide;
     }
 }
