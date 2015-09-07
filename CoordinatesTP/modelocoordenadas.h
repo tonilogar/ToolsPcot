@@ -59,6 +59,8 @@ public:
 signals:
     
     void loadedModelo(bool);
+    void modeloVacio();
+    void cambioEnIdentificador();
 
 public slots:
 private:

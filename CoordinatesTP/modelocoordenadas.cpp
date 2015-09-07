@@ -164,6 +164,7 @@ bool ModeloCoordenadas::setData(const QModelIndex &index, const QVariant &value,
     }
 
     emit dataChanged(index,index);
+    emit cambioEnIdentificador();
     return true;
 }
 
@@ -173,6 +174,7 @@ void ModeloCoordenadas::clear()
     _listaRegistros.clear();
     endResetModel();
     emit loadedModelo(false);
+    emit modeloVacio();
 }
 
 void ModeloCoordenadas::setListaRegistro(QList<IdentificadorCoordenadas *> nuevaLista)
