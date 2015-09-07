@@ -67,7 +67,6 @@ void Worker::siguienteProceso()
 
     }
     _operacionActual->aceptarProceso(_listaProcesos.at(contadorProceso));
-    qDebug()<< "siguiente proceso";
     contadorProceso++;
 }
 bool Worker::isLibre()

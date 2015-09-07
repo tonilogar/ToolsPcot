@@ -43,19 +43,25 @@ void ProcesoSubScene::procesoIniciado()
     if(metodoInvocado==Met)
     {
         _flujo << _opeActual->getFileOrigen() << endl;
-        qDebug()<< _opeActual->getFileOrigen() << "imagenBase";
+#ifdef QT_DEBUG
+        qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<< _opeActual->getFileOrigen() << ", imagenBase";
+#endif
         _flujo << "s" << endl;
         _flujo << "n" << endl;
         _flujo << _opeActual->getOeste() << " " << _opeActual->getEste() << " "<< _opeActual->getNorte() << " "<< _opeActual->getSur() << " " << endl;
-        qDebug()<< _opeActual->getOeste() << " " << _opeActual->getEste() << " "<< _opeActual->getNorte() << " "<< _opeActual->getSur() << "las 4 coordenadas " << endl ;
-        qDebug()<< _opeActual->getNorte()<< "_opeActual->getNorte()SubScene";
-        qDebug()<< _opeActual->getSur()<< "_opeActual->getSur()SubScene";
-        qDebug()<< _opeActual->getEste()<< "_opeActual->getEste()SubScene";
-        qDebug()<< _opeActual->getOeste()<< "_opeActual->getOeste()SubScene";
+#ifdef QT_DEBUG
+        qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getOeste() << ", " << _opeActual->getEste() << ", "<< _opeActual->getNorte() << ", "<< _opeActual->getSur() << "las 4 coordenadas ";
+        qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getNorte()<< "_opeActual->getNorte()SubScene";
+        qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getSur()<< "_opeActual->getSur()SubScene";
+        qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getEste()<< "_opeActual->getEste()SubScene";
+        qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getOeste()<< "_opeActual->getOeste()SubScene";
+#endif
         _flujo << "n" << endl;
         _flujo << "n" << endl;
         _flujo << _opeActual->getFileDestino() << endl;
-        qDebug()<< _opeActual->getFileDestino() << "identificador";
+#ifdef QT_DEBUG
+        qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getFileDestino() << "identificador";
+#endif
         _flujo << endl;
     }
     if(metodoInvocado==Orto)
@@ -94,10 +100,12 @@ void ProcesoSubScene::procesoIniciado()
                 _flujo << "n" << endl;
                 _flujo << _opeActual->getOeste() << " " << _opeActual->getEste() << " "<< _opeActual->getNorte() << " "<< _opeActual->getSur() << " " << endl;
                 _flujo << "n" << endl;
-                qDebug()<< _opeActual->getNorte()<< "_opeActual->getNorte()";
-                qDebug()<< _opeActual->getSur()<< "_opeActual->getSur()";
-                qDebug()<< _opeActual->getEste()<< "_opeActual->getEste()";
-                qDebug()<< _opeActual->getOeste()<< "_opeActual->getOeste()";
+#ifdef QT_DEBUG
+                qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<< _opeActual->getNorte()<< "_opeActual->getNorte()";
+                qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getSur()<< "_opeActual->getSur()";
+                qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getEste()<< "_opeActual->getEste()";
+                qDebug()<<"Class ProcesoSubScene::procesoIniciado() -> "<<_opeActual->getOeste()<< "_opeActual->getOeste()";
+#endif
                 _flujo << "n" << endl;
                 _flujo << _opeActual->getFileDestino() << endl;
                 _flujo << endl;

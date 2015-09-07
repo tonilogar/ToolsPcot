@@ -23,7 +23,7 @@ ProcesoResize::ProcesoResize(QObject *parent,QString pathProceso) :
 
 void ProcesoResize::metodoMet(Operacion *op)
 {
-     metodoInvocado=Met;
+    metodoInvocado=Met;
     _opeActual=op;
     _libre=false;
     emit procesoOcupado();
@@ -39,7 +39,9 @@ void ProcesoResize::metodoOrto(Operacion *op)
 }
 void ProcesoResize::procesoIniciado()
 {
-    qDebug()<< _opeActual->getFileOrigen()<< "fichero origen Resize";
+#ifdef QT_DEBUG
+    qDebug()<<"Class ProcesoResize::procesoIniciado() -> "<< _opeActual->getFileOrigen()<< "fichero origen Resize";
+#endif
     _flujo << "1" << endl;
     _flujo << "n" << endl;
     _flujo << "a" << endl;
@@ -47,7 +49,9 @@ void ProcesoResize::procesoIniciado()
     _flujo << _opeActual->getDataZoneProyect()->getSizePixel() << endl;
     _flujo << _opeActual->getDataZoneProyect()->getSizePixel() << endl;
     _flujo << _opeActual->getFileDestino() << endl;
-qDebug()<< _opeActual->getFileDestino()<< "fichero Destino Resize";
+#ifdef QT_DEBUG
+    qDebug()<<"Class ProcesoResize::procesoIniciado() -> "<< _opeActual->getFileDestino()<< "fichero Destino Resize";
+#endif
 
 }
 
@@ -60,7 +64,9 @@ void ProcesoResize::procesoTerminado(int fin)
     }
     else
         _opeActual->incrementarPasos();
-    qDebug()<< "procesoTerminado";
+#ifdef QT_DEBUG
+    qDebug()<< "Class ProcesoResize::procesoTerminado() -> TERMINADO";
+#endif
     _libre=true;
     emit procesoLibre();
 }

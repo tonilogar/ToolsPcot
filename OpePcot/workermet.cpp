@@ -38,7 +38,6 @@ void WorkerMet::siguienteProceso()
          return;
         }
         _operacionActual->aceptarProceso(_listaProcesos.at(contadorProceso));
-        qDebug()<< "siguiente proceso";
         contadorProceso++;
     }
    else

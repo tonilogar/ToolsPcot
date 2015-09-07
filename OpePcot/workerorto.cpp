@@ -33,21 +33,21 @@ void WorkerOrto::siguienteProceso()
     {
         if(contadorProceso==1 && !_operacionActual->getDataZoneProyect()->getFootPrintMask() && _operacionActual->getDataZoneProyect()->getCutDtm())
         {
-         _operacionActual->aceptarProceso(_listaProcesos.at(contadorProceso));
-         contadorProceso++;
-         return;
+            _operacionActual->aceptarProceso(_listaProcesos.at(contadorProceso));
+            contadorProceso++;
+            return;
         }
         if(contadorProceso==1 && !_operacionActual->getDataZoneProyect()->getFootPrintMask())
         {
-         _operacionActual->aceptarProceso(_listaProcesos.last());
-         contadorProceso++;
-         return;
+            _operacionActual->aceptarProceso(_listaProcesos.last());
+            contadorProceso++;
+            return;
         }
 
         _operacionActual->aceptarProceso(_listaProcesos.at(contadorProceso));
-        qDebug()<< "siguiente proceso";
+
         contadorProceso++;
     }
-   else
+    else
         _operacionActual->aceptarProceso(_listaProcesos.last());
 }
