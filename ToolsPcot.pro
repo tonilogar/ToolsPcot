@@ -10,4 +10,5 @@ TEMPLATE = subdirs
 SUBDIRS += OpePcot \
     ComponentesTP \
     ProyectoTP \
+    CoordinatesTP \
     ControlOpeTP
