@@ -10,9 +10,9 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <CoordinatesTP/modelocoordenadas.h>
-#include <CnpMetOrtoTP/registrocreatecnps.h>
-#include <CnpMetOrtoTP/registrocreatemet.h>
-#include <CnpMetOrtoTP/registrocreateorto.h>
+#include <RegistroCnpMetOrtoTP/registrocreatecnps.h>
+#include <RegistroCnpMetOrtoTP/registrocreatemet.h>
+#include <RegistroCnpMetOrtoTP/registrocreateorto.h>
 #include <QProgressDialog>
 #include <QTextStream>
 #include <QApplication>
