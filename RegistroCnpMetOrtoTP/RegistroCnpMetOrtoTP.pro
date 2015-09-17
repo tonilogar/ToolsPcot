@@ -1,3 +1,9 @@
+#-------------------------------------------------
+#
+# Project created by QtCreator 2015-01-26T23:26:57
+#
+#-------------------------------------------------
+
 QT       += widgets
 
 win32:CONFIG(release,debug|release){
@@ -42,19 +48,7 @@ unix:!symbian {
     INSTALLS += target
 }
 
-unix:!symbian {
-    maemunix:!symbian {
-    maemo5 {
-        target.path = /opt/usr/lib
-    } else {
-        target.path = /usr/lib
-    }
-    INSTALLS += target
-}
 
-FORMS +=
 
-RESOURCES +=
 
-FORMS +=
 

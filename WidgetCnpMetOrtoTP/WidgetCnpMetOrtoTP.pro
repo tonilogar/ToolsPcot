@@ -7,11 +7,11 @@
 QT       += widgets
 
 win32:CONFIG(release,debug|release){
-TARGET = WidgetCnpMetOrto
+TARGET = WidgetCnpMetOrtoTP
 LIBS += -L../libs -lOpePcot
 }
 else:win32:CONFIG(debug,debug|release) {
-TARGET = WidgetCnpMetOrto
+TARGET = WidgetCnpMetOrtoTP
 LIBS += -L../libs -lOpePcotd
 }
 TEMPLATE = lib
@@ -29,23 +29,20 @@ else:unix:!macx: LIBS += -L../libs -lProyectoTP
 SOURCES += \
     createorto.cpp \
     createmet.cpp \
-    createcnps.cpp \
-    ficherodatosambitopro.cpp \
-    createmet.cpp \
-    createorto.cpp
+    createcnps.cpp
+
+
 
 HEADERS +=\
-        cnpmetortotp_global.h \
+    widgetcnpmetortotp_global.h \
     createorto.h \
     createmet.h \
-    createcnps.h \
-    ficherodatosambitopro.h \
-    createmet.h \
-    createorto.h \
-    widgetcnpmetortotp_global.h
+    createcnps.h
+
+
+
 
 unix:!symbian {
-    maemunix:!symbian {
     maemo5 {
         target.path = /opt/usr/lib
     } else {
@@ -54,22 +51,8 @@ unix:!symbian {
     INSTALLS += target
 }
 
-
-FORMS += \
-    createmet.ui \
-    createcnps.ui \o5 {
-        target.path = /opt/usr/lib
-    } else {
-        target.path = /usr/lib
-    }
-    INSTALLS += target
-}
-
-
 FORMS += \
     createmet.ui \
     createcnps.ui \
-    createorto.ui \
-    createmet.ui \
     createorto.ui
 
