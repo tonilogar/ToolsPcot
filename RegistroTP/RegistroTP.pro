@@ -7,17 +7,17 @@
 QT       += widgets
 
 win32:CONFIG(release,debug|release){
-TARGET = RegistroCnpMetOrtoTP
+TARGET = RegistroTP
 LIBS += -L../libs -lOpePcot
 }
 else:win32:CONFIG(debug,debug|release) {
-TARGET = RegistroCnpMetOrtoTP
+TARGET = RegistroTP
 LIBS += -L../libs -lOpePcotd
 }
 TEMPLATE = lib
 
 
-DEFINES += REGISTROCNPMETORTOTP_LIBRARY
+DEFINES += REGISTROTP_LIBRARY
 
 INCLUDEPATH += ..
 DESTDIR =../libs
@@ -27,17 +27,15 @@ else:win32:CONFIG(debug, debug|release): LIBS += -L../libs -lProyectoTPd
 else:unix:!macx: LIBS += -L../libs -lProyectoTP
 
 SOURCES += \
-    registrocreatecnps.cpp \
-    registrocreatemet.cpp \
-    registrocreateorto.cpp \
-    ficherodatosambitopro.cpp
+    registrocnp.cpp \
+    registromet.cpp \
+    registroorto.cpp
 
 HEADERS +=\
-        registrocnpmetortotp_global.h \
-    registrocreatecnps.h \
-    registrocreatemet.h \
-    registrocreateorto.h \
-    ficherodatosambitopro.h
+        registrotp_global.h \
+    registrocnp.h \
+    registromet.h \
+    registroorto.h
 
 unix:!symbian {
     maemo5 {

@@ -1,4 +1,4 @@
-#include "registrocreateorto.h"
+#include "registroorto.h"
 
 RegistroCreateOrto::RegistroCreateOrto()
 {

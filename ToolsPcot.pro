@@ -12,5 +12,4 @@ SUBDIRS += OpePcot \
     ProyectoTP \
     CoordinatesTP \
     ControlOpeTP \
-    RegistroCnpMetOrtoTP \
-    WidgetCnpMetOrtoTP
+    RegistroTP

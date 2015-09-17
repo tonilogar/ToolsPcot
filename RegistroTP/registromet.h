@@ -11,7 +11,7 @@
 #include <WidgetCnpMetOrtoTP/createmet.h>
 class CreateMet;
 
-class REGISTROCNPMETORTOTPSHARED_EXPORT RegistroCreateMet : public AProTPSection
+class REGISTROCNPMETORTOTP_EXPORT RegistroCreateMet : public AProTPSection
 {
     Q_OBJECT
 public:

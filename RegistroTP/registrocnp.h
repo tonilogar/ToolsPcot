@@ -9,7 +9,7 @@
 
 class CreateCnps;
 
-class REGISTROCNPMETORTOTPSHARED_EXPORT RegistroCreateCnps : public AProTPSection
+class REGISTROCNPMETORTOTP_EXPORT RegistroCreateCnps : public AProTPSection
 {
     Q_OBJECT
 public:

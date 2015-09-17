@@ -12,7 +12,7 @@
 #include <WidgetCnpMetOrtoTP/createorto.h>
 class CreateOrto;
 
-class REGISTROCNPMETORTOTPSHARED_EXPORT RegistroCreateOrto : public AProTPSection
+class REGISTROCNPMETORTOTP_EXPORT RegistroCreateOrto : public AProTPSection
 {
     Q_OBJECT
 public:

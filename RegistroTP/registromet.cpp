@@ -14,7 +14,7 @@
 
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#include "registrocreatemet.h"
+#include "registromet.h"
 #include "createmet.h"
 
 RegistroCreateMet::RegistroCreateMet(QObject *parent) :
