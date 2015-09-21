@@ -10,9 +10,9 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <CoordinatesTP/modelocoordenadas.h>
-#include <RegistroCnpMetOrtoTP/registrocreatecnps.h>
-#include <RegistroCnpMetOrtoTP/registrocreatemet.h>
-#include <RegistroCnpMetOrtoTP/registrocreateorto.h>
+#include <RegistroTP/registrocnp.h>
+#include <RegistroTP/registromet.h>
+#include <RegistroTP/registroorto.h>
 #include <QProgressDialog>
 #include <QTextStream>
 #include <QApplication>
@@ -45,8 +45,8 @@ public:
      * Constructor explicit per defecte, necesita un punter nul,tres punters de RegistroCreateCnps,RegistroCreateMet, RegistroCreateOrto
      *i TableViewCoordinates.
      */
-    explicit LanzadorOperaciones(QObject *parent = 0, RegistroCreateCnps *_regCnp=0, RegistroCreateMet  *_regMet=0,
-                                 RegistroCreateOrto *_regOrto=0, ModeloCoordenadas *_modeloCoor=0);
+    explicit LanzadorOperaciones(QObject *parent = 0, RegistroCnp *_regCnp=0, RegistroMet  *_regMet=0,
+                                 RegistroOrto *_regOrto=0, ModeloCoordenadas *_modeloCoor=0);
     /*!
      * Mostra el valor del boolea del proces cnp.
      */
@@ -74,17 +74,17 @@ signals:
      * Canvia el valor del objecte RegistroCreateCnps.
      * @param Nou valor del objecte RegistroCreateCnps.
      */
- void setObjetoRegistroCnp(RegistroCreateCnps *_regCnp); 
+ void setObjetoRegistroCnp(RegistroCnp *_regCnp);
  /*!
   * Canvia el valor del objecte RegistroCreateMet.
   * @param Nou valor del objecte RegistroCreateMet.
   */
- void setObjetoRegistroMet(RegistroCreateMet *_regMet);
+ void setObjetoRegistroMet(RegistroMet *_regMet);
  /*!
   * Canvia el valor del objecte RegistroCreateOrto.
   * @param Nou valor del objecte RegistroCreateOrto.
   */
- void setObjetoRegistroOrto(RegistroCreateOrto *_regOrto);
+ void setObjetoRegistroOrto(RegistroOrto *_regOrto);
  /*!
   * Canvia el valor del objecte TableViewCoordinates.
   * @param Nou valor del objecte TableViewCoordinates.
@@ -108,9 +108,9 @@ signals:
 
 
 private:
- RegistroCreateCnps *_registroCnp;  ///< Valor del objecte RegistroCreateCnps.
- RegistroCreateMet  *_registroMet;  ///< Valor del objecte RegistroCreateMet.
- RegistroCreateOrto *_registroOrto; ///< Valor del objecte RegistroCreateOrto.
+ RegistroCnp *_registroCnp;  ///< Valor del objecte RegistroCreateCnps.
+ RegistroMet  *_registroMet;  ///< Valor del objecte RegistroCreateMet.
+ RegistroOrto *_registroOrto; ///< Valor del objecte RegistroCreateOrto.
  ModeloCoordenadas *_modeloCoordenadas; ///< Valor del objecte TableViewCoordinates.
  DataZoneProject *_dataZoneCnp; ///< Valor del objecte DataZoneProject cnp.
  DataZoneProject *_dataZoneMet; ///< Valor del objecte DataZoneProject met.

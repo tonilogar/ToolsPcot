@@ -1,7 +1,7 @@
-#ifndef REGISTROCREATEORTO_H
-#define REGISTROCREATEORTO_H
+#ifndef REGISTROORTO_H
+#define REGISTROORTO_H
 
-#include "registrocnpmetortotp_global.h"
+#include "registrotp_global.h"
 #include <QObject>
 #include <QDebug>
 #include <QJsonArray>
@@ -12,22 +12,21 @@
 #include <WidgetCnpMetOrtoTP/createorto.h>
 class CreateOrto;
 
-class REGISTROCNPMETORTOTP_EXPORT RegistroCreateOrto : public AProTPSection
+class REGISTROTP_EXPORT RegistroOrto : public AProTPSection
 {
     Q_OBJECT
 public:
     /*!
      * Constructor explicit per defecte, necesita un punter nul.
      */
-    explicit RegistroCreateOrto(QObject *parent = 0);
+    explicit RegistroOrto(QObject *parent = 0);
     /*!
      * Constructor explicit per defecte, necesita un punter nul.
      *
      */
-    RegistroCreateOrto(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
+    RegistroOrto(QObject *parent,QString folderOut,DataZoneProject::Ambito ambitoOperacion,double tamanyoPixel,
                       DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
-                      QString pathImageOrto,QString exeSubScene, QString exeImaOpeGeo, QString exeFootPrintMask,
-                      QString exeExtraction,QString exeResize,QString utmDefecto, QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
+                      QString utmDefecto, QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
 
     void setWidget(CreateOrto *widget);
 
@@ -80,30 +79,6 @@ public:
      * Mostrar l'estat de foootprintmask.
      */
     bool getFootPrintMask();
-    /*!
-     * Mostrar el path de imatge orto.
-     */
-    QString getPathImageOrto();
-    /*!
-     * Mostrar el path de ExeSubScene.
-     */
-    QString getExeSubScene();
-    /*!
-     * Mostrar el path de ExeImaOpeGeo.
-     */
-    QString getExeImaOpeGeo();
-    /*!
-     * Mostrar el path de FootPrintMask.
-     */
-    QString getExeFootPrintMask();
-    /*!
-     * Mostrar el path de Extraction.
-     */
-    QString getExeExtraction();
-    /*!
-     * Mostrar el path de Resize.
-     */
-    QString getExeResize();
     /*!
      * Mostrar el valor del utm per defecte.
      */
@@ -186,36 +161,6 @@ public slots:
      */
     void setFootprintMask(int fprintM);
     /*!
-     * Canvia el path de imatge orto.
-     * @param nou path de imatge orto.
-     */
-    void setPathImageOrto(QString pathImageOrto);
-    /*!
-     * Canvia valor path de SubScene.
-     * @param nou path de SubScene.
-     */
-    void setExeSubScene(QString exeSubScene);
-    /*!
-     * Canvia valor path de ImaOpeGeo.
-     * @param nou path de ImaOpeGeo.
-     */
-    void setExeImaOpeGeo(QString exeImaOpeGeo);
-    /*!
-     * Canvia valor path de FootPrintMask.
-     * @param nou path de FootPrintMask.
-     */
-    void setExeFootPrintMask(QString exeFootPrintMask);
-    /*!
-     * Canvia valor path de Extraction.
-     * @param nou path de Extraction.
-     */
-    void setExeExtraction(QString exeExtraction);
-    /*!
-     * Canvia valor path de Resize.
-     * @param nou path de Resize.
-     */
-    void setExeResize(QString exeResize);
-    /*!
      * Canvia valor del utm per defecte.
      * @param nou valor del utm per defecte.
      */
@@ -244,16 +189,9 @@ private:
     DataZoneProject::sistemaCoor _coordinateSystem; ///< Valor sistema de coordenades.
     DataZoneProject::Ambito _ambitoOperacion;       ///< Valor ambit de projecte.
     DataZoneProject::Sensor _selectSensor;          ///< Valor sensor de vol.
-    QString _pathImageOrto;       ///< Valor servidor wms de imatge orto.
-    QString _exeSubScene;         ///< Valor path SubScene.
-    QString _exeImaOpeGeo;        ///< Valor path ImaOpeGeo.
-    QString _exeFootPrintMask;    ///< Valor path FootPrintMask.
-    QString _exeExtraction;       ///< Valor path Extraction.
-    QString _exeResize;           ///< Valor path Resize.
     QString _utmDefecto;          ///< Valor utm per defecte .
     QJsonArray _listaEjecutables; ///< Llistat de executables .
     bool _ortoEnabled;  ///< Seccion CNPS activada
-    CreateOrto *_widgetOrto;    ///< Widget grafico asociado
 
 };
 

@@ -3,9 +3,9 @@
 #include "widgetcnpmetortotp_global.h"
 #include <QWidget>
 #include <QFileDialog>
-#include <RegistroCnpMetOrtoTP/registrocreatecnps.h>
+#include <RegistroTP/registrocnp.h>
 
-class RegistroCreateCnps;
+class RegistroCnp;
 
 namespace Ui {
     class CreateCnps;
@@ -20,7 +20,7 @@ class WIDGETCNPMETORTOTP_EXPORT CreateCnps : public QWidget
 public:
     explicit CreateCnps(QWidget *parent = 0);
     ~CreateCnps();
-    RegistroCreateCnps * getObjetoRegistroCreateCnps();
+    RegistroCnp * getObjetoRegistroCreateCnps();
     bool comprobarChecFolderCnps();
     void disconnectRegistro();
     void connectRegistro();
@@ -43,7 +43,7 @@ private slots:
 
 private:
     Ui::CreateCnps *ui;
-    RegistroCreateCnps *punteroRegistroCreateCnps;
+    RegistroCnp *punteroRegistroCreateCnps;
     QString folderOut;
 
 };

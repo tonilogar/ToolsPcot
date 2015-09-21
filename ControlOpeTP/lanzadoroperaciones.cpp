@@ -16,8 +16,8 @@
 #include "lanzadoroperaciones.h"
 #include <QDateTime>
 
-LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_regCnp, RegistroCreateMet  *_regMet,
-                                         RegistroCreateOrto *_regOrto, ModeloCoordenadas *_modeloCoor ) :
+LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCnp *_regCnp, RegistroMet  *_regMet,
+                                         RegistroOrto *_regOrto, ModeloCoordenadas *_modeloCoor ) :
     QObject(parent)
 {
     _registroCnp=_regCnp;
@@ -38,16 +38,16 @@ LanzadorOperaciones::LanzadorOperaciones(QObject *parent, RegistroCreateCnps *_r
     _controlOrto=new ControlWorker(this);
 }
 
-void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCreateCnps *_regCnp)
+void LanzadorOperaciones::setObjetoRegistroCnp(RegistroCnp *_regCnp)
 {
     _registroCnp=_regCnp;
 }
 
-void LanzadorOperaciones::setObjetoRegistroMet(RegistroCreateMet *_regMet)
+void LanzadorOperaciones::setObjetoRegistroMet(RegistroMet *_regMet)
 {
     _registroMet=_regMet;
 }
-void LanzadorOperaciones::setObjetoRegistroOrto(RegistroCreateOrto *_regOrto)
+void LanzadorOperaciones::setObjetoRegistroOrto(RegistroOrto *_regOrto)
 {
     _registroOrto=_regOrto;
 }
@@ -201,7 +201,7 @@ void LanzadorOperaciones::borrarListadoOperacion(QList<Operacion *> &lista)
 void LanzadorOperaciones::crearListaIdentificadores()
 {
     IdentificadorCoordenadas *ide=0;
-    int numFilas=modelo->rowCount();
+    int numFilas=_modeloCoordenadas->rowCount();
     for(int i=0;i<numFilas;i++)
     {
         ide=new IdentificadorCoordenadas(this);

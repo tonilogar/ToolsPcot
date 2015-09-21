@@ -1,7 +1,7 @@
-#ifndef REGISTROCREATECNPS_H
-#define REGISTROCREATECNPS_H
+#ifndef REGISTROCNP_H
+#define REGISTROCNP_H
 
-#include "registrocnpmetortotp_global.h"
+#include "registrotp_global.h"
 #include <QObject>
 #include <OpePcot/datazoneproject.h>
 #include <ProyectoTP/aprotpsection.h>
@@ -9,7 +9,7 @@
 
 class CreateCnps;
 
-class REGISTROCNPMETORTOTP_EXPORT RegistroCreateCnps : public AProTPSection
+class REGISTROTP_EXPORT RegistroCnp : public AProTPSection
 {
     Q_OBJECT
 public:
@@ -17,11 +17,11 @@ public:
     /*!
      * Constructor explicit per defecte, necesita un punter nul.
      */
-    explicit RegistroCreateCnps(QObject *parent = 0);
+    explicit RegistroCnp(QObject *parent = 0);
     /*!
      * El constructor necessita un punter this i la variable del directori de sortida.
      */
- RegistroCreateCnps(QObject *parent,QString folderOut);
+ RegistroCnp(QObject *parent,QString folderOut);
 
  void setWidget(CreateCnps *widget);
 
@@ -62,7 +62,7 @@ private:
 
     QString _folderOut;  ///< Nom del directori de sortida.
     bool _cnpsEnabled;  ///< Seccion CNPS activada
-    CreateCnps *_widgetCnps;    ///< Widget grafico asociado
+
 };
 #endif // REGISTROCREATECNPS_H
 

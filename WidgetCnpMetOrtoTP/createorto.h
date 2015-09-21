@@ -3,15 +3,14 @@
 #include "widgetcnpmetortotp_global.h"
 #include <QWidget>
 #include <QSettings>
-#include <RegistroCnpMetOrtoTP/ficherodatosambitopro.h>
 #include <OpePcot/datazoneproject.h>
 #include <QMessageBox>
 #include <QLineEdit>
 #include <QFileDialog>
 #include <QDebug>
 #include <QDateTime>
-#include <RegistroCnpMetOrtoTP/registrocreateorto.h>
-class RegistroCreateOrto;
+#include <RegistroTP/registroorto.h>
+class RegistroOrto;
 namespace Ui {
     class CreateOrto;
 }
@@ -25,7 +24,7 @@ public:
 
     explicit CreateOrto(QWidget *parent = 0);
     ~CreateOrto();
-    RegistroCreateOrto * getObjetoRegistroCreateOrto();
+    RegistroOrto * getObjetoRegistroCreateOrto();
     bool comprobarChecFolderOrto();
     void disconnectRegistro();
     void connectRegistro();
@@ -61,7 +60,7 @@ private slots:
 
 private:
     Ui::CreateOrto *ui;
-    RegistroCreateOrto *punteroRegistroCreateOrto;
+    RegistroOrto *punteroRegistroCreateOrto;
     QString folderOut;
     void evaluarEstadoWidgetOrto();
     QString _ambitoOperacion;                          ///< Valor del ambito de la operación.
