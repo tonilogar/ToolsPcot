@@ -9,8 +9,6 @@
 #include <QJsonObject>
 #include <OpePcot/datazoneproject.h>
 #include <ProyectoTP/aprotpsection.h>
-#include <WidgetCnpMetOrtoTP/createorto.h>
-class CreateOrto;
 
 class REGISTROTP_EXPORT RegistroOrto : public AProTPSection
 {
@@ -28,7 +26,6 @@ public:
                       DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                       QString utmDefecto, QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
 
-    void setWidget(CreateOrto *widget);
 
     //Getter
     /*!
@@ -95,6 +92,9 @@ public:
      * Mostrar valor de l'executable.
      */
     QMap<QString, QString> getMapExe();
+
+    QString getPathImageOrto() const
+    { return _pathImageOrto; }
 
     //Metodos de interfaz AProTPSection
 
@@ -173,12 +173,16 @@ public slots:
 
     void setOrtoEnabled(bool enabled);
 
+    void setPathImageOrto(QString path)
+    { _pathImageOrto=path; }
+
 signals:
 
 private:
 
 
     QString _folderOut;   ///< Nom del directori de sortida.
+    QString _pathImageOrto;
     double _tamanyoPixel; ///< Nom del valor de la mida de pixel.
     bool _dtm;            ///< Valor de la mida de pixel.
     int _tamanyoCorte;    ///< Valor de la mida de tall.

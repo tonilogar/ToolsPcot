@@ -15,7 +15,6 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "registromet.h"
-#include "createmet.h"
 
 RegistroMet::RegistroMet(QObject *parent) :
     AProTPSection(parent)
@@ -58,10 +57,6 @@ RegistroMet::RegistroMet(QObject *parent,QString folderOut,DataZoneProject::Ambi
     _selectSensor=selectSensor;
 }
 
-void RegistroMet::setWidget(CreateMet *widget)
-{
-    _widgetMet=widget;
-}
 //Getter
 
 QString RegistroMet::getFolderOut()
@@ -321,7 +316,6 @@ QJsonObject RegistroMet::writeSection()
 
 bool RegistroMet::processSection(QJsonObject archivo)
 {
-    _widgetMet->disconnectRegistro();
     if(!archivo.contains("sectionMET"))
         return false;
 
@@ -392,13 +386,11 @@ bool RegistroMet::processSection(QJsonObject archivo)
       _selectSensor=DataZoneProject::Vacio;
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
-    _widgetMet->connectRegistro();
     return true;
 }
 
 void RegistroMet::resetSection()
 {
-    _widgetMet->disconnectRegistro();
     _folderOut=QString();
     //tengo que pasar el Qstring a un valor enum
     _ambitoOperacion=DataZoneProject::Otro;
@@ -415,6 +407,5 @@ void RegistroMet::resetSection()
     _selectSensor=DataZoneProject::Vacio;
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
-    _widgetMet->connectRegistro();
 }
 

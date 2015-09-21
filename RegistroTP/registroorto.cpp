@@ -15,13 +15,11 @@
 //    You should have received a copy of the GNU General Public License
 //    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "registroorto.h"
-#include "createorto.h"
 
 RegistroOrto::RegistroOrto(QObject *parent) :
     AProTPSection(parent)
 {
     _folderOut=QString();
-    _widgetOrto=0;
     //tengo que pasar el Qstring a un valor enum
     _ambitoOperacion=DataZoneProject::Otro;
     _tamanyoPixel=-1;
@@ -45,7 +43,6 @@ RegistroOrto::RegistroOrto(QObject *parent,QString folderOut,DataZoneProject::Am
                                      DataZoneProject::Sensor selectSensor):AProTPSection(parent)
 {
     _folderOut= folderOut;
-    _widgetOrto=0;
     _ambitoOperacion= ambitoOperacion;
     _tamanyoPixel= tamanyoPixel;
     _coordinateSystem=coordinateSystem;
@@ -60,10 +57,6 @@ RegistroOrto::RegistroOrto(QObject *parent,QString folderOut,DataZoneProject::Am
     _selectSensor=selectSensor;
 }
 
-void RegistroOrto::setWidget(CreateOrto *widget)
-{
-    _widgetOrto=widget;
-}
 //Getter
 
 QString RegistroOrto::getFolderOut()
@@ -323,7 +316,6 @@ QJsonObject RegistroOrto::writeSection()
 
 bool RegistroOrto::processSection(QJsonObject archivo)
 {
-    _widgetOrto->disconnectRegistro();
     if(!archivo.contains("sectionOrto"))
         return false;
 
@@ -337,7 +329,6 @@ bool RegistroOrto::processSection(QJsonObject archivo)
     _fprintM=section.value("fprintM").toBool();
     _offsetPasada=section.value("offsetPasada").toInt();
     _anchoPasada=section.value("anchoPasada").toInt();
-    _pathImageOrto=section.value("pathImageOrto").toString();
     _utmDefecto=section.value("utmDefecto").toString();
 
     QString coordinateSystem=section.value("coordinateSystem").toString();
@@ -394,13 +385,11 @@ bool RegistroOrto::processSection(QJsonObject archivo)
       _selectSensor=DataZoneProject::Vacio;
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
-    _widgetOrto->connectRegistro();
     return true;
 }
 
 void RegistroOrto::resetSection()
 {
-    _widgetOrto->disconnectRegistro();
     _folderOut=QString();
     //tengo que pasar el Qstring a un valor enum
     _ambitoOperacion=DataZoneProject::Otro;
@@ -417,5 +406,4 @@ void RegistroOrto::resetSection()
     _selectSensor=DataZoneProject::Vacio;
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
-    _widgetOrto->connectRegistro();
 }

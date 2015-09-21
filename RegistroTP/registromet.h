@@ -8,8 +8,6 @@
 #include <QJsonObject>
 #include <OpePcot/datazoneproject.h>
 #include <ProyectoTP/aprotpsection.h>
-#include <WidgetCnpMetOrtoTP/createmet.h>
-class CreateMet;
 
 class REGISTROTP_EXPORT RegistroMet : public AProTPSection
 {
@@ -27,7 +25,6 @@ public:
                       DataZoneProject::sistemaCoor coordinateSystem,int tamanyoCorte,int numeroCanales,int anchoPasada,int offsetPasada,
                       QString utmDefecto, QJsonArray listaEjecutables,DataZoneProject::Sensor selectSensor);
 
-    void setWidget(CreateMet *widget);
 
     //Getter
     /*!
@@ -94,6 +91,9 @@ public:
      * Mostrar valor de l'executable.
      */
     QMap<QString, QString> getMapExe();
+
+    QString getPathImageMet() const
+    { return _pathImageMet; }
 
     //Metodos de interfaz AProTPSection
 
@@ -170,6 +170,9 @@ public slots:
      */
     void setListaEjecutables(QJsonArray listaEjecutables);
 
+    void setPathImageMet(QString path)
+    { _pathImageMet=path; }
+
     void setMetEnabled(bool enabled);
 
 signals:
@@ -178,6 +181,7 @@ private:
 
 
     QString _folderOut;   ///< Nom del directori de sortida.
+    QString _pathImageMet;
     double _tamanyoPixel; ///< Nom del valor de la mida de pixel.
     bool _dtm;            ///< Valor de la mida de pixel.
     int _tamanyoCorte;    ///< Valor de la mida de tall.

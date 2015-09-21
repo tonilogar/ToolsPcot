@@ -5,9 +5,7 @@
 #include <QObject>
 #include <OpePcot/datazoneproject.h>
 #include <ProyectoTP/aprotpsection.h>
-#include <WidgetCnpMetOrtoTP/createcnps.h>
 
-class CreateCnps;
 
 class REGISTROTP_EXPORT RegistroCnp : public AProTPSection
 {
@@ -22,8 +20,6 @@ public:
      * El constructor necessita un punter this i la variable del directori de sortida.
      */
  RegistroCnp(QObject *parent,QString folderOut);
-
- void setWidget(CreateCnps *widget);
 
 
     //Getters

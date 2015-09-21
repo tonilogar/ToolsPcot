@@ -22,7 +22,6 @@ RegistroCnp::RegistroCnp(QObject *parent) :
     AProTPSection(parent)
 {
     _folderOut=QString();
-    _widgetCnps=0;
     _cnpsEnabled=false;
 }
 
@@ -30,13 +29,7 @@ RegistroCnp::RegistroCnp(QObject *parent,QString folderOut):
     AProTPSection(parent)
 {
    _folderOut= folderOut;
-   _widgetCnps=0;
    _cnpsEnabled=false;
-}
-
-void RegistroCnp::setWidget(CreateCnps *widget)
-{
-    _widgetCnps=widget;
 }
 
 //Getter
@@ -88,7 +81,6 @@ QJsonObject RegistroCnp::writeSection()
 
 bool RegistroCnp::processSection(QJsonObject archivo)
 {
-    _widgetCnps->disconnectRegistro();
     if(!archivo.contains("sectionCNP"))
         return false;
 
@@ -97,16 +89,13 @@ bool RegistroCnp::processSection(QJsonObject archivo)
     _cnpsEnabled=section.value("cnpsEnabled").toBool();
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
-    _widgetCnps->connectRegistro();
 
     return true;
 }
 
 void RegistroCnp::resetSection()
 {
-    _widgetCnps->disconnectRegistro();
     _folderOut.clear();
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
-    _widgetCnps->connectRegistro();
 }
