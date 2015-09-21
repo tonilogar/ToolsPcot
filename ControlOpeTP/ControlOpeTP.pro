@@ -7,11 +7,11 @@
 QT       += widgets
 win32:CONFIG(release,debug|release){
 TARGET = ControlOpeTP
-LIBS += -L../libs -lOpePcot -lCnpMetOrtoTP -lCoordinatesTP
+LIBS += -L../libs -lOpePcot -lRegistroTP -lCoordinatesTP
 }
 else:win32:CONFIG(debug,debug|release) {
 TARGET = ControlOpeTPd
-LIBS += -L../libs -lOpePcotd -lCnpMetOrtoTPd -lCoordinatesTPd
+LIBS += -L../libs -lOpePcotd -lRegistroTPd -lCoordinatesTPd
 }
 TEMPLATE = lib
 

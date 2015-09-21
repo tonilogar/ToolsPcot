@@ -12,4 +12,5 @@ SUBDIRS += OpePcot \
     ProyectoTP \
     CoordinatesTP \
     ControlOpeTP \
-    RegistroTP
+    RegistroTP \
+    App
