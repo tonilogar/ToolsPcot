@@ -1,0 +1,12 @@
+#ifndef AMBITOTP_GLOBAL_H
+#define AMBITOTP_GLOBAL_H
+
+#include <QtCore/qglobal.h>
+
+#if defined(AMBITOTP_LIBRARY)
+#  define AMBITOTPSHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define AMBITOTPSHARED_EXPORT Q_DECL_IMPORT
+#endif
+
+#endif // AMBITOTP_GLOBAL_H
