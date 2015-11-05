@@ -2,9 +2,19 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+
+#include <AmbitoTP/ambitjson.h>
+#include <AmbitoTP/ambito.h>
+
 #include <RegistroTP/registrocnp.h>
 #include <RegistroTP/registromet.h>
 #include <RegistroTP/registroorto.h>
+
+#include <QSettings>
+
+#include <QDebug>
+
+#include "preferenciasavanzadasdialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +30,13 @@ public:
 
 private:
     Ui::MainWindow *ui;
+    PreferenciasAvanzadasDialog *_preferenciasAvanzadas;
+    AmbitJson *_archivoAmbito;
 
+    void setup();
+
+    void comprobarSettings();
+    void cargarAmbitos();
 };
 
 #endif // MAINWINDOW_H

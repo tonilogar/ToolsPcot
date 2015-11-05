@@ -14,20 +14,23 @@ TEMPLATE = app
 INCLUDEPATH += ..
 
 win32:CONFIG(release,debug|release){
-LIBS += -L../libs -lOpePcot -lRegistroTP -lCoordinatesTP -lComponentesTP -lProyectoTP -lControlOpeTP
+LIBS += -L../libs -lAmbitoTP -lOpePcot -lRegistroTP -lCoordinatesTP -lComponentesTP -lProyectoTP -lControlOpeTP
 }
 else:win32:CONFIG(debug,debug|release) {
-LIBS += -L../libs -lOpePcotd -lRegistroTPd -lCoordinatesTPd -lComponentesTPd -lProyectoTPd -lControlOpeTPd
+LIBS += -L../libs -lAmbitoTPd -lOpePcotd -lRegistroTPd -lCoordinatesTPd -lComponentesTPd -lProyectoTPd -lControlOpeTPd
 }
 else:linux
 {
- LIBS += -L../libs -lOpePcot -lRegistroTP -lCoordinatesTP -lComponentesTP -lProyectoTP -lControlOpeTP
+ LIBS += -L../libs -lAmbitoTP -lOpePcot -lRegistroTP -lCoordinatesTP -lComponentesTP -lProyectoTP -lControlOpeTP
 }
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    preferenciasavanzadasdialog.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    preferenciasavanzadasdialog.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    preferenciasavanzadasdialog.ui
