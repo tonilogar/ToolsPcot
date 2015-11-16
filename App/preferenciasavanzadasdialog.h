@@ -4,7 +4,7 @@
 #include <QDialog>
 #include <QSettings>
 #include <QFileDialog>
-#include <dialogpre.h>
+#include "dialogpre.h"
 
 namespace Ui {
 class PreferenciasAvanzadasDialog;

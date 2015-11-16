@@ -9,12 +9,10 @@
 #include <RegistroTP/registrocnp.h>
 #include <RegistroTP/registromet.h>
 #include <RegistroTP/registroorto.h>
-
 #include <QSettings>
-
 #include <QDebug>
-
 #include "preferenciasavanzadasdialog.h"
+#include "alertfilejson.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,6 +30,7 @@ private:
     Ui::MainWindow *ui;
     PreferenciasAvanzadasDialog *_preferenciasAvanzadas;
     AmbitJson *_archivoAmbito;
+    AlertFileJson *_objetoAlertFileJson;
 
     void setup();
 

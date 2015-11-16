@@ -7,10 +7,12 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setup();
 
-    comprobarSettings();
-    cargarAmbitos();
+    setup();
+    comprobarSettings();//Leo la direccion donde se encuentra el fichero de preferencias del setting
+    //compruebo que se pueda leer el fichero
+    //Si no se puede leer aparece una ventada de alerta de la clase AlertFileJson
+   //cargarAmbitos();
 }
 
 MainWindow::~MainWindow()
@@ -19,21 +21,21 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::setup()
-{
+{    
     _preferenciasAvanzadas=new PreferenciasAvanzadasDialog(this);
-
     connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
-
     _archivoAmbito=0;
 }
 
 void MainWindow::comprobarSettings()
 {
     QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
-
-    if(!settingsToolsPcot.contains(QStringLiteral("pathConfigAmbito")))
+    QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
+    //qDebug() << rutaFileObj.absoluteFilePath() << "ruta de fichero de preferencias Qjson";
+    if(!rutaFileObj.isReadable())
     {
-        settingsToolsPcot.setValue(QStringLiteral("pathConfigAmbito"),qApp->applicationDirPath()+"/ambitConfig.json");
+        _objetoAlertFileJson=new AlertFileJson(0);
+        _objetoAlertFileJson->exec();
     }
 }
 

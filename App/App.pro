@@ -28,12 +28,15 @@ else:linux
 SOURCES += main.cpp\
         mainwindow.cpp \
     preferenciasavanzadasdialog.cpp \
-    dialogpre.cpp
+    dialogpre.cpp \
+    alertfilejson.cpp
 
 HEADERS  += mainwindow.h \
     preferenciasavanzadasdialog.h \
-    dialogpre.h
+    dialogpre.h \
+    alertfilejson.h
 
 FORMS    += mainwindow.ui \
     preferenciasavanzadasdialog.ui \
-    dialogpre.ui
+    dialogpre.ui \
+    alertfilejson.ui

@@ -28,6 +28,9 @@ DialogPre::DialogPre(QWidget *parent) :
     connect(ui->pushButtonResizeFrancia,SIGNAL(clicked()),this,SLOT(selectExeResi()));
     connect(ui->pushButtonSubesceneFrancia,SIGNAL(clicked()),this,SLOT(selectExeSub()));
     connect(ui->pushButtonResizeFrancia_2,SIGNAL(clicked()),this,SLOT(selectExeResi()));
+    connect(ui->pushButtonOk,SIGNAL(clicked()),this,SLOT(selectOk()));
+    connect(ui->pushButtonCancel,SIGNAL(clicked()),this,SLOT(selectCancel()));
+    check=false;
 }
 
 DialogPre::~DialogPre()
@@ -39,7 +42,11 @@ void DialogPre::selectMetCat()
 {
     QString path=QFileDialog::getOpenFileName(this,"Selecciona archivo met de Cataluña",
                                               _openDirImage,"Archivo (*.rf)");
-    if(path.isNull() || path.isEmpty())return;
+    if(path.isNull() || path.isEmpty())
+    {
+        check=false;
+        return;
+    }
     ui->lineEditCatlunya->setText(path);
     _openDirImage=path;
 }
@@ -213,3 +220,17 @@ void DialogPre::disableExeResiFra01(bool disaOrEna)
     ui->labelResizeFrancia_2->setDisabled(disaOrEna);
     ui->lineEditResizeFrancia_2->setDisabled(disaOrEna);
 }
+void DialogPre::selectOk()
+{
+ if (!check)
+ {
+
+ }
+
+}
+
+void DialogPre::selectCancel()
+{
+this->close();
+}
+
