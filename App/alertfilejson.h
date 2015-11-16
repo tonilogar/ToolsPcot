@@ -5,7 +5,10 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QSettings>
-#include "dialogpre.h"
+
+#include <AmbitoTP/ambitjson.h>
+#include <AmbitoTP/ambito.h>
+
 /*!
  * @class AlertFileJson
  * @brief AlertFileJson
@@ -21,19 +24,32 @@ class AlertFileJson : public QDialog
     Q_OBJECT
 
 public:
+
+    enum ModoAlerta
+    { FaltaArchivo, ArchivoNoValido, Desconocido };
+
+    Q_ENUM(ModoAlerta)
+
+public:
     /*!
      * Constructor es necessari un punter nul.
      */
-    explicit AlertFileJson(QWidget *parent = 0);
+    explicit AlertFileJson(QWidget *parent = 0,AmbitJson *archivoAmb=0);
     /*!
      * Destructor  per defecte.
      */
     ~AlertFileJson();
 
+    void setModo(ModoAlerta m);
+
+    ModoAlerta getModo() const
+    { return _modoActual; }
+
 private:
     Ui::AlertFileJson *ui;
+    AmbitJson *_ambitoFile;
+    ModoAlerta _modoActual;
 
-    DialogPre *_objetoDialogoPr;
 private slots:
     /*!
      * Lanza una ventana para seleccionar el fichero Json de preferencias.

@@ -31,6 +31,8 @@ public:
 
     bool isSaved() const;
 
+    bool isValid() const;
+
     QString lastError() const
     { return _error; }
 

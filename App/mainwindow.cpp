@@ -31,11 +31,16 @@ void MainWindow::comprobarSettings()
 {
     QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
     QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
-    //qDebug() << rutaFileObj.absoluteFilePath() << "ruta de fichero de preferencias Qjson";
-    if(!rutaFileObj.isReadable())
+    _archivoAmbito=new AmbitJson(this,rutaFileObj);
+    if(!_archivoAmbito->exist())
     {
-        _objetoAlertFileJson=new AlertFileJson(0);
-        _objetoAlertFileJson->exec();
+        AmbitJson::createStandardTemplate(rutaFileObj);
+    }
+    _archivoAmbito->load();
+    if(!_archivoAmbito->isValid()) {
+        _objetoAlertFileJson=new AlertFileJson(this,_archivoAmbito);
+        if(_objetoAlertFileJson->exec()==QDialog::Rejected)
+            exit(0);
     }
 }
 

@@ -140,6 +140,17 @@ bool AmbitJson::isLoaded() const
     return !_ambitosArchivo.isEmpty();
 }
 
+bool AmbitJson::isValid() const
+{
+    if(_ambitosArchivo.isEmpty())
+        return false;
+    foreach(Ambito *amb,_ambitosArchivo) {
+        if(!amb->isValid())
+            return false;
+    }
+    return true;
+}
+
 void AmbitJson::save()
 {
     QFile fJson(_dataFile.absoluteFilePath());
