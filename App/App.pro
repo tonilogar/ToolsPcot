@@ -27,10 +27,13 @@ else:linux
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    preferenciasavanzadasdialog.cpp
+    preferenciasavanzadasdialog.cpp \
+    dialogpre.cpp
 
 HEADERS  += mainwindow.h \
-    preferenciasavanzadasdialog.h
+    preferenciasavanzadasdialog.h \
+    dialogpre.h
 
 FORMS    += mainwindow.ui \
-    preferenciasavanzadasdialog.ui
+    preferenciasavanzadasdialog.ui \
+    dialogpre.ui

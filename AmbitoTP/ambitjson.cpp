@@ -48,7 +48,14 @@ bool AmbitJson::createStandardTemplate(QFileInfo info)
 
     catalunya.setUtm(31);
     espanya.setUtm(30);
-    francia.setUtm(-2);
+    francia.setUtm(1);
+
+    QString pathImageCat;
+    QString pathImageEsp;
+    QString pathImageFra;
+    catalunya.setImageRef(pathImageCat);
+    espanya.setImageRef(pathImageEsp);
+    francia.setImageRef(pathImageFra);
 
     //Rutas de referencia: EN BLANCO
     //Ejecutables: EN BLANCO
@@ -57,6 +64,16 @@ bool AmbitJson::createStandardTemplate(QFileInfo info)
     catalunya.addEjecutable(QStringLiteral("exeFootPrintMask"),new QFileInfo());
     catalunya.addEjecutable(QStringLiteral("exeSubScene"),new QFileInfo());
     catalunya.addEjecutable(QStringLiteral("exeGeoTransform"),new QFileInfo());
+
+    espanya.addEjecutable(QStringLiteral("exeFootPrintMask"),new QFileInfo());
+    espanya.addEjecutable(QStringLiteral("exeResize"),new QFileInfo());
+    espanya.addEjecutable(QStringLiteral("exeSubScene"),new QFileInfo());
+    espanya.addEjecutable(QStringLiteral("exeGeoTransform"),new QFileInfo());
+
+    francia.addEjecutable(QStringLiteral("exeFootPrintMask"),new QFileInfo());
+    francia.addEjecutable(QStringLiteral("exeResize"),new QFileInfo());
+    francia.addEjecutable(QStringLiteral("exeSubScene"),new QFileInfo());
+    francia.addEjecutable(QStringLiteral("exeResize"),new QFileInfo());
 
     arrayJson.append(catalunya.toJson());
     arrayJson.append(espanya.toJson());

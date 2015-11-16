@@ -31,7 +31,8 @@ void MainWindow::comprobarSettings()
 {
     QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
 
-    if(!settingsToolsPcot.contains(QStringLiteral("pathConfigAmbito"))) {
+    if(!settingsToolsPcot.contains(QStringLiteral("pathConfigAmbito")))
+    {
         settingsToolsPcot.setValue(QStringLiteral("pathConfigAmbito"),qApp->applicationDirPath()+"/ambitConfig.json");
     }
 }

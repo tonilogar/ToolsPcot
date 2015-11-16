@@ -36,6 +36,10 @@ public:
 
     bool isValid() const;
 
+    bool existImageRef(QFileInfo imageRef);
+
+
+
 signals:
 
 public slots:

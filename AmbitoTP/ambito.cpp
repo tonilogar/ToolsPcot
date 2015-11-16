@@ -77,12 +77,12 @@ bool Ambito::isValid() const
 {
     //EVALUA SI EL AMBITO ES O NO ES VALIDO
     //¡¡OJO!! 'VALIDO' NO SIGNIFICA CORRECTO!!
-    QFile imageRef(_imageRef.absolutePath());
+    //QFile imageRef(_imageRef.absolutePath());
     if(!_nombre.isEmpty() || !_nombre.isNull())
         return false;
     else if(!_imageRef.exists())
         return false;
-    else if(!imageRef.open(QFile::Text | QFile::WriteOnly))
+    else if(_imageRef.isReadable())
         return false;
     else if(!_utm<=0)
         return false;
@@ -92,3 +92,9 @@ bool Ambito::isValid() const
         return false;
         return true;
 }
+
+ bool Ambito::existImageRef(QFileInfo imageRef)
+ {
+  if(_imageRef.exists()) return true;
+  return false;
+ }

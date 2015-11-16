@@ -12,6 +12,7 @@ PreferenciasAvanzadasDialog::PreferenciasAvanzadasDialog(QWidget *parent) :
 void PreferenciasAvanzadasDialog::setup()
 {
     connect(ui->browseAmbitoButton,SIGNAL(clicked(bool)),this,SLOT(selectAmbitoFile()));
+    connect(ui->editAmbitoButton,SIGNAL(clicked(bool)),this,SLOT(editPreferences()));
 }
 
 void PreferenciasAvanzadasDialog::reload()
@@ -26,7 +27,7 @@ void PreferenciasAvanzadasDialog::reload()
 
 void PreferenciasAvanzadasDialog::selectAmbitoFile()
 {
-    QString path=QFileDialog::getOpenFileName(this,tr("Seleccionar archivo de ámbito"),qApp->applicationDirPath());
+    QString path=QFileDialog::getOpenFileName(this,tr("Seleccionar archivo de ámbito"),qApp->applicationDirPath(),"Archivo (*.obj)");
 
     if(path.isEmpty() || path.isNull())
         return;
@@ -41,4 +42,17 @@ void PreferenciasAvanzadasDialog::selectAmbitoFile()
 PreferenciasAvanzadasDialog::~PreferenciasAvanzadasDialog()
 {
     delete ui;
+}
+void PreferenciasAvanzadasDialog::editPreferences()
+{
+_objetoDialogoPrefe=new DialogPre(0);
+//_objetoDialogoPrefe->disableImageEsp(_objetoSettingPre->existPathImageEspSett());
+//_objetoDialogoPrefe->disableExeImaOpe(_objetoSettingPre->existExeImaOpeoSett());
+//_objetoDialogoPrefe->disableExeExtra(_objetoSettingPre->existExeExtraSett());
+//_objetoDialogoPrefe->disableExeFootP(_objetoSettingPre->existExeFootPSett());
+//_objetoDialogoPrefe->disableExeResi(_objetoSettingPre->existExeResiSett());
+//_objetoDialogoPrefe->disableExeSub(_objetoSettingPre->existExeSubeSett());
+//_objetoDialogoPrefe->disableImageCat(_objetoSettingPre->existPathImageCatSett());
+//_objetoDialogoPrefe->disableImageFra(_objetoSettingPre->existPathImageFraSett());
+_objetoDialogoPrefe->exec();
 }

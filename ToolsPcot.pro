@@ -7,11 +7,11 @@
 
 TEMPLATE = subdirs
 
-SUBDIRS += OpePcot \
-    ComponentesTP \
-    ProyectoTP \
-    CoordinatesTP \
-    ControlOpeTP \
-    RegistroTP \
-    AmbitoTP \
-    App
+SUBDIRS +=AmbitoTP \
+ComponentesTP \
+OpePcot \
+ProyectoTP \
+RegistroTP \
+CoordinatesTP \
+ControlOpeTP \
+App
