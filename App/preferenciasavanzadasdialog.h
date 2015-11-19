@@ -4,7 +4,6 @@
 #include <QDialog>
 #include <QSettings>
 #include <QFileDialog>
-#include "dialogpre.h"
 
 namespace Ui {
 class PreferenciasAvanzadasDialog;
@@ -26,7 +25,6 @@ private:
     Ui::PreferenciasAvanzadasDialog *ui;
 
     void setup();
-    DialogPre *_objetoDialogoPrefe;///< Puntero de la clase DialogPre, es una clase con entorno grafico para poder seleccionar los ficheros que no se encuentran.
 private slots:
 
     void selectAmbitoFile();

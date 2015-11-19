@@ -26,6 +26,10 @@ void MainWindow::setup()
     QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
     _archivoAmbito=new AmbitJson(this,rutaFileObj);
     _objetoAlertFileJson=new AlertFileJson(this,_archivoAmbito);
+    _objetoEditorAmbitoDialog=new EditorAmbitoDialog(this,_archivoAmbito);
+    connect(_objetoAlertFileJson,SIGNAL(lanzarAsistenteJson()),_objetoEditorAmbitoDialog,SLOT(exec()));
+    connect(_objetoEditorAmbitoDialog,SIGNAL(rejected()),_objetoAlertFileJson,SLOT(accept()));
+    connect(_objetoEditorAmbitoDialog,SIGNAL(accepted()),_objetoAlertFileJson,SLOT(accept()));
     if(!_archivoAmbito->exist()) {
         AmbitJson::createStandardTemplate(rutaFileObj);
         _objetoAlertFileJson->setModo(AlertFileJson::FaltaArchivo);

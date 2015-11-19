@@ -58,7 +58,7 @@ void AlertFileJson::selectJson()
 
 void AlertFileJson::createJson()
 {
-    ///@todo Implementar
+    emit lanzarAsistenteJson();
 }
 
 void AlertFileJson::cancel()

@@ -13,6 +13,7 @@
 #include <QDebug>
 #include "preferenciasavanzadasdialog.h"
 #include "alertfilejson.h"
+#include "editorambitodialog.h"
 
 namespace Ui {
 class MainWindow;
@@ -31,6 +32,7 @@ private:
     PreferenciasAvanzadasDialog *_preferenciasAvanzadas;
     AmbitJson *_archivoAmbito;
     AlertFileJson *_objetoAlertFileJson;
+    EditorAmbitoDialog *_objetoEditorAmbitoDialog;
 
     void setup();
 

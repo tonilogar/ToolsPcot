@@ -5,7 +5,6 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QSettings>
-#include "dialogpre.h"
 #include <AmbitoTP/ambitjson.h>
 #include <AmbitoTP/ambito.h>
 
@@ -44,6 +43,10 @@ public:
 
     ModoAlerta getModo() const
     { return _modoActual; }
+
+signals:
+
+    void lanzarAsistenteJson();
 
 private:
     Ui::AlertFileJson *ui;

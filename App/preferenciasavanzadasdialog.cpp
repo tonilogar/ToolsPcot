@@ -45,14 +45,4 @@ PreferenciasAvanzadasDialog::~PreferenciasAvanzadasDialog()
 }
 void PreferenciasAvanzadasDialog::editPreferences()
 {
-_objetoDialogoPrefe=new DialogPre(0);
-//_objetoDialogoPrefe->disableImageEsp(_objetoSettingPre->existPathImageEspSett());
-//_objetoDialogoPrefe->disableExeImaOpe(_objetoSettingPre->existExeImaOpeoSett());
-//_objetoDialogoPrefe->disableExeExtra(_objetoSettingPre->existExeExtraSett());
-//_objetoDialogoPrefe->disableExeFootP(_objetoSettingPre->existExeFootPSett());
-//_objetoDialogoPrefe->disableExeResi(_objetoSettingPre->existExeResiSett());
-//_objetoDialogoPrefe->disableExeSub(_objetoSettingPre->existExeSubeSett());
-//_objetoDialogoPrefe->disableImageCat(_objetoSettingPre->existPathImageCatSett());
-//_objetoDialogoPrefe->disableImageFra(_objetoSettingPre->existPathImageFraSett());
-_objetoDialogoPrefe->exec();
 }
