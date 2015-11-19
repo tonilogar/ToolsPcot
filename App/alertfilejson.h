@@ -49,7 +49,6 @@ private:
     Ui::AlertFileJson *ui;
     AmbitJson *_ambitoFile;
     ModoAlerta _modoActual;
-    DialogPre *_objetoDialogoPr;
 private slots:
     /*!
      * Lanza una ventana para seleccionar el fichero Json de preferencias.

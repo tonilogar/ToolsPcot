@@ -32,12 +32,15 @@ AlertFileJson::~AlertFileJson()
 {
     delete ui;
 }
+
 void AlertFileJson::selectJson()
 {
     QString path=QFileDialog::getOpenFileName(this,"Seleccionar archivo de preferencias",
                                               qApp->applicationDirPath(),"Preferencias JSON (*.json)");
-    if(path.isNull() || path.isEmpty())return;
-    _ambitoFile->setFileInfo(QFileInfo(path));
+    if(path.isNull() || path.isEmpty())
+        return;
+    QFileInfo info(path);
+    _ambitoFile->setFileInfo(path);
     _ambitoFile->load();
     bool state=_ambitoFile->isValid();
     if(_ambitoFile->exist() && _ambitoFile->isValid())
@@ -46,24 +49,19 @@ void AlertFileJson::selectJson()
         setModo(FaltaArchivo);
     if(!_ambitoFile->isValid())
         setModo(ArchivoNoValido);
+    QList<Ambito*> ambitos=_ambitoFile->getAmbitos();
+    foreach(Ambito *amb,ambitos) {
+        if(!amb->isValid())
+            qDebug() << "Ambito no valido: " <<amb->nombre();
+    }
 }
 
 void AlertFileJson::createJson()
 {
-    _objetoDialogoPr=new DialogPre(0);
-    //_objetoDialogoPrefe->disableImageEsp(_objetoSettingPre->existPathImageEspSett());
-    //_objetoDialogoPrefe->disableExeImaOpe(_objetoSettingPre->existExeImaOpeoSett());
-    //_objetoDialogoPrefe->disableExeExtra(_objetoSettingPre->existExeExtraSett());
-    //_objetoDialogoPrefe->disableExeFootP(_objetoSettingPre->existExeFootPSett());
-    //_objetoDialogoPrefe->disableExeResi(_objetoSettingPre->existExeResiSett());
-    //_objetoDialogoPrefe->disableExeSub(_objetoSettingPre->existExeSubeSett());
-    //_objetoDialogoPrefe->disableImageCat(_objetoSettingPre->existPathImageCatSett());
-    //_objetoDialogoPrefe->disableImageFra(_objetoSettingPre->existPathImageFraSett());
-    _objetoDialogoPr->exec();
+    ///@todo Implementar
 }
 
 void AlertFileJson::cancel()
 {
  this->close();
-
 }

@@ -27,7 +27,7 @@ void PreferenciasAvanzadasDialog::reload()
 
 void PreferenciasAvanzadasDialog::selectAmbitoFile()
 {
-    QString path=QFileDialog::getOpenFileName(this,tr("Seleccionar archivo de ámbito"),qApp->applicationDirPath(),"Archivo (*.obj)");
+    QString path=QFileDialog::getOpenFileName(this,tr("Seleccionar archivo de ámbito"),qApp->applicationDirPath(),"Preferencias (*.json)");
 
     if(path.isEmpty() || path.isNull())
         return;

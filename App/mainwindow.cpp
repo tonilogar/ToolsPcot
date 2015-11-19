@@ -25,22 +25,18 @@ void MainWindow::setup()
     QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
     QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
     _archivoAmbito=new AmbitJson(this,rutaFileObj);
+    _objetoAlertFileJson=new AlertFileJson(this,_archivoAmbito);
+    if(!_archivoAmbito->exist()) {
+        AmbitJson::createStandardTemplate(rutaFileObj);
+        _objetoAlertFileJson->setModo(AlertFileJson::FaltaArchivo);
+    }
+    else _objetoAlertFileJson->setModo(AlertFileJson::ArchivoNoValido);
+
     _archivoAmbito->load();
-    _archivoAmbito->getAmbitos();
-    qDebug() << _archivoAmbito->getAmbitos().count() << "nuuuuuuuuuuumero de ambitos en el qlist";
-    if(!_archivoAmbito->isValid())
-    {
-        _objetoAlertFileJson=new AlertFileJson(0);
-        _objetoAlertFileJson->exec();
+    while(!_archivoAmbito->isValid()) {
+        if(_objetoAlertFileJson->exec()==QFileDialog::Rejected)
+            exit(1);
     }
-    else
-    {
-
-    }
-
-
-
-
 }
 
 void MainWindow::comprobarSettings()

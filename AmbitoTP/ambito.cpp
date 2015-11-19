@@ -69,7 +69,15 @@ Ambito *Ambito::fromJson(QJsonObject obj)
     res->setImageRef(QFileInfo(obj.value(QStringLiteral("Path")).toString()));
     res->setTamPixel(obj.value(QStringLiteral("TamanyoPixel")).toDouble());
     res->setUtm(obj.value(QStringLiteral("Utm")).toInt());
-    //res->addEjecutable();
+    //Añadir lista de ejecutables
+    QJsonArray arrayEjecutables=obj.value(QStringLiteral("Ejecutables")).toArray();
+    QJsonArray::iterator it;
+    QFileInfo *pInfo;
+    for(it=arrayEjecutables.begin();it!=arrayEjecutables.end();it++){
+        QString path=(*it).toString();
+        pInfo=new QFileInfo(path);
+        res->addEjecutable(path,pInfo);
+    }
     return res;
 }
 
@@ -91,8 +99,6 @@ bool Ambito::isValid() const
         return false;
     else if(_ejecutables.isEmpty())
     {
-        qDebug() <<"!_ejecutables.isEmpty()";
-        qDebug() <<_ejecutables.count( )<<"cuantos";
         return false;
     }
         return true;
