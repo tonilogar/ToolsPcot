@@ -69,27 +69,32 @@ Ambito *Ambito::fromJson(QJsonObject obj)
     res->setImageRef(QFileInfo(obj.value(QStringLiteral("Path")).toString()));
     res->setTamPixel(obj.value(QStringLiteral("TamanyoPixel")).toDouble());
     res->setUtm(obj.value(QStringLiteral("Utm")).toInt());
-
+    //res->addEjecutable();
     return res;
 }
 
 bool Ambito::isValid() const
 {
+
     //EVALUA SI EL AMBITO ES O NO ES VALIDO
     //¡¡OJO!! 'VALIDO' NO SIGNIFICA CORRECTO!!
     //QFile imageRef(_imageRef.absolutePath());
-    if(!_nombre.isEmpty() || !_nombre.isNull())
+    if(_nombre.isEmpty() || _nombre.isNull())
         return false;
     else if(!_imageRef.exists())
         return false;
-    else if(_imageRef.isReadable())
+    else if(!_imageRef.isReadable())
         return false;
-    else if(!_utm<=0)
+    else if(_utm<=0)
         return false;
-    else if(!_tamPixel<=0.0)
+    else if(_tamPixel<=0.0)
         return false;
-    else if(!_ejecutables.isEmpty())
+    else if(_ejecutables.isEmpty())
+    {
+        qDebug() <<"!_ejecutables.isEmpty()";
+        qDebug() <<_ejecutables.count( )<<"cuantos";
         return false;
+    }
         return true;
 }
 

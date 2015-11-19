@@ -10,6 +10,7 @@
 #include <QJsonValue>
 #include <QJsonDocument>
 #include <QFile>
+#include <QDebug>
 
 #include "ambito.h"
 

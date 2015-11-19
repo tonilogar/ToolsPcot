@@ -8,6 +8,7 @@
 #include <QMap>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QDebug>
 
 class AMBITOTPSHARED_EXPORT Ambito : public QObject
 {

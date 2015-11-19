@@ -6,13 +6,13 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
-
+    _preferenciasAvanzadas=new PreferenciasAvanzadasDialog(this);
+    connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
     setup();
-    comprobarSettings();//Leo la direccion donde se encuentra el fichero de preferencias del setting
+    //comprobarSettings();//Leo la direccion donde se encuentra el fichero de preferencias del setting
     //compruebo que se pueda leer el fichero
     //Si no se puede leer aparece una ventada de alerta de la clase AlertFileJson
-   //cargarAmbitos();
+    //cargarAmbitos();
 }
 
 MainWindow::~MainWindow()
@@ -22,9 +22,25 @@ MainWindow::~MainWindow()
 
 void MainWindow::setup()
 {    
-    _preferenciasAvanzadas=new PreferenciasAvanzadasDialog(this);
-    connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
-    _archivoAmbito=0;
+    QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
+    QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
+    _archivoAmbito=new AmbitJson(this,rutaFileObj);
+    _archivoAmbito->load();
+    _archivoAmbito->getAmbitos();
+    qDebug() << _archivoAmbito->getAmbitos().count() << "nuuuuuuuuuuumero de ambitos en el qlist";
+    if(!_archivoAmbito->isValid())
+    {
+        _objetoAlertFileJson=new AlertFileJson(0);
+        _objetoAlertFileJson->exec();
+    }
+    else
+    {
+
+    }
+
+
+
+
 }
 
 void MainWindow::comprobarSettings()

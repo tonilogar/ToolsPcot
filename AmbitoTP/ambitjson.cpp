@@ -104,34 +104,46 @@ AmbitJson::~AmbitJson()
 
 void AmbitJson::load()
 {
+   qDebug() << "entro en el metodo load";
     QFile nTemplate(_dataFile.absoluteFilePath());
 
-    if(!nTemplate.open(QFile::Text | QFile::ReadOnly)) {
+    if(!nTemplate.open(QFile::Text | QFile::ReadOnly))
+    {
         _error=QStringLiteral("No se pudo abrir el archivo especificado.");
+        qDebug() << "No se pudo abrir el archivo especificado.";
         return;
     }
 
     QByteArray json=nTemplate.readAll();
     QJsonDocument docJson=QJsonDocument::fromJson(json);
 
-    if(docJson.isEmpty() || docJson.isNull()) {
+    if(docJson.isEmpty() || docJson.isNull())
+    {
         _error=QStringLiteral("Formato de archivo no reconocido.");
+        qDebug() << "Formato de archivo no reconocido.";
         nTemplate.close();
         return;
     }
 
-    if(!docJson.isArray()) {
+    if(!docJson.isArray())
+    {
         _error=QStringLiteral("Formato JSON no compatible.");
+        qDebug() << "Formato JSON no compatible.";
         nTemplate.close();
         return;
     }
 
     QJsonArray arrayJson=docJson.array();
     QJsonArray::iterator it;
-    for(it=arrayJson.begin();it!=arrayJson.end();it++) {
-        _ambitosArchivo.append(Ambito::fromJson((*it).toObject()));
-    }
+    for(it=arrayJson.begin();it!=arrayJson.end();it++)
+    {
 
+        _ambitosArchivo.append(Ambito::fromJson((*it).toObject()));
+
+        qDebug() << Ambito::fromJson((*it).toObject())->nombre() <<"entro en el for";
+    }
+    qDebug() <<_ambitosArchivo.count()  <<"numero de ambitos";
+    qDebug() <<_ambitosArchivo.count()  <<"numero de ambitos";
     nTemplate.close();
 }
 
@@ -142,12 +154,26 @@ bool AmbitJson::isLoaded() const
 
 bool AmbitJson::isValid() const
 {
+    qDebug() <<_ambitosArchivo.count()  <<"numero de ambitos dentro de isValid";
     if(_ambitosArchivo.isEmpty())
+    {
+        qDebug() <<_ambitosArchivo.count()  <<"numero de ambitos dentro de isValid _ambitosArchivo.isEmpty()";
+         qDebug() << _ambitosArchivo << "muestra lista de ambitos";
+         qDebug() << "dentro del metodo isValid isempty return false";
+
         return false;
-    foreach(Ambito *amb,_ambitosArchivo) {
-        if(!amb->isValid())
-            return false;
     }
+    foreach(Ambito *amb,_ambitosArchivo)
+    {
+        int i=0;
+        if(!amb->isValid())
+        {
+            qDebug() << "dentro del metodo isValid dentro del for return false";
+            return false;
+        }
+        i=i+1;
+    }
+    qDebug() << "return true";
     return true;
 }
 
@@ -185,4 +211,6 @@ void AmbitJson::removeAmbito(Ambito *amb)
 {
     _ambitosArchivo.removeAll(amb);
 }
+
+
 

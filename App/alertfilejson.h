@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <QSettings>
-
+#include "dialogpre.h"
 #include <AmbitoTP/ambitjson.h>
 #include <AmbitoTP/ambito.h>
 
@@ -28,7 +28,7 @@ public:
     enum ModoAlerta
     { FaltaArchivo, ArchivoNoValido, Desconocido };
 
-    Q_ENUM(ModoAlerta)
+    //Q_ENUM(ModoAlerta)
 
 public:
     /*!
@@ -49,7 +49,7 @@ private:
     Ui::AlertFileJson *ui;
     AmbitJson *_ambitoFile;
     ModoAlerta _modoActual;
-
+    DialogPre *_objetoDialogoPr;
 private slots:
     /*!
      * Lanza una ventana para seleccionar el fichero Json de preferencias.

@@ -5,7 +5,7 @@
 #include <QDebug>
 #include <QFileDialog>
 #include <AmbitoTP/ambito.h>
-#include "alertfilejson.h"
+
 
 namespace Ui {
 class DialogPre;
@@ -106,7 +106,7 @@ private:
     QString _openDirImage;///< Variable que se utiliza como direccion para seleccionar las imagenes met.
     QString _openDirExe;///< Variable que se utiliza como direccion para seleccionar los ejecutables.
     Ambito *_objetoAmbito; ///< Puntero a objeto SettingPreferencias.
-    AlertFileJson *_alert;///< Puntero del la clase AlertFileJson para mostrar el mensaje de alerta si no se seleccionan todos los ficheros necesarios
+
     bool check;
 private slots:
     /*!
