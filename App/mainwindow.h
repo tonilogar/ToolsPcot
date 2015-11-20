@@ -26,7 +26,10 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
-
+private slots:
+    void pepe();
+    void comprobarSettings();
+    void setup();
 private:
     Ui::MainWindow *ui;
     PreferenciasAvanzadasDialog *_preferenciasAvanzadas;
@@ -34,9 +37,9 @@ private:
     AlertFileJson *_objetoAlertFileJson;
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
 
-    void setup();
 
-    void comprobarSettings();
+
+
     void cargarAmbitos();
 };
 

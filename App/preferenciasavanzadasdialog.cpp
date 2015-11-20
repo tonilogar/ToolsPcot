@@ -37,6 +37,7 @@ void PreferenciasAvanzadasDialog::selectAmbitoFile()
     settingsPcot.setValue(QStringLiteral("pathConfigAmbito"),path);
 
     ui->pathAmbitoLine->setText(path);
+    emit comprobarFileJson();
 }
 
 PreferenciasAvanzadasDialog::~PreferenciasAvanzadasDialog()

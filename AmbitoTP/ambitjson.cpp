@@ -157,12 +157,10 @@ bool AmbitJson::isValid() const
     }
     foreach(Ambito *amb,_ambitosArchivo)
     {
-        int i=0;
         if(!amb->isValid())
         {
             return false;
         }
-        i=i+1;
     }
     return true;
 }

@@ -21,6 +21,9 @@ public slots:
 
     void reload();
 
+signals:
+    void comprobarFileJson();
+
 private:
     Ui::PreferenciasAvanzadasDialog *ui;
 

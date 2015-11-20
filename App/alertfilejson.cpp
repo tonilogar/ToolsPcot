@@ -39,6 +39,9 @@ void AlertFileJson::selectJson()
                                               qApp->applicationDirPath(),"Preferencias JSON (*.json)");
     if(path.isNull() || path.isEmpty())
         return;
+    QSettings settingsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
+    settingsPcot.setValue(QStringLiteral("pathConfigAmbito"),path);
+
     QFileInfo info(path);
     _ambitoFile->setFileInfo(path);
     _ambitoFile->load();
