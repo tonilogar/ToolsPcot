@@ -1,19 +1,17 @@
 #include "preferenciasavanzadasdialog.h"
 #include "ui_preferenciasavanzadasdialog.h"
+#include <QDebug>
 
 PreferenciasAvanzadasDialog::PreferenciasAvanzadasDialog(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::PreferenciasAvanzadasDialog)
 {
     ui->setupUi(this);
-    setup();
+    connect(ui->editAmbitoButton,SIGNAL(clicked()),this,SLOT(editPreferences()));
+    connect(ui->browseAmbitoButton,SIGNAL(clicked(bool)),this,SLOT(selectAmbitoFile()));
 }
 
-void PreferenciasAvanzadasDialog::setup()
-{
-    connect(ui->browseAmbitoButton,SIGNAL(clicked(bool)),this,SLOT(selectAmbitoFile()));
-    connect(ui->editAmbitoButton,SIGNAL(clicked(bool)),this,SLOT(editPreferences()));
-}
+
 
 void PreferenciasAvanzadasDialog::reload()
 {
@@ -37,7 +35,6 @@ void PreferenciasAvanzadasDialog::selectAmbitoFile()
     settingsPcot.setValue(QStringLiteral("pathConfigAmbito"),path);
 
     ui->pathAmbitoLine->setText(path);
-    emit comprobarFileJson();
 }
 
 PreferenciasAvanzadasDialog::~PreferenciasAvanzadasDialog()
@@ -46,4 +43,7 @@ PreferenciasAvanzadasDialog::~PreferenciasAvanzadasDialog()
 }
 void PreferenciasAvanzadasDialog::editPreferences()
 {
+qDebug() << "signalEditAmbito()";
+  emit signalEditAmbito();
+
 }

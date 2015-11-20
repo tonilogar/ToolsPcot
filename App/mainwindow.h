@@ -30,13 +30,15 @@ private slots:
     void pepe();
     void comprobarSettings();
     void setup();
+
+
 private:
     Ui::MainWindow *ui;
     PreferenciasAvanzadasDialog *_preferenciasAvanzadas;
     AmbitJson *_archivoAmbito;
     AlertFileJson *_objetoAlertFileJson;
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
-
+    EditorAmbitoDialog *_objetoEditorAm;
 
 
 

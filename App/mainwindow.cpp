@@ -28,9 +28,11 @@ void MainWindow::setup()
     _objetoAlertFileJson=new AlertFileJson(this,_archivoAmbito);
     _objetoEditorAmbitoDialog=new EditorAmbitoDialog(this,_archivoAmbito);
     connect(_objetoAlertFileJson,SIGNAL(lanzarAsistenteJson()),_objetoEditorAmbitoDialog,SLOT(exec()));
+    connect(_preferenciasAvanzadas,SIGNAL(signalEditAmbito()),_objetoEditorAmbitoDialog,SLOT(exec()));
     connect(_objetoEditorAmbitoDialog,SIGNAL(rejected()),_objetoAlertFileJson,SLOT(accept()));
     connect(_objetoEditorAmbitoDialog,SIGNAL(accepted()),_objetoAlertFileJson,SLOT(accept()));
-    connect( _preferenciasAvanzadas,SIGNAL(accepted()),this,SLOT(setup()));
+    connect(_preferenciasAvanzadas,SIGNAL(accepted()),this,SLOT(setup()));
+
 
     if(!_archivoAmbito->exist()) {
         //AmbitJson::createStandardTemplate(rutaFileObj);
@@ -49,22 +51,6 @@ void MainWindow::comprobarSettings()
 {
     qDebug() << "comprobando setting";
 
-    QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
-    QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
-    _archivoAmbito=new AmbitJson(this,rutaFileObj);
-    _objetoAlertFileJson=new AlertFileJson(this,_archivoAmbito);
-    _objetoEditorAmbitoDialog=new EditorAmbitoDialog(this,_archivoAmbito);
-    if(!_archivoAmbito->exist()) {
-        //AmbitJson::createStandardTemplate(rutaFileObj);
-        _objetoAlertFileJson->setModo(AlertFileJson::FaltaArchivo);
-    }
-    else _objetoAlertFileJson->setModo(AlertFileJson::ArchivoNoValido);
-
-    _archivoAmbito->load();
-    while(!_archivoAmbito->isValid()) {
-        if(_objetoAlertFileJson->exec()==QFileDialog::Rejected)
-            exit(1);
-    }
 //    QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
 //    QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
 //    _archivoAmbito=new AmbitJson(this,rutaFileObj);
@@ -107,3 +93,5 @@ void MainWindow::pepe()
 {
    qDebug() << "pepe";
 }
+
+

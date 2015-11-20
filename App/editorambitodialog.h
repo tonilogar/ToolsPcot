@@ -16,10 +16,16 @@ class EditorAmbitoDialog : public QDialog
 public:
     explicit EditorAmbitoDialog(QWidget *parent = 0,AmbitJson *archivoAmb=0);
     ~EditorAmbitoDialog();
+   //Getter
 
 private:
     Ui::EditorAmbitoDialog *ui;
     AmbitJson *_archivoAmbito;
+    public slots:
+    void showDialog();
+public slots:
+//setters
+
 };
 
 #endif // EDITORAMBITODIALOG_H

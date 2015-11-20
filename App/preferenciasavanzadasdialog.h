@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QFileDialog>
 
+
 namespace Ui {
 class PreferenciasAvanzadasDialog;
 }
@@ -20,14 +21,14 @@ public:
 public slots:
 
     void reload();
-
 signals:
-    void comprobarFileJson();
+    void signalEditAmbito();
 
 private:
     Ui::PreferenciasAvanzadasDialog *ui;
 
-    void setup();
+
+
 private slots:
 
     void selectAmbitoFile();
