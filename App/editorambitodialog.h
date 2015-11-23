@@ -2,8 +2,10 @@
 #define EDITORAMBITODIALOG_H
 
 #include <QDialog>
-
+#include <QDebug>
 #include <AmbitoTP/ambitjson.h>
+#include <AmbitoTP/ambito.h>
+#include <QMap>
 
 namespace Ui {
 class EditorAmbitoDialog;
@@ -18,13 +20,16 @@ public:
     ~EditorAmbitoDialog();
    //Getter
 
+
 private:
     Ui::EditorAmbitoDialog *ui;
-    AmbitJson *_archivoAmbito;
-    public slots:
-    void showDialog();
+    AmbitJson *_archivoAm;
+    QList<Ambito*> _qlistAmbitos;
+    QMap<QString,QFileInfo*> _ejecutables;
+
 public slots:
 //setters
+void showDataAmbito();
 
 };
 
