@@ -38,7 +38,6 @@ private:
     AmbitJson *_archivoAmbito;
     AlertFileJson *_objetoAlertFileJson;
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
-    EditorAmbitoDialog *_objetoEditorAm;
 
 
 
