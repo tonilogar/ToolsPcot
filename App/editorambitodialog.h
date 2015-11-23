@@ -7,6 +7,8 @@
 #include <AmbitoTP/ambito.h>
 #include <QMap>
 
+#include "ambitowidget.h"
+
 namespace Ui {
 class EditorAmbitoDialog;
 }
@@ -20,16 +22,20 @@ public:
     ~EditorAmbitoDialog();
    //Getter
 
+public slots:
+
+    int exec();
+
 
 private:
     Ui::EditorAmbitoDialog *ui;
     AmbitJson *_archivoAm;
-    QList<Ambito*> _qlistAmbitos;
-    QMap<QString,QFileInfo*> _ejecutables;
 
 public slots:
-//setters
-void showDataAmbito();
+
+private:
+
+    void recargarAmbitos();
 
 };
 

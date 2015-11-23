@@ -29,14 +29,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     preferenciasavanzadasdialog.cpp \
     alertfilejson.cpp \
-    editorambitodialog.cpp
+    editorambitodialog.cpp \
+    ambitowidget.cpp
 
 HEADERS  += mainwindow.h \
     preferenciasavanzadasdialog.h \
     alertfilejson.h \
-    editorambitodialog.h
+    editorambitodialog.h \
+    ambitowidget.h
 
 FORMS    += mainwindow.ui \
     preferenciasavanzadasdialog.ui \
     alertfilejson.ui \
-    editorambitodialog.ui
+    editorambitodialog.ui \
+    ambitowidget.ui
