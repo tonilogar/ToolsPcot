@@ -10,6 +10,7 @@ TEMPLATE = lib
 
 win32:CONFIG(release,debug|release):TARGET = AmbitoTP
 else:win32:CONFIG(debug,debug|release):TARGET = AmbitoTPd
+!win32:TARGET = AmbitoTP
 
 INCLUDEPATH += ..
 DESTDIR =../libs
