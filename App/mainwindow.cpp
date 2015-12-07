@@ -34,7 +34,7 @@ void MainWindow::setup()
     connect(_preferenciasAvanzadas,SIGNAL(accepted()),this,SLOT(setup()));
 
     if(!_archivoAmbito->exist()) {
-        //AmbitJson::createStandardTemplate(rutaFileObj);
+         AmbitJson::createStandardTemplate(rutaFileObj);
         _objetoAlertFileJson->setModo(AlertFileJson::FaltaArchivo);
     }
     else _objetoAlertFileJson->setModo(AlertFileJson::ArchivoNoValido);

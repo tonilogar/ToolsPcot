@@ -11,8 +11,10 @@ AmbitoWidget::AmbitoWidget(QWidget *parent, Ambito *amb) :
 
     //Preparar los campos con datos iniciales
     ui->utmComboBox->addItem("No seleccionado",-1);
-    for (int i=29; i< 32; i++)
-    ui->utmComboBox->addItem(QString::number(i),i);
+    for (int i=0; i< 3; i++)
+    ui->utmComboBox->addItem(QString::number(i+29),i+29);
+    ui->utmComboBox->setCurrentIndex(_ambito->utm()-28);
+
 
 
     ui->editName->setText(_ambito->nombre());
