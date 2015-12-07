@@ -8,8 +8,8 @@ EditorAmbitoDialog::EditorAmbitoDialog(QWidget *parent, AmbitJson *archivoAmb) :
 {
     ui->setupUi(this);
     _archivoAm=archivoAmb;
-
-    ui->tabWidget->addTab(new QWidget(this),QStringLiteral("Nuevo widget!!!"));
+//ui->lineEditExtraction->setText();
+    //ui->tabWidget->addTab(new QWidget(this),QStringLiteral("Nuevo widget!!!"));
 }
 
 EditorAmbitoDialog::~EditorAmbitoDialog()

@@ -83,7 +83,6 @@ Ambito *Ambito::fromJson(QJsonObject obj)
 
 bool Ambito::isValid() const
 {
-
     //EVALUA SI EL AMBITO ES O NO ES VALIDO
     //¡¡OJO!! 'VALIDO' NO SIGNIFICA CORRECTO!!
     //QFile imageRef(_imageRef.absolutePath());
