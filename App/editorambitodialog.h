@@ -31,6 +31,8 @@ public:
 
 public slots:
     int exec();
+
+    void accept();
 private slots:
 
 

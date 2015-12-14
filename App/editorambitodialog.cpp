@@ -54,6 +54,28 @@ void EditorAmbitoDialog::recargarAmbitos()
         ambitoW=new AmbitoWidget(this,amb);
         ui->tabWidget->addTab(ambitoW,amb->nombre());
     }
+
+    //Revisar los ambitos, seleccionar los ejecutables, escribir los line edit
+    QMap<QString,QFileInfo*> mapaEjecutables;
+    foreach(Ambito *amb,listaAmbitos) {
+        QMap<QString,QFileInfo*> ambEjecutables=amb->ejecutables();
+        QStringList listaClaves=ambEjecutables.keys();
+        foreach(QString clave,listaClaves) {
+            if(!mapaEjecutables.contains(clave))
+                mapaEjecutables.insert(clave,ambEjecutables.value(clave));
+        }
+    }
+
+    if(!mapaEjecutables.contains("exeExtraction") || !mapaEjecutables.value("exeExtraction")->isFile())
+        ui->lineEditExtraction->setText(QString());
+    else ui->lineEditExtraction->setText(mapaEjecutables.value("exeExtraction")->absoluteFilePath());
+    _exeExtraction.setFile(ui->lineEditExtraction->text());
+
+    if(!mapaEjecutables.contains("exeFootPrintMask") || !mapaEjecutables.value("exeFootPrintMask")->isFile())
+        ui->lineEditFootPrintMask->setText(QString());
+    else ui->lineEditFootPrintMask->setText(mapaEjecutables.value("exeFootPrintMask")->absoluteFilePath());
+    _exeFootPrintMask.setFile(ui->lineEditFootPrintMask->text());
+
 }
 
 
@@ -111,6 +133,7 @@ void EditorAmbitoDialog::selectExtraction()
     if(path.isEmpty() || path.isNull())
         return;
     ui->lineEditExtraction->setText(path);
+    setExtraction(path);
 }
 
 void EditorAmbitoDialog::selectSubScene()
@@ -126,6 +149,7 @@ void EditorAmbitoDialog::selectFootPrintMask()
     if(path.isEmpty() || path.isNull())
         return;
     ui->lineEditFootPrintMask->setText(path);
+    setFootPrintMask(path);
 }
 void EditorAmbitoDialog::selectResize()
 {
@@ -142,9 +166,23 @@ void EditorAmbitoDialog::selectImageOpeGeo()
     ui->lineEditGeoTransformation->setText(path);
 }
 
+void EditorAmbitoDialog::accept()
+{
+    //Aceptar implica reescribir la informacion de los ambitos
+    QList<Ambito*> listaAmbitos=_archivoAm->getAmbitos();
 
+    foreach(Ambito *amb,listaAmbitos) {
+        QMap<QString,QFileInfo*> mapaEjecutables=amb->ejecutables();
+        if(mapaEjecutables.contains("exeExtraction")) {
+            amb->removeEjecutable("exeExtraction");
+            amb->addEjecutable("exeExtraction",new QFileInfo(_exeExtraction));
+        }
+        if(mapaEjecutables.contains("exeFootPrintMask")) {
+            amb->removeEjecutable("exeFootPrintMask");
+            amb->addEjecutable("exeFootPrintMask",new QFileInfo(_exeFootPrintMask));
+        }
+    }
 
-
-
-
-
+    _archivoAm->save();
+    QDialog::accept();
+}

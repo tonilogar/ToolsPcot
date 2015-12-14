@@ -54,7 +54,9 @@ QJsonObject Ambito::toJson() const
     foreach(QString nombre,claves) {
         QJsonObject exec;
         exec.insert(QStringLiteral("Nombre"),nombre);
-        exec.insert(QStringLiteral("Path"),_ejecutables.value(nombre)->absoluteFilePath());
+        if(_ejecutables.value(nombre)->isFile())
+            exec.insert(QStringLiteral("Path"),_ejecutables.value(nombre)->absoluteFilePath());
+        else exec.insert(QStringLiteral("Path"),QString());
         arrayExec.append(exec);
     }
     res.insert(QStringLiteral("Ejecutables"),arrayExec);
@@ -74,9 +76,14 @@ Ambito *Ambito::fromJson(QJsonObject obj)
     QJsonArray::iterator it;
     QFileInfo *pInfo;
     for(it=arrayEjecutables.begin();it!=arrayEjecutables.end();it++){
-        QString path=(*it).toString();
-        pInfo=new QFileInfo(path);
-        res->addEjecutable(path,pInfo);
+        QJsonObject infoExec=(*it).toObject();
+        QString nombre=infoExec.value("Nombre").toString();
+        QString path=infoExec.value("Path").toString();
+        res->addEjecutable(nombre,new QFileInfo(path));
+
+//        QString path=(*it).toString();
+//        pInfo=new QFileInfo(path);
+//        res->addEjecutable(path,pInfo);
     }
     return res;
 }
