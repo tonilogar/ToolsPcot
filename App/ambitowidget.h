@@ -5,6 +5,10 @@
 
 #include <AmbitoTP/ambito.h>
 
+#include <AmbitoTP/ambevaluador.h>
+#include <AmbitoTP/ambevaluatest.h>
+#include <AmbitoTP/ambevrangoutmtest.h>
+
 namespace Ui {
 class AmbitoWidget;
 }
@@ -17,9 +21,15 @@ public:
     explicit AmbitoWidget(QWidget *parent = 0,Ambito *amb=0);
     ~AmbitoWidget();
 
+private slots:
+
+    void depuracionSalidaEvaluador(bool);
+
 private:
     Ui::AmbitoWidget *ui;
     Ambito *_ambito;
+
+    AmbEvaluador *_evaluador;
 };
 
 #endif // AMBITOWIDGET_H

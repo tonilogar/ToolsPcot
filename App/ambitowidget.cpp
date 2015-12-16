@@ -7,6 +7,13 @@ AmbitoWidget::AmbitoWidget(QWidget *parent, Ambito *amb) :
 {
     ui->setupUi(this);
     _ambito=amb;
+    _evaluador=new AmbEvaluador(this);
+
+    AmbEvRangoUtmTest *testUtm=new AmbEvRangoUtmTest(this);
+    _evaluador->addTest(testUtm);
+
+    //conectar mensajes de test
+    connect(testUtm,SIGNAL(errorOnUtm(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
 
 
     //Preparar los campos con datos iniciales
@@ -24,16 +31,23 @@ AmbitoWidget::AmbitoWidget(QWidget *parent, Ambito *amb) :
 
 
 
-
-
     //Establezco las conexiones pertinentes
     connect(ui->editName,SIGNAL(textChanged(QString)),_ambito,SLOT(setNombre(QString)));
     connect(ui->lineReference,SIGNAL(textChanged(QString)),_ambito,SLOT(setImageRef(QFileInfo)));
     connect(ui->doubleSpinBoxTam,SIGNAL(valueChanged(double)),_ambito,SLOT(setTamPixel(double)));
     connect(ui->utmComboBox,SIGNAL(valueChanged(int)),_ambito,SLOT(setUtm(int)));
+
+    _evaluador->check(_ambito);
 }
 
 AmbitoWidget::~AmbitoWidget()
 {
     delete ui;
+}
+
+void AmbitoWidget::depuracionSalidaEvaluador(bool data)
+{
+    if(!data)
+        qDebug() << "TEST UTM PASADO";
+    else qDebug() << "TEST UTM NO HA PASADO";
 }

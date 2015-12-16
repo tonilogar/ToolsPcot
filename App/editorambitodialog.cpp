@@ -19,6 +19,17 @@ EditorAmbitoDialog::EditorAmbitoDialog(QWidget *parent, AmbitJson *archivoAmb) :
     connect(ui->toolButtonGeoTransformation,SIGNAL(clicked()),this,SLOT(selectImageOpeGeo()));
     connect(ui->toolButtonResize,SIGNAL(clicked()),this,SLOT(selectResize()));
     connect(ui->toolButtonSubScene,SIGNAL(clicked()),this,SLOT(selectSubScene()));
+
+    _evaluador=new AmbEvaluador(this);
+
+    AmbEvExtractionTest *testExtraction=new AmbEvExtractionTest(this);
+    AmbEvFootprintTest *testFootprint=new AmbEvFootprintTest(this);
+
+    connect(testExtraction,SIGNAL(errorOnExtraction(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testFootprint,SIGNAL(errorOnFootprint(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+
+    _evaluador->addTest(testExtraction);
+    _evaluador->addTest(testFootprint);
 }
 
 EditorAmbitoDialog::~EditorAmbitoDialog()
@@ -76,6 +87,25 @@ void EditorAmbitoDialog::recargarAmbitos()
     else ui->lineEditFootPrintMask->setText(mapaEjecutables.value("exeFootPrintMask")->absoluteFilePath());
     _exeFootPrintMask.setFile(ui->lineEditFootPrintMask->text());
 
+    //lanzamos los test
+
+    Ambito *falsoAmbito=new Ambito(this);
+
+    QStringList listaNombres=mapaEjecutables.keys();
+
+    foreach(QString nombre,listaNombres)
+        falsoAmbito->addEjecutable(nombre,mapaEjecutables.value(nombre));
+
+    _evaluador->check(falsoAmbito);
+
+    //Otra forma de comprobar el resultados de los test
+    QList<AmbEvaluaTest*> listaTest=_evaluador->getTestList();
+
+    foreach(AmbEvaluaTest *test,listaTest) {
+        if(test->isPassed())
+            qDebug() << "PASSED";
+        else qDebug() << "FAILED";
+    }
 }
 
 
@@ -185,4 +215,14 @@ void EditorAmbitoDialog::accept()
 
     _archivoAm->save();
     QDialog::accept();
+}
+
+void EditorAmbitoDialog::depuracionSalidaEvaluador(bool data)
+{
+    AmbEvaluaTest *test=qobject_cast<AmbEvaluaTest*>(sender());
+
+    if(!data)
+        qDebug() << "TEST PASSED";
+    else
+        qDebug() << test->mensaje();
 }

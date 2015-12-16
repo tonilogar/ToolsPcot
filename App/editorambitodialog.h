@@ -11,6 +11,11 @@
 
 #include "ambitowidget.h"
 
+#include <AmbitoTP/ambevaluador.h>
+#include <AmbitoTP/ambevaluatest.h>
+#include <AmbitoTP/ambevextractiontest.h>
+#include <AmbitoTP/ambevfootprinttest.h>
+
 namespace Ui {
 class EditorAmbitoDialog;
 }
@@ -48,21 +53,21 @@ private slots:
     void selectResize();
     void selectImageOpeGeo();
 
+    void depuracionSalidaEvaluador(bool);
+
 private:
     Ui::EditorAmbitoDialog *ui;
     AmbitJson *_archivoAm;
 
-
-
-private:
-
-    void recargarAmbitos();
     QFileInfo _exeExtraction;
     QFileInfo _exeSubScene;
     QFileInfo _exeFootPrintMask;
     QFileInfo _exeResize;
     QFileInfo _exeImageOpeGeo;
 
+    AmbEvaluador *_evaluador;
+
+    void recargarAmbitos();
 };
 
 #endif // EDITORAMBITODIALOG_H

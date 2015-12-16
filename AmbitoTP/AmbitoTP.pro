@@ -19,12 +19,22 @@ DEFINES += AMBITOTP_LIBRARY
 
 SOURCES += \
     ambito.cpp \
-    ambitjson.cpp
+    ambitjson.cpp \
+    ambevaluador.cpp \
+    ambevaluatest.cpp \
+    ambevextractiontest.cpp \
+    ambevfootprinttest.cpp \
+    ambevrangoutmtest.cpp
 
 HEADERS +=\
         ambitotp_global.h \
     ambito.h \
-    ambitjson.h
+    ambitjson.h \
+    ambevaluador.h \
+    ambevaluatest.h \
+    ambevextractiontest.h \
+    ambevfootprinttest.h \
+    ambevrangoutmtest.h
 
 unix {
     target.path = /usr/lib
