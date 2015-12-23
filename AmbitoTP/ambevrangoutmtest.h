@@ -18,7 +18,6 @@ public:
 
 signals:
 
-    void errorOnUtm(bool);
 
 public slots:
 };

@@ -1,16 +1,16 @@
-#include "ambevfootprinttest.h"
+#include "ambevresizetest.h"
 
-AmbEvFootprintTest::AmbEvFootprintTest(QObject *parent)
-    : AmbEvaluaTest(parent,QStringLiteral("Falta el ejecutable de FootPrintMask o no es accesible"))
+AmbEvResizeTest::AmbEvResizeTest(QObject *parent)
+    : AmbEvaluaTest(parent,QStringLiteral("Falta el ejecutable resize"))
 {
 
 }
 
-void AmbEvFootprintTest::launchTest(Ambito *amb)
+void AmbEvResizeTest::launchTest(Ambito *amb)
 {
     _ambito=amb;
 
-    QFileInfo *info=_ambito->ejecutables().value("exeFootPrintMask");
+    QFileInfo *info=_ambito->ejecutables().value("exeResize");
 
     if(!info->isFile()) {
         _isPassed=false;
@@ -35,4 +35,7 @@ void AmbEvFootprintTest::launchTest(Ambito *amb)
     _isPassed=true;
     emit testResult(true);
     return;
+
+
 }
+

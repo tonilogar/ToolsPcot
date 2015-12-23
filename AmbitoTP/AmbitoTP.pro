@@ -24,7 +24,10 @@ SOURCES += \
     ambevaluatest.cpp \
     ambevextractiontest.cpp \
     ambevfootprinttest.cpp \
-    ambevrangoutmtest.cpp
+    ambevrangoutmtest.cpp \
+    ambevgeotransformtest.cpp \
+    ambevresizetest.cpp \
+    ambevsubscenetest.cpp
 
 HEADERS +=\
         ambitotp_global.h \
@@ -34,7 +37,10 @@ HEADERS +=\
     ambevaluatest.h \
     ambevextractiontest.h \
     ambevfootprinttest.h \
-    ambevrangoutmtest.h
+    ambevrangoutmtest.h \
+    ambevgeotransformtest.h \
+    ambevresizetest.h \
+    ambevsubscenetest.h
 
 unix {
     target.path = /usr/lib

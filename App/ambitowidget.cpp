@@ -13,7 +13,7 @@ AmbitoWidget::AmbitoWidget(QWidget *parent, Ambito *amb) :
     _evaluador->addTest(testUtm);
 
     //conectar mensajes de test
-    connect(testUtm,SIGNAL(errorOnUtm(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testUtm,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
 
 
     //Preparar los campos con datos iniciales

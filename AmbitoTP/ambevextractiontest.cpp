@@ -14,26 +14,26 @@ void AmbEvExtractionTest::launchTest(Ambito *amb)
 
     if(!info->isFile()) {
         _isPassed=false;
-        emit errorOnExtraction(true);
+        emit testResult(false);
         return;
     }
     if(!info->exists()) {
         _isPassed=false;
-        emit errorOnExtraction(true);
+        emit testResult(false);
         return;
     }
     if(!info->isExecutable()) {
         _isPassed=false;
-        emit errorOnExtraction(true);
+        emit testResult(false);
         return;
     }
     if(!info->isReadable()) {
         _isPassed=false;
-        emit errorOnExtraction(true);
+        emit testResult(false);
         return;
     }
     _isPassed=true;
-    emit errorOnExtraction(false);
+    emit testResult(true);
     return;
 }
 

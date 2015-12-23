@@ -15,6 +15,9 @@
 #include <AmbitoTP/ambevaluatest.h>
 #include <AmbitoTP/ambevextractiontest.h>
 #include <AmbitoTP/ambevfootprinttest.h>
+#include <AmbitoTP/ambevgeotransformtest.h>
+#include <AmbitoTP/ambevresizetest.h>
+#include <AmbitoTP/ambevsubscenetest.h>
 
 namespace Ui {
 class EditorAmbitoDialog;

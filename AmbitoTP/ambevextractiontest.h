@@ -18,7 +18,6 @@ public:
 
 signals:
 
-    void errorOnExtraction(bool);
 
 public slots:
 };

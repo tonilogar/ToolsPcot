@@ -18,7 +18,6 @@ public:
 
 signals:
 
-    void errorOnFootprint(bool);
 
 public slots:
 };

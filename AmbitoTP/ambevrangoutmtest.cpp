@@ -14,10 +14,10 @@ void AmbEvRangoUtmTest::launchTest(Ambito *amb)
 
     if((29 < utm) || (31 > utm)) {
         _isPassed=false;
-        emit errorOnUtm(true);
+        emit testResult(false);
         return;
     }
     _isPassed=true;
-    emit errorOnUtm(false);
+    emit testResult(true);
     return;
 }

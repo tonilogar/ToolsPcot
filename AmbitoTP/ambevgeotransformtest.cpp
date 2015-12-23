@@ -1,16 +1,16 @@
-#include "ambevfootprinttest.h"
+#include "ambevgeotransformtest.h"
 
-AmbEvFootprintTest::AmbEvFootprintTest(QObject *parent)
-    : AmbEvaluaTest(parent,QStringLiteral("Falta el ejecutable de FootPrintMask o no es accesible"))
+AmbEvGeoTransformTest::AmbEvGeoTransformTest(QObject *parent)
+    : AmbEvaluaTest(parent,QStringLiteral("Falta el ejecutable geoTransform"))
 {
 
 }
 
-void AmbEvFootprintTest::launchTest(Ambito *amb)
+void AmbEvGeoTransformTest::launchTest(Ambito *amb)
 {
     _ambito=amb;
 
-    QFileInfo *info=_ambito->ejecutables().value("exeFootPrintMask");
+    QFileInfo *info=_ambito->ejecutables().value("exeGeoTransform");
 
     if(!info->isFile()) {
         _isPassed=false;
@@ -35,4 +35,8 @@ void AmbEvFootprintTest::launchTest(Ambito *amb)
     _isPassed=true;
     emit testResult(true);
     return;
+
 }
+
+
+

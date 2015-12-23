@@ -26,6 +26,8 @@ public:
 
 signals:
 
+    void testResult(bool);
+
 public slots:
 
 protected:

@@ -24,12 +24,21 @@ EditorAmbitoDialog::EditorAmbitoDialog(QWidget *parent, AmbitJson *archivoAmb) :
 
     AmbEvExtractionTest *testExtraction=new AmbEvExtractionTest(this);
     AmbEvFootprintTest *testFootprint=new AmbEvFootprintTest(this);
+    AmbEvGeoTransformTest *testGeoTrans=new AmbEvGeoTransformTest(this);
+    AmbEvResizeTest *testResize=new AmbEvResizeTest(this);
+    AmbEvSubsceneTest *testSubscene=new AmbEvSubsceneTest(this);
 
-    connect(testExtraction,SIGNAL(errorOnExtraction(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
-    connect(testFootprint,SIGNAL(errorOnFootprint(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testExtraction,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testFootprint,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testResize,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testSubscene,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testGeoTrans,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
 
     _evaluador->addTest(testExtraction);
     _evaluador->addTest(testFootprint);
+    _evaluador->addTest(testGeoTrans);
+    _evaluador->addTest(testResize);
+    _evaluador->addTest(testSubscene);
 }
 
 EditorAmbitoDialog::~EditorAmbitoDialog()
@@ -211,6 +220,19 @@ void EditorAmbitoDialog::accept()
             amb->removeEjecutable("exeFootPrintMask");
             amb->addEjecutable("exeFootPrintMask",new QFileInfo(_exeFootPrintMask));
         }
+        if(mapaEjecutables.contains("exeResize")) {
+            amb->removeEjecutable("exeResize");
+            amb->addEjecutable("exeResize",new QFileInfo(_exeResize));
+        }
+        if(mapaEjecutables.contains("exeGeoTransform")) {
+            amb->removeEjecutable("exeGeoTransform");
+            amb->addEjecutable("exeGeoTransform",new QFileInfo(_exeImageOpeGeo));
+        }
+        if(mapaEjecutables.contains("exeSubScene")) {
+            amb->removeEjecutable("exeSubScene");
+            amb->addEjecutable("exeSubScene",new QFileInfo(_exeSubScene));
+        }
+
     }
 
     _archivoAm->save();
@@ -221,7 +243,7 @@ void EditorAmbitoDialog::depuracionSalidaEvaluador(bool data)
 {
     AmbEvaluaTest *test=qobject_cast<AmbEvaluaTest*>(sender());
 
-    if(!data)
+    if(data)
         qDebug() << "TEST PASSED";
     else
         qDebug() << test->mensaje();
