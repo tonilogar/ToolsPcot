@@ -47,7 +47,8 @@ QJsonObject Ambito::toJson() const
         res.insert(QStringLiteral("Path"),_imageRef.absoluteFilePath());
     else res.insert(QStringLiteral("Path"),QStringLiteral(""));
     res.insert(QStringLiteral("TamanyoPixel"),_tamPixel);
-    res.insert(QStringLiteral("Utm"),_utm);
+    if(_utm!=-1)
+        res.insert(QStringLiteral("Utm"),_utm);
 
     QJsonArray arrayExec;
     QList<QString> claves=_ejecutables.keys();
@@ -70,7 +71,10 @@ Ambito *Ambito::fromJson(QJsonObject obj)
     res->setNombre(obj.value(QStringLiteral("Nombreambito")).toString());
     res->setImageRef(QFileInfo(obj.value(QStringLiteral("Path")).toString()));
     res->setTamPixel(obj.value(QStringLiteral("TamanyoPixel")).toDouble());
-    res->setUtm(obj.value(QStringLiteral("Utm")).toInt());
+    if(obj.contains("Utm"))
+        res->setUtm(obj.value(QStringLiteral("Utm")).toInt());
+    else res->setUtm(-1);
+
     //Añadir lista de ejecutables
     QJsonArray arrayEjecutables=obj.value(QStringLiteral("Ejecutables")).toArray();
     QJsonArray::iterator it;
@@ -98,8 +102,6 @@ bool Ambito::isValid() const
     else if(!_imageRef.exists())
         return false;
     else if(!_imageRef.isReadable())
-        return false;
-    else if(_utm<=0)
         return false;
     else if(_tamPixel<=0.0)
         return false;

@@ -18,6 +18,7 @@
 #include <AmbitoTP/ambevgeotransformtest.h>
 #include <AmbitoTP/ambevresizetest.h>
 #include <AmbitoTP/ambevsubscenetest.h>
+#include <AmbitoTP/ambevutmfranciatest.h>
 
 namespace Ui {
 class EditorAmbitoDialog;
@@ -68,7 +69,9 @@ private:
     QFileInfo _exeResize;
     QFileInfo _exeImageOpeGeo;
 
-    AmbEvaluador *_evaluador;
+    AmbEvaluador *_evaluadorEspa;
+    AmbEvaluador *_evaluadorCat;
+    AmbEvaluador *_evaluadorFranc;
 
     void recargarAmbitos();
 };

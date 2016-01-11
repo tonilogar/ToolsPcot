@@ -20,25 +20,39 @@ EditorAmbitoDialog::EditorAmbitoDialog(QWidget *parent, AmbitJson *archivoAmb) :
     connect(ui->toolButtonResize,SIGNAL(clicked()),this,SLOT(selectResize()));
     connect(ui->toolButtonSubScene,SIGNAL(clicked()),this,SLOT(selectSubScene()));
 
-    _evaluador=new AmbEvaluador(this);
+    _evaluadorEspa=new AmbEvaluador(this);
+    _evaluadorCat=new AmbEvaluador(this);
+    _evaluadorFranc=new AmbEvaluador(this);
 
     AmbEvExtractionTest *testExtraction=new AmbEvExtractionTest(this);
     AmbEvFootprintTest *testFootprint=new AmbEvFootprintTest(this);
     AmbEvGeoTransformTest *testGeoTrans=new AmbEvGeoTransformTest(this);
     AmbEvResizeTest *testResize=new AmbEvResizeTest(this);
     AmbEvSubsceneTest *testSubscene=new AmbEvSubsceneTest(this);
+    AmbEvUtmFranciaTest *testFrancUtm=new AmbEvUtmFranciaTest(this);
 
     connect(testExtraction,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testFootprint,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testResize,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testSubscene,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testGeoTrans,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testFrancUtm,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
 
-    _evaluador->addTest(testExtraction);
-    _evaluador->addTest(testFootprint);
-    _evaluador->addTest(testGeoTrans);
-    _evaluador->addTest(testResize);
-    _evaluador->addTest(testSubscene);
+    _evaluadorCat->addTest(testExtraction);
+    _evaluadorCat->addTest(testFootprint);
+    _evaluadorCat->addTest(testGeoTrans);
+    _evaluadorCat->addTest(testResize);
+    _evaluadorCat->addTest(testSubscene);
+
+    _evaluadorEspa->addTest(testFootprint);
+    _evaluadorEspa->addTest(testGeoTrans);
+    _evaluadorEspa->addTest(testResize);
+    _evaluadorEspa->addTest(testSubscene);
+
+    _evaluadorFranc->addTest(testFootprint);
+    _evaluadorFranc->addTest(testResize);
+    _evaluadorFranc->addTest(testSubscene);
+    _evaluadorFranc->addTest(testFrancUtm);
 }
 
 EditorAmbitoDialog::~EditorAmbitoDialog()
@@ -96,25 +110,33 @@ void EditorAmbitoDialog::recargarAmbitos()
     else ui->lineEditFootPrintMask->setText(mapaEjecutables.value("exeFootPrintMask")->absoluteFilePath());
     _exeFootPrintMask.setFile(ui->lineEditFootPrintMask->text());
 
+    if(!mapaEjecutables.contains("exeResize") || !mapaEjecutables.value("exeResize")->isFile())
+        ui->lineEditResize->setText(QString());
+    else ui->lineEditResize->setText(mapaEjecutables.value("exeResize")->absoluteFilePath());
+    _exeResize.setFile(ui->lineEditResize->text());
+
+    if(!mapaEjecutables.contains("exeSubScene") || !mapaEjecutables.value("exeSubScene")->isFile())
+        ui->lineEditSubScene->setText(QString());
+    else ui->lineEditSubScene->setText(mapaEjecutables.value("exeSubScene")->absoluteFilePath());
+    _exeSubScene.setFile(ui->lineEditSubScene->text());
+
+    if(!mapaEjecutables.contains("exeGeoTransform") || !mapaEjecutables.value("exeGeoTransform")->isFile())
+        ui->lineEditGeoTransformation->setText(QString());
+    else ui->lineEditGeoTransformation->setText(mapaEjecutables.value("exeGeoTransform")->absoluteFilePath());
+    _exeImageOpeGeo.setFile(ui->lineEditGeoTransformation->text());
+
     //lanzamos los test
 
-    Ambito *falsoAmbito=new Ambito(this);
-
-    QStringList listaNombres=mapaEjecutables.keys();
-
-    foreach(QString nombre,listaNombres)
-        falsoAmbito->addEjecutable(nombre,mapaEjecutables.value(nombre));
-
-    _evaluador->check(falsoAmbito);
+    foreach(Ambito *amb,listaAmbitos) {
+        if(amb->nombre().contains("Catalunya"))
+            _evaluadorCat->check(amb);
+        if(amb->nombre().contains("Espanya"))
+            _evaluadorEspa->check(amb);
+        if(amb->nombre().contains("Francia"))
+            _evaluadorFranc->check(amb);
+    }
 
     //Otra forma de comprobar el resultados de los test
-    QList<AmbEvaluaTest*> listaTest=_evaluador->getTestList();
-
-    foreach(AmbEvaluaTest *test,listaTest) {
-        if(test->isPassed())
-            qDebug() << "PASSED";
-        else qDebug() << "FAILED";
-    }
 }
 
 
@@ -232,7 +254,6 @@ void EditorAmbitoDialog::accept()
             amb->removeEjecutable("exeSubScene");
             amb->addEjecutable("exeSubScene",new QFileInfo(_exeSubScene));
         }
-
     }
 
     _archivoAm->save();

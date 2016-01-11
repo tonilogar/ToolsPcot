@@ -24,6 +24,7 @@ public:
 private slots:
 
     void depuracionSalidaEvaluador(bool);
+    void cambioUtm(int index);
 
 private:
     Ui::AmbitoWidget *ui;
