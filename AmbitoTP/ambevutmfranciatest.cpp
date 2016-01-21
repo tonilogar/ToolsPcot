@@ -6,7 +6,7 @@ AmbEvUtmFranciaTest::AmbEvUtmFranciaTest(QObject *parent)
 
 }
 
-void AmbEvUtmFranciaTest::launchTest(Ambito *amb)
+bool AmbEvUtmFranciaTest::syncLaunchTest(Ambito *amb)
 {
     _ambito=amb;
 
@@ -14,11 +14,9 @@ void AmbEvUtmFranciaTest::launchTest(Ambito *amb)
     if(utm==-1) {
         _isPassed=true;
         emit testResult(true);
+        return _isPassed;
     }
-    else {
-        _isPassed=false;
-        emit testResult(false);
-    }
-    return;
-
+    _isPassed=false;
+    emit testResult(false);
+    return _isPassed;
 }

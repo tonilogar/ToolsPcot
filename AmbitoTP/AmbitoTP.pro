@@ -30,7 +30,7 @@ SOURCES += \
     ambevsubscenetest.cpp \
     ambevutmfranciatest.cpp \
     ambevimagereftest.cpp \
-    ambevasizepixeltest.cpp
+    ambevpixelsizetest.cpp
 
 HEADERS +=\
         ambitotp_global.h \
@@ -46,7 +46,7 @@ HEADERS +=\
     ambevsubscenetest.h \
     ambevutmfranciatest.h \
     ambevimagereftest.h \
-    ambevasizepixeltest.h
+    ambevpixelsizetest.h
 
 unix {
     target.path = /usr/lib

@@ -14,7 +14,7 @@ class AMBITOTPSHARED_EXPORT AmbEvExtractionTest : public AmbEvaluaTest
 public:
     explicit AmbEvExtractionTest(QObject *parent = 0);
 
-    void launchTest(Ambito *amb);
+    bool syncLaunchTest(Ambito *amb);
 
 signals:
 

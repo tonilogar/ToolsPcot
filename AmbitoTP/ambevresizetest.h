@@ -13,7 +13,7 @@ class AMBITOTPSHARED_EXPORT AmbEvResizeTest : public AmbEvaluaTest
 public:
     explicit AmbEvResizeTest(QObject *parent = 0);
 
-    void launchTest(Ambito *amb);
+    bool syncLaunchTest(Ambito *amb);
 
 signals:
 

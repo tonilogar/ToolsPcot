@@ -7,6 +7,7 @@ AmbitJson::AmbitJson(QObject *parent, QFileInfo fileInfo) : QObject(parent)
     _dataFile=fileInfo;
     _ambitosArchivo.clear();
     _error=QString();
+    prepararEvaluadores();
 }
 
 bool AmbitJson::exist() const
@@ -198,6 +199,84 @@ void AmbitJson::addAmbito(Ambito *amb)
 void AmbitJson::removeAmbito(Ambito *amb)
 {
     _ambitosArchivo.removeAll(amb);
+}
+
+void AmbitJson::prepararEvaluadores()
+{
+//    //1.- Crear evaluadores
+//    _evCatalunya=new AmbEvaluador(this);
+//    _evEspa=new AmbEvaluador(this);
+//    _evFrancia=new AmbEvaluador(this);
+
+//    AmbEvExtractionTest *testExtraction=new AmbEvExtractionTest(this);
+//    AmbEvImageRefTest *testImageRef=new AmbEvImageRefTest(this);
+//    AmbEvaSizePixelTest *testSizePixel=new AmbEvaSizePixelTest(this);
+//    AmbEvFootprintTest *testFootprint=new AmbEvFootprintTest(this);
+//    AmbEvGeoTransformTest *testGeoTrans=new AmbEvGeoTransformTest(this);
+//    AmbEvResizeTest *testResize=new AmbEvResizeTest(this);
+//    AmbEvSubsceneTest *testSubscene=new AmbEvSubsceneTest(this);
+//    AmbEvRangoUtmTest *testRangoUtm=new AmbEvRangoUtmTest(this);
+//    AmbEvUtmFranciaTest *testFrancUtm=new AmbEvUtmFranciaTest(this);
+
+//    //2.- Asignar tests a los evaluadores
+//    _evCatalunya->addTest(testExtraction);
+//    _evCatalunya->addTest(testImageRef);
+//    _evCatalunya->addTest(testSizePixel);
+//    _evCatalunya->addTest(testFootprint);
+//    _evCatalunya->addTest(testGeoTrans);
+//    _evCatalunya->addTest(testResize);
+//    _evCatalunya->addTest(testSubscene);
+
+//    _evEspa->addTest(testFootprint);
+//    _evEspa->addTest(testImageRef);
+//    _evEspa->addTest(testSizePixel);
+//    _evEspa->addTest(testGeoTrans);
+//    _evEspa->addTest(testResize);
+//    _evEspa->addTest(testSubscene);
+
+//    _evFrancia->addTest(testFootprint);
+//    _evFrancia->addTest(testImageRef);
+//    _evFrancia->addTest(testSizePixel);
+//    _evFrancia->addTest(testResize);
+//    _evFrancia->addTest(testSubscene);
+//    _evFrancia->addTest(testFrancUtm);
+
+//    //3.- Conectar
+//    connect(testExtraction,SIGNAL(testResult(bool)),this,SLOT(resultadosTest(bool)));
+//    connect(testImageRef,SIGNAL(testResult(bool)),this,SLOT(resultadosTest(bool)));
+//    connect(testSizePixel,SIGNAL(testResult(bool)),this,SLOT(resultadosTest(bool)));
+//    connect(testFootprint,SIGNAL(testResult(bool)),this,SLOT(resultadosTest(bool)));
+//    connect(testResize,SIGNAL(testResult(bool)),this,SLOT(resultadosTest(bool)));
+//    connect(testSubscene,SIGNAL(testResult(bool)),this,SLOT(resultadosTest(bool)));
+//    connect(testGeoTrans,SIGNAL(testResult(bool)),this,SLOT(resultadosTest(bool)));
+//    connect(testFrancUtm,SIGNAL(testResult(bool)),this,SLOT(resultadosTest(bool)));
+}
+
+void AmbitJson::resultadosTest(bool result)
+{
+    if(!result)
+        _isCorrect=result;
+}
+
+bool AmbitJson::isCorrect()
+{
+    _isCorrect=true;
+
+    if(_ambitosArchivo.isEmpty())
+        return false;
+    if(_ambitosArchivo.count()!=3)
+        return false;
+
+    foreach(Ambito *amb,_ambitosArchivo) {
+        if(amb->nombre().contains("Catalunya"))
+            _evCatalunya->check(amb);
+        else if(amb->nombre().contains("Francia"))
+            _evFrancia->check(amb);
+        else if(amb->nombre().contains("Espanya"))
+            _evEspa->check(amb);
+    }
+
+    return _isCorrect;
 }
 
 

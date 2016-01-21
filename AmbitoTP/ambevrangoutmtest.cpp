@@ -6,7 +6,7 @@ AmbEvRangoUtmTest::AmbEvRangoUtmTest(QObject *parent)
 
 }
 
-void AmbEvRangoUtmTest::launchTest(Ambito *amb)
+bool AmbEvRangoUtmTest::syncLaunchTest(Ambito *amb)
 {
     _ambito=amb;
 
@@ -15,9 +15,9 @@ void AmbEvRangoUtmTest::launchTest(Ambito *amb)
     if((29 < utm) || (31 > utm)) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     _isPassed=true;
     emit testResult(true);
-    return;
+    return _isPassed;
 }

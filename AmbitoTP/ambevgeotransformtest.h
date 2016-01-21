@@ -13,7 +13,7 @@ class AMBITOTPSHARED_EXPORT AmbEvGeoTransformTest : public AmbEvaluaTest
 public:
     explicit AmbEvGeoTransformTest(QObject *parent = 0);
 
-    void launchTest(Ambito *amb);
+    bool syncLaunchTest(Ambito *amb);
 
 signals:
 

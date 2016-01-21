@@ -26,43 +26,43 @@ EditorAmbitoDialog::EditorAmbitoDialog(QWidget *parent, AmbitJson *archivoAmb) :
 
     AmbEvExtractionTest *testExtraction=new AmbEvExtractionTest(this);
     AmbEvImageRefTest *testImageRef=new AmbEvImageRefTest(this);
-    AmbEvaSizePixelTest *testSizePixel=new AmbEvaSizePixelTest(this);
     AmbEvFootprintTest *testFootprint=new AmbEvFootprintTest(this);
     AmbEvGeoTransformTest *testGeoTrans=new AmbEvGeoTransformTest(this);
     AmbEvResizeTest *testResize=new AmbEvResizeTest(this);
     AmbEvSubsceneTest *testSubscene=new AmbEvSubsceneTest(this);
     AmbEvUtmFranciaTest *testFrancUtm=new AmbEvUtmFranciaTest(this);
+    AmbEvPixelSizeTest *testPixelSize=new AmbEvPixelSizeTest(this);
 
     connect(testExtraction,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));   
     connect(testImageRef,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
-    connect(testSizePixel,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testFootprint,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testResize,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testSubscene,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testGeoTrans,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
     connect(testFrancUtm,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
+    connect(testPixelSize,SIGNAL(testResult(bool)),this,SLOT(depuracionSalidaEvaluador(bool)));
 
     _evaluadorCat->addTest(testExtraction);
     _evaluadorCat->addTest(testImageRef);
-    _evaluadorCat->addTest(testSizePixel);
     _evaluadorCat->addTest(testFootprint);
     _evaluadorCat->addTest(testGeoTrans);
     _evaluadorCat->addTest(testResize);
     _evaluadorCat->addTest(testSubscene);
+    _evaluadorCat->addTest(testPixelSize);
 
     _evaluadorEspa->addTest(testFootprint);
     _evaluadorEspa->addTest(testImageRef);
-    _evaluadorEspa->addTest(testSizePixel);
     _evaluadorEspa->addTest(testGeoTrans);
     _evaluadorEspa->addTest(testResize);
     _evaluadorEspa->addTest(testSubscene);
+    _evaluadorEspa->addTest(testPixelSize);
 
     _evaluadorFranc->addTest(testFootprint);
     _evaluadorFranc->addTest(testImageRef);
-    _evaluadorFranc->addTest(testSizePixel);
     _evaluadorFranc->addTest(testResize);
     _evaluadorFranc->addTest(testSubscene);
     _evaluadorFranc->addTest(testFrancUtm);
+    _evaluadorFranc->addTest(testPixelSize);
 }
 
 EditorAmbitoDialog::~EditorAmbitoDialog()

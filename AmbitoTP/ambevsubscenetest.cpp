@@ -6,7 +6,7 @@ AmbEvSubsceneTest::AmbEvSubsceneTest(QObject *parent)
 
 }
 
-void AmbEvSubsceneTest::launchTest(Ambito *amb)
+bool AmbEvSubsceneTest::syncLaunchTest(Ambito *amb)
 {
     _ambito=amb;
 
@@ -16,28 +16,28 @@ void AmbEvSubsceneTest::launchTest(Ambito *amb)
         _isPassed=false;
         _mensaje=QStringLiteral("El ejecutable exeSubScene no es un archivo");
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->exists()) {
         _isPassed=false;
         _mensaje=QStringLiteral("El ejecutable exeSubScene no existe");
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->isExecutable()) {
         _isPassed=false;
         _mensaje=QStringLiteral("El ejecutable exeSubScene no es ejecutable");
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->isReadable()) {
         _isPassed=false;
         _mensaje=QStringLiteral("El ejecutable exeSubScene no es accesible");
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     _isPassed=true;
     emit testResult(true);
-    return;
+    return _isPassed;
 }
 

@@ -6,7 +6,7 @@ AmbEvResizeTest::AmbEvResizeTest(QObject *parent)
 
 }
 
-void AmbEvResizeTest::launchTest(Ambito *amb)
+bool AmbEvResizeTest::syncLaunchTest(Ambito *amb)
 {
     _ambito=amb;
 
@@ -15,27 +15,25 @@ void AmbEvResizeTest::launchTest(Ambito *amb)
     if(!info->isFile()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->exists()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->isExecutable()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->isReadable()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     _isPassed=true;
     emit testResult(true);
-    return;
-
-
+    return _isPassed;
 }
 

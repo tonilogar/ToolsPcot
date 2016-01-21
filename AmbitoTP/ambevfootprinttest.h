@@ -14,7 +14,7 @@ class AMBITOTPSHARED_EXPORT AmbEvFootprintTest : public AmbEvaluaTest
 public:
     explicit AmbEvFootprintTest(QObject *parent = 0);
 
-    void launchTest(Ambito *amb);
+    bool syncLaunchTest(Ambito *amb);
 
 signals:
 

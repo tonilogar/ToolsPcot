@@ -6,7 +6,7 @@ AmbEvExtractionTest::AmbEvExtractionTest(QObject *parent)
 
 }
 
-void AmbEvExtractionTest::launchTest(Ambito *amb)
+bool AmbEvExtractionTest::syncLaunchTest(Ambito *amb)
 {
     _ambito=amb;
 
@@ -15,25 +15,25 @@ void AmbEvExtractionTest::launchTest(Ambito *amb)
     if(!info->isFile()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->exists()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->isExecutable()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->isReadable()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     _isPassed=true;
     emit testResult(true);
-    return;
+    return _isPassed;
 }
 

@@ -6,7 +6,7 @@ AmbEvFootprintTest::AmbEvFootprintTest(QObject *parent)
 
 }
 
-void AmbEvFootprintTest::launchTest(Ambito *amb)
+bool AmbEvFootprintTest::syncLaunchTest(Ambito *amb)
 {
     _ambito=amb;
 
@@ -15,24 +15,24 @@ void AmbEvFootprintTest::launchTest(Ambito *amb)
     if(!info->isFile()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->exists()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->isExecutable()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     if(!info->isReadable()) {
         _isPassed=false;
         emit testResult(false);
-        return;
+        return _isPassed;
     }
     _isPassed=true;
     emit testResult(true);
-    return;
+    return _isPassed;
 }

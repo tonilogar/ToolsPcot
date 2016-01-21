@@ -13,8 +13,8 @@
 
 #include <AmbitoTP/ambevaluador.h>
 #include <AmbitoTP/ambevaluatest.h>
-#include <AmbitoTP/ambevasizepixeltest.h>
 #include <AmbitoTP/ambevextractiontest.h>
+#include <AmbitoTP/ambevpixelsizetest.h>
 #include <AmbitoTP/ambevfootprinttest.h>
 #include <AmbitoTP/ambevimagereftest.h>
 #include <AmbitoTP/ambevgeotransformtest.h>

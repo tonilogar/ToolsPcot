@@ -22,7 +22,9 @@ public:
     QString mensaje() const
     { return _mensaje; }
 
-    virtual void launchTest(Ambito *amb)=0;
+    virtual void launchTest(Ambito *amb);
+
+    virtual bool syncLaunchTest(Ambito *amb)=0;
 
 signals:
 

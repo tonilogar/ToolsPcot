@@ -12,7 +12,7 @@ class AMBITOTPSHARED_EXPORT AmbEvUtmFranciaTest : public AmbEvaluaTest
 public:
     explicit AmbEvUtmFranciaTest(QObject *parent = 0);
 
-    void launchTest(Ambito *amb);
+    bool syncLaunchTest(Ambito *amb);
 
 signals:
 
