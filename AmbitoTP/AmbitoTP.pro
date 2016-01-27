@@ -30,7 +30,14 @@ SOURCES += \
     ambevsubscenetest.cpp \
     ambevutmfranciatest.cpp \
     ambevimagereftest.cpp \
-    ambevpixelsizetest.cpp
+    ambevpixelsizetest.cpp \
+    ambjsonevaluador.cpp \
+    ambjsonevaluatest.cpp \
+    ambjsonnumtest.cpp \
+    ambjsonnombretest.cpp \
+    ambjsoncatalunyatest.cpp \
+    ambjsonespanyatest.cpp \
+    ambjsonfranciatest.cpp
 
 HEADERS +=\
         ambitotp_global.h \
@@ -46,7 +53,14 @@ HEADERS +=\
     ambevsubscenetest.h \
     ambevutmfranciatest.h \
     ambevimagereftest.h \
-    ambevpixelsizetest.h
+    ambevpixelsizetest.h \
+    ambjsonevaluador.h \
+    ambjsonevaluatest.h \
+    ambjsonnumtest.h \
+    ambjsonnombretest.h \
+    ambjsoncatalunyatest.h \
+    ambjsonespanyatest.h \
+    ambjsonfranciatest.h
 
 unix {
     target.path = /usr/lib

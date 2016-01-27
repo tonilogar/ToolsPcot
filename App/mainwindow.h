@@ -5,6 +5,12 @@
 
 #include <AmbitoTP/ambitjson.h>
 #include <AmbitoTP/ambito.h>
+#include <AmbitoTP/ambjsonevaluador.h>
+#include <AmbitoTP/ambjsonnumtest.h>
+#include <AmbitoTP/ambjsonnombretest.h>
+#include <AmbitoTP/ambjsoncatalunyatest.h>
+#include <AmbitoTP/ambjsonespanyatest.h>
+#include <AmbitoTP/ambjsonfranciatest.h>
 
 #include <RegistroTP/registrocnp.h>
 #include <RegistroTP/registromet.h>

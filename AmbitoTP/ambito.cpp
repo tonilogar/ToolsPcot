@@ -103,8 +103,6 @@ bool Ambito::isValid() const
         return false;
     else if(!_imageRef.isReadable())
         return false;
-    else if(_tamPixel<=0.0)
-        return false;
     else if(_ejecutables.isEmpty())
     {
         return false;

@@ -1,10 +1,13 @@
 #include "ambitjson.h"
+#include "ambjsonevaluador.h"
+#include "ambjsonevaluatest.h"
 
 QString AmbitJson::_errorStatic=QString();
 
 AmbitJson::AmbitJson(QObject *parent, QFileInfo fileInfo) : QObject(parent)
 {
     _dataFile=fileInfo;
+    _evaluadorAmbito=0;
     _ambitosArchivo.clear();
     _error=QString();
     prepararEvaluadores();
@@ -261,23 +264,26 @@ void AmbitJson::resultadosTest(bool result)
 bool AmbitJson::isCorrect()
 {
     _isCorrect=true;
+    if(_ambitosArchivo.isEmpty()) {
+        _isCorrect=false;
+        return _isCorrect;
+    }
 
-    if(_ambitosArchivo.isEmpty())
-        return false;
-    if(_ambitosArchivo.count()!=3)
-        return false;
-
-    foreach(Ambito *amb,_ambitosArchivo) {
-        if(amb->nombre().contains("Catalunya"))
-            _evCatalunya->check(amb);
-        else if(amb->nombre().contains("Francia"))
-            _evFrancia->check(amb);
-        else if(amb->nombre().contains("Espanya"))
-            _evEspa->check(amb);
+    if(_evaluadorAmbito)
+    {
+        _isCorrect=_evaluadorAmbito->checkAmbitJson(this);
+        if(!_isCorrect) {
+            _isCorrect=false;
+            return _isCorrect;
+        }
     }
 
     return _isCorrect;
 }
 
+void AmbitJson::setEvaluador(AmbJsonEvaluador *evaluador)
+{
+    _evaluadorAmbito=evaluador;
+}
 
 

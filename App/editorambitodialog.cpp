@@ -83,7 +83,7 @@ void EditorAmbitoDialog::recargarAmbitos()
     int numTabs=ui->tabWidget->count();
 
     QWidget *tab;
-    for(int i=0;i<numTabs;i++) {
+    for(int i=numTabs;i>0;i--) {
         if(ui->tabWidget->tabText(i)!=QStringLiteral("Ejecutables")) {
             tab=ui->tabWidget->widget(i);
             ui->tabWidget->removeTab(i);

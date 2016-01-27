@@ -8,6 +8,8 @@
 #include <AmbitoTP/ambevaluador.h>
 #include <AmbitoTP/ambevaluatest.h>
 #include <AmbitoTP/ambevrangoutmtest.h>
+#include <QFileDialog>
+
 
 namespace Ui {
 class AmbitoWidget;
@@ -25,6 +27,8 @@ private slots:
 
     void depuracionSalidaEvaluador(bool);
     void cambioUtm(int index);
+    void seleccionarImagenReferencia();
+    void changeToFileInfo(QString file);
 
 private:
     Ui::AmbitoWidget *ui;

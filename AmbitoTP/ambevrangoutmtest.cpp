@@ -12,7 +12,7 @@ bool AmbEvRangoUtmTest::syncLaunchTest(Ambito *amb)
 
     int utm=_ambito->utm();
 
-    if((29 < utm) || (31 > utm)) {
+    if((utm < 29) || (utm > 31)) {
         _isPassed=false;
         emit testResult(false);
         return _isPassed;

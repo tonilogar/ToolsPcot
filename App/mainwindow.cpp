@@ -40,7 +40,26 @@ void MainWindow::setup()
     else _objetoAlertFileJson->setModo(AlertFileJson::ArchivoNoValido);
 
     _archivoAmbito->load();
-    while(!_archivoAmbito->isValid()) {
+
+    //Crear un evaluador de ambito json y poblarlo de test
+    AmbJsonEvaluador *evaluaJson=new AmbJsonEvaluador(this,_archivoAmbito);
+
+    evaluaJson->addTest(new AmbJsonNumTest(this));
+    evaluaJson->addTest(new AmbJsonNombreTest(this,QStringLiteral("Francia Farmstar")));
+    evaluaJson->addTest(new AmbJsonNombreTest(this,QStringLiteral("Catalunya lidar 2 metres")));
+    evaluaJson->addTest(new AmbJsonNombreTest(this,QStringLiteral("Espanya 5 metres")));
+    evaluaJson->addTest(new AmbJsonCatalunyaTest(this));
+    evaluaJson->addTest(new AmbJsonEspanyaTest(this));
+    evaluaJson->addTest(new AmbJsonFranciaTest(this));
+
+
+    _archivoAmbito->setEvaluador(evaluaJson);
+
+    qDebug() << "EVALUACION DE ARCHIVO AMBITO: "<< _archivoAmbito->isCorrect();
+    while(!_archivoAmbito->isCorrect()) {
+        QList<AmbJsonEvaluaTest*> fallos=evaluaJson->failedTest();
+        foreach(AmbJsonEvaluaTest* test,fallos)
+            qDebug() << test->errorMessage();
         if(_objetoAlertFileJson->exec()==QFileDialog::Rejected)
             exit(1);
     }

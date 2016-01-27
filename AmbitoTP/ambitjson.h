@@ -23,6 +23,7 @@
 #include "ambevsubscenetest.h"
 #include "ambevutmfranciatest.h"
 
+class AmbJsonEvaluador;
 
 class AMBITOTPSHARED_EXPORT AmbitJson : public QObject
 {
@@ -34,6 +35,8 @@ public:
     bool exist() const;
 
     QFileInfo getFileInfo() const;
+
+    void setEvaluador(AmbJsonEvaluador *evaluador);
 
     static bool createStandardTemplate(QFileInfo info);
 
@@ -73,6 +76,7 @@ private:
     AmbEvaluador *_evCatalunya;
     AmbEvaluador *_evEspa;
     AmbEvaluador *_evFrancia;
+    AmbJsonEvaluador *_evaluadorAmbito;
 
     bool _isCorrect;
 
