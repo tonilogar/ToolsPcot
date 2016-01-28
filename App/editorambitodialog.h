@@ -8,6 +8,7 @@
 #include <QMap>
 #include <QFileInfo>
 #include <QFileDialog>
+#include <QMessageBox>
 
 #include "ambitowidget.h"
 
@@ -58,6 +59,8 @@ private slots:
     void selectFootPrintMask();
     void selectResize();
     void selectImageOpeGeo();
+
+    void crearAmbitosDefecto();
 
     void depuracionSalidaEvaluador(bool);
 

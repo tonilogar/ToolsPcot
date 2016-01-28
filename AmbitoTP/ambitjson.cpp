@@ -52,7 +52,7 @@ bool AmbitJson::createStandardTemplate(QFileInfo info)
 
     catalunya.setUtm(31);
     espanya.setUtm(30);
-    francia.setUtm(1);
+    francia.setUtm(-1);
 
     QString pathImageCat;
     QString pathImageEsp;

@@ -19,6 +19,7 @@ EditorAmbitoDialog::EditorAmbitoDialog(QWidget *parent, AmbitJson *archivoAmb) :
     connect(ui->toolButtonGeoTransformation,SIGNAL(clicked()),this,SLOT(selectImageOpeGeo()));
     connect(ui->toolButtonResize,SIGNAL(clicked()),this,SLOT(selectResize()));
     connect(ui->toolButtonSubScene,SIGNAL(clicked()),this,SLOT(selectSubScene()));
+    connect(ui->ambitosDefectoButton,SIGNAL(clicked(bool)),this,SLOT(crearAmbitosDefecto()));
 
     _evaluadorEspa=new AmbEvaluador(this);
     _evaluadorCat=new AmbEvaluador(this);
@@ -278,4 +279,18 @@ void EditorAmbitoDialog::depuracionSalidaEvaluador(bool data)
         qDebug() << "TEST PASSED";
     else
         qDebug() << test->mensaje();
+}
+
+void EditorAmbitoDialog::crearAmbitosDefecto()
+{
+    int conformidad=QMessageBox::warning(this, tr("Crear ambitos por defecto"),tr("ADVERTENCIA: Esta operación sobreescribirá el contenido del archivo de ambitos en uso. ¿Está seguro de que quiere hacerlo?"),QMessageBox::No,QMessageBox::Yes,QMessageBox::Cancel);
+    if((conformidad==QMessageBox::Cancel) || (conformidad==QMessageBox::No))
+            return;
+
+    QFileInfo archivo=_archivoAm->getFileInfo();
+
+    AmbitJson::createStandardTemplate(archivo);
+
+    _archivoAm->load();
+    recargarAmbitos();
 }

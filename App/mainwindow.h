@@ -33,8 +33,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 private slots:
-    void pepe();
-    void comprobarSettings();
+
     void setup();
 
 
@@ -44,8 +43,6 @@ private:
     AmbitJson *_archivoAmbito;
     AlertFileJson *_objetoAlertFileJson;
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
-
-
 
     void cargarAmbitos();
 };

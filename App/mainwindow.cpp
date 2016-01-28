@@ -9,10 +9,6 @@ MainWindow::MainWindow(QWidget *parent) :
     _preferenciasAvanzadas=new PreferenciasAvanzadasDialog(this);
     connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
     setup();
-    //comprobarSettings();//Leo la direccion donde se encuentra el fichero de preferencias del setting
-    //compruebo que se pueda leer el fichero
-    //Si no se puede leer aparece una ventada de alerta de la clase AlertFileJson
-    //cargarAmbitos();
 }
 
 MainWindow::~MainWindow()
@@ -24,9 +20,11 @@ void MainWindow::setup()
 {    
     QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
     QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
+
     _archivoAmbito=new AmbitJson(this,rutaFileObj);
     _objetoAlertFileJson=new AlertFileJson(this,_archivoAmbito);
     _objetoEditorAmbitoDialog=new EditorAmbitoDialog(this,_archivoAmbito);
+
     connect(_objetoAlertFileJson,SIGNAL(lanzarAsistenteJson()),_objetoEditorAmbitoDialog,SLOT(exec()));
     connect(_preferenciasAvanzadas,SIGNAL(signalEditAmbito()),_objetoEditorAmbitoDialog,SLOT(exec()));
     connect(_objetoEditorAmbitoDialog,SIGNAL(rejected()),_objetoAlertFileJson,SLOT(accept()));
@@ -55,34 +53,12 @@ void MainWindow::setup()
 
     _archivoAmbito->setEvaluador(evaluaJson);
 
-    qDebug() << "EVALUACION DE ARCHIVO AMBITO: "<< _archivoAmbito->isCorrect();
     while(!_archivoAmbito->isCorrect()) {
-        QList<AmbJsonEvaluaTest*> fallos=evaluaJson->failedTest();
-        foreach(AmbJsonEvaluaTest* test,fallos)
-            qDebug() << test->errorMessage();
         if(_objetoAlertFileJson->exec()==QFileDialog::Rejected)
             exit(1);
     }
 }
 
-void MainWindow::comprobarSettings()
-{
-    qDebug() << "comprobando setting";
-
-//    QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
-//    QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
-//    _archivoAmbito=new AmbitJson(this,rutaFileObj);
-//    if(!_archivoAmbito->exist())
-//    {
-//        AmbitJson::createStandardTemplate(rutaFileObj);
-//    }
-//    _archivoAmbito->load();
-//    if(!_archivoAmbito->isValid()) {
-//        _objetoAlertFileJson=new AlertFileJson(this,_archivoAmbito);
-//        if(_objetoAlertFileJson->exec()==QDialog::Rejected)
-//            exit(0);
-//    }
-}
 
 void MainWindow::cargarAmbitos()
 {
@@ -107,9 +83,6 @@ void MainWindow::cargarAmbitos()
         qDebug() << amb->nombre();
     }
 }
-void MainWindow::pepe()
-{
-   qDebug() << "pepe";
-}
+
 
 
