@@ -6,11 +6,9 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    _preferenciasAvanzadas=new PreferenciasAvanzadasDialog(this);
+    connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
     setup();
-
-    comprobarSettings();
-    cargarAmbitos();
 }
 
 MainWindow::~MainWindow()
@@ -19,22 +17,48 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::setup()
-{
-    _preferenciasAvanzadas=new PreferenciasAvanzadasDialog(this);
-
-    connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
-
-    _archivoAmbito=0;
-}
-
-void MainWindow::comprobarSettings()
-{
+{    
     QSettings settingsToolsPcot(QStringLiteral("tonilogar"),QStringLiteral("ToolsPCot"));
+    QFileInfo rutaFileObj=settingsToolsPcot.value(QStringLiteral("pathConfigAmbito")).toString();
 
-    if(!settingsToolsPcot.contains(QStringLiteral("pathConfigAmbito"))) {
-        settingsToolsPcot.setValue(QStringLiteral("pathConfigAmbito"),qApp->applicationDirPath()+"/ambitConfig.json");
+    _archivoAmbito=new AmbitJson(this,rutaFileObj);
+    _objetoAlertFileJson=new AlertFileJson(this,_archivoAmbito);
+    _objetoEditorAmbitoDialog=new EditorAmbitoDialog(this,_archivoAmbito);
+
+    connect(_objetoAlertFileJson,SIGNAL(lanzarAsistenteJson()),_objetoEditorAmbitoDialog,SLOT(exec()));
+    connect(_preferenciasAvanzadas,SIGNAL(signalEditAmbito()),_objetoEditorAmbitoDialog,SLOT(exec()));
+    connect(_objetoEditorAmbitoDialog,SIGNAL(rejected()),_objetoAlertFileJson,SLOT(accept()));
+    connect(_objetoEditorAmbitoDialog,SIGNAL(accepted()),_objetoAlertFileJson,SLOT(accept()));
+    connect(_preferenciasAvanzadas,SIGNAL(accepted()),this,SLOT(setup()));
+
+    if(!_archivoAmbito->exist()) {
+         AmbitJson::createStandardTemplate(rutaFileObj);
+        _objetoAlertFileJson->setModo(AlertFileJson::FaltaArchivo);
+    }
+    else _objetoAlertFileJson->setModo(AlertFileJson::ArchivoNoValido);
+
+    _archivoAmbito->load();
+
+    //Crear un evaluador de ambito json y poblarlo de test
+    AmbJsonEvaluador *evaluaJson=new AmbJsonEvaluador(this,_archivoAmbito);
+
+    evaluaJson->addTest(new AmbJsonNumTest(this));
+    evaluaJson->addTest(new AmbJsonNombreTest(this,QStringLiteral("Francia Farmstar")));
+    evaluaJson->addTest(new AmbJsonNombreTest(this,QStringLiteral("Catalunya lidar 2 metres")));
+    evaluaJson->addTest(new AmbJsonNombreTest(this,QStringLiteral("Espanya 5 metres")));
+    evaluaJson->addTest(new AmbJsonCatalunyaTest(this));
+    evaluaJson->addTest(new AmbJsonEspanyaTest(this));
+    evaluaJson->addTest(new AmbJsonFranciaTest(this));
+
+
+    _archivoAmbito->setEvaluador(evaluaJson);
+
+    while(!_archivoAmbito->isCorrect()) {
+        if(_objetoAlertFileJson->exec()==QFileDialog::Rejected)
+            exit(1);
     }
 }
+
 
 void MainWindow::cargarAmbitos()
 {
@@ -59,3 +83,6 @@ void MainWindow::cargarAmbitos()
         qDebug() << amb->nombre();
     }
 }
+
+
+

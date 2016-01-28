@@ -10,6 +10,7 @@ TEMPLATE = lib
 
 win32:CONFIG(release,debug|release):TARGET = AmbitoTP
 else:win32:CONFIG(debug,debug|release):TARGET = AmbitoTPd
+!win32:TARGET = AmbitoTP
 
 INCLUDEPATH += ..
 DESTDIR =../libs
@@ -18,12 +19,48 @@ DEFINES += AMBITOTP_LIBRARY
 
 SOURCES += \
     ambito.cpp \
-    ambitjson.cpp
+    ambitjson.cpp \
+    ambevaluador.cpp \
+    ambevaluatest.cpp \
+    ambevextractiontest.cpp \
+    ambevfootprinttest.cpp \
+    ambevrangoutmtest.cpp \
+    ambevgeotransformtest.cpp \
+    ambevresizetest.cpp \
+    ambevsubscenetest.cpp \
+    ambevutmfranciatest.cpp \
+    ambevimagereftest.cpp \
+    ambevpixelsizetest.cpp \
+    ambjsonevaluador.cpp \
+    ambjsonevaluatest.cpp \
+    ambjsonnumtest.cpp \
+    ambjsonnombretest.cpp \
+    ambjsoncatalunyatest.cpp \
+    ambjsonespanyatest.cpp \
+    ambjsonfranciatest.cpp
 
 HEADERS +=\
         ambitotp_global.h \
     ambito.h \
-    ambitjson.h
+    ambitjson.h \
+    ambevaluador.h \
+    ambevaluatest.h \
+    ambevextractiontest.h \
+    ambevfootprinttest.h \
+    ambevrangoutmtest.h \
+    ambevgeotransformtest.h \
+    ambevresizetest.h \
+    ambevsubscenetest.h \
+    ambevutmfranciatest.h \
+    ambevimagereftest.h \
+    ambevpixelsizetest.h \
+    ambjsonevaluador.h \
+    ambjsonevaluatest.h \
+    ambjsonnumtest.h \
+    ambjsonnombretest.h \
+    ambjsoncatalunyatest.h \
+    ambjsonespanyatest.h \
+    ambjsonfranciatest.h
 
 unix {
     target.path = /usr/lib

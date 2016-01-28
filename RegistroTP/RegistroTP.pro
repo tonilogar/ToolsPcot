@@ -11,7 +11,7 @@ TARGET = RegistroTP
 LIBS += -L../libs -lOpePcot
 }
 else:win32:CONFIG(debug,debug|release) {
-TARGET = RegistroTP
+TARGET = RegistroTPd
 LIBS += -L../libs -lOpePcotd
 }
 TEMPLATE = lib

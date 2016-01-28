@@ -37,7 +37,17 @@
              </widget>
             </item>
             <item>
-             <widget class="QLineEdit" name="pathAmbitoLine"/>
+             <widget class="QLineEdit" name="pathAmbitoLine">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
+              <property name="text">
+               <string/>
+              </property>
+              <property name="readOnly">
+               <bool>true</bool>
+              </property>
+             </widget>
             </item>
             <item>
              <widget class="QToolButton" name="browseAmbitoButton">

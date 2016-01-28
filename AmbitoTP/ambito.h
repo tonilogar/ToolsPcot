@@ -8,6 +8,7 @@
 #include <QMap>
 #include <QJsonArray>
 #include <QJsonObject>
+#include <QDebug>
 
 class AMBITOTPSHARED_EXPORT Ambito : public QObject
 {
@@ -35,6 +36,10 @@ public:
     static Ambito *fromJson(QJsonObject obj);
 
     bool isValid() const;
+
+    bool existImageRef(QFileInfo imageRef);
+
+
 
 signals:
 

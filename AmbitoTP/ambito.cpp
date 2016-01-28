@@ -47,14 +47,17 @@ QJsonObject Ambito::toJson() const
         res.insert(QStringLiteral("Path"),_imageRef.absoluteFilePath());
     else res.insert(QStringLiteral("Path"),QStringLiteral(""));
     res.insert(QStringLiteral("TamanyoPixel"),_tamPixel);
-    res.insert(QStringLiteral("Utm"),_utm);
+    if(_utm!=-1)
+        res.insert(QStringLiteral("Utm"),_utm);
 
     QJsonArray arrayExec;
     QList<QString> claves=_ejecutables.keys();
     foreach(QString nombre,claves) {
         QJsonObject exec;
         exec.insert(QStringLiteral("Nombre"),nombre);
-        exec.insert(QStringLiteral("Path"),_ejecutables.value(nombre)->absoluteFilePath());
+        if(_ejecutables.value(nombre)->isFile())
+            exec.insert(QStringLiteral("Path"),_ejecutables.value(nombre)->absoluteFilePath());
+        else exec.insert(QStringLiteral("Path"),QString());
         arrayExec.append(exec);
     }
     res.insert(QStringLiteral("Ejecutables"),arrayExec);
@@ -68,8 +71,24 @@ Ambito *Ambito::fromJson(QJsonObject obj)
     res->setNombre(obj.value(QStringLiteral("Nombreambito")).toString());
     res->setImageRef(QFileInfo(obj.value(QStringLiteral("Path")).toString()));
     res->setTamPixel(obj.value(QStringLiteral("TamanyoPixel")).toDouble());
-    res->setUtm(obj.value(QStringLiteral("Utm")).toInt());
+    if(obj.contains("Utm"))
+        res->setUtm(obj.value(QStringLiteral("Utm")).toInt());
+    else res->setUtm(-1);
 
+    //Añadir lista de ejecutables
+    QJsonArray arrayEjecutables=obj.value(QStringLiteral("Ejecutables")).toArray();
+    QJsonArray::iterator it;
+    QFileInfo *pInfo;
+    for(it=arrayEjecutables.begin();it!=arrayEjecutables.end();it++){
+        QJsonObject infoExec=(*it).toObject();
+        QString nombre=infoExec.value("Nombre").toString();
+        QString path=infoExec.value("Path").toString();
+        res->addEjecutable(nombre,new QFileInfo(path));
+
+//        QString path=(*it).toString();
+//        pInfo=new QFileInfo(path);
+//        res->addEjecutable(path,pInfo);
+    }
     return res;
 }
 
@@ -77,18 +96,22 @@ bool Ambito::isValid() const
 {
     //EVALUA SI EL AMBITO ES O NO ES VALIDO
     //¡¡OJO!! 'VALIDO' NO SIGNIFICA CORRECTO!!
-    QFile imageRef(_imageRef.absolutePath());
-    if(!_nombre.isEmpty() || !_nombre.isNull())
+    //QFile imageRef(_imageRef.absolutePath());
+    if(_nombre.isEmpty() || _nombre.isNull())
         return false;
     else if(!_imageRef.exists())
         return false;
-    else if(!imageRef.open(QFile::Text | QFile::WriteOnly))
+    else if(!_imageRef.isReadable())
         return false;
-    else if(!_utm<=0)
+    else if(_ejecutables.isEmpty())
+    {
         return false;
-    else if(!_tamPixel<=0.0)
-        return false;
-    else if(!_ejecutables.isEmpty())
-        return false;
+    }
         return true;
 }
+
+ bool Ambito::existImageRef(QFileInfo imageRef)
+ {
+  if(_imageRef.exists()) return true;
+  return false;
+ }
