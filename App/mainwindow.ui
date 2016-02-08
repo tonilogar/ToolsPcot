@@ -20,7 +20,7 @@
      <x>0</x>
      <y>0</y>
      <width>426</width>
-     <height>21</height>
+     <height>25</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuPreferencias">
@@ -29,6 +29,13 @@
     </property>
     <addaction name="actionOpciones_avanzadas"/>
    </widget>
+   <widget class="QMenu" name="menuArchivo">
+    <property name="title">
+     <string>Archivo</string>
+    </property>
+    <addaction name="actionNuevo_proyecto"/>
+   </widget>
+   <addaction name="menuArchivo"/>
    <addaction name="menuPreferencias"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -43,6 +50,11 @@
   <action name="actionOpciones_avanzadas">
    <property name="text">
     <string>Opciones avanzadas</string>
+   </property>
+  </action>
+  <action name="actionNuevo_proyecto">
+   <property name="text">
+    <string>Nuevo proyecto</string>
    </property>
   </action>
  </widget>

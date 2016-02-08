@@ -57,6 +57,12 @@ void MainWindow::setup()
         if(_objetoAlertFileJson->exec()==QFileDialog::Rejected)
             exit(1);
     }
+
+    //Crear dialogo de nuevo proyecto
+    _dialogoNuevoProyecto=new NewProjectDialog(this);
+    connect(ui->actionNuevo_proyecto,SIGNAL(triggered(bool)),_dialogoNuevoProyecto,SLOT(exec()));
+
+    _proyectoActual=0;
 }
 
 

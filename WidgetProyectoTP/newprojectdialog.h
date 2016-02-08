@@ -1,6 +1,8 @@
 #ifndef NEWPROJECTDIALOG_H
 #define NEWPROJECTDIALOG_H
 
+#include "widgetproyectotp_global.h"
+
 #include <QDialog>
 #include <QSettings>
 #include <QDir>
@@ -9,11 +11,12 @@
 #include <QMessageBox>
 #include "calendardialog.h"
 #include <ProyectoTP/archivoproyecto.h>
+
 namespace Ui {
 class NewProjectDialog;
 }
 
-class NewProjectDialog : public QDialog
+class WIDGETPROYECTOTPSHARED_EXPORT NewProjectDialog : public QDialog
 {
     Q_OBJECT
 

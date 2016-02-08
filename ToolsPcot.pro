@@ -14,5 +14,6 @@ ProyectoTP \
 RegistroTP \
 CoordinatesTP \
 ControlOpeTP \
+WidgetProyectoTP \
 App \
-    WidgetProyectoTP
+    WidgetCoordinatesTP

@@ -14,8 +14,12 @@ else:win32:CONFIG(debug,debug|release) {
 TARGET = WidgetProyectoTPd
 LIBS += -L../libs -lProyectoTPd
 }
-
+else:!win32
+{
 TARGET = WidgetProyectoTP
+LIBS += -L../libs -lProyectoTP
+}
+
 TEMPLATE = lib
 
 INCLUDEPATH += ..

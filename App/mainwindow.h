@@ -15,8 +15,16 @@
 #include <RegistroTP/registrocnp.h>
 #include <RegistroTP/registromet.h>
 #include <RegistroTP/registroorto.h>
+
+#include <WidgetProyectoTP/calendardialog.h>
+#include <WidgetProyectoTP/newprojectdialog.h>
+
+#include <ProyectoTP/archivoproyecto.h>
+#include <ProyectoTP/aprotpsection.h>
+
 #include <QSettings>
 #include <QDebug>
+
 #include "preferenciasavanzadasdialog.h"
 #include "alertfilejson.h"
 #include "editorambitodialog.h"
@@ -43,6 +51,9 @@ private:
     AmbitJson *_archivoAmbito;
     AlertFileJson *_objetoAlertFileJson;
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
+
+    ArchivoProyecto *_proyectoActual;
+    NewProjectDialog *_dialogoNuevoProyecto;
 
     void cargarAmbitos();
 };

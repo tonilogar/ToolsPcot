@@ -14,14 +14,14 @@ TEMPLATE = app
 INCLUDEPATH += ..
 
 win32:CONFIG(release,debug|release){
-LIBS += -L../libs -lAmbitoTP -lOpePcot -lRegistroTP -lCoordinatesTP -lComponentesTP -lProyectoTP -lControlOpeTP
+LIBS += -L../libs -lAmbitoTP -lOpePcot -lRegistroTP -lCoordinatesTP -lComponentesTP -lProyectoTP -lControlOpeTP -lWidgetProyectoTP
 }
 else:win32:CONFIG(debug,debug|release) {
-LIBS += -L../libs -lAmbitoTPd -lOpePcotd -lRegistroTPd -lCoordinatesTPd -lComponentesTPd -lProyectoTPd -lControlOpeTPd
+LIBS += -L../libs -lAmbitoTPd -lOpePcotd -lRegistroTPd -lCoordinatesTPd -lComponentesTPd -lProyectoTPd -lControlOpeTPd -lWidgetProyectoTPd
 }
 !win32
 {
- LIBS += -L../libs -lAmbitoTP -lOpePcot -lRegistroTP -lCoordinatesTP -lComponentesTP -lProyectoTP -lControlOpeTP
+ LIBS += -L../libs -lAmbitoTP -lOpePcot -lRegistroTP -lCoordinatesTP -lComponentesTP -lProyectoTP -lControlOpeTP -lWidgetProyectoTP
 }
 
 

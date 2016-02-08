@@ -1,6 +1,8 @@
 #ifndef CALENDARDIALOG_H
 #define CALENDARDIALOG_H
 
+#include "widgetproyectotp_global.h"
+
 #include <QDialog>
 #include <QDate>
 
@@ -8,7 +10,7 @@ namespace Ui {
 class CalendarDialog;
 }
 
-class CalendarDialog : public QDialog
+class WIDGETPROYECTOTPSHARED_EXPORT CalendarDialog : public QDialog
 {
     Q_OBJECT
 
