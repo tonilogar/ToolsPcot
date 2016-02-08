@@ -23,6 +23,7 @@ ArchivoProyecto::ArchivoProyecto(QObject *parent, QString nameFileProyect):
     _estadoProyecto=true;
 
 }
+
 ArchivoProyecto::~ArchivoProyecto()
 {
     foreach(AProTPSection *seccion,_listaSecciones)
