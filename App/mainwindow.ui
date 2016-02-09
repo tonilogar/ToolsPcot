@@ -13,7 +13,35 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
-  <widget class="QWidget" name="centralWidget"/>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <widget class="WidgetCoordinates" name="widgetCoordinates" native="true"/>
+      <widget class="QWidget" name="widget" native="true">
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>114</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
   <widget class="QMenuBar" name="menuBar">
    <property name="geometry">
     <rect>
@@ -34,8 +62,19 @@
      <string>Archivo</string>
     </property>
     <addaction name="actionNuevo_proyecto"/>
+    <addaction name="separator"/>
+    <addaction name="actionSalir"/>
+   </widget>
+   <widget class="QMenu" name="menuCoordenadas">
+    <property name="title">
+     <string>Coordenadas</string>
+    </property>
+    <addaction name="actionSelect_coordenadas"/>
+    <addaction name="actionLimpiar_coordenadas"/>
+    <addaction name="actionAyuda_coordenadas"/>
    </widget>
    <addaction name="menuArchivo"/>
+   <addaction name="menuCoordenadas"/>
    <addaction name="menuPreferencias"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
@@ -57,8 +96,39 @@
     <string>Nuevo proyecto</string>
    </property>
   </action>
+  <action name="actionSalir">
+   <property name="text">
+    <string>&amp;Salir</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+X</string>
+   </property>
+  </action>
+  <action name="actionSelect_coordenadas">
+   <property name="text">
+    <string>Seleccionar archivo</string>
+   </property>
+  </action>
+  <action name="actionLimpiar_coordenadas">
+   <property name="text">
+    <string>Limpiar coordenadas</string>
+   </property>
+  </action>
+  <action name="actionAyuda_coordenadas">
+   <property name="text">
+    <string>Ayuda</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>WidgetCoordinates</class>
+   <extends>QWidget</extends>
+   <header>../WidgetCoordinatesTP/widgetcoordinates.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

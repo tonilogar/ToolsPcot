@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QCloseEvent>
+#include <QDebug>
 
 #include <AmbitoTP/ambitjson.h>
 #include <AmbitoTP/ambito.h>
@@ -40,6 +42,9 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    void closeEvent(QCloseEvent *event);
+
 private slots:
 
     void setup();

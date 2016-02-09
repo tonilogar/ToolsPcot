@@ -63,6 +63,13 @@ void MainWindow::setup()
     connect(ui->actionNuevo_proyecto,SIGNAL(triggered(bool)),_dialogoNuevoProyecto,SLOT(exec()));
 
     _proyectoActual=0;
+
+    //Conectamos las señales de coordenadas
+    connect(ui->actionAyuda_coordenadas,SIGNAL(triggered(bool)),ui->widgetCoordinates,SLOT(ayudaCoordenadas()));
+    connect(ui->actionLimpiar_coordenadas,SIGNAL(triggered(bool)),ui->widgetCoordinates,SLOT(limpiarModeloCoordenadas()));
+
+    // Conectamos la señal de salida
+    connect(ui->actionSalir,SIGNAL(triggered(bool)),this,SLOT(close()));
 }
 
 
@@ -90,5 +97,9 @@ void MainWindow::cargarAmbitos()
     }
 }
 
+void MainWindow::closeEvent(QCloseEvent *event)
+{
+    event->accept();
+}
 
 

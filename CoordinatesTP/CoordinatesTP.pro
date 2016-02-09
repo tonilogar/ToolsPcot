@@ -13,6 +13,12 @@ else:win32:CONFIG(debug,debug|release) {
 TARGET = CoordinatesTPd
 LIBS += -L../libs -lOpePcotd -lProyectoTPd
 }
+else:!win32
+{
+TARGET = CoordinatesTP
+LIBS += -L../libs -lOpePcot -lProyectoTP
+}
+
 TEMPLATE = lib
 
 INCLUDEPATH += ..

@@ -2,8 +2,10 @@
 #define WIDGETCOORDINATES_H
 
 #include "widgetcoordinatestp_global.h"
+#include "dialoghelpfilecoordinates.h"
 
 #include <QWidget>
+#include <QMessageBox>
 
 #include <CoordinatesTP/modelocoordenadas.h>
 #include <CoordinatesTP/sectioncoordinates.h>
@@ -28,6 +30,23 @@ public:
     SectionCoordinates *getSectionCoordinates()
     { return _sectionCoordenadas; }
 
+signals:
+
+    void loadedModelo(bool);
+
+public slots:
+
+    //Limpiar modelo de coordenadas
+
+    void limpiarModeloCoordenadas();
+
+    //Ayuda modelo de coordenadas
+
+    void ayudaCoordenadas();
+
+    //Abrir archivo de coordenadas
+
+    void openArchivoCoordenadas(QString archivo);
 
 private:
     Ui::WidgetCoordinates *ui;
