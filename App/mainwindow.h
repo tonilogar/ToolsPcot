@@ -4,7 +4,8 @@
 #include <QMainWindow>
 #include <QCloseEvent>
 #include <QDebug>
-
+#include <QSettings>
+#include <QFileDialog>
 #include <AmbitoTP/ambitjson.h>
 #include <AmbitoTP/ambito.h>
 #include <AmbitoTP/ambjsonevaluador.h>
@@ -24,8 +25,8 @@
 #include <ProyectoTP/archivoproyecto.h>
 #include <ProyectoTP/aprotpsection.h>
 
-#include <QSettings>
-#include <QDebug>
+
+
 
 #include "preferenciasavanzadasdialog.h"
 #include "alertfilejson.h"
@@ -48,6 +49,7 @@ public:
 private slots:
 
     void setup();
+    void selectFileCoor();
 
 
 private:

@@ -67,11 +67,21 @@ void MainWindow::setup()
     //Conectamos las señales de coordenadas
     connect(ui->actionAyuda_coordenadas,SIGNAL(triggered(bool)),ui->widgetCoordinates,SLOT(ayudaCoordenadas()));
     connect(ui->actionLimpiar_coordenadas,SIGNAL(triggered(bool)),ui->widgetCoordinates,SLOT(limpiarModeloCoordenadas()));
-
+    connect(ui->actionSelect_coordenadas,SIGNAL(triggered(bool)),this,SLOT(selectFileCoor()));
     // Conectamos la señal de salida
     connect(ui->actionSalir,SIGNAL(triggered(bool)),this,SLOT(close()));
 }
 
+void MainWindow::selectFileCoor()
+{
+ QString path;
+ path=QFileDialog::getOpenFileName(this,QString("select file coordinates"));
+ if(path.isEmpty() || path.isNull())
+ {
+     return;
+ }
+ ui->widgetCoordinates->openArchivoCoordenadas(path);
+}
 
 void MainWindow::cargarAmbitos()
 {
