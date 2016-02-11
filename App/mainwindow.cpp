@@ -15,6 +15,31 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+void MainWindow::nuevoproyecto()
+{
+    NewProjectDialog dialogo;
+    if(dialogo.exec())
+    {
+
+        ArchivoProyecto *aProyecto=dialogo.getArchivoProyecto();
+        if(!_proyectoActual)
+        {
+            aProyecto->addSection(ui->widgetCoordinates->getSectionCoordinates());
+        }
+        else
+        {
+            QList <AProTPSection*> aproSecction=_proyectoActual->getListaSections();
+
+            foreach(AProTPSection * seccion,aproSecction)
+            {
+                aProyecto->addSection(seccion);
+
+            }
+            delete _proyectoActual;
+        }
+        _proyectoActual=aProyecto;
+    }
+}
 
 void MainWindow::setup()
 {    
@@ -32,7 +57,7 @@ void MainWindow::setup()
     connect(_preferenciasAvanzadas,SIGNAL(accepted()),this,SLOT(setup()));
 
     if(!_archivoAmbito->exist()) {
-         AmbitJson::createStandardTemplate(rutaFileObj);
+        AmbitJson::createStandardTemplate(rutaFileObj);
         _objetoAlertFileJson->setModo(AlertFileJson::FaltaArchivo);
     }
     else _objetoAlertFileJson->setModo(AlertFileJson::ArchivoNoValido);
@@ -59,8 +84,8 @@ void MainWindow::setup()
     }
 
     //Crear dialogo de nuevo proyecto
-    _dialogoNuevoProyecto=new NewProjectDialog(this);
-    connect(ui->actionNuevo_proyecto,SIGNAL(triggered(bool)),_dialogoNuevoProyecto,SLOT(exec()));
+
+    connect(ui->actionNuevo_proyecto,SIGNAL(triggered(bool)),this,SLOT(nuevoproyecto()));
 
     _proyectoActual=0;
 
@@ -74,13 +99,13 @@ void MainWindow::setup()
 
 void MainWindow::selectFileCoor()
 {
- QString path;
- path=QFileDialog::getOpenFileName(this,QString("select file coordinates"));
- if(path.isEmpty() || path.isNull())
- {
-     return;
- }
- ui->widgetCoordinates->openArchivoCoordenadas(path);
+    QString path;
+    path=QFileDialog::getOpenFileName(this,QString("select file coordinates"));
+    if(path.isEmpty() || path.isNull())
+    {
+        return;
+    }
+    ui->widgetCoordinates->openArchivoCoordenadas(path);
 }
 
 void MainWindow::cargarAmbitos()

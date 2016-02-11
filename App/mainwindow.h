@@ -14,20 +14,13 @@
 #include <AmbitoTP/ambjsoncatalunyatest.h>
 #include <AmbitoTP/ambjsonespanyatest.h>
 #include <AmbitoTP/ambjsonfranciatest.h>
-
 #include <RegistroTP/registrocnp.h>
 #include <RegistroTP/registromet.h>
 #include <RegistroTP/registroorto.h>
-
 #include <WidgetProyectoTP/calendardialog.h>
 #include <WidgetProyectoTP/newprojectdialog.h>
-
 #include <ProyectoTP/archivoproyecto.h>
 #include <ProyectoTP/aprotpsection.h>
-
-
-
-
 #include "preferenciasavanzadasdialog.h"
 #include "alertfilejson.h"
 #include "editorambitodialog.h"
@@ -50,7 +43,7 @@ private slots:
 
     void setup();
     void selectFileCoor();
-
+    void nuevoproyecto();
 
 private:
     Ui::MainWindow *ui;
@@ -60,7 +53,7 @@ private:
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
 
     ArchivoProyecto *_proyectoActual;
-    NewProjectDialog *_dialogoNuevoProyecto;
+
 
     void cargarAmbitos();
 };
