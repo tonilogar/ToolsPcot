@@ -27,6 +27,10 @@ signals:
 
 public slots:
 
+private:
+
+    bool checkListaIdentificadores();
+
 };
 
 #endif // READERCOORDINATESBASICO_H

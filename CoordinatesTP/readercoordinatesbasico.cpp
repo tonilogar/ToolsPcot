@@ -36,40 +36,35 @@ bool ReaderCoordinatesBasico::tryRead(QString pathFile)
     flujo.setRealNumberPrecision(6);
     QString ide=QString();
     double xa=0, ya=0, xb=0, yb=0;
-    bool error=false;
-    bool ideError=false;
     IdentificadorCoordenadas *identiCoor=0;
-    //Expresio regular per comprobar el valor de identificador
-    QRegExp expre("^*\w*$",Qt::CaseInsensitive);
-    if(!expre.isValid())
-    {
-     _error="La expresion regular no es correcta";
-     return false;
-    }
-    while (!flujo.atEnd() && !error)
+    do
     {
       flujo >> ide >> xa >> ya >> xb >> yb;
-      ideError=ide.contains(expre);
-      if (!ideError) error=true;
-      if (xa==0 || ya==0 || xb==0 || yb==0)
-      {
-          //error=true;
-      }
-      if (!error)
-      {
-          identiCoor=new IdentificadorCoordenadas(0,ide, xa, ya, xb, yb);
-          _listCoordinates << identiCoor;
-      }
-      xa=0; ya=0; xb=0; yb=0;
+      identiCoor=new IdentificadorCoordenadas(0,ide,xa,ya,xb,yb);
+      _listCoordinates << identiCoor;
       ide.clear();
+      xa=xb=ya=yb=0;
     }
-    if (error)
+    while (!flujo.atEnd());
+    return checkListaIdentificadores();
+}
+
+bool ReaderCoordinatesBasico::checkListaIdentificadores()
+{
+    bool resultado=true;
+    foreach(IdentificadorCoordenadas *ide,_listCoordinates)
     {
-     _listCoordinates.clear();
-     _error="El format del fitxer coordenades no es correcte";
-     qDebug()<< "false Ctryred" ;
-     return false;
+        //COMPRUEBA CADA IDENTIFICADOR;
     }
-    qDebug()<< "true Ctryred" ;
-    return true;
+
+    //    bool error=false;
+    //    bool ideError=false;
+    //    //Expresio regular per comprobar el valor de identificador
+    //    QRegExp expre("^*\w*$",Qt::CaseInsensitive);
+    //    if(!expre.isValid())
+    //    {
+    //     _error="La expresion regular no es correcta";
+    //     return false;
+    ///@todo IMPLEMENTAR EVALUACION DE LISTA DE IDENTIFICADORES
+    return resultado;
 }
