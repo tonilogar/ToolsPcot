@@ -52,9 +52,18 @@ bool ReaderCoordinatesBasico::tryRead(QString pathFile)
 bool ReaderCoordinatesBasico::checkListaIdentificadores()
 {
     bool resultado=true;
+    QList<IdentificadorCoordenadas*> coordenadas_erroneas;
     foreach(IdentificadorCoordenadas *ide,_listCoordinates)
     {
-        //COMPRUEBA CADA IDENTIFICADOR;
+        if(ide->getXa()==0 || ide->getXb()==0 || ide->getYa()==0 || ide->getYb()==0)
+            coordenadas_erroneas.append(ide);
+        else if(ide->getIdentificador().isEmpty() || ide->getIdentificador().isNull())
+            coordenadas_erroneas.append(ide);
+    }
+
+    foreach(IdentificadorCoordenadas *ide, coordenadas_erroneas) {
+        _listCoordinates.removeAll(ide);
+        delete ide;
     }
 
     //    bool error=false;
