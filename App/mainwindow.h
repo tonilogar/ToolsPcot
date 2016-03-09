@@ -44,6 +44,8 @@ private slots:
     void setup();
     void selectFileCoor();
     void nuevoproyecto();
+    void abrirProyecto();
+    void cambiosEnProyecto(bool estado);
 
 private:
     Ui::MainWindow *ui;

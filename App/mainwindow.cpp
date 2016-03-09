@@ -136,5 +136,31 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     event->accept();
 }
-
-
+void MainWindow::abrirProyecto()
+{
+ QString archivoProyecto=QFileDialog::getOpenFileName(this,"select file project");
+ if(archivoProyecto.isNull() || archivoProyecto.isEmpty())
+ {
+     return;
+ }
+ if (_proyectoActual)
+ {
+     _proyectoActual->read(archivoProyecto);
+ }
+ else
+ {
+     _proyectoActual=new ArchivoProyecto(this);
+     _proyectoActual->addSection(ui->widgetCoordinates->getSectionCoordinates());
+     connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
+     _proyectoActual->read(archivoProyecto);
+ }
+}
+void MainWindow::cambiosEnProyecto(bool estado)
+{
+if(!estado)
+{
+    this->setWindowTitle(_proyectoActual->getnameProyect()+tr("*")+tr(" - ToolsPcot"));
+}
+else
+    this->setWindowTitle(_proyectoActual->getnameProyect()+tr(" - ToolsPcot"));
+}
