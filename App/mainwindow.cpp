@@ -30,6 +30,7 @@ void MainWindow::nuevoproyecto()
         }
         else
         {
+
             QList <AProTPSection*> aproSecction=_proyectoActual->getListaSections();
 
             foreach(AProTPSection * seccion,aproSecction)
@@ -38,8 +39,9 @@ void MainWindow::nuevoproyecto()
 
             }
             delete _proyectoActual;
-        }
+        }        
         _proyectoActual=aProyecto;
+        connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
     }
 }
 
