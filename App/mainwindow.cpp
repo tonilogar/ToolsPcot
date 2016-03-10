@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     _preferenciasAvanzadas=new PreferenciasAvanzadasDialog(this);
     connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
+    connect(ui->actionAbrir_proyecto,SIGNAL(triggered()),this,SLOT(abrirProyecto()));
+    connect(ui->actionGuardar_proyecto,SIGNAL(triggered()),this,SLOT(guardarProyecto()));
     setup();
 }
 
@@ -163,4 +165,11 @@ if(!estado)
 }
 else
     this->setWindowTitle(_proyectoActual->getnameProyect()+tr(" - ToolsPcot"));
+}
+void MainWindow::guardarProyecto()
+{
+ if(_proyectoActual)
+ {
+     _proyectoActual->save();
+ }
 }

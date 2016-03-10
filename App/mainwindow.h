@@ -46,7 +46,7 @@ private slots:
     void nuevoproyecto();
     void abrirProyecto();
     void cambiosEnProyecto(bool estado);
-
+    void guardarProyecto();
 private:
     Ui::MainWindow *ui;
     PreferenciasAvanzadasDialog *_preferenciasAvanzadas;

@@ -10,10 +10,9 @@ NewProjectDialog::NewProjectDialog(QWidget *parent) :
     connect(ui->toolButtonDateFlight,SIGNAL(clicked()),this,SLOT(lanzarCalendario()));
     connect(ui->toolButtonFolderProject,SIGNAL(clicked()),this,SLOT(cambiarFolderProject()));
     connect(ui->dateEditDateFlight,SIGNAL(dateChanged(QDate)),this,SLOT(cambiarFechaFichero(QDate)));
-    connect(ui->buttonBox,SIGNAL(accepted()),this,SLOT(crearArchivoProyecto()));
     QSettings settings("tologar","ToolsPCOT",this);
     QString dirProyecto=settings.value("directorioProyectos").toString();
-    ui->lineEditFolderProject->setText(dirProyecto);
+    //ui->lineEditFolderProject->setText(dirProyecto);
     ui->dateEditDateFlight->setDisplayFormat("dd/MM/yyyy");
     ui->dateEditDateFlight->setDate(QDate::currentDate());
 
@@ -64,11 +63,7 @@ void NewProjectDialog::cambiarFolderProject()
 
 void NewProjectDialog::crearArchivoProyecto()
 {
-    if(!checkDates())
-    {
-        QMessageBox::warning(this,tr("ToolsPCot - New projecto"),tr("write de name of project"));
-        return;
-    }
+
 
     QString dirProyecto=ui->lineEditFolderProject->text();
     //Casos de la direccion en windows o linux barras inclinadas
@@ -83,9 +78,17 @@ void NewProjectDialog::crearArchivoProyecto()
     _aProyecto->setdateflight(ui->dateEditDateFlight->date());
 
 }
-bool NewProjectDialog::checkDates()
+bool NewProjectDialog::checkNameProyect()
 {
     if(ui->lineEditProject->text().isEmpty() || ui->lineEditProject->text().isNull() )
+    {
+        return false;
+    }
+    return true;
+}
+bool NewProjectDialog::checkFolderOut()
+{
+    if(ui->lineEditFolderProject->text().isEmpty() || ui->lineEditFolderProject->text().isNull() )
     {
         return false;
     }
@@ -95,4 +98,23 @@ bool NewProjectDialog::checkDates()
 ArchivoProyecto * NewProjectDialog::getArchivoProyecto()
 {
    return _aProyecto;
+}
+void NewProjectDialog::accept()
+{
+    if(!checkNameProyect())
+    {
+        QMessageBox::warning(this,tr("ToolsPCot - New projecto"),tr("write de name of project"));
+        return;
+    }
+    else if(!checkFolderOut())
+    {
+        QMessageBox::warning(this,tr("ToolsPCot - New projecto"),tr("Select folder project"));
+        return;
+    }
+else
+    {
+     crearArchivoProyecto();
+     QDialog::accept();
+    }
+
 }

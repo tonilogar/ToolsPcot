@@ -11,6 +11,7 @@
 #include <QMessageBox>
 #include "calendardialog.h"
 #include <ProyectoTP/archivoproyecto.h>
+#include <QCloseEvent>
 
 namespace Ui {
 class NewProjectDialog;
@@ -23,8 +24,11 @@ class WIDGETPROYECTOTPSHARED_EXPORT NewProjectDialog : public QDialog
 public:
     explicit NewProjectDialog(QWidget *parent = 0);
     ~NewProjectDialog();
-    bool checkDates();
+    bool checkNameProyect();
+    bool checkFolderOut();
     ArchivoProyecto *getArchivoProyecto();
+public slots:
+    void accept();
 private slots:
     void generarNombreFicheroProyecto(QString valor);
     void lanzarCalendario();
