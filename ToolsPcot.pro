@@ -17,3 +17,4 @@ ControlOpeTP \
 WidgetProyectoTP \
 WidgetCoordinatesTP \
 App \
+    WidgetRegistroTP
