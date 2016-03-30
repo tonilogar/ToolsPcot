@@ -66,14 +66,6 @@ bool ReaderCoordinatesBasico::checkListaIdentificadores()
         delete ide;
     }
 
-    //    bool error=false;
-    //    bool ideError=false;
-    //    //Expresio regular per comprobar el valor de identificador
-    //    QRegExp expre("^*\w*$",Qt::CaseInsensitive);
-    //    if(!expre.isValid())
-    //    {
-    //     _error="La expresion regular no es correcta";
-    //     return false;
     ///@todo IMPLEMENTAR EVALUACION DE LISTA DE IDENTIFICADORES
     return resultado;
 }
