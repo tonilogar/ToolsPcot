@@ -47,12 +47,18 @@ private slots:
     void abrirProyecto();
     void cambiosEnProyecto(bool estado);
     void guardarProyecto();
+
+signals:
+
+    void activarWidgetsRegistro(bool data);
+
 private:
     Ui::MainWindow *ui;
     PreferenciasAvanzadasDialog *_preferenciasAvanzadas;
     AmbitJson *_archivoAmbito;
     AlertFileJson *_objetoAlertFileJson;
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
+    RegistroCnp *_registroCnp;
 
     ArchivoProyecto *_proyectoActual;
 

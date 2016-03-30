@@ -15,25 +15,38 @@ public:
 
     //Getters
     bool getEstadoInterface();
+
     enum CorreccionRegistro {
         Inoperativo, Incorrecto, Correcto
     };
     Q_ENUMS(CorreccionRegistro)
+
+    CorreccionRegistro getEstadoCorreccion() const;
+
+    void setRegistro(AProTPSection *reg);
+
 signals:
+
+    void cambioEstadoInterface(bool estado);
+    void cambioEstadoCorreccion(CorreccionRegistro estado);
 
 public slots:
 
     void setEstadoInterface(bool data);
 
- protected:
+protected:
 
     AProTPSection *_aproRegistro;
     bool estadoInterface;
-    virtual void activarInterface();
-    virtual void desactivarInterface();
 
+    CorreccionRegistro _correccionActual;
 
+    virtual void activarInterface()=0;
+    virtual void desactivarInterface()=0;
 
+    virtual void checkEstadoCorreccion()=0;
+
+    virtual void connectRegistro()=0;
 
 };
 

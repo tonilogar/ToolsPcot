@@ -45,6 +45,9 @@ public:
 
 signals:
 
+    void cnpsEnabled(bool state);
+    void changeFolderOut(QString fOut);
+
 public slots:
     //setters
     /*!

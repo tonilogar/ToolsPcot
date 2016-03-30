@@ -10,6 +10,11 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
     connect(ui->actionAbrir_proyecto,SIGNAL(triggered()),this,SLOT(abrirProyecto()));
     connect(ui->actionGuardar_proyecto,SIGNAL(triggered()),this,SLOT(guardarProyecto()));
+
+    connect(this,SIGNAL(activarWidgetsRegistro(bool)),ui->cnp,SLOT(setEstadoInterface(bool)));
+    _registroCnp=new RegistroCnp(this);
+
+    ui->cnp->setRegistro(_registroCnp);
     setup();
 }
 
@@ -42,6 +47,7 @@ void MainWindow::nuevoproyecto()
         }        
         _proyectoActual=aProyecto;
         connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
+        emit activarWidgetsRegistro(true);
     }
 }
 
@@ -140,6 +146,7 @@ void MainWindow::closeEvent(QCloseEvent *event)
 {
     event->accept();
 }
+
 void MainWindow::abrirProyecto()
 {
  QString archivoProyecto=QFileDialog::getOpenFileName(this,"select file project");
@@ -158,6 +165,9 @@ void MainWindow::abrirProyecto()
      connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
      _proyectoActual->read(archivoProyecto);
  }
+ emit activarWidgetsRegistro(true);
+
+ _registroCnp->setFolderOut(QString("HOLA QUE TAL!"));
 }
 void MainWindow::cambiosEnProyecto(bool estado)
 {

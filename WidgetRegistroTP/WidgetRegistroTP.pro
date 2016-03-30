@@ -27,14 +27,19 @@ DESTDIR =../libs
 DEFINES += WIDGETREGISTROTP_LIBRARY
 
 SOURCES += \
-    widgetregistro.cpp
+    widgetregistro.cpp \
+    widgetcnp.cpp
 
 HEADERS +=\
         widgetregistrotp_global.h \
-    widgetregistro.h
+    widgetregistro.h \
+    widgetcnp.h
 
 unix {
     target.path = /usr/lib
     INSTALLS += target
 }
+
+FORMS += \
+    widgetcnp.ui
 
