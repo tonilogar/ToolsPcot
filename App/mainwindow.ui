@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>426</width>
-    <height>335</height>
+    <width>749</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,9 +22,45 @@
       </property>
       <widget class="WidgetCoordinates" name="widgetCoordinates" native="true"/>
       <widget class="QWidget" name="widget" native="true">
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <widget class="WidgetCNP" name="cnp" native="true"/>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButtonCnp">
+            <property name="text">
+             <string>Cnp</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonMet">
+            <property name="text">
+             <string>Met</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonOrto">
+            <property name="text">
+             <string>Orto</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QStackedWidget" name="stackedWidget">
+          <widget class="WidgetCNP" name="cnp"/>
+          <widget class="QWidget" name="met"/>
+          <widget class="QWidget" name="orto"/>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCommandLinkButton" name="commandLinkButton">
+          <property name="text">
+           <string>CommandLinkButton</string>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -37,7 +73,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>426</width>
+     <width>749</width>
      <height>25</height>
     </rect>
    </property>

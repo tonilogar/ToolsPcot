@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->actionAbrir_proyecto,SIGNAL(triggered()),this,SLOT(abrirProyecto()));
     connect(ui->actionGuardar_proyecto,SIGNAL(triggered()),this,SLOT(guardarProyecto()));
 
+    connect(ui->widgetCoordinates,SIGNAL(loadedModelo(bool)),this,SIGNAL(activarWidgetsRegistro(bool)));
     connect(this,SIGNAL(activarWidgetsRegistro(bool)),ui->cnp,SLOT(setEstadoInterface(bool)));
     _registroCnp=new RegistroCnp(this);
 

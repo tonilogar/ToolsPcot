@@ -34,6 +34,7 @@ public slots:
 
     void setEstadoInterface(bool data);
 
+
 protected:
 
     AProTPSection *_aproRegistro;

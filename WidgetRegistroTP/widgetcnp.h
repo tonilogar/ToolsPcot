@@ -1,13 +1,10 @@
 #ifndef WIDGETCNP_H
 #define WIDGETCNP_H
-
 #include <QWidget>
-
 #include "widgetregistrotp_global.h"
-
 #include "widgetregistro.h"
-
 #include <RegistroTP/registrocnp.h>
+#include <QFileDialog>
 #include <QDebug>
 
 namespace Ui {
@@ -21,6 +18,10 @@ class WIDGETREGISTROTPSHARED_EXPORT WidgetCNP : public WidgetRegistro
 public:
     explicit WidgetCNP(QWidget *parent = 0);
     ~WidgetCNP();
+private slots:
+
+   void selectOutFolder();
+   void deleteData();
 
 private:
     Ui::WidgetCNP *ui;
