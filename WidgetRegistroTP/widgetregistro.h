@@ -11,6 +11,8 @@
 
 #include <ProyectoTP/aprotpsection.h>
 
+#include "booltransition.h"
+
 
 class WIDGETREGISTROTPSHARED_EXPORT WidgetRegistro : public QWidget
 {
@@ -48,6 +50,7 @@ protected:
     bool _conectado;
 
     CorreccionRegistro _correccionActual;
+    QStateMachine _mEstado;
 
     virtual void conectarInterface()=0;
     virtual void desconectarInterface()=0;

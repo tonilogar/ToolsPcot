@@ -28,12 +28,14 @@ DEFINES += WIDGETREGISTROTP_LIBRARY
 
 SOURCES += \
     widgetregistro.cpp \
-    widgetcnp.cpp
+    widgetcnp.cpp \
+    booltransition.cpp
 
 HEADERS +=\
         widgetregistrotp_global.h \
     widgetregistro.h \
-    widgetcnp.h
+    widgetcnp.h \
+    booltransition.h
 
 unix {
     target.path = /usr/lib
