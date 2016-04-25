@@ -6,7 +6,10 @@ WidgetCNP::WidgetCNP(QWidget *parent) :
     ui(new Ui::WidgetCNP)
 {
     ui->setupUi(this);
-    setConectado(false);
+    ui->pushButtonDeleteDataCnp->setDisabled(true);
+    ui->label->setDisabled(true);
+    ui->lineEditCnp->setDisabled(true);
+    ui->toolButtonCnp->setDisabled(true);
 }
 
 WidgetCNP::~WidgetCNP()
@@ -16,20 +19,13 @@ WidgetCNP::~WidgetCNP()
 
 void WidgetCNP::conectarInterface()
 {
-    ui->checkBoxCnp->setDisabled(0);
-    ui->pushButtonDeleteDataCnp->setDisabled(0);
-    ui->label->setDisabled(0);
-    ui->lineEditCnp->setDisabled(0);
-    ui->toolButtonCnp->setDisabled(0);
+    ui->checkBoxCnp->setEnabled(true);
 }
 
 void WidgetCNP::desconectarInterface()
 {
-ui->checkBoxCnp->setDisabled(1);
-ui->pushButtonDeleteDataCnp->setDisabled(1);
-ui->label->setDisabled(1);
-ui->lineEditCnp->setDisabled(1);
-ui->toolButtonCnp->setDisabled(1);
+    ui->checkBoxCnp->setChecked(false);
+    ui->checkBoxCnp->setEnabled(false);
 }
 
 void WidgetCNP::checkEstadoCorreccion()
@@ -67,7 +63,7 @@ void WidgetCNP::selectOutFolder()
 
 void WidgetCNP::deleteData()
 {
- ui->lineEditCnp->clear();
+    ui->lineEditCnp->clear();
 }
 
 
