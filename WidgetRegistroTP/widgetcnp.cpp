@@ -10,6 +10,10 @@ WidgetCNP::WidgetCNP(QWidget *parent) :
     ui->label->setDisabled(true);
     ui->lineEditCnp->setDisabled(true);
     ui->toolButtonCnp->setDisabled(true);
+
+    //Conectar el checkbox con el slot para activar y desactivar la interface
+
+    connect(ui->checkBoxCnp,SIGNAL(stateChanged(int)),this,SLOT(activarWidget(int)));
 }
 
 WidgetCNP::~WidgetCNP()
@@ -26,6 +30,22 @@ void WidgetCNP::desconectarInterface()
 {
     ui->checkBoxCnp->setChecked(false);
     ui->checkBoxCnp->setEnabled(false);
+}
+
+void WidgetCNP::activarInterface()
+{
+    ui->pushButtonDeleteDataCnp->setEnabled(true);
+    ui->label->setEnabled(true);
+    ui->lineEditCnp->setEnabled(true);
+    ui->toolButtonCnp->setEnabled(true);
+}
+
+void WidgetCNP::desactivarInterface()
+{
+    ui->pushButtonDeleteDataCnp->setEnabled(false);
+    ui->label->setEnabled(false);
+    ui->lineEditCnp->setEnabled(false);
+    ui->toolButtonCnp->setEnabled(false);
 }
 
 void WidgetCNP::checkEstadoCorreccion()

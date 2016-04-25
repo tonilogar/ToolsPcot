@@ -31,6 +31,9 @@ protected:
     virtual void conectarInterface();
     virtual void desconectarInterface();
 
+    virtual void activarInterface();
+    virtual void desactivarInterface();
+
     virtual void checkEstadoCorreccion();
     virtual void connectRegistro();
 

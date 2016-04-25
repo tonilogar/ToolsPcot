@@ -8,6 +8,7 @@
 #include <QStateMachine>
 #include <QAbstractTransition>
 #include <QSignalTransition>
+#include <QCheckBox>
 
 #include <ProyectoTP/aprotpsection.h>
 
@@ -18,12 +19,14 @@ class WIDGETREGISTROTPSHARED_EXPORT WidgetRegistro : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(bool conectado READ estaConectado WRITE setConectado NOTIFY conectado)
+    Q_PROPERTY(bool activo READ estaActivo WRITE setActivo NOTIFY activo)
 
 public:
     explicit WidgetRegistro(QWidget *parent = 0);
 
     //Getters
     bool estaConectado() const;
+    bool estaActivo() const;
 
     enum CorreccionRegistro {
         Inoperativo, Incorrecto, Correcto
@@ -37,6 +40,7 @@ public:
 signals:
 
     void conectado(bool estado);
+    void activo(bool estado);
     void cambioEstadoCorreccion(CorreccionRegistro estado);
 
 public slots:
@@ -46,18 +50,25 @@ public slots:
 protected slots:
 
     void setConectado(bool data);
+    void setActivo(bool data);
+    void activarWidget(int check);
 
 
 protected:
 
     AProTPSection *_aproRegistro;
     bool _conectado;
+    bool _activo;
 
     CorreccionRegistro _correccionActual;
     QStateMachine _mEstado;
+    QStateMachine *_estadoConectado;
 
     virtual void conectarInterface()=0;
     virtual void desconectarInterface()=0;
+
+    virtual void activarInterface()=0;
+    virtual void desactivarInterface()=0;
 
     virtual void checkEstadoCorreccion()=0;
 
