@@ -6,7 +6,7 @@ WidgetCNP::WidgetCNP(QWidget *parent) :
     ui(new Ui::WidgetCNP)
 {
     ui->setupUi(this);
-    setEstadoInterface(false);
+    setConectado(false);
 }
 
 WidgetCNP::~WidgetCNP()
@@ -14,7 +14,7 @@ WidgetCNP::~WidgetCNP()
     delete ui;
 }
 
-void WidgetCNP::activarInterface()
+void WidgetCNP::conectarInterface()
 {
     ui->checkBoxCnp->setDisabled(0);
     ui->pushButtonDeleteDataCnp->setDisabled(0);
@@ -23,7 +23,7 @@ void WidgetCNP::activarInterface()
     ui->toolButtonCnp->setDisabled(0);
 }
 
-void WidgetCNP::desactivarInterface()
+void WidgetCNP::desconectarInterface()
 {
 ui->checkBoxCnp->setDisabled(1);
 ui->pushButtonDeleteDataCnp->setDisabled(1);

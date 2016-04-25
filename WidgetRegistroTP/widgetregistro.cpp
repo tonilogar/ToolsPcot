@@ -13,11 +13,11 @@ void WidgetRegistro::setRegistro(AProTPSection *reg)
     connectRegistro();
 }
 
-void WidgetRegistro::setEstadoInterface(bool data)
+void WidgetRegistro::setConectado(bool data)
 {
     estadoInterface=data;
     if(data)
-        activarInterface();
-    else desactivarInterface();
-    emit cambioEstadoInterface(estadoInterface);
+        conectarInterface();
+    else desconectarInterface();
+    emit conectado(estadoInterface);
 }

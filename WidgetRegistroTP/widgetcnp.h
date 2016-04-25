@@ -28,8 +28,8 @@ private:
 
 protected:
 
-    virtual void activarInterface();
-    virtual void desactivarInterface();
+    virtual void conectarInterface();
+    virtual void desconectarInterface();
 
     virtual void checkEstadoCorreccion();
     virtual void connectRegistro();

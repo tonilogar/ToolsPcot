@@ -2,7 +2,13 @@
 #define WIDGETREGISTRO_H
 
 #include "widgetregistrotp_global.h"
+
 #include <QWidget>
+#include <QState>
+#include <QStateMachine>
+#include <QAbstractTransition>
+#include <QSignalTransition>
+
 #include <ProyectoTP/aprotpsection.h>
 
 
@@ -14,7 +20,7 @@ public:
     explicit WidgetRegistro(QWidget *parent = 0);
 
     //Getters
-    bool getEstadoInterface();
+    bool estaConectado();
 
     enum CorreccionRegistro {
         Inoperativo, Incorrecto, Correcto
@@ -27,12 +33,12 @@ public:
 
 signals:
 
-    void cambioEstadoInterface(bool estado);
+    void conectado(bool estado);
     void cambioEstadoCorreccion(CorreccionRegistro estado);
 
 public slots:
 
-    void setEstadoInterface(bool data);
+    void setConectado(bool data);
 
 
 protected:
@@ -42,8 +48,8 @@ protected:
 
     CorreccionRegistro _correccionActual;
 
-    virtual void activarInterface()=0;
-    virtual void desactivarInterface()=0;
+    virtual void conectarInterface()=0;
+    virtual void desconectarInterface()=0;
 
     virtual void checkEstadoCorreccion()=0;
 
