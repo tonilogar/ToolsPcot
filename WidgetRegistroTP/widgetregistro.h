@@ -15,12 +15,13 @@
 class WIDGETREGISTROTPSHARED_EXPORT WidgetRegistro : public QWidget
 {
     Q_OBJECT
+    Q_PROPERTY(bool conectado READ estaConectado WRITE setConectado NOTIFY conectado)
 
 public:
     explicit WidgetRegistro(QWidget *parent = 0);
 
     //Getters
-    bool estaConectado();
+    bool estaConectado() const;
 
     enum CorreccionRegistro {
         Inoperativo, Incorrecto, Correcto
@@ -44,7 +45,7 @@ public slots:
 protected:
 
     AProTPSection *_aproRegistro;
-    bool estadoInterface;
+    bool _conectado;
 
     CorreccionRegistro _correccionActual;
 

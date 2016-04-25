@@ -3,7 +3,7 @@
 WidgetRegistro::WidgetRegistro(QWidget *parent) :
     QWidget(parent)
 {
-    estadoInterface=true;   //Activado por defecto
+    _conectado=true;   //Activado por defecto
     _aproRegistro=0;
 }
 
@@ -15,9 +15,14 @@ void WidgetRegistro::setRegistro(AProTPSection *reg)
 
 void WidgetRegistro::setConectado(bool data)
 {
-    estadoInterface=data;
+    _conectado=data;
     if(data)
         conectarInterface();
     else desconectarInterface();
-    emit conectado(estadoInterface);
+    emit conectado(_conectado);
+}
+
+bool WidgetRegistro::estaConectado() const
+{
+    return _conectado;
 }
