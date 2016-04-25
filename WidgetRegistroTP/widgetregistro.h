@@ -41,6 +41,10 @@ signals:
 
 public slots:
 
+    void conectarWidget(bool data);
+
+protected slots:
+
     void setConectado(bool data);
 
 
