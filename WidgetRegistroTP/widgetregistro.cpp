@@ -24,6 +24,7 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
 
     //3.- Indicar los cambios de un estado a otro
     desconectado->assignProperty(this,"conectado",false);
+    desconectado->assignProperty(this,"activo",false);
     _estadoConectado->assignProperty(this,"conectado",true);
 
     //4.- Añadir los estados a la maquina
@@ -35,8 +36,8 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
     QState *activo=new QState(0);
     QState *inactivo=new QState(0);
 
-    BoolTransition *tA1=new BoolTransition(true);
-    BoolTransition *tA2=new BoolTransition(false);
+    CheckTransition *tA1=new CheckTransition(Qt::Checked);
+    CheckTransition *tA2=new CheckTransition(Qt::Unchecked);
 
     tA1->setTargetState(activo);
     inactivo->addTransition(tA1);
@@ -45,14 +46,13 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
     activo->addTransition(tA2);
 
     activo->assignProperty(this,"activo",true);
-    activo->assignProperty(this,"activo",false);
+    inactivo->assignProperty(this,"activo",false);
 
     _estadoConectado->addState(activo);
     _estadoConectado->addState(inactivo);
     _estadoConectado->setInitialState(inactivo);
 
     //5.- Iniciar la maquina
-    _estadoConectado->start();
     _mEstado.start();
 }
 
@@ -69,9 +69,7 @@ void WidgetRegistro::conectarWidget(bool data)
 
 void WidgetRegistro::activarWidget(int check)
 {
-    if(check==Qt::Checked)
-        _estadoConectado->postEvent(new BoolEvent(true));
-    else _estadoConectado->postEvent(new BoolEvent(false));
+    _estadoConectado->postEvent(new CheckEvent(static_cast<Qt::CheckState>(check)));
 }
 
 void WidgetRegistro::setConectado(bool data)

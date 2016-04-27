@@ -46,6 +46,7 @@ void WidgetCNP::desactivarInterface()
     ui->label->setEnabled(false);
     ui->lineEditCnp->setEnabled(false);
     ui->toolButtonCnp->setEnabled(false);
+    deleteData();
 }
 
 void WidgetCNP::checkEstadoCorreccion()

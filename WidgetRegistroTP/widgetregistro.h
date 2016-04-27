@@ -6,6 +6,7 @@
 #include <QWidget>
 #include <QState>
 #include <QStateMachine>
+#include <QFinalState>
 #include <QAbstractTransition>
 #include <QSignalTransition>
 #include <QCheckBox>
@@ -13,6 +14,7 @@
 #include <ProyectoTP/aprotpsection.h>
 
 #include "booltransition.h"
+#include "checktransition.h"
 
 
 class WIDGETREGISTROTPSHARED_EXPORT WidgetRegistro : public QWidget
