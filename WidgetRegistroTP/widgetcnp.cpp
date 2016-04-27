@@ -51,7 +51,13 @@ void WidgetCNP::desactivarInterface()
 
 void WidgetCNP::checkEstadoCorreccion()
 {
-    qDebug() << "CHEQUEANDO ESTADO DE CORRECCION";
+    QString directorio=ui->lineEditCnp->text();
+    QString rutaCorrecta("/home/bardo/Workbench/Qt/ClasesQt/salidaToolspcot");
+    if(directorio!=rutaCorrecta)
+        cambiarCorreccion(ParcialCorrecto);
+    else
+        cambiarCorreccion(Correcto);
+
 }
 
 void WidgetCNP::connectRegistro()

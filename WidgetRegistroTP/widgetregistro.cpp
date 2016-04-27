@@ -11,6 +11,7 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
     //1.- Preparar los estados
     QState *desconectado=new QState(0);
     _estadoConectado=new QStateMachine(0);
+    _estadoActivo=new QStateMachine(0);
 
     //2.-Preparar las transiciones
     BoolTransition *t1=new BoolTransition(true);
@@ -25,6 +26,7 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
     //3.- Indicar los cambios de un estado a otro
     desconectado->assignProperty(this,"conectado",false);
     desconectado->assignProperty(this,"activo",false);
+    desconectado->assignProperty(this,"correccion",Pasivo);
     _estadoConectado->assignProperty(this,"conectado",true);
 
     //4.- Añadir los estados a la maquina
@@ -33,24 +35,63 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
     _mEstado.setInitialState(desconectado);
 
     //Preparar la maquina de estadoConectado
-    QState *activo=new QState(0);
     QState *inactivo=new QState(0);
 
     CheckTransition *tA1=new CheckTransition(Qt::Checked);
     CheckTransition *tA2=new CheckTransition(Qt::Unchecked);
 
-    tA1->setTargetState(activo);
+    tA1->setTargetState(_estadoActivo);
     inactivo->addTransition(tA1);
 
     tA2->setTargetState(inactivo);
-    activo->addTransition(tA2);
+    _estadoActivo->addTransition(tA2);
 
-    activo->assignProperty(this,"activo",true);
+    _estadoActivo->assignProperty(this,"activo",true);
     inactivo->assignProperty(this,"activo",false);
+    inactivo->assignProperty(this,"correccion",Pasivo);
 
-    _estadoConectado->addState(activo);
+    _estadoConectado->addState(_estadoActivo);
     _estadoConectado->addState(inactivo);
     _estadoConectado->setInitialState(inactivo);
+
+    //Preparar la maquina de estadoActivo
+    QState *pasivo=new QState(_estadoActivo);
+    QState *parcialCorrecto=new QState(_estadoActivo);
+    QState *correcto=new QState(_estadoActivo);
+
+    pasivo->assignProperty(this,"correccion",Pasivo);
+    parcialCorrecto->assignProperty(this,"correccion",ParcialCorrecto);
+    correcto->assignProperty(this,"correccion",Correcto);
+
+    IntTransition *tC1=new IntTransition(1);
+    IntTransition *tC2=new IntTransition(2);
+
+    tC1->setTargetState(parcialCorrecto);
+    pasivo->addTransition(tC1);
+
+    tC2->setTargetState(correcto);
+    pasivo->addTransition(tC2);
+
+    IntTransition *tC3=new IntTransition(0);
+    IntTransition *tC4=new IntTransition(2);
+
+    tC3->setTargetState(pasivo);
+    parcialCorrecto->addTransition(tC3);
+
+    tC4->setTargetState(correcto);
+    parcialCorrecto->addTransition(tC4);
+
+    IntTransition *tC5=new IntTransition(1);
+    IntTransition *tC6=new IntTransition(0);
+
+    tC5->setTargetState(parcialCorrecto);
+    correcto->addTransition(tC5);
+
+    tC6->setTargetState(pasivo);
+    correcto->addTransition(tC6);
+
+    _estadoActivo->setInitialState(pasivo);
+
 
     //5.- Iniciar la maquina
     _mEstado.start();
@@ -98,4 +139,34 @@ void WidgetRegistro::setActivo(bool data)
         activarInterface();
     else desactivarInterface();
     emit activo(_activo);
+}
+
+void WidgetRegistro::setCorreccion(CorreccionRegistro correc)
+{
+    _correccionActual=correc;
+    emit correccion(_correccionActual);
+}
+
+CorreccionRegistro WidgetRegistro::estaCorrecto() const
+{
+    return _correccionActual;
+}
+
+void WidgetRegistro::cambiarCorreccion(CorreccionRegistro c)
+{
+    switch(c)
+    {
+    case Pasivo:
+        _mEstado.postEvent(new IntEvent(0));
+        break;
+    case ParcialCorrecto:
+        _mEstado.postEvent(new IntEvent(1));
+        break;
+    case Correcto:
+        _mEstado.postEvent(new IntEvent(2));
+        break;
+    default:
+        break;
+    }
+
 }

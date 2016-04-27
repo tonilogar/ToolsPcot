@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent) :
     _registroCnp=new RegistroCnp(this);
 
     ui->cnp->setRegistro(_registroCnp);
+
+    //DEPURACION
+    connect(ui->cnp,SIGNAL(correccion(CorreccionRegistro)),this,SLOT(depurarWidgetRegistro(CorreccionRegistro)));
     setup();
 }
 
@@ -45,7 +48,7 @@ void MainWindow::nuevoproyecto()
 
             }
             delete _proyectoActual;
-        }        
+        }
         _proyectoActual=aProyecto;
         connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
         emit activarWidgetsRegistro(true);
@@ -150,39 +153,46 @@ void MainWindow::closeEvent(QCloseEvent *event)
 
 void MainWindow::abrirProyecto()
 {
- QString archivoProyecto=QFileDialog::getOpenFileName(this,"select file project");
- if(archivoProyecto.isNull() || archivoProyecto.isEmpty())
- {
-     return;
- }
- if (_proyectoActual)
- {
-     _proyectoActual->read(archivoProyecto);
- }
- else
- {
-     _proyectoActual=new ArchivoProyecto(this);
-     _proyectoActual->addSection(ui->widgetCoordinates->getSectionCoordinates());
-     connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
-     _proyectoActual->read(archivoProyecto);
- }
- emit activarWidgetsRegistro(true);
+    QString archivoProyecto=QFileDialog::getOpenFileName(this,"select file project");
+    if(archivoProyecto.isNull() || archivoProyecto.isEmpty())
+    {
+        return;
+    }
+    if (_proyectoActual)
+    {
+        _proyectoActual->read(archivoProyecto);
+    }
+    else
+    {
+        _proyectoActual=new ArchivoProyecto(this);
+        _proyectoActual->addSection(ui->widgetCoordinates->getSectionCoordinates());
+        connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
+        _proyectoActual->read(archivoProyecto);
+    }
+    emit activarWidgetsRegistro(true);
 
- _registroCnp->setFolderOut(QString("HOLA QUE TAL!"));
+    _registroCnp->setFolderOut(QString("HOLA QUE TAL!"));
 }
+
 void MainWindow::cambiosEnProyecto(bool estado)
 {
-if(!estado)
-{
-    this->setWindowTitle(_proyectoActual->getnameProyect()+tr("*")+tr(" - ToolsPcot"));
+    if(!estado)
+    {
+        this->setWindowTitle(_proyectoActual->getnameProyect()+tr("*")+tr(" - ToolsPcot"));
+    }
+    else
+        this->setWindowTitle(_proyectoActual->getnameProyect()+tr(" - ToolsPcot"));
 }
-else
-    this->setWindowTitle(_proyectoActual->getnameProyect()+tr(" - ToolsPcot"));
-}
+
 void MainWindow::guardarProyecto()
 {
- if(_proyectoActual)
- {
-     _proyectoActual->save();
- }
+    if(_proyectoActual)
+    {
+        _proyectoActual->save();
+    }
+}
+
+void MainWindow::depurarWidgetRegistro(CorreccionRegistro c)
+{
+    qDebug() << "ESTADO CNP: "<<c;
 }

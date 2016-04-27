@@ -21,6 +21,9 @@
 #include <WidgetProyectoTP/newprojectdialog.h>
 #include <ProyectoTP/archivoproyecto.h>
 #include <ProyectoTP/aprotpsection.h>
+
+#include <WidgetRegistroTP/widgetregistro.h>
+
 #include "preferenciasavanzadasdialog.h"
 #include "alertfilejson.h"
 #include "editorambitodialog.h"
@@ -47,6 +50,8 @@ private slots:
     void abrirProyecto();
     void cambiosEnProyecto(bool estado);
     void guardarProyecto();
+
+    void depurarWidgetRegistro(CorreccionRegistro c);
 
 signals:
 
