@@ -30,14 +30,16 @@ SOURCES += \
     widgetregistro.cpp \
     widgetcnp.cpp \
     booltransition.cpp \
-    checktransition.cpp
+    checktransition.cpp \
+    inttransition.cpp
 
 HEADERS +=\
         widgetregistrotp_global.h \
     widgetregistro.h \
     widgetcnp.h \
     booltransition.h \
-    checktransition.h
+    checktransition.h \
+    inttransition.h
 
 unix {
     target.path = /usr/lib
