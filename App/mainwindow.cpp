@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->cnp->setRegistro(_registroCnp);
 
     //DEPURACION
-    connect(ui->cnp,SIGNAL(correccion(CorreccionRegistro)),this,SLOT(depurarWidgetRegistro(CorreccionRegistro)));
+    connect(ui->cnp,SIGNAL(correccion(int)),this,SLOT(depurarWidgetRegistro(int)));
     setup();
 }
 
@@ -192,7 +192,7 @@ void MainWindow::guardarProyecto()
     }
 }
 
-void MainWindow::depurarWidgetRegistro(CorreccionRegistro c)
+void MainWindow::depurarWidgetRegistro(int c)
 {
     qDebug() << "ESTADO CNP: "<<c;
 }

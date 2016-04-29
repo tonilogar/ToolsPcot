@@ -92,6 +92,12 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
 
     _estadoActivo->setInitialState(pasivo);
 
+    //DEP
+    //
+    connect(_estadoActivo,SIGNAL(started()),this,SLOT(maquinaActivada()));
+    connect(pasivo,SIGNAL(entered()),this,SLOT(estadoPasivo()));
+    connect(correcto,SIGNAL(entered()),this,SLOT(estadoCorrecto()));
+
 
     //5.- Iniciar la maquina
     _mEstado.start();
@@ -141,13 +147,13 @@ void WidgetRegistro::setActivo(bool data)
     emit activo(_activo);
 }
 
-void WidgetRegistro::setCorreccion(CorreccionRegistro correc)
+void WidgetRegistro::setCorreccion(int correc)
 {
     _correccionActual=correc;
     emit correccion(_correccionActual);
 }
 
-CorreccionRegistro WidgetRegistro::estaCorrecto() const
+int WidgetRegistro::estaCorrecto() const
 {
     return _correccionActual;
 }
@@ -157,13 +163,13 @@ void WidgetRegistro::cambiarCorreccion(CorreccionRegistro c)
     switch(c)
     {
     case Pasivo:
-        _mEstado.postEvent(new IntEvent(0));
+        _estadoActivo->postEvent(new IntEvent(0));
         break;
     case ParcialCorrecto:
-        _mEstado.postEvent(new IntEvent(1));
+        _estadoActivo->postEvent(new IntEvent(1));
         break;
     case Correcto:
-        _mEstado.postEvent(new IntEvent(2));
+        _estadoActivo->postEvent(new IntEvent(2));
         break;
     default:
         break;

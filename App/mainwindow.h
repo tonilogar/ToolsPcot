@@ -51,7 +51,7 @@ private slots:
     void cambiosEnProyecto(bool estado);
     void guardarProyecto();
 
-    void depurarWidgetRegistro(CorreccionRegistro c);
+    void depurarWidgetRegistro(int c);
 
 signals:
 

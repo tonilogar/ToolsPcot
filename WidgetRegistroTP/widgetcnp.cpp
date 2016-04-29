@@ -67,6 +67,12 @@ void WidgetCNP::connectRegistro()
 
     connect(registro,SIGNAL(cnpsEnabled(bool)),this,SLOT(changeOnCnpsEnabled(bool)));
     connect(registro,SIGNAL(changeFolderOut(QString)),this,SLOT(changeOnFolderOut(QString)));
+
+    //OJO: SOLO PARA PROPOSITOS DE DEPURACION
+    //
+    connect(ui->lineEditCnp,SIGNAL(textChanged(QString)),this,SLOT(changeOnFolderOut(QString)));
+    //
+    //
     connect(ui->toolButtonCnp,SIGNAL(clicked()),this,SLOT(selectOutFolder()));
     connect(ui->pushButtonDeleteDataCnp,SIGNAL(clicked()),this,SLOT(deleteData()));
 }

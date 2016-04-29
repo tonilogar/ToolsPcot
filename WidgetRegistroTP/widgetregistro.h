@@ -17,17 +17,18 @@
 #include "checktransition.h"
 #include "inttransition.h"
 
+#include <QDebug>
+
 enum CorreccionRegistro {
     Pasivo, ParcialCorrecto, Correcto
 };
-Q_ENUMS(CorreccionRegistro);
 
 class WIDGETREGISTROTPSHARED_EXPORT WidgetRegistro : public QWidget
 {
     Q_OBJECT
     Q_PROPERTY(bool conectado READ estaConectado WRITE setConectado NOTIFY conectado)
     Q_PROPERTY(bool activo READ estaActivo WRITE setActivo NOTIFY activo)
-    Q_PROPERTY(CorreccionRegistro correccion READ estaCorrecto WRITE setCorreccion NOTIFY correccion)
+    Q_PROPERTY(int correccion READ estaCorrecto WRITE setCorreccion NOTIFY correccion)
 
 public:
     explicit WidgetRegistro(QWidget *parent = 0);
@@ -37,7 +38,7 @@ public:
     bool estaActivo() const;
 
 
-    CorreccionRegistro estaCorrecto() const;
+    int estaCorrecto() const;
 
     void setRegistro(AProTPSection *reg);
 
@@ -45,7 +46,7 @@ signals:
 
     void conectado(bool estado);
     void activo(bool estado);
-    void correccion(CorreccionRegistro correc);
+    void correccion(int correc);
 
 public slots:
 
@@ -56,7 +57,7 @@ protected slots:
     void setConectado(bool data);
     void setActivo(bool data);
     void activarWidget(int check);
-    void setCorreccion(CorreccionRegistro correc);
+    void setCorreccion(int correc);
 
     void cambiarCorreccion(CorreccionRegistro c);
 
@@ -67,7 +68,7 @@ protected:
     bool _conectado;
     bool _activo;
 
-    CorreccionRegistro _correccionActual;
+    int _correccionActual;
     QStateMachine _mEstado;
     QStateMachine *_estadoConectado;
     QStateMachine *_estadoActivo;
@@ -81,6 +82,23 @@ protected:
     virtual void checkEstadoCorreccion()=0;
 
     virtual void connectRegistro()=0;
+
+protected slots:
+
+    void maquinaActivada()
+    {
+        qDebug() << "MAQUINA DE ESTADO ACTIVO LISTA";
+    }
+
+    void estadoPasivo()
+    {
+        qDebug() << "DENTRO DE UN ESTADO PASIVO";
+    }
+
+    void estadoCorrecto()
+    {
+        qDebug() << "DENTRO DE ESTADO CORRECTO";
+    }
 
 };
 
