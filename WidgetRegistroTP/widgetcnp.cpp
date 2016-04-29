@@ -14,6 +14,7 @@ WidgetCNP::WidgetCNP(QWidget *parent) :
     //Conectar el checkbox con el slot para activar y desactivar la interface
 
     connect(ui->checkBoxCnp,SIGNAL(stateChanged(int)),this,SLOT(activarWidget(int)));
+    connect(ui->checkBoxCnp,SIGNAL(stateChanged(int)),this,SLOT(setCnpsEnabled(int)));
 }
 
 WidgetCNP::~WidgetCNP()
@@ -61,7 +62,7 @@ void WidgetCNP::checkEstadoCorreccion()
 void WidgetCNP::connectRegistro()
 {
     //Obtener el puntero de registro a partir del puntero de seccion (AProTPSection)
-    RegistroCnp *registro = qobject_cast<RegistroCnp*>(_aproRegistro);
+    registro = qobject_cast<RegistroCnp*>(_aproRegistro);
 
     connect(registro,SIGNAL(cnpsEnabled(bool)),this,SLOT(changeOnCnpsEnabled(bool)));
     connect(registro,SIGNAL(changeFolderOut(QString)),this,SLOT(changeOnFolderOut(QString)));
@@ -86,6 +87,13 @@ void WidgetCNP::selectOutFolder()
     if(path.isEmpty() || path.isNull())
         return;
     ui->lineEditCnp->setText(path);
+}
+
+void WidgetCNP::setCnpsEnabled(int s)
+{
+    if(s==Qt::Checked)
+        registro->setCnpsEnabled(true);
+    else registro->setCnpsEnabled(false);
 }
 
 

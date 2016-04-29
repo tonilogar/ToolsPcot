@@ -36,6 +36,7 @@ void MainWindow::nuevoproyecto()
         if(!_proyectoActual)
         {
             aProyecto->addSection(ui->widgetCoordinates->getSectionCoordinates());
+            aProyecto->addSection(_registroCnp);
         }
         else
         {

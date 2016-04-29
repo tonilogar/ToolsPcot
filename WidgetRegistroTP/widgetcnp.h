@@ -26,6 +26,7 @@ private slots:
 
 private:
     Ui::WidgetCNP *ui;
+    RegistroCnp *registro;
 
 protected:
 
@@ -40,6 +41,7 @@ protected:
 
 protected slots:
 
+    void setCnpsEnabled(int s);
     void changeOnCnpsEnabled(bool b);
     void changeOnFolderOut(QString fOut);
 };
