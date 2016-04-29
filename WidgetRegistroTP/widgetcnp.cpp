@@ -51,13 +51,11 @@ void WidgetCNP::desactivarInterface()
 
 void WidgetCNP::checkEstadoCorreccion()
 {
-    QString directorio=ui->lineEditCnp->text();
-    QString rutaCorrecta("/home/bardo/Workbench/Qt/ClasesQt/salidaToolspcot");
-    if(directorio!=rutaCorrecta)
-        cambiarCorreccion(ParcialCorrecto);
-    else
-        cambiarCorreccion(Correcto);
-
+        QString directorio=ui->lineEditCnp->text();
+        QFileInfo infoDir(directorio);
+        if(infoDir.isDir())
+            cambiarCorreccion(Correcto);
+        else cambiarCorreccion(ParcialCorrecto);
 }
 
 void WidgetCNP::connectRegistro()
@@ -68,11 +66,7 @@ void WidgetCNP::connectRegistro()
     connect(registro,SIGNAL(cnpsEnabled(bool)),this,SLOT(changeOnCnpsEnabled(bool)));
     connect(registro,SIGNAL(changeFolderOut(QString)),this,SLOT(changeOnFolderOut(QString)));
 
-    //OJO: SOLO PARA PROPOSITOS DE DEPURACION
-    //
-    connect(ui->lineEditCnp,SIGNAL(textChanged(QString)),this,SLOT(changeOnFolderOut(QString)));
-    //
-    //
+    connect(ui->lineEditCnp,SIGNAL(textChanged(QString)),registro,SLOT(setFolderOut(QString)));
     connect(ui->toolButtonCnp,SIGNAL(clicked()),this,SLOT(selectOutFolder()));
     connect(ui->pushButtonDeleteDataCnp,SIGNAL(clicked()),this,SLOT(deleteData()));
 }
@@ -93,6 +87,7 @@ void WidgetCNP::selectOutFolder()
         return;
     ui->lineEditCnp->setText(path);
 }
+
 
 void WidgetCNP::deleteData()
 {

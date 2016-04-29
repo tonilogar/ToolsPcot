@@ -6,6 +6,7 @@
 #include <RegistroTP/registrocnp.h>
 #include <QFileDialog>
 #include <QDebug>
+#include <QFileInfo>
 
 namespace Ui {
 class WidgetCNP;

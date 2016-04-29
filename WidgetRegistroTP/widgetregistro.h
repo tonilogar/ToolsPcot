@@ -83,23 +83,6 @@ protected:
 
     virtual void connectRegistro()=0;
 
-protected slots:
-
-    void maquinaActivada()
-    {
-        qDebug() << "MAQUINA DE ESTADO ACTIVO LISTA";
-    }
-
-    void estadoPasivo()
-    {
-        qDebug() << "DENTRO DE UN ESTADO PASIVO";
-    }
-
-    void estadoCorrecto()
-    {
-        qDebug() << "DENTRO DE ESTADO CORRECTO";
-    }
-
 };
 
 #endif // WIDGETREGISTRO_H

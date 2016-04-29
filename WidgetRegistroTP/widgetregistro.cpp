@@ -49,6 +49,7 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
     _estadoActivo->assignProperty(this,"activo",true);
     inactivo->assignProperty(this,"activo",false);
     inactivo->assignProperty(this,"correccion",Pasivo);
+    _estadoActivo->assignProperty(this,"correccion",ParcialCorrecto);
 
     _estadoConectado->addState(_estadoActivo);
     _estadoConectado->addState(inactivo);
@@ -90,14 +91,7 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
     tC6->setTargetState(pasivo);
     correcto->addTransition(tC6);
 
-    _estadoActivo->setInitialState(pasivo);
-
-    //DEP
-    //
-    connect(_estadoActivo,SIGNAL(started()),this,SLOT(maquinaActivada()));
-    connect(pasivo,SIGNAL(entered()),this,SLOT(estadoPasivo()));
-    connect(correcto,SIGNAL(entered()),this,SLOT(estadoCorrecto()));
-
+    _estadoActivo->setInitialState(parcialCorrecto);
 
     //5.- Iniciar la maquina
     _mEstado.start();
