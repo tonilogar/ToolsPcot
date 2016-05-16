@@ -13,11 +13,31 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->widgetCoordinates,SIGNAL(loadedModelo(bool)),this,SIGNAL(activarWidgetsRegistro(bool)));
     connect(this,SIGNAL(activarWidgetsRegistro(bool)),ui->cnp,SLOT(conectarWidget(bool)));
+    connect(this,SIGNAL(activarWidgetsRegistro(bool)),ui->met,SLOT(conectarWidget(bool)));
+    //connect(this,SIGNAL(activarWidgetsRegistro(bool)),ui->orto,SLOT(conectarWidget(bool)));
     _registroCnp=new RegistroCnp(this);
+    _registroMet=new RegistroMet(this);
 
     ui->cnp->setRegistro(_registroCnp);
+    ui->met->setRegistro(_registroMet);
 
-    //DEPURACION
+    _signalMapperPushCnpMetOrto=new QSignalMapper(this);
+    connect(ui->pushButtonCnp,SIGNAL(clicked()),_signalMapperPushCnpMetOrto,SLOT(map()));
+    connect(ui->pushButtonMet,SIGNAL(clicked()),_signalMapperPushCnpMetOrto,SLOT(map()));
+    connect(ui->pushButtonOrto,SIGNAL(clicked()),_signalMapperPushCnpMetOrto,SLOT(map()));
+
+    _signalMapperPushCnpMetOrto->setMapping(ui->pushButtonCnp,0);
+    _signalMapperPushCnpMetOrto->setMapping(ui->pushButtonMet,1);
+    _signalMapperPushCnpMetOrto->setMapping(ui->pushButtonOrto,2);
+
+    connect(_signalMapperPushCnpMetOrto,SIGNAL(mapped(int)),ui->stackedWidget,SLOT(setCurrentIndex(int)));
+    QButtonGroup *_groupButton=new QButtonGroup(this);
+    _groupButton->addButton(ui->pushButtonCnp);
+    _groupButton->addButton(ui->pushButtonMet);
+    _groupButton->addButton(ui->pushButtonOrto);
+    _groupButton->setExclusive(true);
+    ui->pushButtonCnp->setChecked(true);
+            //DEPURACION
     connect(ui->cnp,SIGNAL(correccion(int)),this,SLOT(depurarWidgetRegistro(int)));
     setup();
 }
@@ -37,6 +57,7 @@ void MainWindow::nuevoproyecto()
         {
             aProyecto->addSection(ui->widgetCoordinates->getSectionCoordinates());
             aProyecto->addSection(_registroCnp);
+            aProyecto->addSection(_registroMet);
         }
         else
         {
@@ -167,12 +188,12 @@ void MainWindow::abrirProyecto()
     {
         _proyectoActual=new ArchivoProyecto(this);
         _proyectoActual->addSection(ui->widgetCoordinates->getSectionCoordinates());
+        _proyectoActual->addSection(_registroCnp);
+         _proyectoActual->addSection(_registroMet);
         connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
         _proyectoActual->read(archivoProyecto);
     }
     emit activarWidgetsRegistro(true);
-
-    _registroCnp->setFolderOut(QString("HOLA QUE TAL!"));
 }
 
 void MainWindow::cambiosEnProyecto(bool estado)

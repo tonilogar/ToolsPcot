@@ -31,7 +31,8 @@ SOURCES += \
     widgetcnp.cpp \
     booltransition.cpp \
     checktransition.cpp \
-    inttransition.cpp
+    inttransition.cpp \
+    widgetmet.cpp
 
 HEADERS +=\
         widgetregistrotp_global.h \
@@ -39,7 +40,8 @@ HEADERS +=\
     widgetcnp.h \
     booltransition.h \
     checktransition.h \
-    inttransition.h
+    inttransition.h \
+    widgetmet.h
 
 unix {
     target.path = /usr/lib
@@ -47,5 +49,6 @@ unix {
 }
 
 FORMS += \
-    widgetcnp.ui
+    widgetcnp.ui \
+    widgetmet.ui
 

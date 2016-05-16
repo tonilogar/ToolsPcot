@@ -58,7 +58,7 @@ void RegistroCnp::setCnpsEnabled(bool enabled)
     _cnpsEnabled=enabled;
     AProTPSection::_stateChanged=false;
     emit estaActualizado(_stateChanged);
-    this->cnpsEnabled(_cnpsEnabled);
+    emit this->cnpsEnabled(_cnpsEnabled);
 }
 
 void RegistroCnp::buildDataZoneProject(DataZoneProject *dataZP)

@@ -30,12 +30,24 @@
             <property name="text">
              <string>Cnp</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="pushButtonMet">
             <property name="text">
              <string>Met</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
             </property>
            </widget>
           </item>
@@ -44,6 +56,12 @@
             <property name="text">
              <string>Orto</string>
             </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
            </widget>
           </item>
          </layout>
@@ -51,7 +69,7 @@
         <item>
          <widget class="QStackedWidget" name="stackedWidget">
           <widget class="WidgetCNP" name="cnp"/>
-          <widget class="QWidget" name="met"/>
+          <widget class="WidgetMet" name="met"/>
           <widget class="QWidget" name="orto"/>
          </widget>
         </item>
@@ -170,6 +188,12 @@
    <class>WidgetCNP</class>
    <extends>QWidget</extends>
    <header location="global">../WidgetRegistroTP/widgetcnp.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetMet</class>
+   <extends>QWidget</extends>
+   <header>../WidgetRegistroTP/widgetmet.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

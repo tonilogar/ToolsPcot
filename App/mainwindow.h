@@ -27,6 +27,8 @@
 #include "preferenciasavanzadasdialog.h"
 #include "alertfilejson.h"
 #include "editorambitodialog.h"
+#include <QSignalMapper>
+#include <QButtonGroup>
 
 namespace Ui {
 class MainWindow;
@@ -57,6 +59,7 @@ signals:
 
     void activarWidgetsRegistro(bool data);
 
+
 private:
     Ui::MainWindow *ui;
     PreferenciasAvanzadasDialog *_preferenciasAvanzadas;
@@ -64,9 +67,9 @@ private:
     AlertFileJson *_objetoAlertFileJson;
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
     RegistroCnp *_registroCnp;
-
+    RegistroMet *_registroMet;
     ArchivoProyecto *_proyectoActual;
-
+    QSignalMapper *_signalMapperPushCnpMetOrto;
 
     void cargarAmbitos();
 };

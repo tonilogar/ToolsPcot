@@ -177,6 +177,9 @@ public slots:
 
 signals:
 
+    void metEnabled(bool state);
+    void changeFolderOut(QString fOut);
+
 private:
 
 
