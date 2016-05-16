@@ -38,12 +38,14 @@ protected:
 
     virtual void checkEstadoCorreccion();
     virtual void connectRegistro();
+    virtual void loadRegistro(QVariantMap mapa);
 
 protected slots:
 
     void setCnpsEnabled(int s);
     void changeOnCnpsEnabled(bool b);
     void changeOnFolderOut(QString fOut);
+
 };
 
 #endif // WIDGETCNP_H

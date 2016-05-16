@@ -82,17 +82,18 @@ QJsonObject RegistroCnp::writeSection()
 }
 
 bool RegistroCnp::processSection(QJsonObject archivo)
-{
+{    
     if(!archivo.contains("sectionCNP"))
         return false;
 
     QJsonObject section=archivo.value("sectionCNP").toObject();
-    _folderOut=section.value("folderOut").toString();
-    _cnpsEnabled=section.value("cnpsEnabled").toBool();
-    _stateChanged=true;
-    emit estaActualizado(_stateChanged);
-    emit this->cnpsEnabled(_cnpsEnabled);
-    emit this->changeFolderOut(_folderOut);
+    QString fOut=section.value("folderOut").toString();
+    bool enable=section.value("cnpsEnabled").toBool();
+    QVariantMap mapaInfo;
+    mapaInfo.insert("folderOut",fOut);
+    mapaInfo.insert("cnpsEnabled",enable);
+    emit recargaSeccion(mapaInfo);
+
 
     return true;
 }

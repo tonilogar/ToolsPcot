@@ -8,6 +8,7 @@
 #include <QJsonObject>
 #include <QJsonDocument>
 #include <QJsonValue>
+#include <QVariantMap>
 
 class PROYECTOTPSHARED_EXPORT AProTPSection : public QObject
 {
@@ -24,7 +25,7 @@ public:
 signals:
 
     void estaActualizado(bool state);
-
+    void recargaSeccion(QVariantMap);
 public slots:
 
 protected:

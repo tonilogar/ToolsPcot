@@ -38,7 +38,7 @@ protected:
 
     virtual void checkEstadoCorreccion();
     virtual void connectRegistro();
-    
+    virtual void loadRegistro(QVariantMap mapa);
 protected slots:
 
     void setMetEnabled(int s);

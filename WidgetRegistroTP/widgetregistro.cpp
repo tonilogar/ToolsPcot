@@ -170,3 +170,7 @@ void WidgetRegistro::cambiarCorreccion(CorreccionRegistro c)
     }
 
 }
+void WidgetRegistro::recargaRegistro(QVariantMap mapa)
+{
+    loadRegistro(mapa);
+}

@@ -51,7 +51,7 @@ signals:
 public slots:
 
     void conectarWidget(bool data);
-
+    void recargaRegistro(QVariantMap mapa);
 protected slots:
 
     void setConectado(bool data);
@@ -82,7 +82,7 @@ protected:
     virtual void checkEstadoCorreccion()=0;
 
     virtual void connectRegistro()=0;
-
+    virtual void loadRegistro(QVariantMap mapa)=0;
 };
 
 #endif // WIDGETREGISTRO_H

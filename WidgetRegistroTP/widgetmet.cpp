@@ -119,3 +119,8 @@ void WidgetMet::deleteData()
 {
 ui->lineEditMet->clear();
 }
+void WidgetMet::loadRegistro(QVariantMap mapa)
+{
+//    ui->lineEditCnp->setText(mapa.value("folderOut").toString());
+//    ui->checkBoxCnp->setEnabled(mapa.value("cnpsEnable").toBool());
+}

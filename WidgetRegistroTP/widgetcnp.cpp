@@ -70,6 +70,7 @@ void WidgetCNP::connectRegistro()
     connect(ui->lineEditCnp,SIGNAL(textChanged(QString)),registro,SLOT(setFolderOut(QString)));
     connect(ui->toolButtonCnp,SIGNAL(clicked()),this,SLOT(selectOutFolder()));
     connect(ui->pushButtonDeleteDataCnp,SIGNAL(clicked()),this,SLOT(deleteData()));
+connect(registro,SIGNAL(recargaSeccion(QVariantMap)),this,SLOT(recargaRegistro(QVariantMap)));
 }
 
 void WidgetCNP::changeOnCnpsEnabled(bool b)
@@ -103,7 +104,19 @@ void WidgetCNP::deleteData()
 }
 
 
+void WidgetCNP::loadRegistro(QVariantMap mapa)
+{
+    bool enable=mapa.value("cnpsEnable").toBool();
+    if(enable)
+    {
 
+        conectarWidget(true);
+        activarWidget(true);
+    }
+
+
+
+}
 
 
 
