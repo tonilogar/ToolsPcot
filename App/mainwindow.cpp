@@ -73,7 +73,7 @@ void MainWindow::nuevoproyecto()
         }
         _proyectoActual=aProyecto;
         connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
-        emit activarWidgetsRegistro(true);
+        //emit activarWidgetsRegistro(true);
     }
 }
 
@@ -193,7 +193,7 @@ void MainWindow::abrirProyecto()
         connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
         _proyectoActual->read(archivoProyecto);
     }
-    emit activarWidgetsRegistro(true);
+    //emit activarWidgetsRegistro(true);
 }
 
 void MainWindow::cambiosEnProyecto(bool estado)

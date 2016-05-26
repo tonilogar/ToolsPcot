@@ -73,6 +73,8 @@ protected:
     QStateMachine *_estadoConectado;
     QStateMachine *_estadoActivo;
 
+    void reiniciarStateMachine();
+
     virtual void conectarInterface()=0;
     virtual void desconectarInterface()=0;
 
@@ -83,6 +85,12 @@ protected:
 
     virtual void connectRegistro()=0;
     virtual void loadRegistro(QVariantMap mapa)=0;
+
+private slots:
+
+    void depurarMEstado();
+    void depurarMEstadoConectado();
+    void depurarMEstadoActivo();
 };
 
 #endif // WIDGETREGISTRO_H

@@ -13,6 +13,14 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
     _estadoConectado=new QStateMachine(0);
     _estadoActivo=new QStateMachine(0);
 
+    //Conectar salida depuracion
+    connect(_estadoConectado,SIGNAL(started()),this,SLOT(depurarMEstadoConectado()));
+    connect(_estadoActivo,SIGNAL(started()),this,SLOT(depurarMEstadoActivo()));
+    connect(&_mEstado,SIGNAL(started()),this,SLOT(depurarMEstado()));
+    connect(_estadoConectado,SIGNAL(stopped()),this,SLOT(depurarMEstadoConectado()));
+    connect(_estadoActivo,SIGNAL(stopped()),this,SLOT(depurarMEstadoActivo()));
+    connect(&_mEstado,SIGNAL(stopped()),this,SLOT(depurarMEstado()));
+
     //2.-Preparar las transiciones
     BoolTransition *t1=new BoolTransition(true);
     BoolTransition *t2=new BoolTransition(false);
@@ -95,6 +103,8 @@ WidgetRegistro::WidgetRegistro(QWidget *parent) :
 
     //5.- Iniciar la maquina
     _mEstado.start();
+    _estadoConectado->start();
+    _estadoActivo->start();
 }
 
 void WidgetRegistro::setRegistro(AProTPSection *reg)
@@ -116,8 +126,9 @@ void WidgetRegistro::activarWidget(int check)
 void WidgetRegistro::setConectado(bool data)
 {
     _conectado=data;
-    if(data)
+    if(data) {
         conectarInterface();
+    }
     else desconectarInterface();
     emit conectado(_conectado);
 }
@@ -174,3 +185,45 @@ void WidgetRegistro::recargaRegistro(QVariantMap mapa)
 {
     loadRegistro(mapa);
 }
+
+void WidgetRegistro::reiniciarStateMachine()
+{
+    if(estaActivo()) {
+        conectarWidget(false);
+    }
+    if(estaConectado()) {
+        activarWidget(Qt::Unchecked);
+    }
+    /*
+    _estadoActivo->stop();
+    _estadoConectado->stop();
+    _mEstado.stop();
+
+    //Reiniciamos
+    _mEstado.start();
+    _estadoConectado->start();
+    _estadoActivo->start();
+    */
+}
+
+void WidgetRegistro::depurarMEstado()
+{
+    if(_mEstado.isRunning())
+        qDebug() << "M. ESTADO ACTIVA";
+    else qDebug() << "M. ESTADO APAGADA";
+}
+
+void WidgetRegistro::depurarMEstadoConectado()
+{
+    if(_estadoConectado->isRunning())
+        qDebug() << "M. ESTADO CONECTADO ACTIVA";
+    else qDebug() << "M. ESTADO CONECTADO APAGADA";
+}
+
+void WidgetRegistro::depurarMEstadoActivo() {
+    if(_estadoActivo->isRunning())
+        qDebug() << "M. ESTADO ACTIVO ACTIVADO";
+    else qDebug() << "M. ESTADO ACTIVO APAGADO";
+}
+
+

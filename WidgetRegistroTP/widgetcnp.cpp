@@ -106,16 +106,23 @@ void WidgetCNP::deleteData()
 
 void WidgetCNP::loadRegistro(QVariantMap mapa)
 {
-    bool enable=mapa.value("cnpsEnable").toBool();
-    if(enable)
-    {
+    //reiniciarStateMachine();
+//    bool conectado=mapa.value("isLoadedCoordenadas").toBool();
+//    conectarWidget(conectado);
+//    bool enabled=mapa.value("cnpsEnabled").toBool();
+//    if(enabled) {
+//        activarWidget(Qt::Checked);
+//        ui->checkBoxCnp->setChecked(enabled);
+//    }
+//    else {
+//        activarWidget(Qt::Unchecked);
+//        ui->checkBoxCnp->setChecked(false);
+//    }
+//    ui->lineEditCnp->setText(mapa.value("folderOut").toString());
+//    checkEstadoCorreccion();
 
-        conectarWidget(true);
-        activarWidget(true);
-    }
-
-
-
+    ui->checkBoxCnp->setChecked(mapa.value("cnpsEnabled").toBool());
+    ui->lineEditCnp->setText(mapa.value("folderOut").toString());
 }
 
 

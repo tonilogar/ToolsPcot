@@ -106,7 +106,7 @@ void WidgetMet::changeOnMetEnabled(bool b)
 }
 void WidgetMet::changeOnFolderOut(QString fOut)
 {
-checkEstadoCorreccion();
+    checkEstadoCorreccion();
 }
 void WidgetMet::selectOutFolder()
 {

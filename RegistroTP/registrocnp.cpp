@@ -86,10 +86,14 @@ bool RegistroCnp::processSection(QJsonObject archivo)
     if(!archivo.contains("sectionCNP"))
         return false;
 
+    QJsonObject coordenadas=archivo.value("Coordenadas").toObject();
+    QJsonArray listado=coordenadas.value("listado").toArray();
+
     QJsonObject section=archivo.value("sectionCNP").toObject();
     QString fOut=section.value("folderOut").toString();
     bool enable=section.value("cnpsEnabled").toBool();
     QVariantMap mapaInfo;
+    mapaInfo.insert("isLoadedCoordenadas",!listado.empty());
     mapaInfo.insert("folderOut",fOut);
     mapaInfo.insert("cnpsEnabled",enable);
     emit recargaSeccion(mapaInfo);
