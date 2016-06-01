@@ -5,10 +5,6 @@
 
 #include <QWidget>
 #include <QState>
-#include <QStateMachine>
-#include <QFinalState>
-#include <QAbstractTransition>
-#include <QSignalTransition>
 #include <QCheckBox>
 
 #include <ProyectoTP/aprotpsection.h>
@@ -52,6 +48,7 @@ public slots:
 
     void conectarWidget(bool data);
     void recargaRegistro(QVariantMap mapa);
+
 protected slots:
 
     void setConectado(bool data);
@@ -69,11 +66,6 @@ protected:
     bool _activo;
 
     int _correccionActual;
-    QStateMachine _mEstado;
-    QStateMachine *_estadoConectado;
-    QStateMachine *_estadoActivo;
-
-    void reiniciarStateMachine();
 
     virtual void conectarInterface()=0;
     virtual void desconectarInterface()=0;
@@ -86,11 +78,6 @@ protected:
     virtual void connectRegistro()=0;
     virtual void loadRegistro(QVariantMap mapa)=0;
 
-private slots:
-
-    void depurarMEstado();
-    void depurarMEstadoConectado();
-    void depurarMEstadoActivo();
 };
 
 #endif // WIDGETREGISTRO_H
