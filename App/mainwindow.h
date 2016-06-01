@@ -21,9 +21,14 @@
 #include <WidgetProyectoTP/newprojectdialog.h>
 #include <ProyectoTP/archivoproyecto.h>
 #include <ProyectoTP/aprotpsection.h>
+
+#include <WidgetRegistroTP/widgetregistro.h>
+
 #include "preferenciasavanzadasdialog.h"
 #include "alertfilejson.h"
 #include "editorambitodialog.h"
+#include <QSignalMapper>
+#include <QButtonGroup>
 
 namespace Ui {
 class MainWindow;
@@ -44,6 +49,16 @@ private slots:
     void setup();
     void selectFileCoor();
     void nuevoproyecto();
+    void abrirProyecto();
+    void cambiosEnProyecto(bool estado);
+    void guardarProyecto();
+
+    void depurarWidgetRegistro(int c);
+
+signals:
+
+    void activarWidgetsRegistro(bool data);
+
 
 private:
     Ui::MainWindow *ui;
@@ -51,9 +66,10 @@ private:
     AmbitJson *_archivoAmbito;
     AlertFileJson *_objetoAlertFileJson;
     EditorAmbitoDialog *_objetoEditorAmbitoDialog;
-
+    RegistroCnp *_registroCnp;
+    RegistroMet *_registroMet;
     ArchivoProyecto *_proyectoActual;
-
+    QSignalMapper *_signalMapperPushCnpMetOrto;
 
     void cargarAmbitos();
 };

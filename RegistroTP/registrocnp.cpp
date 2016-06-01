@@ -50,6 +50,7 @@ void RegistroCnp::setFolderOut(QString folderOut)
     _folderOut=folderOut;
     AProTPSection::_stateChanged=false;
     emit this->estaActualizado(_stateChanged);
+    emit this->changeFolderOut(_folderOut);
 }
 
 void RegistroCnp::setCnpsEnabled(bool enabled)
@@ -57,6 +58,7 @@ void RegistroCnp::setCnpsEnabled(bool enabled)
     _cnpsEnabled=enabled;
     AProTPSection::_stateChanged=false;
     emit estaActualizado(_stateChanged);
+    emit this->cnpsEnabled(_cnpsEnabled);
 }
 
 void RegistroCnp::buildDataZoneProject(DataZoneProject *dataZP)
@@ -80,15 +82,22 @@ QJsonObject RegistroCnp::writeSection()
 }
 
 bool RegistroCnp::processSection(QJsonObject archivo)
-{
+{    
     if(!archivo.contains("sectionCNP"))
         return false;
 
+    QJsonObject coordenadas=archivo.value("Coordenadas").toObject();
+    QJsonArray listado=coordenadas.value("listado").toArray();
+
     QJsonObject section=archivo.value("sectionCNP").toObject();
-    _folderOut=section.value("folderOut").toString();
-    _cnpsEnabled=section.value("cnpsEnabled").toBool();
-    _stateChanged=true;
-    emit estaActualizado(_stateChanged);
+    QString fOut=section.value("folderOut").toString();
+    bool enable=section.value("cnpsEnabled").toBool();
+    QVariantMap mapaInfo;
+    mapaInfo.insert("isLoadedCoordenadas",!listado.empty());
+    mapaInfo.insert("folderOut",fOut);
+    mapaInfo.insert("cnpsEnabled",enable);
+    emit recargaSeccion(mapaInfo);
+
 
     return true;
 }
@@ -98,4 +107,5 @@ void RegistroCnp::resetSection()
     _folderOut.clear();
     _stateChanged=true;
     emit estaActualizado(_stateChanged);
+    emit this->changeFolderOut(_folderOut);
 }

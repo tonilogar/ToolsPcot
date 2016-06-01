@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>426</width>
-    <height>335</height>
+    <width>749</width>
+    <height>374</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -22,19 +22,63 @@
       </property>
       <widget class="WidgetCoordinates" name="widgetCoordinates" native="true"/>
       <widget class="QWidget" name="widget" native="true">
-       <layout class="QHBoxLayout" name="horizontalLayout">
+       <layout class="QVBoxLayout" name="verticalLayout_2">
         <item>
-         <spacer name="horizontalSpacer">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
+         <layout class="QHBoxLayout" name="horizontalLayout">
+          <item>
+           <widget class="QPushButton" name="pushButtonCnp">
+            <property name="text">
+             <string>Cnp</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonMet">
+            <property name="text">
+             <string>Met</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="pushButtonOrto">
+            <property name="text">
+             <string>Orto</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="autoExclusive">
+             <bool>false</bool>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item>
+         <widget class="QStackedWidget" name="stackedWidget">
+          <widget class="WidgetCNP" name="cnp"/>
+          <widget class="WidgetMet" name="met"/>
+          <widget class="QWidget" name="orto"/>
+         </widget>
+        </item>
+        <item>
+         <widget class="QCommandLinkButton" name="commandLinkButton">
+          <property name="text">
+           <string>CommandLinkButton</string>
           </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>114</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -47,7 +91,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>426</width>
+     <width>749</width>
      <height>25</height>
     </rect>
    </property>
@@ -62,6 +106,8 @@
      <string>Archivo</string>
     </property>
     <addaction name="actionNuevo_proyecto"/>
+    <addaction name="actionAbrir_proyecto"/>
+    <addaction name="actionGuardar_proyecto"/>
     <addaction name="separator"/>
     <addaction name="actionSalir"/>
    </widget>
@@ -119,6 +165,16 @@
     <string>Ayuda</string>
    </property>
   </action>
+  <action name="actionAbrir_proyecto">
+   <property name="text">
+    <string>Abrir proyecto</string>
+   </property>
+  </action>
+  <action name="actionGuardar_proyecto">
+   <property name="text">
+    <string>Guardar proyecto</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
@@ -126,6 +182,18 @@
    <class>WidgetCoordinates</class>
    <extends>QWidget</extends>
    <header>../WidgetCoordinatesTP/widgetcoordinates.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetCNP</class>
+   <extends>QWidget</extends>
+   <header location="global">../WidgetRegistroTP/widgetcnp.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WidgetMet</class>
+   <extends>QWidget</extends>
+   <header>../WidgetRegistroTP/widgetmet.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

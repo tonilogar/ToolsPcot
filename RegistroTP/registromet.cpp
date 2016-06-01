@@ -124,13 +124,14 @@ void RegistroMet::setFolderOut(QString folderOut)
     _folderOut=folderOut;
     AProTPSection::_stateChanged=false;
     emit this->estaActualizado(_stateChanged);
-    qDebug()<< _folderOut << "_folderOut------------------------------";
+    emit this->changeFolderOut(_folderOut);
 }
 void RegistroMet::setMetEnabled(bool enabled)
 {
     _metEnabled=enabled;
     AProTPSection::_stateChanged=false;
     emit estaActualizado(_stateChanged);
+    emit this->metEnabled(_metEnabled);
 }
 void RegistroMet::setAmbitoOperacion(DataZoneProject::Ambito ambitoOperacion)
 {

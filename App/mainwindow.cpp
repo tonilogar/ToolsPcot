@@ -8,6 +8,37 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
     _preferenciasAvanzadas=new PreferenciasAvanzadasDialog(this);
     connect(ui->actionOpciones_avanzadas,SIGNAL(triggered(bool)),_preferenciasAvanzadas,SLOT(reload()));
+    connect(ui->actionAbrir_proyecto,SIGNAL(triggered()),this,SLOT(abrirProyecto()));
+    connect(ui->actionGuardar_proyecto,SIGNAL(triggered()),this,SLOT(guardarProyecto()));
+
+    connect(ui->widgetCoordinates,SIGNAL(loadedModelo(bool)),this,SIGNAL(activarWidgetsRegistro(bool)));
+    connect(this,SIGNAL(activarWidgetsRegistro(bool)),ui->cnp,SLOT(conectarWidget(bool)));
+    connect(this,SIGNAL(activarWidgetsRegistro(bool)),ui->met,SLOT(conectarWidget(bool)));
+    //connect(this,SIGNAL(activarWidgetsRegistro(bool)),ui->orto,SLOT(conectarWidget(bool)));
+    _registroCnp=new RegistroCnp(this);
+    _registroMet=new RegistroMet(this);
+
+    ui->cnp->setRegistro(_registroCnp);
+    ui->met->setRegistro(_registroMet);
+
+    _signalMapperPushCnpMetOrto=new QSignalMapper(this);
+    connect(ui->pushButtonCnp,SIGNAL(clicked()),_signalMapperPushCnpMetOrto,SLOT(map()));
+    connect(ui->pushButtonMet,SIGNAL(clicked()),_signalMapperPushCnpMetOrto,SLOT(map()));
+    connect(ui->pushButtonOrto,SIGNAL(clicked()),_signalMapperPushCnpMetOrto,SLOT(map()));
+
+    _signalMapperPushCnpMetOrto->setMapping(ui->pushButtonCnp,0);
+    _signalMapperPushCnpMetOrto->setMapping(ui->pushButtonMet,1);
+    _signalMapperPushCnpMetOrto->setMapping(ui->pushButtonOrto,2);
+
+    connect(_signalMapperPushCnpMetOrto,SIGNAL(mapped(int)),ui->stackedWidget,SLOT(setCurrentIndex(int)));
+    QButtonGroup *_groupButton=new QButtonGroup(this);
+    _groupButton->addButton(ui->pushButtonCnp);
+    _groupButton->addButton(ui->pushButtonMet);
+    _groupButton->addButton(ui->pushButtonOrto);
+    _groupButton->setExclusive(true);
+    ui->pushButtonCnp->setChecked(true);
+            //DEPURACION
+    connect(ui->cnp,SIGNAL(correccion(int)),this,SLOT(depurarWidgetRegistro(int)));
     setup();
 }
 
@@ -25,9 +56,12 @@ void MainWindow::nuevoproyecto()
         if(!_proyectoActual)
         {
             aProyecto->addSection(ui->widgetCoordinates->getSectionCoordinates());
+            aProyecto->addSection(_registroCnp);
+            aProyecto->addSection(_registroMet);
         }
         else
         {
+
             QList <AProTPSection*> aproSecction=_proyectoActual->getListaSections();
 
             foreach(AProTPSection * seccion,aproSecction)
@@ -38,6 +72,8 @@ void MainWindow::nuevoproyecto()
             delete _proyectoActual;
         }
         _proyectoActual=aProyecto;
+        connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
+        //emit activarWidgetsRegistro(true);
     }
 }
 
@@ -137,4 +173,48 @@ void MainWindow::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
+void MainWindow::abrirProyecto()
+{
+    QString archivoProyecto=QFileDialog::getOpenFileName(this,"select file project");
+    if(archivoProyecto.isNull() || archivoProyecto.isEmpty())
+    {
+        return;
+    }
+    if (_proyectoActual)
+    {
+        _proyectoActual->read(archivoProyecto);
+    }
+    else
+    {
+        _proyectoActual=new ArchivoProyecto(this);
+        _proyectoActual->addSection(ui->widgetCoordinates->getSectionCoordinates());
+        _proyectoActual->addSection(_registroCnp);
+         _proyectoActual->addSection(_registroMet);
+        connect(_proyectoActual,SIGNAL(cambioActualizado(bool)),this,SLOT(cambiosEnProyecto(bool)));
+        _proyectoActual->read(archivoProyecto);
+    }
+    //emit activarWidgetsRegistro(true);
+}
 
+void MainWindow::cambiosEnProyecto(bool estado)
+{
+    if(!estado)
+    {
+        this->setWindowTitle(_proyectoActual->getnameProyect()+tr("*")+tr(" - ToolsPcot"));
+    }
+    else
+        this->setWindowTitle(_proyectoActual->getnameProyect()+tr(" - ToolsPcot"));
+}
+
+void MainWindow::guardarProyecto()
+{
+    if(_proyectoActual)
+    {
+        _proyectoActual->save();
+    }
+}
+
+void MainWindow::depurarWidgetRegistro(int c)
+{
+    qDebug() << "ESTADO CNP: "<<c;
+}
